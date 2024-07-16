@@ -28,12 +28,12 @@ server.listen(3000, ()=> {
 	asCli.initTriggersDefinition.push(() => {
 
 		asCli.io.on("SET_LIST_OF_THREADS", (...args: any[]) => {
-			console.log(">>>> Receiving list of threads...")
+
 		})
 		asCli.room("GET_LIST_OF_THREADS");
 
 		asCli.io.on("SET_SERVER_STATE", (...args: any[]) => {
-			console.log(">>>> Receiving server state...")
+
 		})
 		asCli.room("GET_SERVER_STATE");
 	})

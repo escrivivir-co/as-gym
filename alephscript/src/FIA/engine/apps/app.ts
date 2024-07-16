@@ -8,8 +8,6 @@ import { FIASimbolica } from "../../paradigmas/simbolica/fia-simbolica";
 import { FIASituada } from "../../paradigmas/situada/fia-situada";
 import { agentMessage } from "../../agentMessage";
 import { IApp } from "./iapp";
-import { AlephScriptClient } from "./socketio/client";
-import { Runtime } from "../kernel/runtime";
 
 export class App extends FIAHibrida implements IApp {
     dummy: GenesisBlock;

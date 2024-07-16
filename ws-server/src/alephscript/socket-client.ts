@@ -23,7 +23,7 @@ export class SocketClient {
 
 			this.initTriggers = [...this.initTriggersDefinition];
 
-			this.log("Conectado al back", "Socket: " + this.io.id)
+			this.log((namespace || "--") + ".onConnect: ", "S: " + this.io.id)
 
 			this.io.emit("CLIENT_REGISTER", { name: this.name });
 			this.io.emit("CLIENT_SUSCRIBE", { room: "ENGINE_THREADS" });
@@ -68,7 +68,6 @@ export class SocketClient {
 
 			this.log("OnDisconnect");
 			clearInterval(this.interval);
-
 		});
 
 		this.io.on("connect_error", (error) => {
@@ -109,7 +108,7 @@ export class SocketClient {
 	}
 
 	log(message: string, data: any = undefined) {
-		console.log("\t - ", this.name, message, data ? data : "");
+		console.log("\t -", this.name + ":>", message, data ? data : "");
 	}
 
 	room(event: string, data: any = {}, room: string = "ENGINE_THREADS") {

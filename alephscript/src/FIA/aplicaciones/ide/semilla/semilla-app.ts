@@ -1,6 +1,5 @@
 import { agentMessage } from "../../../agentMessage";
 import { App } from "../../../engine/apps/app";
-import { RTCache } from "../../../engine/kernel/rt-cache";
 import { Bloque } from "../cadena-bloques";
 
 import { IDEModelo } from "./modelo/ide-modelo";
@@ -19,38 +18,42 @@ export class IdeApp extends App {
     constructor() {
         super();
         this.nombre = this.i18.NOMBRE;
+		this.mundo = new IDEMundo();
+		this.mundo.nombre = this.i18.MUNDO.NOMBRE;
     }
 
     async instanciar(): Promise<string> {
 
-
 		Bloque.estado = {};
+		Bloque.id = this.nombre;
 
         console.log(agentMessage(this.nombre, this.i18.SIMULATION_START));
 
         /**
          * CREACIÓN DEL MUNDO RAÍZ
          */
-        this.mundo = new IDEMundo();
-
         this.mundo.modelo = new IDEModelo();
         this.mundo.modelo.pulso = 1000;
-        this.mundo.modelo.muerte = 10;
+        this.mundo.modelo.muerte = 5;
         this.mundo.modelo.estado = IDEEstados.PARADA;
 
         this.mundo.nombre = this.i18.MUNDO.NOMBRE;
 
+		this.mundo.runStateEvent = this.runStateEvent.asObservable();
+
         this.situada = new IDEFIASituada();
+		this.situada.runStateEvent = this.runStateEvent;
         this.situada.mundo = this.mundo;
 
         this.sbc = new IDE_SBC();
+		this.sbc.runStateEvent = this.runStateEvent;
         this.sbc.mundo = this.mundo;
 
         const salidas = await Promise.allSettled(
             [
-                this.mundo.ciclo(),
-                this.situada.instanciar(),
-                this.sbc.instanciarC(),
+                this.mundo.ciclo(),						// MAIN APP PULSE
+                this.situada.instanciar(),				// IDEFIA Situada, attaches a dummy automata
+                this.sbc.instanciarC(),					// SBC CommonKads, starts APP creation project
             ]
         );
 

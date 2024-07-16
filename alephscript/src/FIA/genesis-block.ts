@@ -1,7 +1,8 @@
 import { Intencion, Aferencia, Eferencia } from "./Intencion";
 import { RTCache } from "./engine/kernel/rt-cache";
 import { i18 } from "./i18/aleph-script-i18";
-import { IMundo, Mundo } from "./mundos/mundo";
+import { RunStateEnum, IMundo, Mundo } from './mundos/mundo';
+import { Subject } from "rxjs";
 
 export type Objetivo = Intencion;
 
@@ -35,11 +36,17 @@ export interface iFIA {
 
     cache: RTCache;
 
+	runState: RunStateEnum;
+	runStateEvent: Subject<RunStateEnum>;
+
 }
 
 export class FIA implements iFIA {
 
     cache: RTCache = new RTCache();
+
+	runStateEvent = new Subject<RunStateEnum>();
+	runState: RunStateEnum = RunStateEnum.STOP;
 
     nombre = "FIA";
     i18: IDiccionarioI18;
@@ -54,10 +61,19 @@ export class FIA implements iFIA {
         return `${i18.LOOP.NOT_INIT_LABEL}`;
     }
 
+	constructor() {
+		this.runStateEvent.asObservable().subscribe(
+			(event) => {
+				this.runState = event
+				this.mundo.runState = event
+			}
+		);
+	}
+
     async instanciar(): Promise<string> {
         return await new Promise((resolve, reject) => {
 
-            try {
+           try {
 
                 resolve(`${i18.LOOP.NOT_INIT_LABEL}`);
 

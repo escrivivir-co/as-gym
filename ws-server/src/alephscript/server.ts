@@ -9,7 +9,7 @@ export class AlephScriptServer extends SocketServer {
 
 	constructor(public server: ServerInstance) {
 
-		super("AlephServer", server);
+		super("ASsrv", server);
 
 		this.createNamespace("admin");
 		this.createNamespace("runtime");

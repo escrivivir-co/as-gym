@@ -11,7 +11,8 @@ import { FIAConexionista } from "../../paradigmas/conexionista/fia-conexionista"
 import { FIASimbolica } from "../../paradigmas/simbolica/fia-simbolica";
 import { FIA_SBC } from "../../paradigmas/sbc/fia-sbc";
 import { IdeApp } from "../../aplicaciones/ide/semilla/semilla-app";
-import { AlephScriptClient } from '../apps/socketio/client';
+import { SocketAdapter } from "./adapter";
+import { RunStateEnum } from "../../mundos/mundo";
 
 export const EXIT_PROMPT_INDEX = 99;
 
@@ -22,11 +23,7 @@ export function menuOption(message: string) {
 /**
  * Motor de FIAs
  */
-export class Runtime {
-
-	static client: AlephScriptClient = new AlephScriptClient("CRT-AS-01") ;
-
-    static threads: iFIA[] = [];
+export class Runtime extends SocketAdapter {
 
     start() {
 
@@ -59,65 +56,10 @@ export class Runtime {
 
     }
 
-	backend: AlephScriptClient;
     async demo(): Promise<void> {
 
-		console.log("Pushing")
-
-
-		Runtime.client.initTriggersDefinition.push(
-			() => {
-
-				console.log(systemMessage(`Socket.Connected`));
-				/*Runtime.client.io.emit("GENERAL_MESSAGE", Runtime.threads.map(t => { 
-					return {
-						name: t.nombre
-					}
-				}))
-				*/
-				const data = Runtime.threads.map(t => { 
-					return {
-						name: t.nombre
-					}
-				});
-
-				Runtime.client.room("MAKE_MASTER", { features: []});
-
-				Runtime.client.io.on("GET_LIST_OF_THREADS", (...args) => {
-
-					const rData = args[0];
-					console.log(systemMessage(Runtime.client.name + ">> Sending list of threads... to: " + rData.requesterName))
-
-					const senderData = {
-						...rData,
-						event: "SET_LIST_OF_THREADS",
-						data
-					}
-					Runtime.client.roomP(senderData);
-
-				})
-
-				if (!this.backend)
-				{
- 					this.backend = new AlephScriptClient("WEB-AS-01") ;
-					this.backend.initTriggersDefinition.push(() => {
-
-					this.backend.io.on("SET_LIST_OF_THREADS", (...args) => {
-						console.log(
-							systemMessage(this.backend.name + ">> Receiving list of threads...")
-						)
-					})
-					this.backend.room("GET_LIST_OF_THREADS", {});
-
-					this.backend.io.on("SET_SERVER_STATE", (...args) => {
-						console.log(
-							systemMessage(this.backend.name + ">> Receiving server state..."),
-						)
-					})
-					this.backend.room("GET_SERVER_STATE");
-					})
-				}
-			}
+		SocketAdapter.client.initTriggersDefinition.push(
+			() => this.run()
 		);
 
         const rl = readline.createInterface({
@@ -125,56 +67,73 @@ export class Runtime {
             output: process.stdout
         });
 
+		this.menuAnswer = async (answer, mode: RunStateEnum) => {
+
+			const index = parseInt(answer);
+			if (isNaN(index)) {
+				console.log("No FIA index given!", answer);
+			} else {
+
+				// try {
+					const fia = Runtime.threads[index];
+
+					waitForUserInput();
+
+					console.clear();
+					console.log(systemMessage(`${i18.LOOP.LAUNCH_FIA_LABEL}: ${fia.nombre}`));
+
+					if (fia.runAsync) {
+
+						fia.mundo.eferencia.asObservable().subscribe(f => {
+
+							if (f.runState == RunStateEnum.PAUSE) {
+								fia.runStateEvent.next(f.runState)
+								this.sendAppsList({})
+							}
+
+						})
+
+						fia.runStateEvent.next(mode || RunStateEnum.PLAY);
+						const instancia = await fia.instanciar();
+
+						fia.runStateEvent.next(RunStateEnum.STOP);
+						console.log(agentMessage(fia.nombre, instancia));
+
+						this.sendAppsList({});
+
+					} else {
+						console.log(agentMessage(fia.nombre, fia.imprimir()));
+					}
+
+
+				/* } catch(Ex) {
+					console.log("Error running FIA", Ex.message);
+				} */
+			}
+			if (index == EXIT_PROMPT_INDEX){
+				console.log(systemMessage(`"System closed by user! Bye!"`));
+				rl.close();
+			} else {
+				waitForUserInput();
+			}
+		};
+
         let app;
         let cpu: number = 0;
         const waitForUserInput = async (): Promise<void> => {
 
-
             Runtime.threads.forEach((t: iFIA, index: number) => {
                 console.log(menuOption(`[${index}]: Modelo: ${t.nombre}`));
+				t.runState = RunStateEnum.STOP;
             });
             console.log(menuOption(`[${EXIT_PROMPT_INDEX}]: ${i18.EXIT_PROMT_LABEL}`));
 
-			console.log("Test emit socket.io");
-
-            rl.question(`${i18.MENU_PROMPT_DATA_LABEL}`, async (answer) => {
-
-                const index = parseInt(answer);
-                if (isNaN(index)) {
-                    console.log("No FIA index given!", answer);
-                } else {
-
-                    // try {
-                        const fia = Runtime.threads[index];
-
-                        console.clear();
-                        console.log(systemMessage(`${i18.LOOP.LAUNCH_FIA_LABEL}: ${fia.nombre}`));
-
-                        if (fia.runAsync) {
-
-                            const instancia = await fia.instanciar();
-                            console.log(agentMessage(fia.nombre, instancia));
-
-                        } else {
-                            console.log(agentMessage(fia.nombre, fia.imprimir()));
-                        }
-
-
-                    /* } catch(Ex) {
-                        console.log("Error running FIA", Ex.message);
-                    } */
-                }
-                if (index == EXIT_PROMPT_INDEX){
-                    console.log(systemMessage(`"System closed by user! Bye!"`));
-                    rl.close();
-                } else {
-                    waitForUserInput();
-                }
-            });
+            rl.question(`${i18.MENU_PROMPT_DATA_LABEL}`, (answer) => this.menuAnswer(answer, RunStateEnum.PLAY));
         }
 
         console.log(systemMessage(`${i18.LOOP.LOAD_FIA_LABEL}`));
         return await waitForUserInput();
 
     }
+
 }

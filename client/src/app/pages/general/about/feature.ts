@@ -22,12 +22,12 @@ export class Name {
 
 export class Feature {
 
-  frontend: FeatureName[];
-  backend: any[];
+  modules: FeatureName[];
+  apps: any[];
 
   constructor() {
-    this.frontend = [];
-    this.backend = [];
+    this.modules = [];
+    this.apps = [];
   }
 }
 

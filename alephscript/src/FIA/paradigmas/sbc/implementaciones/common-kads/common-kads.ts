@@ -128,7 +128,7 @@ export class CK implements ICK {
                 const rt = new RTCache();
                 fase = rt.leer(CK_FASE_clave);
 
-                console.log("/******************** CARGA OBJETO FASE **************************** */")
+                console.log(agentMessage("/******************** CARGA OBJETO FASE **************************** */", ""))
                 fase = fase || {
 
                     fase: CKFases.Nivel,
@@ -145,7 +145,7 @@ export class CK implements ICK {
 
                 };
 
-                console.log("/******************** CARGA DEL IDE **************************** */")
+                console.log(agentMessage("/******************** CARGA DEL IDE **************************** */", ""))
                 ide = m.modelo.dominio.base[IDE_clave];
 
                 if (ide) {
@@ -154,9 +154,9 @@ export class CK implements ICK {
                         rt.guardar(CK_FASE_clave, this.comoJSON(f));
                     });
 
-                    console.log("ADD TO IDE ACTION SERVER!!!!")
+                    console.log(agentMessage("ADD TO IDE ACTION SERVER!!!!", ""))
                     c = await this.cicloAsync(fase, ide.actionServerS);
-                    console.log("FIN ADD TO IDE ACTION SERVER!!!!", m.modelo.dominio.base[IDE_clave])
+                    console.log(agentMessage("FIN ADD TO IDE ACTION SERVER!!!!", m.modelo.dominio.base[IDE_clave]))
                     s.unsubscribe();
                 } else {
                     console.log("NO IDE!!!!", m.modelo.dominio.base[IDE_clave])
@@ -166,7 +166,7 @@ export class CK implements ICK {
                 /**
                  * LAST CALL TO MODEL STORAGE AFTER FINISHED FULL PROCESS
                  */
-                console.log("/******************** FINALIZA EL COMMON KADS **************************** */")
+                console.log(agentMessage("/******************** FINALIZA EL COMMON KADS **************************** */", ""))
 
                 resolve(c);
             });

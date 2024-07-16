@@ -7,11 +7,11 @@ export class Name {
 
 export class Dependency {
 
-  frontend: Name[];
-  backend: Name[];
+  namespaces: Name[];
+  sockets: Name[];
 
   constructor() {
-    this.frontend = [];
-    this.backend = [];
+    this.namespaces = [];
+    this.sockets = [];
   }
 }

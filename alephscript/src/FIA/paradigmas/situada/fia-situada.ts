@@ -5,7 +5,6 @@ import { agentMessage } from "../../agentMessage";
 import { IAutomata, Automata } from "./automata";
 import { IEstado } from "./estado";
 import { TablaEstado } from "./tabla-estado";
-
 /**
  * Unidades de sensores/actuadores con tablas de asociación
  * o autómatas con máquinas de estado. 
@@ -30,6 +29,7 @@ export class FIASituada extends GenesisBlock implements IFIASituada {
         console.log(agentMessage(i18.FIA_SITUADA_LABEL, i18.SITUADA.SIMULATION_START));
 
         this.automata.configurar();
+
         const modelo = await this.automata.mundo.instanciar();
         console.log(
             agentMessage(i18.FIA_SITUADA_LABEL,

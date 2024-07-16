@@ -4,13 +4,19 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 
 import { PLATFORM_ID } from '@angular/core';
 
-import { Quote } from './quote';
-
 import { SeoService } from '../../../services/seo/seo.service';
 import { Feature, FeatureName, Name } from './feature';
 import { Dependency } from './dependency';
 import { ServerService, MenuState, RuntimeBlock } from '../../../services/socketio/server.service';
-import { Socket } from 'socket.io-client';
+import { Action } from 'rxjs/internal/scheduler/Action';
+
+export enum RunStateEnum {
+	PLAY = "PLAY",
+	PLAY_STEP = "PLAY_STEP",
+	RESUME = "RESUME",
+	PAUSE = "PAUSE",
+	STOP = "STOP"
+}
 
 export interface ServerNM { name: string };
 
@@ -19,6 +25,14 @@ export interface LogLabel {
 	logs: any[]
 
 };
+
+export interface SignalEvent {
+	event: string,
+	data: {
+		engine: string;
+		action: string
+	}
+}
 
 @Component({
 	selector: 'app-about',
@@ -31,9 +45,16 @@ export class AboutComponent implements OnInit {
 
 	dependencies: Dependency;
 	features: Feature;
-	quote: Quote;
+
 	id: number;
 
+	playStep: boolean = false;
+
+	currentApp = signal<MenuState>({
+		index: -1,
+		name: "--",
+		state: RunStateEnum.STOP,
+	});
 
 	IDEapp = signal<LogLabel[]>([{
 		title: "Esperando",
@@ -53,7 +74,6 @@ export class AboutComponent implements OnInit {
 	// fiasbccommonkads
 	// commonkads
 
-
 	serviceNamespaces = signal<ServerNM[]>([]);
 	serviceClients = signal<ServerNM[]>([]);
 
@@ -70,16 +90,16 @@ export class AboutComponent implements OnInit {
 		this.seoService.setMetaDescription(content);
 
 		this.id = 0;
-		this.quote = new Quote();
+
 		this.dependencies = {
-			frontend: [
+			namespaces: [
 				{ name: 'Angular 17.2.4' },
 				{ name: 'Angular CLI 17.2.3' },
 				{ name: 'Angular SSR 17.2.3' },
 				{ name: 'Bootstrap 5.3.3' },
 				{ name: 'Font Awesome 6.5.1' },
 			],
-			backend: [
+			sockets: [
 				{ name: 'Node.js 18.17.1' },
 				{ name: 'Express 4.18.2' },
 				{ name: 'pg-promise 11.5.4' },
@@ -87,7 +107,7 @@ export class AboutComponent implements OnInit {
 		};
 
 		this.features = {
-			frontend: [
+			modules: [
 				{
 					name: 'Angular CLI',
 					englishTutorial: 'https://www.escrivivir.co/tutorials/getting-started-with-angular',
@@ -144,7 +164,7 @@ export class AboutComponent implements OnInit {
 					frenchTutorial: 'https://www.escrivivir.co/tutorials/services-avec-angular',
 				},
 			],
-			backend: [
+			apps: [
 				{ name: 'Local JSON' },
 				{ name: 'RESTFull API' },
 				{ name: 'CRUD API' },
@@ -164,29 +184,37 @@ export class AboutComponent implements OnInit {
 				const ndsockets = nd.sockets.map(s => { return { name: nd.name + (s.id || "") } })
 				sockets = sockets.concat(ndsockets)
 				return {
-					name: nd.name + "(" + nd.socketsCount + ")"
+					name: nd.name + " (" + nd.socketsCount + " sockets)"
 				}
 			});
-			this.dependencies.frontend = deps;
+			this.dependencies.namespaces = deps;
 
-			this.dependencies.backend = sockets.flat();
+			this.dependencies.sockets = sockets.flat();
 
-			this.serviceNamespaces.set(this.dependencies.frontend);
-			this.serviceClients.set(this.dependencies.backend);
+			this.serviceNamespaces.set(this.dependencies.namespaces);
+			this.serviceClients.set(this.dependencies.sockets);
 		});
 
 		this.serverService.menuState$.subscribe(d => {
 
-			this.features.backend = d;
+			this.features.apps = d;
 
-			this.serviceApps.set(this.features.backend);
+			this.serviceApps.set(this.features.apps);
+
+			// Update current
+			if (this.currentApp()?.index != -1) {
+				this.currentApp.set(this.features.apps[this.currentApp()?.index])
+			}
+
 		});
 
 		this.serverService.chainState$.subscribe((d: RuntimeBlock) => {
 
+			if (d.id != this.currentApp().name + "") return;
+
 			this.IDEapp.set([]);
 
-			this.features.frontend = Object.keys(d.estado).map((k: string) => {
+			this.features.modules = Object.keys(d.estado).map((k: string) => {
 				this.IDEapp().push({
 					title: k,
 					logs: d.estado[k].map((e: any) => { return { title: e.estado.substring(0, 50) } })
@@ -199,53 +227,42 @@ export class AboutComponent implements OnInit {
 				}
 			});
 
-			this.serviceModules.set(this.features.frontend);
+			this.serviceModules.set(this.features.modules);
 
 		});
 	}
 
+	onCheckboxChange(event: Event): void {
+
+		const checkbox = event.target as HTMLInputElement;
+		this.playStep = checkbox.checked;
+
+	}
+
+	sendSignal(signal: SignalEvent) {
+		this.serverService.sendEngineAction(signal);
+	}
+
+	setCurrentApp(app: MenuState) {
+
+		this.currentApp.set(app);
+
+		this.serviceModules.set([]);
+		this.IDEapp.set([]);
+
+	}
+
 	ngOnInit(): void {
-		this.loadQuote();
 
 		const content =
 			'Cette application a été développée avec Angular version 16.1.7 et bootstrap 5.3.2' +
 			' Elle applique le Routing, le Lazy loading, le Server side rendering et les Progressive Web App (PWA)';
 
-		const title = 'angular-starter Title : About Page';
+		const title = 'AlephScript UI/UX | About';
 
 		this.seoService.setMetaDescription(content);
 		this.seoService.setMetaTitle(title);
 
 	}
-
-
-	loadQuote() {
-		const quotes = [
-			{
-				name: 'Lawrence of Arabia',
-				title: 'There is nothing in the desert and no man needs nothing',
-				link: 'https://en.wikipedia.org/wiki/Lawrence_of_Arabia_(film)'
-			},
-			{
-				name: 'Alien Prometheus',
-				title: 'Big things have small beginnings',
-				link: 'https://en.wikipedia.org/wiki/Prometheus_(2012_film)'
-			},
-			{
-				name: 'Blade Runner',
-				title: 'All those moments will be lost in time... like tears in rain... Time to die.',
-				link: 'https://en.wikipedia.org/wiki/Blade_Runner'
-			},
-		];
-		const index = quotes.length;
-		let id = this.id;
-		while (this.id === id) {
-			id = Math.floor(Math.random() * index);
-		}
-		this.id = id;
-		this.quote = quotes[id];
-	}
-
-
 
 }

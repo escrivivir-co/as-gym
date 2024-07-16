@@ -5,6 +5,7 @@ import { SalaBackend } from './interfaces/sala';
 import { Subject } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
 import { SocketClient } from '/Users/morente/Desktop/THEIA_PATH/AlephWeb/angular-app/ws-server/src/alephscript/socket-client';
+import { RunStateEnum, SignalEvent } from '../../pages/general/about/about.component';
 
 export type NamespaceDetails = {
 	name: string;
@@ -22,7 +23,9 @@ export interface ServerState {
 }
 
 export interface MenuState {
+	index: number;
 	name: string;
+	state: RunStateEnum;
 }
 
 export interface RuntimeBlock
@@ -65,13 +68,19 @@ export class ServerService {
 		}
 	}
 
+	sendEngineAction(signal: SignalEvent) {
+
+		(this.web as AlephScriptClient).room(signal.event, signal.data, "ENGINE_THREADS");
+
+	}
+
 	initSockets() {
 
 		this.web = new AlephScriptClient("AS-02");
 		this.web.initTriggersDefinition.push(() => {
 
 			this.web.io.on("SET_LIST_OF_THREADS", (...args: any[]) => {
-				// console.log("Receiving list of threads...")
+				console.log("Receiving list of threads...", args)
 				const data = Object.keys(args[0]).map(k => args[0][k])
 				this.menuState$.next(data);
 			})
@@ -81,7 +90,7 @@ export class ServerService {
 				// console.log("Receiving server state...", (args[0]))
 				this.serverState$.next(args[0])
 			})
-			this.web.room("GET_SERVER_STATE", "ENGINE_THREADS", {});
+			this.web.room("GET_SERVER_STATE");
 			this.web.io.on("SET_EXECUTION_PROCESS", (...args: any[]) => {
 
 				const bloque = args[0];

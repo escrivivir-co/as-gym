@@ -3,8 +3,8 @@ import { Socket, Server, Namespace } from 'socket.io';
 import type { Server as HTTPSServer } from "https";
 import type { Http2SecureServer, Http2Server } from "http2";
 const { instrument } = require("@socket.io/admin-ui");
-import { Sala } from '../classes/sala';
 import { isLogable, Message } from "./message";
+
 
 export type NamespaceDetails = {
 	name: string;
@@ -41,8 +41,6 @@ const corsOptions = {
 
 export class SocketServer {
 
-	salas: Sala[] = [];
-
 	namespaces = new Map<string, Namespace>();
 	sockets = new Map<string, SocketDetails>();
 	rooms = new Map<string, string>();
@@ -50,7 +48,7 @@ export class SocketServer {
 	io: Server;
 
 	constructor(
-		public name = "AlephServer",
+		public name = "ASsrv",
 		server: ServerInstance,
 		activateInstrumens = true,
 		public autoBroadcast = true
@@ -71,17 +69,20 @@ export class SocketServer {
 
 		const socket = this.io.of('/' + namespace);
 
-		socket.on("connection",(socket)=> this.onConnection(namespace, socket))
-		socket.on("disconnect",(socket)=> this.onDisconnect(namespace, socket))
+		socket.on("connection", (socket) => this.onConnection(namespace, socket))
 
 		this.namespaces.set(namespace, socket);
 
-		this.log(namespace, "There is now namespaces: " + this.namespaces.size)
 	}
 
 	onConnection(namespace: string, socket: Socket) {
 
-		this.log("New connection at", namespace + ". Socket: " + this.socketName(socket) + ": " + socket.id);
+		this.log((namespace || "--") + ".onConnection: ", "S: " + socket.id);
+
+		socket.on("disconnect", (args) => this.onDisconnect(namespace, socket, args))
+		socket.on('error', (error) => {
+			console.error('Socket error:', error);
+		});
 
 		if (this.autoBroadcast) {
 
@@ -107,15 +108,28 @@ export class SocketServer {
 
 	}
 
-	onDisconnect(namespace: string, socket: Socket) {
+	onDisconnect(namespace: string, socket: Socket, reason: any) {
 
-		// this.logServerState(socket, namespace + ".onDisconnect");
+		const roomsids: string[] = []
+		for(const r of this.rooms.keys()) {
+			if (this.rooms.get(r) === socket.id) {
+				roomsids.push(socket.id)
+			}
+		}
+		roomsids.forEach(s => this.rooms.delete(s))
 
+		this.log(
+			(namespace || "--") + ".onDisconnect." + this.socketName(socket)
+			+ ": [" + reason + "] " +
+		  	(roomsids.length > 0 ? "Removed from masters of rooms: " + roomsids.length : "")
+		);
+		this.sockets.delete(socket.id);
 	}
 
 	onClientRegister(namespace: string, socket: Socket, args: SocketDetails) {
 
-		this.log(namespace + ".onClientRegister." + socket.id, args);
+		this.log(namespace + ".onClientRegister: " +
+			"N/S [" + args.name + "][" + socket.id + "]");
 
 		this.sockets.set(socket.id, args as SocketDetails);
 
@@ -127,15 +141,14 @@ export class SocketServer {
 		this.sockets.get(socket.id)?.name || "El socket no se ha registrado: " + socket.id;
 		if (args.out) {
 			socket.leave(args.room);
-			this.log("LEAVE:> " + message,
-				args
-			);
 		} else {
 			socket.join(args.room);
-			this.log("JOIN:> " + message,
-				args
-			);
 		}
+		this.log(
+			message + ": " + 
+			(args.out ? "leaved" : "joined") +
+			" [" + args.room + "]"
+		)
 
 	}
 
@@ -143,33 +156,36 @@ export class SocketServer {
 
 		const message = namespace + ".onRoomMessage." +
 			this.socketName(socket) +
-			". Event: " + args.room + "/" + args.event;
+			": " + args.room + "/" + args.event;
 		this.log(message);
 
 		if (!args.room) {
-			console.log(args)
+			this.log("Warning!!!! onRoomMessage. Missing room. Args", args)
 		}
 
 		switch(args.event) {
 			case "GET_SERVER_STATE": {
 
-				this.logServerState(socket, "SET_SERVER_STATE");
+				this.logServerState(namespace, socket, "SET_SERVER_STATE", args.room);
 				return;
+
 			}
 			case "SET_SERVER_STATE": {
-				console.log("Weird serach penta")
+
+				this.log("Warning!!!! onRoomMessage. THIS EVENT SHOULD NOT BE FIRED", args)
 				return;
+
 			}
 		}
 
 		const isGETTER = args.event.substring(0, 4) == "GET_";
 		if (isGETTER) {
-			this.log("Resolving GETTER... Is there any Master configured for this room?")
+
 			const master = this.rooms.get(args.room);
 			if (master) {
-				this.log(namespace + "/" + this.socketName(socket) +
-					":> Resolving GETTER... master found, emit [" + args.event + "] TO!",
-					this.socketName({ id: master }))
+				this.log(namespace + ".OnGet." + this.socketName(socket) +
+					": forward to room Master [" + args.room + "/" + args.event + "]: [",
+					this.socketName({ id: master }) + "]")
 				const requesterData = {
 					...args,
 					requester: socket.id,
@@ -177,8 +193,7 @@ export class SocketServer {
 				}
 				socket.to(master).emit(args.event, requesterData);
 			} else {
-				this.log("Can't Resolve GETTER...!!! There is no master at room: [" + args.room + "]")
-				console.log(args)
+				this.log(namespace + ".onRoomMessage: WARNING! No GET/SET agent at room: [" + args.room + "]")
 			}
 			return;
 		}
@@ -186,11 +201,13 @@ export class SocketServer {
 		const isSETTER = args.event.substring(0, 4) == "SET_";
 		if (isSETTER) {
 			// this.log("Resolving SETTER... has receiver? " + this.socketName({ id: args.requester}))
-			const target = args.requester;
+			let target = args.requester;
 			const requesterData = {
 				...args.data,
 				sender: socket.id
 			}
+			// DEV-DISABLE
+			target = "";
 			if (target) {
 				// SEND TO TARGET
 				/* this.log(namespace + "/" + target +
@@ -207,7 +224,7 @@ export class SocketServer {
 
 		switch(args.event) {
 			case "MAKE_MASTER": {
-				this.log("Make " + this.socketName(socket) + " master of: " + namespace + "/" + args.room)
+				this.log(namespace + ".OnMakeMaster." + this.socketName(socket) + ": Is now master of: " + namespace + "/" + args.room)
 				this.rooms.set(args.room, socket.id);
 				break;
 			}
@@ -220,7 +237,7 @@ export class SocketServer {
 
 	socketName(socket: Partial<Socket>): string {
 		if (!socket.id) return "<-->";
-		return (this.sockets.get(socket.id)?.name) || ("El socket no se ha registrado: " + socket.id)
+		return (this.sockets.get(socket.id)?.name) || "--"
 	}
 
 	startPing() {
@@ -278,7 +295,7 @@ export class SocketServer {
 
 	}
 
-	logServerState(socket: Socket, event: string) {
+	logServerState(namespace: string, socket: Socket, event: string, room: string) {
 
 		const state = {
 			action: event,
@@ -288,13 +305,15 @@ export class SocketServer {
 			clients: this.io.engine?.clientsCount
 		}
 		socket.emit(event, state);
-		this.log("Emit >> State"," to: " + this.socketName(socket) + " event: " + event);
+		this.log(
+			namespace + ".onLogServerState." + this.socketName(socket)
+			+ ": " + room + "/" + event);
 	}
 
 	log(message: string, data: any = undefined) {
 
-		console.log("-",
-			this.name,
+		console.log(new Date(), "-",
+			this.name + ":> ",
 			message,
 			data ? data : ""
 		);

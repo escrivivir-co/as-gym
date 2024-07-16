@@ -5,6 +5,13 @@ import { IModelo, Modelo } from "./modelo";
 import { AS_MUNDO_i18 } from "./mundos-i18";
 import { IDiccionarioI18 } from "../genesis-block";
 
+export enum RunStateEnum {
+	PLAY = "PLAY",
+	PLAY_STEP = "PLAY_STEP",
+	PAUSE = "PAUSE",
+	STOP = "STOP"
+}
+
 export interface IMundo {
 
     i18: IDiccionarioI18;
@@ -36,6 +43,8 @@ export interface IMundo {
 
     elMundoAcabara: Observable<IMundo>;
 
+	runState: RunStateEnum;
+	runStateEvent: Observable<RunStateEnum>;
 }
 
 export interface AlAcabarCallbackDatos {
@@ -62,6 +71,9 @@ export class Mundo implements IMundo {
     elMundoAcabara: Observable<IMundo> = this.elMundoAcabaraS.asObservable();
     callbacks: ((m: IMundo) => void)[] = [];
 
+	runStateEvent: Observable<RunStateEnum>;
+	runState: RunStateEnum;
+
     constructor() {}
 
     agregarAferencia(o: Observable<IMundo>) {
@@ -81,7 +93,6 @@ export class Mundo implements IMundo {
     agregarCallback(f: (m: IMundo) => void) {
 
         this.callbacks.push(f);
- 
     }
 
     async instanciar(): Promise<IModelo> {
@@ -112,6 +123,9 @@ export class Mundo implements IMundo {
 
     async ciclo(): Promise<IModelo> {
 
+		console.log("MUNDO CLICLO")
+		this.runStateEvent.subscribe((event) => this.runState = event);
+
         return await new Promise((resolve, reject) => {
 
             console.log(agentMessage(this.nombre, `${i18.MUNDO.INICIO_LABEL} Pulso: ${this.modelo.pulso}`));
@@ -126,7 +140,16 @@ export class Mundo implements IMundo {
 
             try {
 
+				if (this.runState == RunStateEnum.STOP) throw new Error("Abort");
+
+				if (this.runState == RunStateEnum.PAUSE) return;
+
                 this.pulso();
+
+				if (this.runState == RunStateEnum.PLAY_STEP) {
+					this.runState = RunStateEnum.PAUSE;
+					this.eferencia.next(this)
+				}
 
             } catch(ex) {
 
@@ -174,6 +197,7 @@ export class Mundo implements IMundo {
         this.modelo.dia++;
         console.log(agentMessage(this.nombre, `${i18.MUNDO.DIA_LABEL} ${this.modelo.dia}`));
 
+		console.log(this.nombre, "AHORA------------------------------", this.runState)
         this.eferencia.next(this);
         this.callbacks.forEach(f => f(this));
 
