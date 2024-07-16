@@ -1,0 +1,22 @@
+# Archivo de configuracionn.
+
+general:
+  img_filelist: '/srv/elmas/SRC/sc_elmas/PYTHONS/SMARTPY/eval_imgs/'
+  predictor_path: '/srv/elmas/SRC/sc_elmas/PYTHONS/SMARTPY/config/shape_predictor_68_face_landmarks.dat'
+  save_path: '/srv/elmas/SRC/sc_elmas/PYTHONS/SMARTPY/results'
+  weights_path: '/srv/elmas/SRC/sc_elmas/PYTHONS/SMARTPY/config/emotional_baseline-18-0.94.hdf5'
+  verbose: 1
+  onnx_path: '/srv/elmas/SRC/sc_elmas/PYTHONS/SMARTPY/models/model.onnx'
+
+gpu_usage:
+  device_order: 'PCI_BUS_ID' # String. GPU assignment by ID.
+  gpu_id: '0' # String. GPU ID.
+
+architecture:
+  num_classes: 7 # Integer. Numero de clases (emociones).
+  experiment: 12 # Integer. Opciones = [11,12,21,22]
+
+evaluation:
+  batch_size: 1 # Integer. Numero de ejemplos por batch.
+  mean_img_path: '/srv/elmas/SRC/sc_elmas/PYTHONS/SMARTPY/config/mean_image.jpg'
+

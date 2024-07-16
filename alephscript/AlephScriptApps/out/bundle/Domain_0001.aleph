@@ -1,0 +1,568 @@
+{
+	"domain": [
+		[
+			{
+				"name": "compressed-tree.json",
+				"index": [
+					{
+						"type": "Edificio",
+						"pk": "Edificio1",
+						"data": {
+							"nombre": "Edificio Central"
+						}
+					},
+					{
+						"type": "Habitacion",
+						"pk": "Habitacion101",
+						"fk": "Edificio1/Habitacion101/",
+						"data": {
+							"nombre": "101"
+						}
+					},
+					{
+						"type": "Habitacion",
+						"pk": "Habitacion102",
+						"fk": "Edificio1/Habitacion102/",
+						"data": {
+							"nombre": "102"
+						}
+					},
+					{
+						"type": "Mueble",
+						"pk": "Mueble101",
+						"fk": "Edificio1/Habitacion101/Mueble101/",
+						"data": {
+							"nombre": "Mueble A"
+						}
+					},
+					{
+						"type": "Mueble",
+						"pk": "Mueble102",
+						"fk": "Edificio1/Habitacion102/Mueble102/",
+						"data": {
+							"nombre": "Mueble A"
+						}
+					},
+					{
+						"type": "Objeto",
+						"pk": "Lampara101A",
+						"fk": "Edificio1/Habitacion101/Mueble101/Lampara101A/",
+						"data": {
+							"nombre": "Lámpara A",
+							"estado": "apagado"
+						}
+					},
+					{
+						"type": "Accion",
+						"pk": "AccionEncender101A",
+						"fk": "Edificio1/Habitacion101/Mueble101/Lampara101A/AccionEncender101A/",
+						"data": {
+							"nombre": "Encender",
+							"disponible": true
+						}
+					},
+					{
+						"type": "Accion",
+						"pk": "AccionApagar101A",
+						"fk": "Edificio1/Habitacion101/Mueble101/Lampara101A/AccionApagar101A/",
+						"data": {
+							"nombre": "Apagar",
+							"disponible": true
+						}
+					},
+					{
+						"type": "Objeto",
+						"pk": "Lampara102A",
+						"fk": "Edificio1/Habitacion102/Mueble102/Lampara102A/",
+						"data": {
+							"nombre": "Lámpara A",
+							"estado": "apagado"
+						}
+					},
+					{
+						"type": "Accion",
+						"pk": "AccionEncender102A",
+						"fk": "Edificio1/Habitacion102/Mueble102/Lampara102A/AccionEncender102A/",
+						"data": {
+							"nombre": "Encender",
+							"disponible": true
+						}
+					},
+					{
+						"type": "Accion",
+						"pk": "AccionApagar102A",
+						"fk": "Edificio1/Habitacion102/Mueble102/Lampara102A/AccionApagar102A/",
+						"data": {
+							"nombre": "Apagar",
+							"disponible": true
+						}
+					},
+					{
+						"type": "Mueble",
+						"pk": "Mueble101B",
+						"fk": "Edificio1/Habitacion101/Mueble101B/",
+						"data": {
+							"nombre": "Mueble B"
+						}
+					},
+					{
+						"type": "Objeto",
+						"pk": "Lampara101B",
+						"fk": "Edificio1/Habitacion101/Mueble101B/Lampara101B/",
+						"data": {
+							"nombre": "Lámpara B",
+							"estado": "apagado"
+						}
+					},
+					{
+						"type": "Accion",
+						"pk": "AccionEncender101B",
+						"fk": "Edificio1/Habitacion101/Mueble101B/Lampara101B/AccionEncender101B/",
+						"data": {
+							"nombre": "Encender",
+							"disponible": true
+						}
+					},
+					{
+						"type": "Accion",
+						"pk": "AccionApagar101B",
+						"fk": "Edificio1/Habitacion101/Mueble101B/Lampara101B/AccionApagar101B/",
+						"data": {
+							"nombre": "Apagar",
+							"disponible": true
+						}
+					},
+					{
+						"type": "Mueble",
+						"pk": "Mueble102B",
+						"fk": "Edificio1/Habitacion102/Mueble102B/",
+						"data": {
+							"nombre": "Mueble B"
+						}
+					},
+					{
+						"type": "Objeto",
+						"pk": "Lampara102B",
+						"fk": "Edificio1/Habitacion102/Mueble102B/Lampara102B/",
+						"data": {
+							"nombre": "Lámpara B",
+							"estado": "apagado"
+						}
+					},
+					{
+						"type": "Accion",
+						"pk": "AccionEncender102B",
+						"fk": "Edificio1/Habitacion102/Mueble102B/Lampara102B/AccionEncender102B/",
+						"data": {
+							"nombre": "Encender",
+							"disponible": true
+						}
+					},
+					{
+						"type": "Accion",
+						"pk": "AccionApagar102B",
+						"fk": "Edificio1/Habitacion102/Mueble102B/Lampara102B/AccionApagar102B/",
+						"data": {
+							"nombre": "Apagar",
+							"disponible": true
+						}
+					}
+				],
+				"grafo": {
+					"arcos": {
+						"estado": []
+					}
+				},
+				"bosque": {
+					"pk": "Base",
+					"data": {},
+					"hijos": [
+						{
+							"pk": "Edificio1",
+							"data": {
+								"nombre": "Edificio Central"
+							},
+							"hijos": [
+								{
+									"pk": "Habitacion101",
+									"data": {
+										"nombre": "101"
+									},
+									"hijos": [
+										{
+											"pk": "Mueble101",
+											"data": {
+												"nombre": "Mueble A"
+											},
+											"hijos": [
+												{
+													"pk": "Lampara101A",
+													"data": {
+														"nombre": "Lámpara A",
+														"estado": "apagado"
+													},
+													"hijos": [
+														{
+															"pk": "AccionEncender101A",
+															"data": {
+																"nombre": "Encender",
+																"disponible": true
+															},
+															"hijos": []
+														},
+														{
+															"pk": "AccionApagar101A",
+															"data": {
+																"nombre": "Apagar",
+																"disponible": true
+															},
+															"hijos": []
+														}
+													]
+												}
+											]
+										},
+										{
+											"pk": "Mueble101B",
+											"data": {
+												"nombre": "Mueble B"
+											},
+											"hijos": [
+												{
+													"pk": "Lampara101B",
+													"data": {
+														"nombre": "Lámpara B",
+														"estado": "apagado"
+													},
+													"hijos": [
+														{
+															"pk": "AccionEncender101B",
+															"data": {
+																"nombre": "Encender",
+																"disponible": true
+															},
+															"hijos": []
+														},
+														{
+															"pk": "AccionApagar101B",
+															"data": {
+																"nombre": "Apagar",
+																"disponible": true
+															},
+															"hijos": []
+														}
+													]
+												}
+											]
+										}
+									]
+								},
+								{
+									"pk": "Habitacion102",
+									"data": {
+										"nombre": "102"
+									},
+									"hijos": [
+										{
+											"pk": "Mueble102",
+											"data": {
+												"nombre": "Mueble A"
+											},
+											"hijos": [
+												{
+													"pk": "Lampara102A",
+													"data": {
+														"nombre": "Lámpara A",
+														"estado": "apagado"
+													},
+													"hijos": [
+														{
+															"pk": "AccionEncender102A",
+															"data": {
+																"nombre": "Encender",
+																"disponible": true
+															},
+															"hijos": []
+														},
+														{
+															"pk": "AccionApagar102A",
+															"data": {
+																"nombre": "Apagar",
+																"disponible": true
+															},
+															"hijos": []
+														}
+													]
+												}
+											]
+										},
+										{
+											"pk": "Mueble102B",
+											"data": {
+												"nombre": "Mueble B"
+											},
+											"hijos": [
+												{
+													"pk": "Lampara102B",
+													"data": {
+														"nombre": "Lámpara B",
+														"estado": "apagado"
+													},
+													"hijos": [
+														{
+															"pk": "AccionEncender102B",
+															"data": {
+																"nombre": "Encender",
+																"disponible": true
+															},
+															"hijos": []
+														},
+														{
+															"pk": "AccionApagar102B",
+															"data": {
+																"nombre": "Apagar",
+																"disponible": true
+															},
+															"hijos": []
+														}
+													]
+												}
+											]
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				"terminals": [],
+				"non_terminals": [],
+				"productions": [],
+				"genesis": []
+			},
+			{
+				"name": "domain.data.relational.scada.json",
+				"index": [
+					{
+						"type": "Edificio",
+						"pk": "Edificio1",
+						"data": {
+							"nombre": "Edificio Central"
+						}
+					},
+					{
+						"type": "Habitacion",
+						"pk": "Habitacion1",
+						"fk": "Edificio1",
+						"data": {
+							"numero": 101
+						}
+					},
+					{
+						"type": "Mueble",
+						"pk": "Mueble1",
+						"fk": "Habitacion1",
+						"data": {
+							"tipo": "Escritorio"
+						}
+					},
+					{
+						"type": "Objeto",
+						"pk": "Objeto1",
+						"fk": "Mueble1",
+						"data": {
+							"nombre": "Computadora",
+							"descripcion": "Portátil marca X"
+						}
+					},
+					{
+						"type": "Objeto",
+						"pk": "Objeto2",
+						"fk": "Mueble1",
+						"data": {
+							"nombre": "Lámpara",
+							"descripcion": "Lámpara de escritorio LED",
+							"estado": "apagada"
+						}
+					},
+					{
+						"type": "Accion",
+						"pk": "Accion1",
+						"fk": "Objeto2",
+						"data": {
+							"nombre": "Encender",
+							"disponible": true
+						}
+					},
+					{
+						"type": "Accion",
+						"pk": "Accion2",
+						"fk": "Objeto2",
+						"data": {
+							"nombre": "Apagar",
+							"disponible": true
+						}
+					}
+				],
+				"grafo": {
+					"arcos": {
+						"estado": []
+					}
+				},
+				"bosque": null,
+				"terminals": [],
+				"non_terminals": [],
+				"productions": [],
+				"genesis": []
+			},
+			{
+				"name": "domain.relational.scada.auth.json",
+				"index": [
+					{
+						"type": "Usuario",
+						"pk": "Usuario1",
+						"data": {
+							"nombre": "Ana"
+						}
+					},
+					{
+						"type": "Usuario",
+						"pk": "Usuario2",
+						"data": {
+							"nombre": "Luis"
+						}
+					},
+					{
+						"type": "Rol",
+						"pk": "Rol1",
+						"data": {
+							"nombre": "AccesoHabitacion101"
+						}
+					},
+					{
+						"type": "Rol",
+						"pk": "Rol2",
+						"data": {
+							"nombre": "AccesoEscritorio"
+						}
+					},
+					{
+						"type": "Rol",
+						"pk": "Rol3",
+						"data": {
+							"nombre": "AccesoArmario"
+						}
+					},
+					{
+						"type": "Rol",
+						"pk": "RolEncenderLampara",
+						"data": {
+							"nombre": "PermisoEncenderLampara"
+						}
+					},
+					{
+						"type": "Rol",
+						"pk": "RolApagarLampara",
+						"data": {
+							"nombre": "PermisoApagarLampara"
+						}
+					},
+					{
+						"type": "UsuarioRol",
+						"fk": "Usuario1",
+						"data": {
+							"rol": "Rol1"
+						}
+					},
+					{
+						"type": "UsuarioRol",
+						"fk": "Usuario2",
+						"data": {
+							"rol": "Rol1"
+						}
+					},
+					{
+						"type": "UsuarioRol",
+						"fk": "Usuario1",
+						"data": {
+							"rol": "Rol2"
+						}
+					},
+					{
+						"type": "UsuarioRol",
+						"fk": "Usuario2",
+						"data": {
+							"rol": "Rol3"
+						}
+					},
+					{
+						"type": "UsuarioRol",
+						"fk": "Usuario1",
+						"data": {
+							"rol": "RolEncenderLampara"
+						}
+					},
+					{
+						"type": "UsuarioRol",
+						"fk": "Usuario2",
+						"data": {
+							"rol": "RolApagarLampara"
+						}
+					},
+					{
+						"type": "Acceso",
+						"fk": "Rol2",
+						"data": {
+							"mueble": "Escritorio1"
+						}
+					},
+					{
+						"type": "Acceso",
+						"fk": "Rol3",
+						"data": {
+							"mueble": "Armario1"
+						}
+					},
+					{
+						"type": "Acceso",
+						"fk": "RolEncenderLampara",
+						"data": {
+							"accion": "AccionEncender"
+						}
+					},
+					{
+						"type": "Acceso",
+						"fk": "RolApagarLampara",
+						"data": {
+							"accion": "AccionApagar"
+						}
+					}
+				],
+				"grafo": {
+					"arcos": {
+						"estado": []
+					}
+				},
+				"bosque": null,
+				"terminals": [],
+				"non_terminals": [],
+				"productions": [],
+				"genesis": []
+			},
+			{
+				"name": "data.json",
+				"index": [],
+				"grafo": {
+					"arcos": {
+						"estado": []
+					}
+				},
+				"bosque": null,
+				"terminals": [],
+				"non_terminals": [],
+				"productions": [],
+				"genesis": []
+			}
+		]
+	]
+}

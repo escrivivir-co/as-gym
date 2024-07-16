@@ -1,0 +1,68 @@
+{
+    "Model": {
+      "id": "ModeloGeneral",
+      "rows": [
+        {
+          "type": "Edificio",
+          "pk": "Edificio1",
+          "data": {
+            "nombre": "Edificio Central"
+          }
+        },
+        {
+          "type": "Habitacion",
+          "pk": "Habitacion1",
+          "fk": "Edificio1",
+          "data": {
+            "numero": 101
+          }
+        },
+        {
+          "type": "Mueble",
+          "pk": "Mueble1",
+          "fk": "Habitacion1",
+          "data": {
+            "tipo": "Escritorio"
+          }
+        },
+        {
+          "type": "Objeto",
+          "pk": "Objeto1",
+          "fk": "Mueble1",
+          "data": {
+            "nombre": "Computadora",
+            "descripcion": "Portátil marca X"
+          }
+        },
+        {
+          "type": "Objeto",
+          "pk": "Objeto2",
+          "fk": "Mueble1",
+          "data": {
+            "nombre": "Lámpara",
+            "descripcion": "Lámpara de escritorio LED",
+            "estado": "apagada"
+          }
+        },
+        {
+          "type": "Accion",
+          "pk": "Accion1",
+          "fk": "Objeto2",
+          "data": {
+            "nombre": "Encender",
+            "disponible": true
+          }
+        },
+        {
+          "type": "Accion",
+          "pk": "Accion2",
+          "fk": "Objeto2",
+          "data": {
+            "nombre": "Apagar",
+            "disponible": true
+          }
+        }
+      ]
+    }
+  }
+  

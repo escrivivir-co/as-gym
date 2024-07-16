@@ -2,7 +2,7 @@ import { Socket } from "socket.io";
 import { CrearSalaArgs } from "../interfaces/crearSala";
 import { JUGADOR_VACIO, Jugador } from "../interfaces/jugador";
 import { EstadoJuego, POSICION_TABLERO, SalaBackend, Tablero } from "../interfaces/sala";
-	
+
 export class Sala {
 	publica: boolean;
 	jugadores: [Jugador,Jugador] = [{...JUGADOR_VACIO},{...JUGADOR_VACIO}];

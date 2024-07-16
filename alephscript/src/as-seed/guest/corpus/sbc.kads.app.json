@@ -1,0 +1,53 @@
+{
+	"fase": "Nivel Conceptual",
+	"alternativas": [
+		{
+			"organizacion": "\t\t -OM-1:[<Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío>]\n\t\t\t -OM-2:[<Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío>]\n\t\t\t -OM-3:[<Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío>]\n\t\t\t -OM-4:[<Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío>]\n\t\t\t -OM-5:[<Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío>]",
+			"tareas": "\t\t -TM-1:[]\n\t\t\t -TM-2:[]",
+			"agentes": "\t\t -AM-1:[]",
+			"recursos": "recursos",
+			"conclusiones": "OTA-1:[<Modelo Vacío> - OM-1 - OM-2 - OM-3 - OM-4 - OM-5 - TM-1 - TM-2 - AM-1]"
+		}
+	],
+	"objetivo": {
+		"organizacion": "\t\t -OM-1:[<Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío>]\n\t\t\t -OM-2:[<Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío>]\n\t\t\t -OM-3:[<Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío>]\n\t\t\t -OM-4:[<Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío>]\n\t\t\t -OM-5:[<Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío>]",
+		"tareas": "\t\t -TM-1:[<Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío>]\n\t\t\t -TM-2:[<Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío>]",
+		"agentes": "\t\t -AM-1:[<Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío>]",
+		"conclusiones": "OTA-1:[<Modelo Vacío> - OM-1 - OM-2 - OM-3 - OM-4 - OM-5 - TM-1 - TM-2 - AM-1]"
+	},
+	"especificacion": {
+		"conceptual": {
+			"conocimiento": "\t\t -KM-1:[<Modelo Vacío>]"
+		},
+		"comunicacion": {
+			"comunicacion": "\t\t -CM-1:[ -  -  - <Modelo Vacío>]\n\t\t\t -CM-2:[ -  -  - <Modelo Vacío>]"
+		}
+	},
+	"sistema": {
+		"disenyo": [
+			"DM-1",
+			"DM-2",
+			"DM-3",
+			"DM-4"
+		],
+		"arquitectura": [
+			"DM-1",
+			"DM-2",
+			"DM-3",
+			"DM-4"
+		],
+		"plataforma": [
+			"DM-1",
+			"DM-2",
+			"DM-3",
+			"DM-4"
+		],
+		"componentes": [
+			"DM-1",
+			"DM-2",
+			"DM-3",
+			"DM-4"
+		],
+		"aplicacion": "common.kads.sistema.app"
+	}
+}

@@ -1,0 +1,11 @@
+{
+	"id": "BoilerPlateApp",
+	"baseFolder": "AlephScriptApps",
+	"configFolder": "in/config",
+	"chensFolder": "in/chen/domain.data.relational.scada.json",
+	"collectionsFolder": "in/chen/domain.relational.scada.auth.json",
+	"dataFolder": "in/data/data.json",
+	"treeFolder": "in/tree/compressed-tree.json",
+	"appFolder": "out/bundle",
+	"navigationFolder": "out/navigation"
+}

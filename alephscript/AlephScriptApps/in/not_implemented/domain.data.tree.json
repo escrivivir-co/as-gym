@@ -1,0 +1,46 @@
+{
+    "Edificio": {
+      "id": "Edificio123",
+      "rows": [
+        {
+          "data": {
+            "nombre": "Edificio Principal",
+            "habitaciones": [
+              {
+                "numero": 101,
+                "muebles": [
+                  {
+                    "tipo": "Escritorio",
+                    "compartimentos": [
+                      {
+                        "nombre": "Cajón superior",
+                        "contenido": "Material de oficina"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "numero": 102,
+                "muebles": [
+                  {
+                    "tipo": "Armario",
+                    "compartimentos": [
+                      {
+                        "nombre": "Estante superior",
+                        "contenido": "Libros y documentos"
+                      },
+                      {
+                        "nombre": "Estante inferior",
+                        "contenido": "Suministros de limpieza"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+} 

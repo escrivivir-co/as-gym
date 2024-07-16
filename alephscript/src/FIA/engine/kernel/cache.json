@@ -1,0 +1,288 @@
+{
+	"cache": {
+		"assistants": [
+			{
+				"id": "asst_BaI6P1ygS2MyTMsjoe1p3pO4",
+				"object": "assistant",
+				"created_at": 1701005396,
+				"name": "as-2",
+				"description": null,
+				"model": "gpt-3.5-turbo",
+				"instructions": "Eres un experto controlador de unidades fundamentales de inteligencia artificial. Funciona como un oráculo. Provees funciones para servidores de acción. Gestiona los eventos del sistema. Eres enlace entre un servidor RASA y la AssistantsAPI. Modo json activado.",
+				"tools": [],
+				"file_ids": [],
+				"metadata": {}
+			},
+			{
+				"id": "asst_BKYPddAcD11niecWsUvTmQgh",
+				"object": "assistant",
+				"created_at": 1700851882,
+				"name": "aleph-script-assistant",
+				"description": null,
+				"model": "gpt-3.5-turbo",
+				"instructions": "You are an expert code-interpreter. Your mission is to be the root assistant in a big assistant network. You are now in design and building phase, so you help to generate assistants and network. Work in json mode. ",
+				"tools": [
+					{
+						"type": "code_interpreter"
+					}
+				],
+				"file_ids": [
+					"file-pfoopiFYm7NFhsPr47dSznYd"
+				],
+				"metadata": {}
+			}
+		],
+		"CJKCACHE": {
+			"fase": "",
+			"alternativas": [
+				{
+					"organizacion": "\t\t -OM-1:[<Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío>]\n\t\t\t -OM-2:[<Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío>]\n\t\t\t -OM-3:[<Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío>]\n\t\t\t -OM-4:[<Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío>]\n\t\t\t -OM-5:[<Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío>]",
+					"tareas": "\t\t -TM-1:[]\n\t\t\t -TM-2:[]",
+					"agentes": "\t\t -AM-1:[]",
+					"recursos": "recursos",
+					"conclusiones": "OTA-1:[<Modelo Vacío> - OM-1 - OM-2 - OM-3 - OM-4 - OM-5 - TM-1 - TM-2 - AM-1]"
+				}
+			],
+			"objetivo": {
+				"organizacion": "\t\t -OM-1:[<Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío>]\n\t\t\t -OM-2:[<Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío>]\n\t\t\t -OM-3:[<Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío>]\n\t\t\t -OM-4:[<Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío>]\n\t\t\t -OM-5:[<Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío>]",
+				"tareas": "\t\t -TM-1:[<Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío>]\n\t\t\t -TM-2:[<Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío>]",
+				"agentes": "\t\t -AM-1:[<Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío>]",
+				"conclusiones": "OTA-1:[<Modelo Vacío> - OM-1 - OM-2 - OM-3 - OM-4 - OM-5 - TM-1 - TM-2 - AM-1]"
+			},
+			"especificacion": {
+				"conceptual": {
+					"conocimiento": "\t\t -KM-1:[<Modelo Vacío>]"
+				},
+				"comunicacion": {
+					"comunicacion": "\t\t -CM-1:[ -  -  - <Modelo Vacío>]\n\t\t\t -CM-2:[ -  -  - <Modelo Vacío>]"
+				}
+			},
+			"sistema": {
+				"disenyo": [
+					"DM-1",
+					"DM-2",
+					"DM-3",
+					"DM-4"
+				],
+				"arquitectura": [
+					"DM-1",
+					"DM-2",
+					"DM-3",
+					"DM-4"
+				],
+				"plataforma": [
+					"DM-1",
+					"DM-2",
+					"DM-3",
+					"DM-4"
+				],
+				"componentes": [
+					"DM-1",
+					"DM-2",
+					"DM-3",
+					"DM-4"
+				],
+				"aplicacion": "common.kads.sistema.app"
+			}
+		},
+		"genesis": {
+			"id": "genesis",
+			"estado": {
+				"IDE-app": [
+					{
+						"estado": "¡Arrancando simulación!",
+						"fecha": "2024-07-16T00:29:21.220Z"
+					},
+					{
+						"estado": "¡La simulación ha concluído y se cierra! - ¡La simulación ha concluído y se cierra! - ¡La simulación ha concluído y se cierra!",
+						"fecha": "2024-07-16T00:29:32.245Z"
+					}
+				],
+				"mundo-raíz-ide": [
+					{
+						"estado": "¡Mundo iniciado! Pulso: 1000",
+						"fecha": "2024-07-16T00:29:21.224Z"
+					},
+					{
+						"estado": "¡Más gente en el mundo!, ide.situada, suscriptores: 1",
+						"fecha": "2024-07-16T00:29:21.243Z"
+					},
+					{
+						"estado": "Hoy es el día: 1",
+						"fecha": "2024-07-16T00:29:22.225Z"
+					},
+					{
+						"estado": "Hoy es el día: 2",
+						"fecha": "2024-07-16T00:29:23.226Z"
+					},
+					{
+						"estado": "Hoy es el día: 3",
+						"fecha": "2024-07-16T00:29:24.227Z"
+					},
+					{
+						"estado": "Hoy es el día: 4",
+						"fecha": "2024-07-16T00:29:25.227Z"
+					},
+					{
+						"estado": "Hoy es el día: 5",
+						"fecha": "2024-07-16T00:29:26.228Z"
+					},
+					{
+						"estado": "Hoy es el día: 6",
+						"fecha": "2024-07-16T00:29:27.229Z"
+					},
+					{
+						"estado": "Hoy es el día: 7",
+						"fecha": "2024-07-16T00:29:28.230Z"
+					},
+					{
+						"estado": "Hoy es el día: 8",
+						"fecha": "2024-07-16T00:29:29.230Z"
+					},
+					{
+						"estado": "Hoy es el día: 9",
+						"fecha": "2024-07-16T00:29:30.230Z"
+					},
+					{
+						"estado": "Hoy es el día: 10",
+						"fecha": "2024-07-16T00:29:31.231Z"
+					},
+					{
+						"estado": "¡Mundo acabado!, deponer ide.situada",
+						"fecha": "2024-07-16T00:29:32.232Z"
+					},
+					{
+						"estado": "¡Mundo acabado!, destruir ",
+						"fecha": "2024-07-16T00:29:32.234Z"
+					}
+				],
+				"ide.situada": [
+					{
+						"estado": "Hola soy un autómata situado.",
+						"fecha": "2024-07-16T00:29:21.242Z"
+					},
+					{
+						"estado": "Modelo resultante.\n:modelo-ide",
+						"fecha": "2024-07-16T00:29:32.242Z"
+					}
+				],
+				"fia.sbc": [
+					{
+						"estado": "Efectuando sus al mundo",
+						"fecha": "2024-07-16T00:29:21.243Z"
+					},
+					{
+						"estado": "Activando en IDE: Projecto actual: AlephScriptIDE_Proyecto_1",
+						"fecha": "2024-07-16T00:29:23.232Z"
+					},
+					{
+						"estado": "Lanzando un sistema basado en conocimiento de tipo CommonKADS...",
+						"fecha": "2024-07-16T00:29:23.233Z"
+					},
+					{
+						"estado": "¡Cerrando SBC!",
+						"fecha": "2024-07-16T00:29:32.243Z"
+					}
+				],
+				"modelo-ide": [
+					{
+						"estado": "Autómata listo ide-estado transicion.",
+						"fecha": "2024-07-16T00:29:22.230Z"
+					}
+				],
+				"aleph-script-assistant": [
+					{
+						"estado": "¡Listo!",
+						"fecha": "2024-07-16T00:29:23.231Z"
+					},
+					{
+						"estado": "¡Listo para recibir peticiones de ayuda!",
+						"fecha": "2024-07-16T00:29:23.232Z"
+					}
+				],
+				"fia.sbc.common.kads": [
+					{
+						"estado": "Hola, voy a generar un app siguiendo la metodología Common KADS. 3..., 2..., 1..., ¡lanzando!",
+						"fecha": "2024-07-16T00:29:23.234Z"
+					},
+					{
+						"estado": "¡Finalizado!",
+						"fecha": "2024-07-16T00:29:32.241Z"
+					}
+				],
+				"common.kads": [
+					{
+						"estado": "Ejecutaré 3 fases de construcción. Y, a continuación, monitorizaré la aplicación derivada. ¡Vamos!",
+						"fecha": "2024-07-16T00:29:24.228Z"
+					},
+					{
+						"estado": "AVANCE DE ESTADO:  --  Esperando:  -- ",
+						"fecha": "2024-07-16T00:29:24.271Z"
+					},
+					{
+						"estado": "Nivel Contextual",
+						"fecha": "2024-07-16T00:29:24.274Z"
+					},
+					{
+						"estado": " NCx.01 Realizado estudio de viabilidad:\n             \t\t -AS_OM-01:[modelo-ide]\n\t\t\t -OM-2:[modelo-ide]\n\t\t\t -OM-3:[modelo-ide]\n\t\t\t -OM-4:[modelo-ide]\n\t\t\t -OM-5:[modelo-ide]",
+						"fecha": "2024-07-16T00:29:24.276Z"
+					},
+					{
+						"estado": " NCx.02 Realizado estudio de impacto y mejoras:\n             \t\t -AS_TM-01:[modelo-ide]\n\t\t\t -TM-2:[modelo-ide],\n             \t\t -AS_AM-01:[modelo-ide]",
+						"fecha": "2024-07-16T00:29:24.281Z"
+					},
+					{
+						"estado": "Período de construcción. Acabada fase: : Nivel Contextual: OTA-1:[modelo-ide - AS_OM-01 - OM-2 - OM-3 - OM-4 - OM-5 - AS_TM-01 - TM-2 - AS_AM-01]",
+						"fecha": "2024-07-16T00:29:24.290Z"
+					},
+					{
+						"estado": "AVANCE DE ESTADO: Nivel Contextual Esperando:  -- ",
+						"fecha": "2024-07-16T00:29:24.291Z"
+					},
+					{
+						"estado": "Nivel Conceptual",
+						"fecha": "2024-07-16T00:29:24.293Z"
+					},
+					{
+						"estado": " NC.01 Realizado modelo de conocimiento:\n             \t\t -KM-1:[<Modelo Vacío>], UML, CML.",
+						"fecha": "2024-07-16T00:29:24.306Z"
+					},
+					{
+						"estado": "NC.02 Realizado modelo de comunicaciones:\n             \t\t -CM-1:[ -  -  - <Modelo Vacío>]\n\t\t\t -CM-2:[ -  -  - <Modelo Vacío>]",
+						"fecha": "2024-07-16T00:29:24.306Z"
+					},
+					{
+						"estado": "NC.03 ¡Especificación realizada!",
+						"fecha": "2024-07-16T00:29:24.307Z"
+					},
+					{
+						"estado": "Período de construcción. Acabada fase: : Nivel Conceptual",
+						"fecha": "2024-07-16T00:29:24.308Z"
+					}
+				],
+				"ide": [
+					{
+						"estado": "AS FK CK PROCESS REQUEST:  -- ",
+						"fecha": "2024-07-16T00:29:24.233Z"
+					},
+					{
+						"estado": "AS FK CK PROCESS REQUEST: Nivel Contextual",
+						"fecha": "2024-07-16T00:29:24.290Z"
+					}
+				]
+			},
+			"fecha": "2024-07-16T00:24:41.389Z"
+		},
+		"claveFunciones": [
+			[
+				"{\"type\":\"text\",\"text\":{\"value\":\"Aquí tienes el código TypeScript generado para implementar las funciones solicitadas:\\n\\n```typescript\\nfunction FuncionCriterio(valor: number): boolean {\\n    return valor >= (1 - 20) * Nmax;\\n}\\n\\nfunction FuncionCriterio(valor: number): boolean {\\n    return valor >= (1 - 80) * Nmax;\\n}\\n\\nfunction FuncionCriterio(valor: number): boolean {\\n    return valor >= 20;\\n}\\n\\nfunction FuncionCriterio(valor: number): boolean {\\n    return valor >= 80;\\n}\\n```\\n\\nPuedes ejecutar este código en un entorno TypeScript para obtener los resultados deseados. Recuerda reemplazar la variable `Nmax` por el valor correspondiente en tu implementación real.\\n\\nSi necesitas el código en formato JSON, aquí tienes el resultado:\\n\\n```json\\n{\\n  \\\"funciones\\\": [\\n    \\\"function FuncionCriterio(valor: number): boolean {\\\\n    return valor >= (1 - 20) * Nmax;\\\\n}\\\\n\\\",\\n    \\\"function FuncionCriterio(valor: number): boolean {\\\\n    return valor >= (1 - 80) * Nmax;\\\\n}\\\\n\\\",\\n    \\\"function FuncionCriterio(valor: number): boolean {\\\\n    return valor >= 20;\\\\n}\\\\n\\\",\\n    \\\"function FuncionCriterio(valor: number): boolean {\\\\n    return valor >= 80;\\\\n}\\\\n\\\"\\n  ]\\n}\\n```\\n\\nEspero que esto sea lo que estabas buscando. Si tienes alguna otra pregunta, no dudes en hacerla.\",\"annotations\":[]}}"
+			],
+			[
+				"{\"type\":\"text\",\"text\":{\"value\":\"Entendido. Voy a generar el código TypeScript para implementar esas funciones. Primero, necesitamos definir el formato en el que se espera recibir las especificaciones y en qué formato se devolverán las funciones implementadas.\\n\\nEl formato de entrada será una lista de especificaciones en lenguaje natural en forma de cadena de texto. El formato de salida será un objeto JSON con un campo llamado \\\"funciones\\\" que contendrá un array de strings con el código TypeScript de las funciones.\\n\\nA continuación, generaré el código TypeScript para implementar las funciones solicitadas.\",\"annotations\":[]}}"
+			],
+			[
+				"{\"type\":\"text\",\"text\":{\"value\":\"Dada una lista de especificaciones en lenguaje natural, devuelve una lista de funciones en typescript que las implementen. Las funciones se llamarán todas igual: FuncionCriterio. Modo JSON. Devuelve el campo 'funciones' con un Array válida de strings con el código listo para ejecutar con la instrucción eval. Cada posición de la lista debe ser el código de la función con cabecera correcta dentro de un string. Lista de especificaciones: ['tendencia decreciente con pérdida del 20% Nmax','tendencia decreciente con pérdida del 80% Nmax','tendencia creciente con ganancia del 20% Nmin','tendencia creciente con ganancia del 80% Nmin']\",\"annotations\":[]}}"
+			]
+		]
+	}
+}

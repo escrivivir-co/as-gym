@@ -23,7 +23,7 @@ export class Name {
 export class Feature {
 
   frontend: FeatureName[];
-  backend: Name[];
+  backend: any[];
 
   constructor() {
     this.frontend = [];

@@ -1,0 +1,127 @@
+{
+    "Model": {
+      "id": "GestionUsuariosRoles",
+      "rows": [
+        {
+          "type": "Usuario",
+          "pk": "Usuario1",
+          "data": {
+            "nombre": "Ana"
+          }
+        },
+        {
+          "type": "Usuario",
+          "pk": "Usuario2",
+          "data": {
+            "nombre": "Luis"
+          }
+        },
+        {
+          "type": "Rol",
+          "pk": "Rol1",
+          "data": {
+            "nombre": "AccesoHabitacion101"
+          }
+        },
+        {
+          "type": "Rol",
+          "pk": "Rol2",
+          "data": {
+            "nombre": "AccesoEscritorio"
+          }
+        },
+        {
+          "type": "Rol",
+          "pk": "Rol3",
+          "data": {
+            "nombre": "AccesoArmario"
+          }
+        },
+        {
+          "type": "Rol",
+          "pk": "RolEncenderLampara",
+          "data": {
+            "nombre": "PermisoEncenderLampara"
+          }
+        },
+        {
+          "type": "Rol",
+          "pk": "RolApagarLampara",
+          "data": {
+            "nombre": "PermisoApagarLampara"
+          }
+        },
+        {
+          "type": "UsuarioRol",
+          "fk": "Usuario1",
+          "data": {
+            "rol": "Rol1"
+          }
+        },
+        {
+          "type": "UsuarioRol",
+          "fk": "Usuario2",
+          "data": {
+            "rol": "Rol1"
+          }
+        },
+        {
+          "type": "UsuarioRol",
+          "fk": "Usuario1",
+          "data": {
+            "rol": "Rol2"
+          }
+        },
+        {
+          "type": "UsuarioRol",
+          "fk": "Usuario2",
+          "data": {
+            "rol": "Rol3"
+          }
+        },
+        {
+          "type": "UsuarioRol",
+          "fk": "Usuario1",
+          "data": {
+            "rol": "RolEncenderLampara"
+          }
+        },
+        {
+          "type": "UsuarioRol",
+          "fk": "Usuario2",
+          "data": {
+            "rol": "RolApagarLampara"
+          }
+        },
+        {
+          "type": "Acceso",
+          "fk": "Rol2",
+          "data": {
+            "mueble": "Escritorio1"
+          }
+        },
+        {
+          "type": "Acceso",
+          "fk": "Rol3",
+          "data": {
+            "mueble": "Armario1"
+          }
+        },
+        {
+          "type": "Acceso",
+          "fk": "RolEncenderLampara",
+          "data": {
+            "accion": "AccionEncender"
+          }
+        },
+        {
+          "type": "Acceso",
+          "fk": "RolApagarLampara",
+          "data": {
+            "accion": "AccionApagar"
+          }
+        }
+      ]
+    }
+  }
+  

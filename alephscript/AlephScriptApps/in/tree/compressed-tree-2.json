@@ -1,0 +1,77 @@
+{
+    "Model": {
+      "id": "ModeloJerarquico",
+      "rows": [
+        {
+          "type": "Edificio",
+          "pk": "Edificio1",
+          "data": {
+            "nombre": "Edificio Central"
+          }
+        },
+        {
+          "type": "Habitacion",
+          "pk": "Habitacion101",
+          "fk": "Edificio1/",
+          "data": {
+            "numero": 101
+          }
+        },
+        {
+          "type": "Mueble",
+          "pk": "Escritorio1",
+          "fk": "Edificio1/Habitacion101/",
+          "data": {
+            "tipo": "Escritorio",
+            "descripcion": "Escritorio de madera con cajones"
+          }
+        },
+        {
+          "type": "Mueble",
+          "pk": "Armario1",
+          "fk": "Edificio1/Habitacion101/",
+          "data": {
+            "tipo": "Armario",
+            "descripcion": "Armario grande para almacenamiento"
+          }
+        },
+        {
+          "type": "Objeto",
+          "pk": "Computadora1",
+          "fk": "Edificio1/Habitacion101/Escritorio1/",
+          "data": {
+            "nombre": "Computadora",
+            "descripcion": "Computadora portátil marca X"
+          }
+        },
+        {
+          "type": "Objeto",
+          "pk": "Lampara1",
+          "fk": "Edificio1/Habitacion101/Escritorio1/",
+          "data": {
+            "nombre": "Lámpara",
+            "descripcion": "Lámpara de escritorio LED",
+            "estado": "apagada"
+          }
+        },
+        {
+          "type": "Accion",
+          "pk": "AccionEncender1",
+          "fk": "Edificio1/Habitacion101/Escritorio1/Lampara1/",
+          "data": {
+            "nombre": "Encender",
+            "disponible": true
+          }
+        },
+        {
+          "type": "Accion",
+          "pk": "AccionApagar1",
+          "fk": "Edificio1/Habitacion101/Escritorio1/Lampara1/",
+          "data": {
+            "nombre": "Apagar",
+            "disponible": true
+          }
+        }
+      ]
+    }
+  }

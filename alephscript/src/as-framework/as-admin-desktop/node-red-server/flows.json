@@ -1,0 +1,1285 @@
+[
+    {
+        "id": "93b5cd5546f3da55",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "fd474b1a0658bc40",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "6046406ad9a43e73",
+        "type": "subflow",
+        "name": "EXECUTER",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 60,
+                "y": 100,
+                "wires": [
+                    {
+                        "id": "37aa2f55269cb55c"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 460,
+                "y": 200,
+                "wires": [
+                    {
+                        "id": "37aa2f55269cb55c",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": [],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
+        "id": "2e2a4dcad56b2737",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "04736a844c918e99",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "9465c7c8ac0173c0",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "6aa09e222a78e7d3",
+        "type": "ui_group",
+        "name": "Default",
+        "tab": "04736a844c918e99",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "c6bb1eb5.edd3d",
+        "type": "websocket-listener",
+        "path": "/ws/publish",
+        "wholemsg": "true"
+    },
+    {
+        "id": "a5db9e65.7dd36",
+        "type": "websocket-listener",
+        "path": "/ws/receive",
+        "wholemsg": "true"
+    },
+    {
+        "id": "733b6798763cad46",
+        "type": "serial out",
+        "z": "6046406ad9a43e73",
+        "name": "",
+        "serial": "",
+        "x": 570,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "20069bf103dbbe70",
+        "type": "debug",
+        "z": "6046406ad9a43e73",
+        "name": "execute",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 500,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "37aa2f55269cb55c",
+        "type": "delay",
+        "z": "6046406ad9a43e73",
+        "name": "Delayer",
+        "pauseType": "rate",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "2",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": true,
+        "outputs": 1,
+        "x": 300,
+        "y": 100,
+        "wires": [
+            [
+                "733b6798763cad46",
+                "20069bf103dbbe70"
+            ]
+        ]
+    },
+    {
+        "id": "dfcdc26be6ce7514",
+        "type": "serial in",
+        "z": "93b5cd5546f3da55",
+        "name": "",
+        "serial": "",
+        "x": 130,
+        "y": 80,
+        "wires": [
+            [
+                "41684e424a5eb020"
+            ]
+        ]
+    },
+    {
+        "id": "fab0b3e3eac0c2c8",
+        "type": "debug",
+        "z": "93b5cd5546f3da55",
+        "name": "Serial channel",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1020,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "3c02d428c99ebb1a",
+        "type": "debug",
+        "z": "93b5cd5546f3da55",
+        "name": "Sensor notification data",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 890,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "72b84f928e4dd707",
+        "type": "inject",
+        "z": "93b5cd5546f3da55",
+        "name": "LED ON",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"action\":4,\"pin4\":\"ON\",\"type\":\"ledPin\",\"param\":1}",
+        "payloadType": "json",
+        "x": 120,
+        "y": 660,
+        "wires": [
+            [
+                "9ad926a54c42bb11"
+            ]
+        ]
+    },
+    {
+        "id": "41684e424a5eb020",
+        "type": "json",
+        "z": "93b5cd5546f3da55",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 350,
+        "y": 80,
+        "wires": [
+            [
+                "ed339687ab9fe7c7",
+                "00905f6492703572",
+                "e78f1fb93d64ad4c",
+                "fc641fcf700f6318",
+                "ce64ca5252462013"
+            ]
+        ]
+    },
+    {
+        "id": "078daf4c39dc7e75",
+        "type": "inject",
+        "z": "93b5cd5546f3da55",
+        "name": "LED OFF",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"action\":4,\"pin4\":\"OFF\",\"type\":\"ledPin\",\"param\":0}",
+        "payloadType": "json",
+        "x": 120,
+        "y": 700,
+        "wires": [
+            [
+                "9ad926a54c42bb11"
+            ]
+        ]
+    },
+    {
+        "id": "c27422056d154cbf",
+        "type": "switch",
+        "z": "93b5cd5546f3da55",
+        "name": "Serial channel transmision finished!",
+        "property": "payload.action",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "null"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 760,
+        "y": 120,
+        "wires": [
+            [
+                "5b2ff05ccc7fb3db"
+            ],
+            [
+                "fab0b3e3eac0c2c8"
+            ]
+        ]
+    },
+    {
+        "id": "5b2ff05ccc7fb3db",
+        "type": "debug",
+        "z": "93b5cd5546f3da55",
+        "name": "End Serial",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1030,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "9ad926a54c42bb11",
+        "type": "subflow:6046406ad9a43e73",
+        "z": "93b5cd5546f3da55",
+        "name": "EXECUTER",
+        "x": 310,
+        "y": 760,
+        "wires": [
+            [
+                "076b9615bf54c655"
+            ]
+        ]
+    },
+    {
+        "id": "9f41b40f3fcbc36c",
+        "type": "function",
+        "z": "93b5cd5546f3da55",
+        "name": "Buzzer Action",
+        "func": "msg.payload = {\n    pin6: msg.payload.pin6,\n    \"action\": 5,\n    param: msg.payload.param,\n};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 960,
+        "y": 620,
+        "wires": [
+            [
+                "9ad926a54c42bb11"
+            ]
+        ]
+    },
+    {
+        "id": "481780e35a0a4a2a",
+        "type": "switch",
+        "z": "93b5cd5546f3da55",
+        "name": "Button State",
+        "property": "payload.pin6",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 590,
+        "y": 620,
+        "wires": [
+            [
+                "a16e86589d77ef4d"
+            ],
+            [
+                "08f67725fc151f95"
+            ]
+        ]
+    },
+    {
+        "id": "a16e86589d77ef4d",
+        "type": "change",
+        "z": "93b5cd5546f3da55",
+        "name": "value = 0",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.param",
+                "pt": "msg",
+                "to": "0",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 780,
+        "y": 600,
+        "wires": [
+            [
+                "9f41b40f3fcbc36c"
+            ]
+        ]
+    },
+    {
+        "id": "08f67725fc151f95",
+        "type": "change",
+        "z": "93b5cd5546f3da55",
+        "name": "value = 128",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.param",
+                "pt": "msg",
+                "to": "25",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 770,
+        "y": 640,
+        "wires": [
+            [
+                "9f41b40f3fcbc36c"
+            ]
+        ]
+    },
+    {
+        "id": "cec20f26aba7c3bb",
+        "type": "debug",
+        "z": "93b5cd5546f3da55",
+        "name": "SERIAL RAW",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 890,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "ed339687ab9fe7c7",
+        "type": "switch",
+        "z": "93b5cd5546f3da55",
+        "name": "Button Action",
+        "property": "payload.type",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "6",
+                "vt": "num"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 500,
+        "y": 460,
+        "wires": [
+            [
+                "481780e35a0a4a2a",
+                "b3259b9c2b8b19bf"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "881a0e4bf9652f9f",
+        "type": "inject",
+        "z": "93b5cd5546f3da55",
+        "name": "BUZZER OFF",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "1.1",
+        "topic": "",
+        "payload": "{\"action\":5,\"pin5\":\"ON\",\"type\":\"buzzerPin\",\"param\":0}",
+        "payloadType": "json",
+        "x": 110,
+        "y": 840,
+        "wires": [
+            [
+                "9ad926a54c42bb11"
+            ]
+        ]
+    },
+    {
+        "id": "f7603bc3fbb469b5",
+        "type": "inject",
+        "z": "93b5cd5546f3da55",
+        "name": "BUZZER ON",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"action\":5,\"pin5\":\"ON\",\"type\":\"buzzerPin\",\"param\":24}",
+        "payloadType": "json",
+        "x": 110,
+        "y": 800,
+        "wires": [
+            [
+                "9ad926a54c42bb11"
+            ]
+        ]
+    },
+    {
+        "id": "e67f7370ad3e9143",
+        "type": "debug",
+        "z": "93b5cd5546f3da55",
+        "name": "Serial LED state: ",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload.param",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1170,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "fc641fcf700f6318",
+        "type": "switch",
+        "z": "93b5cd5546f3da55",
+        "name": "Led Action",
+        "property": "payload.type",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "4",
+                "vt": "num"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 890,
+        "y": 280,
+        "wires": [
+            [
+                "e67f7370ad3e9143"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "ce64ca5252462013",
+        "type": "switch",
+        "z": "93b5cd5546f3da55",
+        "name": "Buzzer Action",
+        "property": "payload.type",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "5",
+                "vt": "num"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 900,
+        "y": 340,
+        "wires": [
+            [
+                "a9a715aac0c39a39"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "a9a715aac0c39a39",
+        "type": "debug",
+        "z": "93b5cd5546f3da55",
+        "name": "Serial BUZZER state: ",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload.param",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1180,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "9838c57eadf5bf90",
+        "type": "function",
+        "z": "93b5cd5546f3da55",
+        "name": "Led Action",
+        "func": "msg.payload = {\n    \"action\": 4,\n    \"pin4\": \"desired\",\n    \"type\": \"ledPin\",\n    \"param\": msg.payload.param\n};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 950,
+        "y": 820,
+        "wires": [
+            [
+                "9ad926a54c42bb11"
+            ]
+        ]
+    },
+    {
+        "id": "1ff4fb968373eb39",
+        "type": "change",
+        "z": "93b5cd5546f3da55",
+        "name": "value = 0",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.param",
+                "pt": "msg",
+                "to": "0",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 780,
+        "y": 800,
+        "wires": [
+            [
+                "9838c57eadf5bf90"
+            ]
+        ]
+    },
+    {
+        "id": "3e48b29aadd12a8c",
+        "type": "change",
+        "z": "93b5cd5546f3da55",
+        "name": "value = 1",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.param",
+                "pt": "msg",
+                "to": "1",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 780,
+        "y": 840,
+        "wires": [
+            [
+                "9838c57eadf5bf90"
+            ]
+        ]
+    },
+    {
+        "id": "b3259b9c2b8b19bf",
+        "type": "switch",
+        "z": "93b5cd5546f3da55",
+        "name": "Button State",
+        "property": "payload.pin6",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 610,
+        "y": 820,
+        "wires": [
+            [
+                "1ff4fb968373eb39"
+            ],
+            [
+                "3e48b29aadd12a8c"
+            ]
+        ]
+    },
+    {
+        "id": "00905f6492703572",
+        "type": "switch",
+        "z": "93b5cd5546f3da55",
+        "name": "Sensor Action",
+        "property": "payload.sensor",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "null"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 220,
+        "y": 320,
+        "wires": [
+            [],
+            [
+                "1f17279ab77bdba4"
+            ]
+        ]
+    },
+    {
+        "id": "1f17279ab77bdba4",
+        "type": "debug",
+        "z": "93b5cd5546f3da55",
+        "name": "Sensor action received!",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload.sensor",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 230,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "e78f1fb93d64ad4c",
+        "type": "switch",
+        "z": "93b5cd5546f3da55",
+        "name": "Sensor Notification",
+        "property": "payload.type",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "99",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 570,
+        "y": 40,
+        "wires": [
+            [
+                "3c02d428c99ebb1a"
+            ],
+            [
+                "cec20f26aba7c3bb"
+            ]
+        ]
+    },
+    {
+        "id": "076b9615bf54c655",
+        "type": "debug",
+        "z": "93b5cd5546f3da55",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 510,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "7dbabbae5f8146b0",
+        "type": "ui_button",
+        "z": "93b5cd5546f3da55",
+        "name": "",
+        "group": "6aa09e222a78e7d3",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "button",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 1070,
+        "y": 740,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "82bc22cb.914be",
+        "type": "http in",
+        "z": "fd474b1a0658bc40",
+        "name": "",
+        "url": "/cube",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 100,
+        "y": 140,
+        "wires": [
+            [
+                "ab9b0e5e.f8f8b"
+            ]
+        ]
+    },
+    {
+        "id": "6752712.7f98a9",
+        "type": "http response",
+        "z": "fd474b1a0658bc40",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 645,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "ab9b0e5e.f8f8b",
+        "type": "template",
+        "z": "fd474b1a0658bc40",
+        "name": "three.js",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<html>\n<head>\n\n    <title>Test</title>\n\n    <meta charset=\"utf-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    \n    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/three.js/109/three.js\"></script>\n    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/three.js/109/three.min.js\"></script>\n    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/three.js/109/three.module.js\"></script>\n    \n<script>\nvar server = window.location.href.split(\"http://\")[1].split(\"/\")[0]\nconsole.log(\"Page location is \" + server)\n\nvar socket1 = new  WebSocket(\"ws://\" + server + \"/ws/receive\");\nvar socket2 = new  WebSocket(\"ws://\" + server + \"/ws/publish\");\nvar cubeRotationSpeed = 0.02;\nlet cubeColor = \"blue\"\nvar socket1Opened = false\n\nsocket1.onopen = function() {\n    socket1Opened = true\n  var message = {\n    'payload': 'Client connected'\n  };\n  socket1.send(JSON.stringify(message));\n};\n\nsocket2.onopen = function() {\n  var message = {\n    'payload': 'Client connected'\n  };\n  socket1.send(JSON.stringify(message));\n};\n\nsocket2.onclose = function(){\n  console.log('Connection closed');\n};\n\nsocket2.onerror = function(error) {\n  console.log('Error detected: ' + JSON.stringify(error));\n};\n\nsocket2.onmessage = function(e) {\n  var server_message = e.data;\n  responseObject = JSON.parse(server_message);\n\n  //alert(JSON.stringify(responseObject));\n  //Do the required stuff\n  console.log(responseObject.payload)\n  if (responseObject.payload.cubeRotationSpeed){\n      cubeRotationSpeed = responseObject.payload.cubeRotationSpeed\n  }else if(responseObject.payload.cubeColor){\n      cubeColor = responseObject.payload.cubeColor\n  }\n}\n\nvar scene = new THREE.Scene();\n\n// Make highly-transparent plane\nvar fadeMaterial = new THREE.MeshBasicMaterial({\n    color: 0x000000,\n    transparent: true,\n    opacity: 0.02\n});\nvar fadePlane = new THREE.PlaneBufferGeometry(1, 1);\nvar fadeMesh = new THREE.Mesh(fadePlane, fadeMaterial);\n\n// Create Object3D to hold camera and transparent plane\nvar camGroup = new THREE.Object3D();\nvar camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);\ncamGroup.add(camera);\ncamGroup.add(fadeMesh);\n\n// Put plane in front of camera\nfadeMesh.position.z = -0.1;\n\n// Make plane render before particles\nfadeMesh.renderOrder = -1;\n\n// Add camGroup to scene\nscene.add(camGroup);\n\n\nrenderer = new THREE.WebGLRenderer( { preserveDrawingBuffer: true, antialias: true } );\nrenderer.autoClearColor = false;\nrenderer.setSize(window.innerWidth, window.innerHeight);\n\ndocument.addEventListener('DOMContentLoaded', function () {   \n    document.body.appendChild(renderer.domElement);\n});\n\nvar geometry = new THREE.BoxGeometry(1,1,1);\n//var color = new THREE.Color(0xff0000)\nvar material = new THREE.MeshBasicMaterial({color: \"blue\"});\nvar cube = new THREE.Mesh(geometry, material);\nscene.add(cube);\n\ncube.position.z = -5;\n\nvar step = .03;\nfunction animate(){\n\n    cube.rotation.x += cubeRotationSpeed;\n    cube.rotation.y += 0.02;\n    cube.position.x += step;\n    cube.material.color = new THREE.Color(cubeColor);\n    if(Math.abs(cube.position.x) > 5.0)\n    {\n        step = -step;\n        if (socket1Opened){\n            socket1.send(\"ping\");\n        }\n    }\n    renderer.render(scene, camera);\n\n    requestAnimationFrame(animate);\n}\n\nanimate();\n\n</script>\n\n\n",
+        "output": "str",
+        "x": 310,
+        "y": 140,
+        "wires": [
+            [
+                "f195cd.89a76a3"
+            ]
+        ]
+    },
+    {
+        "id": "f8262338.541b2",
+        "type": "websocket out",
+        "z": "fd474b1a0658bc40",
+        "name": "",
+        "server": "c6bb1eb5.edd3d",
+        "client": "",
+        "x": 840,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "1f953c53.234544",
+        "type": "inject",
+        "z": "fd474b1a0658bc40",
+        "name": "Spin slow",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"cubeRotationSpeed\":0.02}",
+        "payloadType": "json",
+        "x": 445,
+        "y": 260,
+        "wires": [
+            [
+                "f8262338.541b2"
+            ]
+        ]
+    },
+    {
+        "id": "ae4b9f83.855ed",
+        "type": "inject",
+        "z": "fd474b1a0658bc40",
+        "name": "Spin fast",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"cubeRotationSpeed\":0.1}",
+        "payloadType": "json",
+        "x": 445,
+        "y": 305,
+        "wires": [
+            [
+                "f8262338.541b2"
+            ]
+        ]
+    },
+    {
+        "id": "f195cd.89a76a3",
+        "type": "change",
+        "z": "fd474b1a0658bc40",
+        "name": "Set Headers",
+        "rules": [
+            {
+                "t": "set",
+                "p": "headers",
+                "pt": "msg",
+                "to": "{}",
+                "tot": "json"
+            },
+            {
+                "t": "set",
+                "p": "headers.content-type",
+                "pt": "msg",
+                "to": "text/html",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "headers.Access-Control-Allow-Origin",
+                "pt": "msg",
+                "to": "*",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 470,
+        "y": 140,
+        "wires": [
+            [
+                "6752712.7f98a9"
+            ]
+        ]
+    },
+    {
+        "id": "eba548fa.e65d98",
+        "type": "change",
+        "z": "fd474b1a0658bc40",
+        "name": "",
+        "rules": [
+            {
+                "t": "delete",
+                "p": "_session",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 635,
+        "y": 200,
+        "wires": [
+            [
+                "f8262338.541b2"
+            ]
+        ]
+    },
+    {
+        "id": "c1fc2e6e.bd70e",
+        "type": "websocket in",
+        "z": "fd474b1a0658bc40",
+        "name": "",
+        "server": "c6bb1eb5.edd3d",
+        "client": "",
+        "x": 120,
+        "y": 200,
+        "wires": [
+            [
+                "22fc2d8b.025e32",
+                "e0b1b8740737de94",
+                "cfd2c777c7e1b33a"
+            ]
+        ]
+    },
+    {
+        "id": "22fc2d8b.025e32",
+        "type": "switch",
+        "z": "fd474b1a0658bc40",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "ping",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 285,
+        "y": 200,
+        "wires": [
+            [
+                "eaae5e3a.3f284"
+            ]
+        ]
+    },
+    {
+        "id": "eaae5e3a.3f284",
+        "type": "function",
+        "z": "fd474b1a0658bc40",
+        "name": "change color",
+        "func": "let colors = [\"white\",\"red\",0x00ff00,0x0000ff] //both hex or string are fine\nmsg.payload =  {\"cubeColor\": colors[Math.floor(Math.random()*colors.length)]}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 200,
+        "wires": [
+            [
+                "eba548fa.e65d98"
+            ]
+        ]
+    },
+    {
+        "id": "94b2919c.8d227",
+        "type": "comment",
+        "z": "fd474b1a0658bc40",
+        "name": "Three.js example with websockets",
+        "info": "",
+        "x": 180,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "cfd2c777c7e1b33a",
+        "type": "debug",
+        "z": "fd474b1a0658bc40",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 660,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "e0b1b8740737de94",
+        "type": "switch",
+        "z": "fd474b1a0658bc40",
+        "name": "",
+        "property": "payload.cubeRotationSpeed",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "0",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 190,
+        "y": 340,
+        "wires": [
+            [
+                "0c2738720923d8a5"
+            ],
+            [
+                "2c3dc95611b86545"
+            ]
+        ]
+    },
+    {
+        "id": "0c2738720923d8a5",
+        "type": "debug",
+        "z": "fd474b1a0658bc40",
+        "name": "cubeRotationSpeed",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 360,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "2c3dc95611b86545",
+        "type": "debug",
+        "z": "fd474b1a0658bc40",
+        "name": "Other",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 270,
+        "y": 580,
+        "wires": []
+    }
+]

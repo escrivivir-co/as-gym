@@ -1,0 +1,392 @@
+{
+    "id": "genesis",
+    "estado": {
+        "IDE-app": [
+            {
+                "estado": "¡Arrancando simulación!",
+                "fecha": "2024-02-11T15:05:02.215Z"
+            },
+            {
+                "estado": "¡La simulación ha concluído y se cierra! - ¡La simulación ha concluído y se cierra! - ¡La simulación ha concluído y se cierra!",
+                "fecha": "2024-02-11T15:05:07.231Z"
+            }
+        ],
+        "mundo-raíz-ide": [
+            {
+                "estado": "¡Mundo iniciado! Pulso: 1000",
+                "fecha": "2024-02-11T15:05:02.218Z"
+            },
+            {
+                "estado": "¡Más gente en el mundo!, ide.situada, suscriptores: 1",
+                "fecha": "2024-02-11T15:05:02.220Z"
+            },
+            {
+                "estado": "Hoy es el día: 1",
+                "fecha": "2024-02-11T15:05:03.219Z"
+            },
+            {
+                "estado": "El mundo ha recibido una eferencia. Actualizando modelo.",
+                "fecha": "2024-02-11T15:05:03.224Z"
+            },
+            {
+                "estado": "Hoy es el día: 2",
+                "fecha": "2024-02-11T15:05:04.219Z"
+            },
+            {
+                "estado": "El mundo ha recibido una eferencia. Actualizando modelo.",
+                "fecha": "2024-02-11T15:05:04.224Z"
+            },
+            {
+                "estado": "Hoy es el día: 3",
+                "fecha": "2024-02-11T15:05:05.219Z"
+            },
+            {
+                "estado": "El mundo ha recibido una eferencia. Actualizando modelo.",
+                "fecha": "2024-02-11T15:05:05.222Z"
+            },
+            {
+                "estado": "Hoy es el día: 4",
+                "fecha": "2024-02-11T15:05:06.220Z"
+            },
+            {
+                "estado": "El mundo ha recibido una eferencia. Actualizando modelo.",
+                "fecha": "2024-02-11T15:05:06.225Z"
+            },
+            {
+                "estado": "¡Mundo acabado!, deponer ide.situada",
+                "fecha": "2024-02-11T15:05:07.222Z"
+            },
+            {
+                "estado": "¡Mundo acabado!, destruir ",
+                "fecha": "2024-02-11T15:05:07.223Z"
+            }
+        ],
+        "ide.situada": [
+            {
+                "estado": "Hola soy un autómata situado.",
+                "fecha": "2024-02-11T15:05:02.219Z"
+            },
+            {
+                "estado": "El mundo envía una aferencia. Voy a realizar la transición de estado.",
+                "fecha": "2024-02-11T15:05:03.220Z"
+            },
+            {
+                "estado": "¡Hecho! Le devuelvo el nuevo estado al mundo con una eferencia.",
+                "fecha": "2024-02-11T15:05:03.223Z"
+            },
+            {
+                "estado": "El mundo envía una aferencia. Voy a realizar la transición de estado.",
+                "fecha": "2024-02-11T15:05:04.220Z"
+            },
+            {
+                "estado": "¡Hecho! Le devuelvo el nuevo estado al mundo con una eferencia.",
+                "fecha": "2024-02-11T15:05:04.224Z"
+            },
+            {
+                "estado": "El mundo envía una aferencia. Voy a realizar la transición de estado.",
+                "fecha": "2024-02-11T15:05:05.220Z"
+            },
+            {
+                "estado": "¡Hecho! Le devuelvo el nuevo estado al mundo con una eferencia.",
+                "fecha": "2024-02-11T15:05:05.222Z"
+            },
+            {
+                "estado": "El mundo envía una aferencia. Voy a realizar la transición de estado.",
+                "fecha": "2024-02-11T15:05:06.222Z"
+            },
+            {
+                "estado": "¡Hecho! Le devuelvo el nuevo estado al mundo con una eferencia.",
+                "fecha": "2024-02-11T15:05:06.224Z"
+            },
+            {
+                "estado": "Modelo resultante.\n:modelo-ide",
+                "fecha": "2024-02-11T15:05:07.227Z"
+            }
+        ],
+        "fia.sbc": [
+            {
+                "estado": "Efectuando sus al mundo",
+                "fecha": "2024-02-11T15:05:02.221Z"
+            },
+            {
+                "estado": "Activando en IDE: Projecto actual: AlephScriptIDE_Proyecto_1",
+                "fecha": "2024-02-11T15:05:04.225Z"
+            },
+            {
+                "estado": "Lanzando un sistema basado en conocimiento de tipo CommonKADS...",
+                "fecha": "2024-02-11T15:05:04.227Z"
+            },
+            {
+                "estado": "Activando en IDE: Projecto actual: AlephScriptIDE_Proyecto_1",
+                "fecha": "2024-02-11T15:05:05.223Z"
+            },
+            {
+                "estado": "Lanzando un sistema basado en conocimiento de tipo CommonKADS...",
+                "fecha": "2024-02-11T15:05:05.224Z"
+            },
+            {
+                "estado": "Activando en IDE: Projecto actual: AlephScriptIDE_Proyecto_1",
+                "fecha": "2024-02-11T15:05:06.226Z"
+            },
+            {
+                "estado": "Lanzando un sistema basado en conocimiento de tipo CommonKADS...",
+                "fecha": "2024-02-11T15:05:06.227Z"
+            },
+            {
+                "estado": "¡Cerrando SBC!",
+                "fecha": "2024-02-11T15:05:07.228Z"
+            },
+            {
+                "estado": "¡Cerrando SBC!",
+                "fecha": "2024-02-11T15:05:07.229Z"
+            },
+            {
+                "estado": "¡Cerrando SBC!",
+                "fecha": "2024-02-11T15:05:07.230Z"
+            }
+        ],
+        "modelo-ide": [
+            {
+                "estado": "Autómata listo.Asistentes: 2\n\t\t\t\n\t --> Asistente: as-2, gpt-3.5-turbo, \n Eres un experto controlador de unidades fundamentales de inteligencia artificial. Funciona como un oráculo. Provees funciones para servidores de acción. Gestiona los eventos del sistema. Eres enlace entre un servidor RASA y la AssistantsAPI. Modo json activado.\n\t\t\t\n\t\t\t\n\t\t\n\t --> Asistente: aleph-script-assistant, gpt-3.5-turbo, \n You are an expert code-interpreter. Your mission is to be the root assistant in a big assistant network. You are now in design and building phase, so you help to generate assistants and network. Work in json mode. \n\t\t\t\n\t\t --> code_interpreter\n\t\t\t\n\t\t --> file-pfoopiFYm7NFhsPr47dSznYd\n\t\t\n\t\t",
+                "fecha": "2024-02-11T15:05:03.222Z"
+            }
+        ],
+        "aleph-script-assistant": [
+            {
+                "estado": "¡Listo!",
+                "fecha": "2024-02-11T15:05:04.223Z"
+            },
+            {
+                "estado": "¡Listo para recibir peticiones de ayuda!",
+                "fecha": "2024-02-11T15:05:04.226Z"
+            },
+            {
+                "estado": "¡Listo para recibir peticiones de ayuda!",
+                "fecha": "2024-02-11T15:05:05.223Z"
+            },
+            {
+                "estado": "¡Listo para recibir peticiones de ayuda!",
+                "fecha": "2024-02-11T15:05:06.226Z"
+            }
+        ],
+        "fia.sbc.common.kads": [
+            {
+                "estado": "Hola, voy a generar un app siguiendo la metodología Common KADS. 3..., 2..., 1..., ¡lanzando!",
+                "fecha": "2024-02-11T15:05:04.229Z"
+            },
+            {
+                "estado": "Hola, voy a generar un app siguiendo la metodología Common KADS. 3..., 2..., 1..., ¡lanzando!",
+                "fecha": "2024-02-11T15:05:05.224Z"
+            },
+            {
+                "estado": "Hola, voy a generar un app siguiendo la metodología Common KADS. 3..., 2..., 1..., ¡lanzando!",
+                "fecha": "2024-02-11T15:05:06.228Z"
+            },
+            {
+                "estado": "¡Finalizado!",
+                "fecha": "2024-02-11T15:05:07.225Z"
+            },
+            {
+                "estado": "¡Finalizado!",
+                "fecha": "2024-02-11T15:05:07.226Z"
+            },
+            {
+                "estado": "¡Finalizado!",
+                "fecha": "2024-02-11T15:05:07.226Z"
+            }
+        ],
+        "common.kads": [
+            {
+                "estado": "Ejecutaré 3 fases de construcción. Y, a continuación, monitorizaré la aplicación derivada. ¡Vamos!",
+                "fecha": "2024-02-11T15:05:05.226Z"
+            },
+            {
+                "estado": "AVANCE DE ESTADO:  Esperando: undefined",
+                "fecha": "2024-02-11T15:05:05.230Z"
+            },
+            {
+                "estado": "Nivel Contextual",
+                "fecha": "2024-02-11T15:05:05.233Z"
+            },
+            {
+                "estado": " NCx.01 Realizado estudio de viabilidad:\n             \t\t -OM-1:[modelo-ide]\n\t\t\t -OM-2:[modelo-ide]\n\t\t\t -OM-3:[modelo-ide]\n\t\t\t -OM-4:[modelo-ide]\n\t\t\t -OM-5:[modelo-ide]",
+                "fecha": "2024-02-11T15:05:05.234Z"
+            },
+            {
+                "estado": " NCx.02 Realizado estudio de impacto y mejoras:\n             \t\t -TM-1:[<Modelo Vacío>]\n\t\t\t -TM-2:[<Modelo Vacío>],\n             \t\t -AM-1:[<Modelo Vacío>]",
+                "fecha": "2024-02-11T15:05:05.235Z"
+            },
+            {
+                "estado": "Período de construcción. Acabada fase: : Nivel Contextual: OTA-1:[<Modelo Vacío> - OM-1 - OM-2 - OM-3 - OM-4 - OM-5 - TM-1 - TM-2 - AM-1]",
+                "fecha": "2024-02-11T15:05:05.236Z"
+            },
+            {
+                "estado": "AVANCE DE ESTADO: Nivel Contextual Esperando: true",
+                "fecha": "2024-02-11T15:05:05.243Z"
+            },
+            {
+                "estado": "Ejecutaré 3 fases de construcción. Y, a continuación, monitorizaré la aplicación derivada. ¡Vamos!",
+                "fecha": "2024-02-11T15:05:06.228Z"
+            },
+            {
+                "estado": "AVANCE DE ESTADO:  Esperando: undefined",
+                "fecha": "2024-02-11T15:05:06.231Z"
+            },
+            {
+                "estado": "Nivel Contextual",
+                "fecha": "2024-02-11T15:05:06.232Z"
+            },
+            {
+                "estado": " NCx.01 Realizado estudio de viabilidad:\n             \t\t -OM-1:[modelo-ide - <Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío> - modelo-ide]\n\t\t\t -OM-2:[modelo-ide - <Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío> - modelo-ide]\n\t\t\t -OM-3:[modelo-ide - <Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío> - modelo-ide]\n\t\t\t -OM-4:[modelo-ide - <Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío> - modelo-ide]\n\t\t\t -OM-5:[modelo-ide - <Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío> - modelo-ide]",
+                "fecha": "2024-02-11T15:05:06.232Z"
+            },
+            {
+                "estado": " NCx.02 Realizado estudio de impacto y mejoras:\n             \t\t -TM-1:[<Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío>]\n\t\t\t -TM-2:[<Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío>],\n             \t\t -AM-1:[<Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío>]",
+                "fecha": "2024-02-11T15:05:06.233Z"
+            },
+            {
+                "estado": "Período de construcción. Acabada fase: : Nivel Contextual: OTA-1:[<Modelo Vacío> - OM-1 - OM-2 - OM-3 - OM-4 - OM-5 - TM-1 - TM-2 - AM-1]",
+                "fecha": "2024-02-11T15:05:06.234Z"
+            },
+            {
+                "estado": "AVANCE DE ESTADO: Nivel Contextual Esperando: true",
+                "fecha": "2024-02-11T15:05:06.238Z"
+            },
+            {
+                "estado": "AVANCE DE ESTADO: Nivel Contextual Esperando: true",
+                "fecha": "2024-02-11T15:05:06.240Z"
+            },
+            {
+                "estado": "AVANCE DE ESTADO: Nivel Contextual Esperando: true",
+                "fecha": "2024-02-11T15:05:06.243Z"
+            }
+        ],
+        "ide": [
+            {
+                "estado": "Una FIA solicita servicio Assistant API: ",
+                "fecha": "2024-02-11T15:05:05.228Z"
+            },
+            {
+                "estado": "Una FIA solicita servicio Assistant API: ",
+                "fecha": "2024-02-11T15:05:05.229Z"
+            },
+            {
+                "estado": "Una FIA solicita servicio Assistant API: Nivel Contextual",
+                "fecha": "2024-02-11T15:05:05.237Z"
+            },
+            {
+                "estado": "Una FIA solicita servicio Assistant API: Mensaje Explica en qué consiste el formulario de CommonKADS con nombre: OM-1. Modo JSON activado, responde solo con el JSON. Devuelve { descripcion: '<formato markdown>' formulario: ' { formulario { tipo: 'commonKADS', 'id': <id>,  campos_habituales: [{ nombre: string, descripcion: string }] }'}",
+                "fecha": "2024-02-11T15:05:05.238Z"
+            },
+            {
+                "estado": "Una FIA solicita servicio Assistant API: Nivel Contextual",
+                "fecha": "2024-02-11T15:05:05.240Z"
+            },
+            {
+                "estado": "Una FIA solicita servicio Assistant API: Mensaje Explica en qué consiste el formulario de CommonKADS con nombre: OM-1. Modo JSON activado, responde solo con el JSON. Devuelve { descripcion: '<formato markdown>' formulario: ' { formulario { tipo: 'commonKADS', 'id': <id>,  campos_habituales: [{ nombre: string, descripcion: string }] }'}",
+                "fecha": "2024-02-11T15:05:05.241Z"
+            },
+            {
+                "estado": "Una FIA solicita servicio Assistant API: ",
+                "fecha": "2024-02-11T15:05:06.230Z"
+            },
+            {
+                "estado": "Una FIA solicita servicio Assistant API: ",
+                "fecha": "2024-02-11T15:05:06.230Z"
+            },
+            {
+                "estado": "Una FIA solicita servicio Assistant API: Nivel Contextual",
+                "fecha": "2024-02-11T15:05:06.235Z"
+            },
+            {
+                "estado": "Una FIA solicita servicio Assistant API: Mensaje Explica en qué consiste el formulario de CommonKADS con nombre: OM-1. Modo JSON activado, responde solo con el JSON. Devuelve { descripcion: '<formato markdown>' formulario: ' { formulario { tipo: 'commonKADS', 'id': <id>,  campos_habituales: [{ nombre: string, descripcion: string }] }'}",
+                "fecha": "2024-02-11T15:05:06.236Z"
+            },
+            {
+                "estado": "Una FIA solicita servicio Assistant API: Nivel Contextual",
+                "fecha": "2024-02-11T15:05:06.236Z"
+            },
+            {
+                "estado": "Una FIA solicita servicio Assistant API: Mensaje Explica en qué consiste el formulario de CommonKADS con nombre: OM-1. Modo JSON activado, responde solo con el JSON. Devuelve { descripcion: '<formato markdown>' formulario: ' { formulario { tipo: 'commonKADS', 'id': <id>,  campos_habituales: [{ nombre: string, descripcion: string }] }'}",
+                "fecha": "2024-02-11T15:05:06.237Z"
+            },
+            {
+                "estado": "Una FIA solicita servicio Assistant API: Nivel Contextual",
+                "fecha": "2024-02-11T15:05:06.238Z"
+            },
+            {
+                "estado": "Una FIA solicita servicio Assistant API: Mensaje Explica en qué consiste el formulario de CommonKADS con nombre: OM-1. Modo JSON activado, responde solo con el JSON. Devuelve { descripcion: '<formato markdown>' formulario: ' { formulario { tipo: 'commonKADS', 'id': <id>,  campos_habituales: [{ nombre: string, descripcion: string }] }'}",
+                "fecha": "2024-02-11T15:05:06.239Z"
+            },
+            {
+                "estado": "Una FIA solicita servicio Assistant API: Nivel Contextual",
+                "fecha": "2024-02-11T15:05:06.241Z"
+            },
+            {
+                "estado": "Una FIA solicita servicio Assistant API: Mensaje Explica en qué consiste el formulario de CommonKADS con nombre: OM-1. Modo JSON activado, responde solo con el JSON. Devuelve { descripcion: '<formato markdown>' formulario: ' { formulario { tipo: 'commonKADS', 'id': <id>,  campos_habituales: [{ nombre: string, descripcion: string }] }'}",
+                "fecha": "2024-02-11T15:05:06.242Z"
+            }
+        ],
+        "oraculo-assistant-api": [
+            {
+                "estado": "Crear thread con mensaje: {\"messages\":[{\"role\":\"user\",\"content\":\"Explica en qué consiste el formulario de CommonKADS con nombre: OM-1. Modo JSON activado, responde solo con el JSON. Devuelve { descripcion: '<formato markdown>' formulario: ' { formulario { tipo: 'commonKADS', 'id': <id>,  campos_habituales: [{ nombre: string, descripcion: string }] }'}\",\"file_ids\":[]}]}",
+                "fecha": "2024-02-11T15:05:05.239Z"
+            },
+            {
+                "estado": "Crear thread con mensaje: {\"messages\":[{\"role\":\"user\",\"content\":\"Explica en qué consiste el formulario de CommonKADS con nombre: OM-1. Modo JSON activado, responde solo con el JSON. Devuelve { descripcion: '<formato markdown>' formulario: ' { formulario { tipo: 'commonKADS', 'id': <id>,  campos_habituales: [{ nombre: string, descripcion: string }] }'}\",\"file_ids\":[]}]}",
+                "fecha": "2024-02-11T15:05:05.239Z"
+            },
+            {
+                "estado": "Crear run: thread_GGZNwu5v8XlZEdgfehTIeWFx{\"assistant_id\":\"asst_BKYPddAcD11niecWsUvTmQgh\"}",
+                "fecha": "2024-02-11T15:05:05.758Z"
+            },
+            {
+                "estado": "Comprobar estado run run: thread_GGZNwu5v8XlZEdgfehTIeWFx/run_sAexeqx9eEmc5hqmDK2rFc6n",
+                "fecha": "2024-02-11T15:05:06.154Z"
+            },
+            {
+                "estado": "Comprobar estado run run: thread_GGZNwu5v8XlZEdgfehTIeWFx/run_sAexeqx9eEmc5hqmDK2rFc6n",
+                "fecha": "2024-02-11T15:05:26.157Z"
+            },
+            {
+                "estado": "Comprobar estado run run: thread_GGZNwu5v8XlZEdgfehTIeWFx/run_sAexeqx9eEmc5hqmDK2rFc6n",
+                "fecha": "2024-02-11T15:05:46.158Z"
+            },
+            {
+                "estado": "Comprobar estado run run: thread_GGZNwu5v8XlZEdgfehTIeWFx/run_sAexeqx9eEmc5hqmDK2rFc6n",
+                "fecha": "2024-02-11T15:06:06.159Z"
+            },
+            {
+                "estado": "Comprobar estado run run: thread_GGZNwu5v8XlZEdgfehTIeWFx/run_sAexeqx9eEmc5hqmDK2rFc6n",
+                "fecha": "2024-02-11T15:06:26.161Z"
+            },
+            {
+                "estado": "Comprobar estado run run: thread_GGZNwu5v8XlZEdgfehTIeWFx/run_sAexeqx9eEmc5hqmDK2rFc6n",
+                "fecha": "2024-02-11T15:06:46.162Z"
+            }
+        ],
+        "inner.assistant. thread-run-status": [
+            {
+                "estado": "thread_GGZNwu5v8XlZEdgfehTIeWFx/run_sAexeqx9eEmc5hqmDK2rFc6n: in_progress",
+                "fecha": "2024-02-11T15:05:26.448Z"
+            },
+            {
+                "estado": "thread_GGZNwu5v8XlZEdgfehTIeWFx/run_sAexeqx9eEmc5hqmDK2rFc6n: in_progress",
+                "fecha": "2024-02-11T15:05:46.462Z"
+            },
+            {
+                "estado": "thread_GGZNwu5v8XlZEdgfehTIeWFx/run_sAexeqx9eEmc5hqmDK2rFc6n: in_progress",
+                "fecha": "2024-02-11T15:06:06.421Z"
+            },
+            {
+                "estado": "thread_GGZNwu5v8XlZEdgfehTIeWFx/run_sAexeqx9eEmc5hqmDK2rFc6n: in_progress",
+                "fecha": "2024-02-11T15:06:26.470Z"
+            },
+            {
+                "estado": "thread_GGZNwu5v8XlZEdgfehTIeWFx/run_sAexeqx9eEmc5hqmDK2rFc6n: in_progress",
+                "fecha": "2024-02-11T15:06:46.399Z"
+            }
+        ]
+    },
+    "fecha": "2024-02-11T15:04:55.610Z"
+}

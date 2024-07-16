@@ -1,0 +1,170 @@
+{
+  "Model": {
+    "id": "ModeloConLamparasYAcciones",
+    "rows": [
+      {
+        "type": "Edificio",
+        "pk": "Edificio1",
+        "data": {
+          "nombre": "Edificio Central"
+        }
+      },
+      {
+        "type": "Habitacion",
+        "pk": "Habitacion101",
+        "fk": "Edificio1/",
+        "data": {
+          "nombre": "101"
+        }
+      },
+      {
+        "type": "Habitacion",
+        "pk": "Habitacion102",
+        "fk": "Edificio1/",
+        "data": {
+          "nombre": "102"
+        }
+      },
+      {
+        "type": "Mueble",
+        "pk": "Mueble101",
+        "fk": "Edificio1/Habitacion101/",
+        "data": {
+          "nombre": "Mueble A"
+        }
+      },
+      {
+        "type": "Mueble",
+        "pk": "Mueble102",
+        "fk": "Edificio1/Habitacion102/",
+        "data": {
+          "nombre": "Mueble A"
+        }
+      },
+      {
+        "type": "Objeto",
+        "pk": "Lampara101A",
+        "fk": "Edificio1/Habitacion101/Mueble101/",
+        "data": {
+          "nombre": "Lámpara A",
+          "estado": "apagado"
+        }
+      },
+      {
+        "type": "Accion",
+        "pk": "AccionEncender101A",
+        "fk": "Edificio1/Habitacion101/Mueble101/Lampara101A/",
+        "data": {
+          "nombre": "Encender",
+          "disponible": true
+        }
+      },
+      {
+        "type": "Accion",
+        "pk": "AccionApagar101A",
+        "fk": "Edificio1/Habitacion101/Mueble101/Lampara101A/",
+        "data": {
+          "nombre": "Apagar",
+          "disponible": true
+        }
+      },
+      {
+        "type": "Objeto",
+        "pk": "Lampara102A",
+        "fk": "Edificio1/Habitacion102/Mueble102/",
+        "data": {
+          "nombre": "Lámpara A",
+          "estado": "apagado"
+        }
+      },
+      {
+        "type": "Accion",
+        "pk": "AccionEncender102A",
+        "fk": "Edificio1/Habitacion102/Mueble102/Lampara102A/",
+        "data": {
+          "nombre": "Encender",
+          "disponible": true
+        }
+      },
+      {
+        "type": "Accion",
+        "pk": "AccionApagar102A",
+        "fk": "Edificio1/Habitacion102/Mueble102/Lampara102A/",
+        "data": {
+          "nombre": "Apagar",
+          "disponible": true
+        }
+      },
+      {
+        "type": "Mueble",
+        "pk": "Mueble101B",
+        "fk": "Edificio1/Habitacion101/",
+        "data": {
+          "nombre": "Mueble B"
+        }
+      },
+      {
+        "type": "Objeto",
+        "pk": "Lampara101B",
+        "fk": "Edificio1/Habitacion101/Mueble101B/",
+        "data": {
+          "nombre": "Lámpara B",
+          "estado": "apagado"
+        }
+      },
+      {
+        "type": "Accion",
+        "pk": "AccionEncender101B",
+        "fk": "Edificio1/Habitacion101/Mueble101B/Lampara101B/",
+        "data": {
+          "nombre": "Encender",
+          "disponible": true
+        }
+      },
+      {
+        "type": "Accion",
+        "pk": "AccionApagar101B",
+        "fk": "Edificio1/Habitacion101/Mueble101B/Lampara101B/",
+        "data": {
+          "nombre": "Apagar",
+          "disponible": true
+        }
+      },
+      {
+        "type": "Mueble",
+        "pk": "Mueble102B",
+        "fk": "Edificio1/Habitacion102/",
+        "data": {
+          "nombre": "Mueble B"
+        }
+      },
+      {
+        "type": "Objeto",
+        "pk": "Lampara102B",
+        "fk": "Edificio1/Habitacion102/Mueble102B/",
+        "data": {
+          "nombre": "Lámpara B",
+          "estado": "apagado"
+        }
+      },
+      {
+        "type": "Accion",
+        "pk": "AccionEncender102B",
+        "fk": "Edificio1/Habitacion102/Mueble102B/Lampara102B/",
+        "data": {
+          "nombre": "Encender",
+          "disponible": true
+        }
+      },
+      {
+        "type": "Accion",
+        "pk": "AccionApagar102B",
+        "fk": "Edificio1/Habitacion102/Mueble102B/Lampara102B/",
+        "data": {
+          "nombre": "Apagar",
+          "disponible": true
+        }
+      }
+    ]
+  }
+}

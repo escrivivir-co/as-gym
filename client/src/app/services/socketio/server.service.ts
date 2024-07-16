@@ -1,12 +1,36 @@
 import { Inject, inject, Injectable, NgZone, PLATFORM_ID } from '@angular/core';
-import { io } from 'socket.io-client';
+import { io, Socket } from 'socket.io-client';
 import { UsuarioService } from './usuario.service';
-import { CrearSalaArgs } from './interfaces/crearSala';
-import { UnirseASalaCrearSalaArgs } from './interfaces/unirseASala';
 import { SalaBackend } from './interfaces/sala';
-import { SalaService } from './sala.service';
 import { Subject } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
+import { SocketClient } from '/Users/morente/Desktop/THEIA_PATH/AlephWeb/angular-app/ws-server/src/alephscript/socket-client';
+
+export type NamespaceDetails = {
+	name: string;
+	socketsCount: number;
+	sockets: Partial<Socket>[];
+  };
+
+export interface ServerState {
+	action: string;
+	socketId: string;
+	clientId: string;
+	socketsPerNamespace: NamespaceDetails[];
+	sockets: Partial<Socket>[];
+	clients: number;
+}
+
+export interface MenuState {
+	name: string;
+}
+
+export interface RuntimeBlock
+{
+    id: string;
+    estado: any;
+    fecha: Date;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -14,26 +38,71 @@ import { isPlatformBrowser } from '@angular/common';
 export class ServerService {
 	private ngZone = inject(NgZone);
 
-	server = io("localhost:3000", {autoConnect:false});
-	usuarioService = inject(UsuarioService);
+	server: any;
+	runtime: any;
+
+	usuarioService: UsuarioService = inject(UsuarioService);
+
+	serverState$ = new Subject<ServerState>();
+	menuState$ = new Subject<MenuState[]>();
+	chainState$ = new Subject<RuntimeBlock>();
 
 	actualizacionDeSala$ = new Subject<SalaBackend>();
+	web: any;
 
 	constructor(
 		@Inject(PLATFORM_ID) private platformId: object
 	) {
 
+		this.usuarioService.nombre.set("AlephEuler45");
+
 		if (isPlatformBrowser(this.platformId)) {
 			this.ngZone.runOutsideAngular(() => {
-				this.server = io("localhost:3000", {autoConnect:false});
-				this.server.on("connect", ()=> {
-					console.log("Conectado al back")
-				});
-				this.server.on("sala",(args)=> {
-					this.actualizacionDeSala$.next(args)
-				});
-				this.server.connect();
+
+				this.initSockets();
+
 			});
 		}
 	}
+
+	initSockets() {
+
+		this.web = new AlephScriptClient("AS-02");
+		this.web.initTriggersDefinition.push(() => {
+
+			this.web.io.on("SET_LIST_OF_THREADS", (...args: any[]) => {
+				// console.log("Receiving list of threads...")
+				const data = Object.keys(args[0]).map(k => args[0][k])
+				this.menuState$.next(data);
+			})
+			this.web.room("GET_LIST_OF_THREADS");
+
+			this.web.io.on("SET_SERVER_STATE", (...args: any[]) => {
+				// console.log("Receiving server state...", (args[0]))
+				this.serverState$.next(args[0])
+			})
+			this.web.room("GET_SERVER_STATE", "ENGINE_THREADS", {});
+			this.web.io.on("SET_EXECUTION_PROCESS", (...args: any[]) => {
+
+				const bloque = args[0];
+				// console.log("SET_EXECUTION_PROCESS", bloque)
+				this.chainState$.next(args[0])
+			})
+		})
+	}
+}
+
+
+
+export class AlephScriptClient extends SocketClient {
+
+	constructor(
+		name = "ClientID",
+		url: string = "http://localhost:3000",
+		namespace: string = "/runtime",
+		autoConnect = true
+	) {
+		super(name, url, namespace, autoConnect);
+	}
+
 }

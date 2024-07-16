@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": "ws-server-ui"
+		},
+		{
+			"path": "client"
+		},
+		{
+			"path": "../DEPRECATED/Pod/SOCKET_CLIENT_DEPRECATED"
+		},
+		{
+			"path": "ws-server"
+		},
+		{
+			"path": "alephscript"
+		}
+	],
+	"settings": {}
+}

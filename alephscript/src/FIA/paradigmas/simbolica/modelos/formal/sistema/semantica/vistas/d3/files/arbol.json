@@ -1,0 +1,487 @@
+{
+	"name": "() cadena.simbolica.semantica.red",
+	"children": [
+		{
+			"name": "(Terminal) tarea",
+			"children": []
+		},
+		{
+			"name": "(Terminal) robot",
+			"children": []
+		},
+		{
+			"name": "(Terminal) objeto",
+			"children": []
+		},
+		{
+			"name": "(Terminal) propiedad",
+			"children": [
+				{
+					"name": "(parte) objeto",
+					"children": []
+				}
+			]
+		},
+		{
+			"name": "(Terminal) cadena",
+			"children": [
+				{
+					"name": "(subclase) robot",
+					"children": []
+				}
+			]
+		},
+		{
+			"name": "(Terminal) almacen",
+			"children": []
+		},
+		{
+			"name": "(Terminal) reponedor",
+			"children": [
+				{
+					"name": "(subclase) robot",
+					"children": []
+				}
+			]
+		},
+		{
+			"name": "(Terminal) criptoselladora",
+			"children": [
+				{
+					"name": "(subclase) robot",
+					"children": []
+				}
+			]
+		},
+		{
+			"name": "(Terminal) parseadora",
+			"children": [
+				{
+					"name": "(subclase) robot",
+					"children": []
+				}
+			]
+		},
+		{
+			"name": "(Terminal) objeto_criptosellable",
+			"children": [
+				{
+					"name": "(subclase) objeto",
+					"children": []
+				},
+				{
+					"name": "(parte) objeto_compuesto",
+					"children": []
+				}
+			]
+		},
+		{
+			"name": "(Terminal) objeto_parseable",
+			"children": [
+				{
+					"name": "(subclase) objeto",
+					"children": []
+				},
+				{
+					"name": "(parte) objeto_compuesto",
+					"children": []
+				}
+			]
+		},
+		{
+			"name": "(Terminal) propiedad_criptosellable",
+			"children": [
+				{
+					"name": "(subclase) propiedad",
+					"children": [
+						{
+							"name": "(parte) objeto",
+							"children": []
+						}
+					]
+				},
+				{
+					"name": "(parte) objeto_criptosellable",
+					"children": [
+						{
+							"name": "(subclase) objeto",
+							"children": []
+						},
+						{
+							"name": "(parte) objeto_compuesto",
+							"children": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "(Terminal) propiedad_parseable",
+			"children": [
+				{
+					"name": "(subclase) propiedad",
+					"children": [
+						{
+							"name": "(parte) objeto",
+							"children": []
+						}
+					]
+				},
+				{
+					"name": "(parte) objeto_parseable",
+					"children": [
+						{
+							"name": "(subclase) objeto",
+							"children": []
+						},
+						{
+							"name": "(parte) objeto_compuesto",
+							"children": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "(Terminal) propiedad_cripta",
+			"children": [
+				{
+					"name": "(subclase) propiedad_criptosellable",
+					"children": [
+						{
+							"name": "(subclase) propiedad",
+							"children": [
+								{
+									"name": "(parte) objeto",
+									"children": []
+								}
+							]
+						},
+						{
+							"name": "(parte) objeto_criptosellable",
+							"children": [
+								{
+									"name": "(subclase) objeto",
+									"children": []
+								},
+								{
+									"name": "(parte) objeto_compuesto",
+									"children": []
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "(Terminal) propiedad_cadena",
+			"children": [
+				{
+					"name": "(subclase) propiedad_parseable",
+					"children": [
+						{
+							"name": "(subclase) propiedad",
+							"children": [
+								{
+									"name": "(parte) objeto",
+									"children": []
+								}
+							]
+						},
+						{
+							"name": "(parte) objeto_parseable",
+							"children": [
+								{
+									"name": "(subclase) objeto",
+									"children": []
+								},
+								{
+									"name": "(parte) objeto_compuesto",
+									"children": []
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "(Terminal) propiedad_estado",
+			"children": [
+				{
+					"name": "(subclase) propiedad",
+					"children": [
+						{
+							"name": "(parte) objeto",
+							"children": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "(Terminal) tarea_cadena_robot_objeto",
+			"children": [
+				{
+					"name": "(parte) robot",
+					"children": []
+				}
+			]
+		},
+		{
+			"name": "(Terminal) tarea_robot_objeto",
+			"children": [
+				{
+					"name": "(parte) robot",
+					"children": []
+				}
+			]
+		},
+		{
+			"name": "(Terminal) tarea_robot_objeto_propiedad",
+			"children": [
+				{
+					"name": "(parte) robot",
+					"children": []
+				}
+			]
+		},
+		{
+			"name": "(Terminal) objeto_compuesto",
+			"children": []
+		},
+		{
+			"name": "(Terminal) cadena_1",
+			"children": [
+				{
+					"name": "(instancia) cadena",
+					"children": [
+						{
+							"name": "(subclase) robot",
+							"children": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "(Terminal) almacen_1",
+			"children": [
+				{
+					"name": "(instancia) almacen",
+					"children": []
+				}
+			]
+		},
+		{
+			"name": "(Terminal) entrada1",
+			"children": [
+				{
+					"name": "(instancia) almacen",
+					"children": []
+				}
+			]
+		},
+		{
+			"name": "(Terminal) salida1",
+			"children": [
+				{
+					"name": "(instancia) almacen",
+					"children": []
+				}
+			]
+		},
+		{
+			"name": "(Terminal) basura1",
+			"children": [
+				{
+					"name": "(instancia) almacen",
+					"children": []
+				}
+			]
+		},
+		{
+			"name": "(Terminal) reponedor1",
+			"children": [
+				{
+					"name": "(instancia) reponedor",
+					"children": [
+						{
+							"name": "(subclase) robot",
+							"children": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "(Terminal) robot_1",
+			"children": [
+				{
+					"name": "(instancia) criptoselladora",
+					"children": [
+						{
+							"name": "(subclase) robot",
+							"children": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "(Terminal) robot_2",
+			"children": [
+				{
+					"name": "(instancia) criptoselladora",
+					"children": [
+						{
+							"name": "(subclase) robot",
+							"children": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "(Terminal) robot_3",
+			"children": [
+				{
+					"name": "(instancia) parseadora",
+					"children": [
+						{
+							"name": "(subclase) robot",
+							"children": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "(Terminal) robot_4",
+			"children": [
+				{
+					"name": "(instancia) parseadora",
+					"children": [
+						{
+							"name": "(subclase) robot",
+							"children": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "(Terminal) objeto_1",
+			"children": [
+				{
+					"name": "(instancia) objeto_parseable",
+					"children": [
+						{
+							"name": "(subclase) objeto",
+							"children": []
+						},
+						{
+							"name": "(parte) objeto_compuesto",
+							"children": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "(Terminal) objeto_2",
+			"children": [
+				{
+					"name": "(instancia) objeto_criptosellable",
+					"children": [
+						{
+							"name": "(subclase) objeto",
+							"children": []
+						},
+						{
+							"name": "(parte) objeto_compuesto",
+							"children": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "(Terminal) objeto_3",
+			"children": [
+				{
+					"name": "(instancia) objeto_parseable",
+					"children": [
+						{
+							"name": "(subclase) objeto",
+							"children": []
+						},
+						{
+							"name": "(parte) objeto_compuesto",
+							"children": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "(Terminal) objeto_4",
+			"children": [
+				{
+					"name": "(instancia) objeto_compuesto",
+					"children": []
+				}
+			]
+		},
+		{
+			"name": "(Terminal) tarea_cadena_robot_objeto_almacen",
+			"children": []
+		},
+		{
+			"name": "(Terminal) desencadenar",
+			"children": [
+				{
+					"name": "(tarea) tarea_cadena_robot_objeto_almacen",
+					"children": []
+				}
+			]
+		},
+		{
+			"name": "(Terminal) encadenar",
+			"children": [
+				{
+					"name": "(tarea) tarea_cadena_robot_objeto_almacen",
+					"children": []
+				}
+			]
+		},
+		{
+			"name": "(Terminal) tarea_robot_objeto_almacen",
+			"children": []
+		},
+		{
+			"name": "(Terminal) deshechar",
+			"children": [
+				{
+					"name": "(tarea) tarea_robot_objeto_almacen",
+					"children": []
+				}
+			]
+		},
+		{
+			"name": "(Terminal) operar",
+			"children": [
+				{
+					"name": "(tarea) tarea_robot_objeto_propiedad",
+					"children": [
+						{
+							"name": "(parte) robot",
+							"children": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
