@@ -42,7 +42,7 @@
     "ts-json-schema-generator": "^1.4.0"
   },
   "openai": {
-    "key": "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",
+    "key": "",
     "memory": "/Users/morente/Desktop/taller art/discord-bot/memory"
   }
 }
