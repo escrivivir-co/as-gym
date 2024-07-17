@@ -6,6 +6,8 @@ import { Subject } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
 import { SocketClient } from '/Users/morente/Desktop/THEIA_PATH/AlephWeb/angular-app/ws-server/src/alephscript/socket-client';
 import { RunStateEnum, SignalEvent } from '../../pages/general/about/about.component';
+import { IFase } from '/Users/morente/Desktop/THEIA_PATH/AlephWeb/angular-app/alephscript/src/FIA/paradigmas/sbc/implementaciones/common-kads/IFase';
+
 
 export type NamespaceDetails = {
 	name: string;
@@ -26,6 +28,12 @@ export interface MenuState {
 	index: number;
 	name: string;
 	state: RunStateEnum;
+}
+
+export interface AppState {
+	index: number;
+	name: string;
+	fase: IFase;
 }
 
 export interface RuntimeBlock
@@ -49,6 +57,7 @@ export class ServerService {
 	serverState$ = new Subject<ServerState>();
 	menuState$ = new Subject<MenuState[]>();
 	chainState$ = new Subject<RuntimeBlock>();
+	appState$ = new Subject<AppState>();
 
 	actualizacionDeSala$ = new Subject<SalaBackend>();
 	web: any;

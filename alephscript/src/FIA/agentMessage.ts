@@ -1,5 +1,5 @@
 import { AgregarBloque } from "./aplicaciones/ide/cadena-bloques";
-import { IModelo } from "./mundos/modelo";
+import { IModelo } from "./mundos/IModelo";
 import { IDE_clave } from "./paradigmas/conexionista/modelos-lenguaje/oai/Trainer_key";
 
 const CKCACHE_Clave = "CJKCACHE";

@@ -1,16 +1,12 @@
 
-import { CML, ICML } from "../../nivel/cml";
-import { Formulario, IFormulario } from "../../nivel/formulario";
-import { ICKModelo, CKModelo } from "../ck-modelo";
-import { IUML, UML } from "./uml";
-
-export interface IConocimiento extends ICKModelo {
-
-    cml: ICML;
-    uml: IUML;
-    formularios: IFormulario[];
-
-}
+import { CML } from "../../nivel/cml";
+import { ICML } from "../../nivel/ICML";
+import { Formulario } from "../../nivel/formulario";
+import { IFormulario } from "../../nivel/IFormulario";
+import { CKModelo } from "../ck-modelo";
+import { UML } from "./uml";
+import { IUML } from "./IUML";
+import { IConocimiento } from "./IConocimiento";
 
 export class Conocimiento extends CKModelo implements IConocimiento {
 

@@ -1,5 +1,5 @@
 import OpenAI from "openai";
-import { IModelo } from "../../../../mundos/modelo";
+import { IModelo } from "../../../../mundos/IModelo";
 
 const auth = require('../../../../../../package.json');
 

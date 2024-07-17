@@ -1,5 +1,6 @@
 import { iFIA } from "../../genesis-block";
 import { RunStateEnum } from "../../mundos/mundo";
+import { IFase } from "../../paradigmas/sbc/implementaciones/common-kads/IFase";
 import { systemMessage } from "../../systemMessage";
 import { AlephScriptClient } from "../apps/socketio/client";
 
@@ -22,7 +23,7 @@ export class SocketAdapter {
 		return data;
 	}
 
-	sendAppsList(args) {
+	sendFrameworkState(args) {
 
 		const rData = args[0];
 		console.log(systemMessage(SocketAdapter.client.name + ">> Sending list of threads... to: " + rData?.requesterName))
@@ -37,15 +38,24 @@ export class SocketAdapter {
 
 	}
 
+	sendAppState(appName: string, f: IFase) {
+
+		const app = SocketAdapter.threads.find(t => t.nombre === appName);
+
+		SocketAdapter.client.room("SET_APP_STATE", f, appName)
+
+	}
+
 	run() {
 
 		console.log(systemMessage(`Socket.Connected`));
 
 			SocketAdapter.client.room("MAKE_MASTER", { features: []});
+			SocketAdapter.client.room("MAKE_MASTER", { features: []}, "IDE-app");
 
 			SocketAdapter.client.io.on("GET_LIST_OF_THREADS", (...args) => {
 
-				this.sendAppsList(args);
+				this.sendFrameworkState(args);
 
 			})
 
@@ -79,7 +89,7 @@ export class SocketAdapter {
 						console.log("---------- DESCONOCIDA ACTION", action, action as RunStateEnum)
 				}
 
-				this.sendAppsList(args);
+				this.sendFrameworkState(args);
 
 			})
 

@@ -1,10 +1,10 @@
 import { agentMessage } from "../../../../agentMessage";
 import { RTCache } from "../../../../engine/kernel/rt-cache";
-import { IModelo } from "../../../../mundos/modelo";
+import { IModelo } from "../../../../mundos/IModelo";
 import { IDE_clave } from "../../../../paradigmas/conexionista/modelos-lenguaje/oai/Trainer_key";
 import { FIA_SBC } from "../../../../paradigmas/sbc/fia-sbc";
 import { CKCACHE_Clave } from "../../../../paradigmas/sbc/implementaciones/common-kads/common-kads";
-import { IEstadoT } from "../../../../paradigmas/situada/estado";
+import { IEstadoT } from "../../../../paradigmas/situada/IEstadoT";
 import { AlephScriptIDE } from "../../aleph-script-idle";
 
 export class IDE_SBC extends FIA_SBC {

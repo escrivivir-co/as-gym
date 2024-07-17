@@ -76,6 +76,11 @@ export const routes: Routes = [
       .then(mod => mod.TutorialModule)
   },
   {
+    path: 'alephkads',
+    loadChildren: () => import('./pages/application/aleph-kads/module')
+      .then(mod => mod.AlephKadsModule)
+  },
+  {
     path: 'services',
     loadChildren: () => import('./pages/application/example-services/tutorial.module')
       .then(mod => mod.TutorialModule)

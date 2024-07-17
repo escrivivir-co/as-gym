@@ -77,6 +77,35 @@
 
 				<div class="accordion" id="accordionItems">
 
+
+					<div class="card nga-card-menu">
+
+						<div class="card-header">
+							<a data-bs-toggle="collapse" data-parent="#accordionItems" href="#collapseApps" aria-expanded="true">
+							<div class="card-item">
+								<i class="fas fa-film me-2 "></i>Apps
+							</div>
+							</a>
+						</div>
+
+						<div id="collapseApps" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionItems">
+							<div class="card-body">
+							<ul class="list-group text-dark">
+								<ul class="list-group text-dark small-list">
+									<li *ngFor="let i of serviceApps()" class="list-group-item">
+										<a href="#" data-bs-toggle="tooltip" title="Seleccionar app"
+											(click)="setCurrentApp(i); $event.preventDefault()">
+											<i class="fas fa-globe me-2"></i>
+											[ {{ i.index }} ] {{ i.name }}
+										</a>
+									</li>
+								</ul>
+							</ul>
+							</div>
+						</div>
+
+					</div>
+
 					<div class="card nga-card-menu">
 
 						<div class="card-header">
@@ -154,34 +183,6 @@
 								<ul class="list-group text-dark small-list">
 									<li *ngFor="let i of serviceClients()" class="list-group-item">
 										{{ i.name }}
-									</li>
-								</ul>
-							</ul>
-							</div>
-						</div>
-
-					</div>
-
-					<div class="card nga-card-menu">
-
-						<div class="card-header">
-							<a data-bs-toggle="collapse" data-parent="#accordionItems" href="#collapseApps" aria-expanded="true">
-							<div class="card-item">
-								<i class="fas fa-film me-2 "></i>Apps
-							</div>
-							</a>
-						</div>
-
-						<div id="collapseApps" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionItems">
-							<div class="card-body">
-							<ul class="list-group text-dark">
-								<ul class="list-group text-dark small-list">
-									<li *ngFor="let i of serviceApps()" class="list-group-item">
-										<a href="#" data-bs-toggle="tooltip" title="Seleccionar app"
-											(click)="setCurrentApp(i); $event.preventDefault()">
-											<i class="fas fa-globe me-2"></i>
-											[ {{ i.index }} ] {{ i.name }}
-										</a>
 									</li>
 								</ul>
 							</ul>

@@ -1,17 +1,22 @@
 import { agentMessageCache } from "../../../../../agentMessage";
 import { IDominio } from "../../../../../mundos/dominio";
-import { IModelo, Modelo } from "../../../../../mundos/modelo";
+import { Modelo } from "../../../../../mundos/modelo";
+import { IModelo } from "../../../../../mundos/IModelo";
 import { Estudio } from "../../../estudio";
-import { IAgente, Agente } from "../modelos/agentes/agente";
-import { IOrganizacion, Organizacion } from "../modelos/organizacion/organizacion";
-import { ITarea, Tarea } from "../modelos/tareas/tarea";
-import { Formulario, IFormulario } from "./formulario";
-import { ICKNivel } from "./nivel";
-import { IValoracion } from "./nivel-conceptual";
-
-export interface IFormularioOTA1 extends IFormulario {
-
-}
+import { Agente } from "../modelos/agentes/agente";
+import { IAgente } from "../modelos/agentes/IAgente";
+import { Organizacion } from "../modelos/organizacion/organizacion";
+import { IOrganizacion } from "../modelos/organizacion/IOrganizacion";
+import { Tarea } from "../modelos/tareas/tarea";
+import { ITarea } from "../modelos/tareas/ITarea";
+import { Formulario } from "./formulario";
+import { IFormulario } from "./IFormulario";
+import { IAlternativa } from "./IAlternativa";
+import { ICKNivelContextual } from "./ICKNivelContextual";
+import { IFormularioOTA1 } from "./IFormularioOTA1";
+import { IObjetivo } from "./IObjetivo";
+import { IRecurso } from "./IRecurso";
+import { IValoracion } from "./IValoracion";
 
 export class FormularioOTA1 extends Formulario implements IFormularioOTA1, IValoracion {
 
@@ -22,27 +27,6 @@ export class FormularioOTA1 extends Formulario implements IFormularioOTA1, IValo
     comoValoracion(): FormularioOTA1 {
         return this;
     }
-
-}
-
-export interface IObjetivo extends ICKNivelContextual {
-
-    ota: IFormularioOTA1;
-    conclusiones: (m: IModelo) => IFormularioOTA1;
-
-}
-
-export interface ICKNivelContextual extends ICKNivel {
-
-    organizacion: IOrganizacion;
-    tareas: ITarea;
-    agentes: IAgente;
-
-    estudioViabilidad(m: IModelo): IAlternativa[];
-    estudioImpactoYMejoras(a: IAlternativa[]): IObjetivo;
-
-    recursos(): IRecurso[];
-    conclusiones(m: IModelo): IFormularioOTA1;
 
 }
 
@@ -169,14 +153,6 @@ export class CKNivelContextual implements ICKNivelContextual {
             conclusiones: this.conclusiones
         }
     }
-}
-
-export interface IRecurso {
-    nombre?: string;
-}
-
-export interface IAlternativa extends ICKNivelContextual {
-
 }
 
 export class Alternativa extends CKNivelContextual implements IAlternativa {

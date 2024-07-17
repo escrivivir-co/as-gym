@@ -3,7 +3,7 @@ import { i18 } from "../../i18/aleph-script-i18";
 import { IMundo } from "../../mundos/mundo";
 import { agentMessage } from "../../agentMessage";
 import { IAutomata, Automata } from "./automata";
-import { IEstado } from "./estado";
+import { IEstado } from "./IEstado";
 import { TablaEstado } from "./tabla-estado";
 /**
  * Unidades de sensores/actuadores con tablas de asociación

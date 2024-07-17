@@ -3,7 +3,9 @@ import { ASOracleAs, Trainer_clave } from "../../paradigmas/conexionista/modelos
 import { RTCache } from "../../engine/kernel/rt-cache";
 import { agentMessage } from "../../agentMessage";
 import { Observable, Subject } from "rxjs";
-import { CKCACHE_Clave, CKFases, EXTERNAL_CACHE, IFase } from "../../paradigmas/sbc/implementaciones/common-kads/common-kads";
+import { CKCACHE_Clave, EXTERNAL_CACHE } from "../../paradigmas/sbc/implementaciones/common-kads/common-kads";
+import { IFase } from "../../paradigmas/sbc/implementaciones/common-kads/IFase";
+import { CKFases } from "../../paradigmas/sbc/implementaciones/common-kads/CKFases";
 import { IDiccionarioI18 } from "../../genesis-block";
 import { AS_IDE_i18 } from "./aleph-script-idle-i18";
 import { AsistenteApi } from '../../paradigmas/conexionista/modelos-lenguaje/oai/asisstant';
@@ -88,15 +90,17 @@ export class AlephScriptIDEImpl implements AlephScriptIDE {
 
 		this.actionServer.subscribe(async f => {
 
-			console.log('=======================================================')
-			console.log(agentMessage(this.nombre, `${this.i18.IDE.ASISTENTE.DATA.SOLICITUD}: ${f.fase || ' -- '}`))
+			if (!f.esperando) return;
 
-	
+			this.nombre = "MyServer"
+
+			console.log(agentMessage(this.nombre, `${this.i18.IDE.ASISTENTE.DATA.SOLICITUD}: ${f.fase || ' -- '} `))
+
 			if (!f.fase) {
 
 				const rt = new RTCache();
 
-				console.log("/******************** CARGA DE la BASE AS SEED **************************** */")
+				console.log(agentMessage(this.nombre, "Carga el dominio de la semilla"))
 
 				const domain = rt.recuperRuta(CONST_CORPUS_PATH + 'corpus/domain.data.schema.json');
 				const domainAuth = rt.recuperRuta(CONST_CORPUS_PATH + 'corpus/domain.data.schema.auth.json');
@@ -107,16 +111,16 @@ export class AlephScriptIDEImpl implements AlephScriptIDE {
 				}
 				f.estado.modelo.dominio.base[EXTERNAL_CACHE] = myDomain;
 
-				console.log("The my domain")
-				console.log(myDomain)
 			} else {
-				console.log("PEDIR AYUDA PARA")
+
+				// console.log(agentMessage(this.nombre, "Ejecutando TRANSICIÓN  de estado en el IDE", f.fase.toString() + "/" + f.bookmark?.toString() ))
+
 				switch(f.fase) {
 					case CKFases.NivelContextual: {
 
-						console.log("NivelContextual--------------------------->>>>")
-						const domain = f.estado.modelo.dominio.base[EXTERNAL_CACHE].domain;
-						const domainAuth = f.estado.modelo.dominio.base[EXTERNAL_CACHE].domainAuth;
+						console.log("NivelContextual--------------------------->>>>", f.fase, f.bookmark)
+						// const domain = f.estado.modelo.dominio.base[EXTERNAL_CACHE].domain;
+						// const domainAuth = f.estado.modelo.dominio.base[EXTERNAL_CACHE].domainAuth;
 
 						break;
 					}
@@ -139,6 +143,9 @@ export class AlephScriptIDEImpl implements AlephScriptIDE {
 			}
 
 			f.esperando = false;
+
+			console.log("Next al CycloFase", f.fase, f.bookmark)
+			f.solicitar.next(f);
 			return;
 
 			const mensaje = f.imprimir();

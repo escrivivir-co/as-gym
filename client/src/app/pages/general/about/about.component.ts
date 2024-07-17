@@ -8,7 +8,6 @@ import { SeoService } from '../../../services/seo/seo.service';
 import { Feature, FeatureName, Name } from './feature';
 import { Dependency } from './dependency';
 import { ServerService, MenuState, RuntimeBlock } from '../../../services/socketio/server.service';
-import { Action } from 'rxjs/internal/scheduler/Action';
 
 export enum RunStateEnum {
 	PLAY = "PLAY",

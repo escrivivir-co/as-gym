@@ -1,7 +1,8 @@
 import { agentMessage } from "../agentMessage";
 import { i18 } from "../i18/aleph-script-i18"
 import { Observable, Subject, Subscription } from "rxjs"
-import { IModelo, Modelo } from "./modelo";
+import { Modelo } from "./modelo";
+import { IModelo } from "./IModelo";
 import { AS_MUNDO_i18 } from "./mundos-i18";
 import { IDiccionarioI18 } from "../genesis-block";
 

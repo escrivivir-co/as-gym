@@ -4,7 +4,7 @@ import { IMundo } from "../../mundos/mundo";
 import { agentMessage } from "../../agentMessage";
 import { IFIAConexionista } from "../conexionista/fia-conexionista";
 import { IFIASimbolica } from "../simbolica/fia-simbolica";
-import { IEstado } from "../situada/estado";
+import { IEstado } from "../situada/IEstado";
 import { IFIASituada } from "../situada/fia-situada";
 
 /**

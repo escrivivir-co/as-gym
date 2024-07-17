@@ -1,27 +1,12 @@
 import { Observable, Subject } from "rxjs";
-import { IModelo, Modelo } from "../../../../mundos/modelo";
-import { IAplicacion } from "./modelos/disenyo/aplicacion";
-import { IArquitectura } from "./modelos/disenyo/arquitectura";
-import { IComponentes } from "./modelos/disenyo/componentes";
-import { IPlataforma } from "./modelos/disenyo/plataforma";
+import { Modelo } from "../../../../mundos/modelo";
+import { IModelo } from "../../../../mundos/IModelo";
 import { IDiccionarioI18 } from "../../../../genesis-block";
 import { AS_COMMON_KADS_I18 } from "./as-common-kads-i18";
 import { agentMessage } from "../../../../agentMessage";
-import { IEstadoT, EstadoT } from "./estado";
-import { IDisenyo } from "./modelos/disenyo/disenyo";
-
-export interface ISistema  {
-
-    comoJSON(): object;
-
-    disenyo: IDisenyo;
-
-    arquitectura: IArquitectura;
-    plataforma: IPlataforma;
-    componentes: IComponentes;
-    aplicacion: IAplicacion;
-
-}
+import { EstadoT } from "./estado";
+import { IEstadoT } from "./IEstadoT";
+import { ISistema } from "./ISistema";
 
 export interface ISistemaRuntime {
 

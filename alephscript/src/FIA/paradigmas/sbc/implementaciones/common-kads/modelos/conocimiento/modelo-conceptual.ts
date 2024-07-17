@@ -1,4 +1,4 @@
-import { IUMLModelo } from "./uml";
+import { IUMLModelo } from "./IUMLModelo";
 
 export interface IModeloConceptual  {
 

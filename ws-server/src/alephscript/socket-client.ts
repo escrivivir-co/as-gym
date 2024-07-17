@@ -3,7 +3,7 @@ import { isLogable, Message } from './message';
 
 export class SocketClient {
 
-	io: Socket;
+	public io: Socket;
 
 	initTriggers: (() => void)[] = [];
 	initTriggersDefinition: (() => void)[] = [];

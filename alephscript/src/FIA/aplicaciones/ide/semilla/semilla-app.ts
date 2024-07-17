@@ -34,7 +34,7 @@ export class IdeApp extends App {
          */
         this.mundo.modelo = new IDEModelo();
         this.mundo.modelo.pulso = 1000;
-        this.mundo.modelo.muerte = 5;
+        this.mundo.modelo.muerte = 15;
         this.mundo.modelo.estado = IDEEstados.PARADA;
 
         this.mundo.nombre = this.i18.MUNDO.NOMBRE;

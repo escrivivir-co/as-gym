@@ -86,20 +86,30 @@ export class Runtime extends SocketAdapter {
 
 						fia.mundo.eferencia.asObservable().subscribe(f => {
 
+							// APP TIMELINE
 							if (f.runState == RunStateEnum.PAUSE) {
 								fia.runStateEvent.next(f.runState)
-								this.sendAppsList({})
+								this.sendFrameworkState({})
+
+								console.log("*********** estado")
+								console.log(f.modelo.estado)
+								console.log("*********** dominio")
+								console.log(f.modelo.dominio.base["FASE"])
+
+								this.sendAppState(fia.nombre, f.modelo.dominio.base["FASE"])
 							}
 
 						})
 
+						// APP MAIN
 						fia.runStateEvent.next(mode || RunStateEnum.PLAY);
 						const instancia = await fia.instanciar();
-
-						fia.runStateEvent.next(RunStateEnum.STOP);
+						fia.runStateEvent.next(RunStateEnum.STOP)
+;
 						console.log(agentMessage(fia.nombre, instancia));
 
-						this.sendAppsList({});
+						// INITIAL STATE
+						this.sendFrameworkState({});
 
 					} else {
 						console.log(agentMessage(fia.nombre, fia.imprimir()));

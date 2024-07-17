@@ -1,4 +1,4 @@
-import { IEstado } from "./estado";
+import { IEstado } from "./IEstado";
 
 export interface ILinea {
     estado: {

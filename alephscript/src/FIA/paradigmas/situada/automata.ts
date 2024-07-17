@@ -3,7 +3,9 @@ import { i18 } from "../../i18/aleph-script-i18";
 import { IMundo, Mundo } from "../../mundos/mundo";
 import { Modelo } from "../../mundos/modelo";
 import { agentMessage } from "../../agentMessage";
-import { IEstado, IEstadoT, EstadoT } from "./estado";
+import { EstadoT } from "./estado";
+import { IEstadoT } from "./IEstadoT";
+import { IEstado } from "./IEstado";
 
 export interface IAutomata {
 

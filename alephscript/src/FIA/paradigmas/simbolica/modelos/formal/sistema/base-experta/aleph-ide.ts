@@ -6,7 +6,7 @@ import { RTCache } from "../../../../../../engine/kernel/rt-cache";
 import { IDiccionarioI18 } from "../../../../../../genesis-block";
 import { Trainer_clave, ASOracleAs } from "../../../../../conexionista/modelos-lenguaje/oai/Trainer_key";
 import { AsistenteApi } from "../../../../../conexionista/modelos-lenguaje/oai/asisstant";
-import { IFase } from "../../../../../sbc/implementaciones/common-kads/common-kads";
+import { IFase } from "../../../../../sbc/implementaciones/common-kads/IFase";
 
 export interface AlephScriptIDE {
 

@@ -1,23 +1,16 @@
-import { IModelo, Modelo } from "../../../../../../mundos/modelo";
+import { Modelo } from "../../../../../../mundos/modelo";
+import { IModelo } from "../../../../../../mundos/IModelo";
 import { Estudio } from "../../../../estudio";
-import { IEspecificacion } from "../../common-kads";
-import { Formulario, IFormulario } from "../../nivel/formulario";
-import { ICKModelo, CKModelo } from "../ck-modelo";
-import { IAplicacion, Aplicacion } from "./aplicacion";
+import { IEspecificacion } from "../../IEspecificacion";
+import { Formulario } from "../../nivel/formulario";
+import { IFormulario } from "../../nivel/IFormulario";
+import { CKModelo } from "../ck-modelo";
+import { Aplicacion } from "./aplicacion";
+import { IAplicacion } from "./IAplicacion";
 import { IArquitectura } from "./arquitectura";
 import { IComponentes } from "./componentes";
+import { IDisenyo } from "./IDisenyo";
 import { IPlataforma } from "./plataforma";
-
-export interface IDisenyo extends ICKModelo {
-    comoJSON(): unknown;
-
-    arquitectura(e: IEspecificacion): IArquitectura;
-    plataforma(e: IEspecificacion): IPlataforma;
-    componentes(e: IEspecificacion): IComponentes;
-    aplicacion(e: IEspecificacion): IAplicacion;
-
-
-}
 
 export class Disenyo extends CKModelo implements IDisenyo {
 

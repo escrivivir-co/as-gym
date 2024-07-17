@@ -1,13 +1,6 @@
-import { IModelo } from "../../../../mundos/modelo";
-
-export interface IEstado {
-
-    modelo: IModelo;
-
-    comoModelo: () => IModelo;
-    deModelo: (m: IModelo) => void;
-
-}
+import { IModelo } from "../../../../mundos/IModelo";
+import { IEstado } from "./IEstado";
+import { IEstadoT } from "./IEstadoT";
 
 export class Estado implements IEstado {
 
@@ -25,13 +18,6 @@ export class Estado implements IEstado {
         this.modelo = e.comoModelo();
     }
 
-}
-
-export interface IEstadoT<T> extends IEstado {
-
-    actual: T;
-
-    transicion(e: IEstadoT<T>): void;
 }
 
 export class EstadoT<T> extends Estado implements IEstadoT<T> {

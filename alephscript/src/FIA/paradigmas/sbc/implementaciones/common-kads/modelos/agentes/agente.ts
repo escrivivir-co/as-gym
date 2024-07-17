@@ -1,8 +1,8 @@
-import { Formulario, IFormulario } from "../../nivel/formulario";
-import { CKModelo, ICKModelo } from "../ck-modelo";
+import { Formulario } from "../../nivel/formulario";
+import { IFormulario } from "../../nivel/IFormulario";
+import { CKModelo } from "../ck-modelo";
 import { FormularioAM1 } from "./formulario-AM-01";
-
-export interface IAgente extends ICKModelo {}
+import { IAgente } from "./IAgente";
 
 export class Agente extends CKModelo implements IAgente {
 

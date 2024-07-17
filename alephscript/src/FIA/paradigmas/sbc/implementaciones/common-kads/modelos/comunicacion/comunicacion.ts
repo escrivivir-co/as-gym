@@ -1,19 +1,13 @@
-import { IModelo } from "../../../../../../mundos/modelo";
+import { IModelo } from "../../../../../../mundos/IModelo";
 import { Estudio } from "../../../../estudio";
-import { IFormulario, Formulario } from "../../nivel/formulario";
-import { ICKModelo, CKModelo } from "../ck-modelo";
+import { Formulario } from "../../nivel/formulario";
+import { IFormulario } from "../../nivel/IFormulario";
+import { CKModelo } from "../ck-modelo";
 import { IModeloConceptual } from "../conocimiento/modelo-conceptual";
+import { IComunicacion } from "./IComunicacion";
 import { IIntercambio } from "./intercambio";
 import { IPlan } from "./plan";
 import { ITransaccion } from "./transacciones";
-
-export interface IComunicacion extends ICKModelo {
-
-    planificar(mc: IModeloConceptual): IPlan;
-    transacciones(mc: IModeloConceptual): ITransaccion[];
-    intercambioInformacion(mc: IModeloConceptual): IIntercambio[];
-
-}
 
 export class Comunicacion extends CKModelo implements IComunicacion {
 
