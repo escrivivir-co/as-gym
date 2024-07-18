@@ -117,7 +117,11 @@ export class CK implements ICK {
                 if (ide) {
 
                     const s = ide.actionServer.subscribe(f => {
-                        rt.guardar(CK_FASE_clave, this.comoJSON(f));
+
+						if (f) {
+							rt.guardar(CK_FASE_clave, this.comoJSON(f));
+						}
+
                     });
 
                     console.log(agentMessage(this.nombre + "Project", "Vincula el IDE con el ActionServer"))
@@ -312,8 +316,8 @@ export class CK implements ICK {
 			const c = new RTCache();
 			c.archivo = CONST_CORPUS_PATH + 'corpus/sbc.kads.app.json';
 
-			const snapshot = (cache.dominio.base[CKCACHE_Clave]) as IFase;
-			snapshot.fase = f.fase;
+			const snapshot = (cache.dominio.base[CKCACHE_Clave]) as IFase || { fase: {} };
+			snapshot.fase = f?.fase;
 
 			c.dominio.base = snapshot;
 			c.persistirRuta();
@@ -441,20 +445,29 @@ export class CK implements ICK {
     }
 
     comoJSON(fase: IFase) {
-        return {
 
-            fase: fase.fase,
+		let r = {}
+        try {
+			r = {
 
-            estado: fase.estado.comoModelo().estado,
+				fase: fase.fase,
 
-            alternativas: fase.alternativas.map(a => a.comoJSON()),
+				estado: fase.estado,
 
-            objetivo: fase.objetivo?.comoJSON(),
+				alternativas: fase.alternativas.map(a => a.comoJSON()),
 
-            especificacion: fase.especificacion?.comoJSON(),
+				objetivo: fase.objetivo?.comoJSON(),
 
-            sistema: fase.sistema?.comoJSON()
-        }
+				especificacion: fase.especificacion?.comoJSON(),
+
+				sistema: fase.sistema?.comoJSON()
+			}
+		} catch(ex) {
+			console.log(this.nombre, "Error PERSISTE EN PRINT FASE!!!!!")
+			// console.log("La fase", fase)
+
+		}
+		return r
     }
 
 	cycloAsyncS: Subject<IFase> = new Subject<IFase>();

@@ -4,6 +4,7 @@ import { IDEEstado } from "../ide-estado";
 import { EstadoT } from "../../../paradigmas/situada/estado";
 import { IDEEstados } from "./IDEEstados";
 import { agentMessage } from "../../../agentMessage";
+import { RunStateEnum } from "../../../mundos/mundo";
 
 export class IDEAutomata<IDEEstados> extends Automata<IDEEstados> {
 
@@ -26,7 +27,9 @@ export class IDEAutomata<IDEEstados> extends Automata<IDEEstados> {
 		if (this.s) this.s.unsubscribe();
         this.s = this.mundo.eferencia.subscribe(async (m) => {
 
-            console.log(agentMessage(this.nombre, "OnEferencia - Start"));
+            console.log(agentMessage(this.nombre, "M: " + m.nombre + ":>" + "(F) + (e: " +  m.runState + ")"));
+
+			if (m.runState == RunStateEnum.PAUSE) return
 
             /**
             * Procesar aferencia: Modelo (m)

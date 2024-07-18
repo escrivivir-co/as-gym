@@ -6,6 +6,7 @@ import { Assistant } from "openai/resources/beta/assistants";
 import { q } from "./lore";
 import { IDEEstados } from "../ide-v1/situada/IDEEstados";
 import { IFIASituada } from "../../paradigmas/situada/fia-situada";
+import { Bloque } from "../../engine/kernel/cadena-bloques";
 
 export class AppV1 extends IdeAppV1 {
 
@@ -26,6 +27,9 @@ export class AppV1 extends IdeAppV1 {
 
 		this.expectedBots = 3
 		this.receivedBots = 0;
+
+		// Bloque.estado = {};
+		Bloque.id = this.nombre;
 
 		return await super.instanciarD(() => this.onReady());
 
@@ -48,12 +52,19 @@ export class AppV1 extends IdeAppV1 {
 		if (this.inited) return
 		this.inited = true;
 
-		this.alphaBot.assistantId = as[0].id;
-		this.omegaBot.assistantId = as[1].id;
-		this.templeBot.assistantId = as[2].id;
+		this.alphaBot.assistantId = as.find(a => a.name == this.alphaBot.nombre)?.id;
+		this.omegaBot.assistantId = as.find(a => a.name == this.omegaBot.nombre)?.id;
+		this.templeBot.assistantId = as.find(a => a.name == this.templeBot.nombre)?.id;
+
+		(this.alphaBot.automata.estado as IDEEstadoAppV1<IDEEstados>).assistanceId = this.alphaBot.assistantId;
+		(this.omegaBot.automata.estado as IDEEstadoAppV1<IDEEstados>).assistanceId = this.omegaBot.assistantId;
+		(this.templeBot.automata.estado as IDEEstadoAppV1<IDEEstados>).assistanceId = this.templeBot.assistantId;
+
+		console.log("Agentes", this.alphaBot.assistantId, this.omegaBot.assistantId, this.templeBot.assistantId)
 
 		console.log(agentMessage(this.nombre, "onReady-Set"))
 
+		q.bot_info = this.alphaBot.nombre
 		q.contexto = q.instrucciones
 		q.assistant_id = this.alphaBot.assistantId,
 		IDEEstadoAppV1.addQuery(this.mundo.modelo, q);
@@ -84,12 +95,14 @@ export class AppV1 extends IdeAppV1 {
         bot.mundo = this.mundo;
 		bot.nombre = nombre
 
-		estado.assistanceName = "Asist." + bot.nombre;
+		estado.assistanceId = bot.assistantId;
+		estado.assistanceName = bot.nombre;
 		estado.onAssistantsReady = (as: Assistant[]) => this.onAssistantsReady(as);
 		estado.nombre = bot.nombre + "/" + estado.nombre;
 		bot
 			.automata
 			.estado = estado;
-
+		console.log("/CREATE///////////////////////////////")
+		console.log(estado.assistanceId, estado.assistanceName, estado.nombre)
 	}
 }

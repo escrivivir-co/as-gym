@@ -1,6 +1,6 @@
 import { agentMessage } from "../../../agentMessage";
 import { App } from "../../../engine/apps/app";
-import { Bloque } from "../cadena-bloques";
+import { Bloque } from "../../../engine/kernel/cadena-bloques";
 
 import { IDEModelo } from "./modelo/ide-modelo";
 import { IDEMundo } from "./mundo/ide-mundo";
@@ -25,7 +25,6 @@ export class IdeApp extends App {
     async instanciar(): Promise<string> {
 
 		Bloque.estado = {};
-		Bloque.id = this.nombre;
 
         console.log(agentMessage(this.nombre, this.i18.SIMULATION_START));
 

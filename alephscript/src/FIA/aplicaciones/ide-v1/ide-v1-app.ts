@@ -1,10 +1,11 @@
 import { agentMessage } from "../../agentMessage";
 import { App } from "../../engine/apps/app";
-import { Bloque } from "./semilla/chain";
+
 import { IDEModelo } from "./ide-modelo";
 import { IDEEstados } from './situada/IDEEstados';
 import { IDEFIASituada } from "./situada/ide-fia-situada";
 import { IDEMundo } from "./ide-mundo";
+import { Bloque } from "../../engine/kernel/cadena-bloques";
 
 export class IdeAppV1 extends App {
 
@@ -41,7 +42,7 @@ export class IdeAppV1 extends App {
 
 		return salidas.map((f): string => {
             if (typeof f == 'object') {
-                return `\t - ${(f as any).value.nombre} ${this.i18.SIMULATION_END} \n`;
+                return `\t - ${(f as any)?.value?.nombre} ${this.i18.SIMULATION_END} \n`;
             } else {
             }
         }).join("")
@@ -49,7 +50,7 @@ export class IdeAppV1 extends App {
 
 	inicializar() {
 
-		Bloque.estado = {};
+		// Bloque.estado = {};
 		Bloque.id = this.nombre;
 
         console.log(agentMessage(this.nombre, this.i18.SIMULATION_START));

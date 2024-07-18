@@ -44,8 +44,12 @@ export class FIA_SBC extends GenesisBlock implements iFIA {
 
                 const resultado = await ck.instanciar(m);
 
-                this.cache.guardar(CKCACHE_Clave, resultado?.comoModelo().dominio.base[CKCACHE_Clave]);
-                this.cache.persistir();
+				try {
+					this.cache.guardar(CKCACHE_Clave, resultado?.comoModelo().dominio.base[CKCACHE_Clave]);
+					this.cache.persistir();
+				} catch(ex) {
+					console.log(agentMessage(this.nombre, "No pude guardar la cache de la transición", ex))
+				}
 
                 console.log(agentMessage(this.nombre, this.i18.PIE));
 

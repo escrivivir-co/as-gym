@@ -184,8 +184,8 @@ export class SocketServer {
 			const master = this.rooms.get(args.room);
 			if (master) {
 				this.log(namespace + ".OnGet." + this.socketName(socket) +
-					": forward to room Master [" + args.room + "/" + args.event + "]: [",
-					this.socketName({ id: master }) + "]")
+					": forward to room Master " + args.room + "/" + args.event + "/" +
+					this.socketName({ id: master }))
 				const requesterData = {
 					...args,
 					requester: socket.id,

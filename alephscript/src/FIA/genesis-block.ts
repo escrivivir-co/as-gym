@@ -1,4 +1,5 @@
 import { Intencion, Aferencia, Eferencia } from "./Intencion";
+import { Bloque } from "./engine/kernel/cadena-bloques";
 import { RTCache } from "./engine/kernel/rt-cache";
 import { i18 } from "./i18/aleph-script-i18";
 import { RunStateEnum, IMundo, Mundo } from './mundos/mundo';
@@ -66,6 +67,10 @@ export class FIA implements iFIA {
     }
 
 	constructor() {
+
+		// Bloque.estado = {};
+		Bloque.id = this.nombre;
+
 		this.runStateEvent.asObservable().subscribe(
 			(event) => {
 				this.runState = event

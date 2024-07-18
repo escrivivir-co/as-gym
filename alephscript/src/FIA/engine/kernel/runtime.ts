@@ -13,8 +13,9 @@ import { FIA_SBC } from "../../paradigmas/sbc/fia-sbc";
 import { IdeApp } from "../../aplicaciones/ide/semilla/semilla-app";
 import { SocketAdapter } from "./adapter";
 import { RunStateEnum } from "../../mundos/mundo";
-import { IdeAppV1 } from "../../aplicaciones/ide-v1/ide-v1-app";
 import { AppV1 } from "../../aplicaciones/app-v1/app-v1";
+import { BORRAR_ESTADO_A_CADA_PLAY_STEP, MODO_CONSOLA_ACTIVADO } from "../../../runCONFIG";
+import { Bloque } from "./cadena-bloques";
 
 export const EXIT_PROMPT_INDEX = 99;
 
@@ -129,9 +130,16 @@ export class Runtime extends SocketAdapter {
 
 						fia.mundo.eferencia.asObservable().subscribe(f => {
 
+							console.log(
+								agentMessage("APP_PROGRESS_3",
+									'S:>' +
+									'W_INPUT' + ":>" + fia.nombre +
+											":>" + fia.runState +
+											":>" + fia.mundo.runState)
+							);
 							if (modeConsola) return;
 
-							// APP TIMELINE
+							// APP TIMELINE FOR SOCKEITO
 							if (f.runState == RunStateEnum.PAUSE) {
 								fia.runStateEvent.next(f.runState)
 								this.sendFrameworkState({})
@@ -142,6 +150,8 @@ export class Runtime extends SocketAdapter {
 								console.log(f.modelo.dominio.base["FASE"])
 
 								this.sendAppState(fia.nombre, f.modelo.dominio.base["FASE"])
+							} else {
+								console.log("Is not paused--------<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
 							}
 
 						})
@@ -150,9 +160,17 @@ export class Runtime extends SocketAdapter {
 						fia.runStateEvent.next(mode || RunStateEnum.PLAY_STEP);
 
 						if (mode || RunStateEnum.PLAY_STEP) {
-							modeConsola = true
+							modeConsola = MODO_CONSOLA_ACTIVADO
 							console.log(agentMessage(this.nombre, "'y' para activar el modo consola."), fia.mundo.nombre)
 						}
+
+						console.log(
+							agentMessage("APP_PROGRESS_3",
+								'S:>' +
+								'APP_LOOP' + ":>" + fia.nombre +
+										":>" + fia.runState +
+										":>" + fia.mundo.runState)
+						);
 						const instancia = await fia.instanciar();
 						fia.runStateEvent.next(RunStateEnum.STOP);
 						console.log(agentMessage(fia.nombre, instancia));

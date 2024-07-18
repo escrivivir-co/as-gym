@@ -15,6 +15,7 @@ export class IDEEstado<IDEEstados> extends EstadoT<IDEEstados> {
 	modelo: IDEModelo;
 
 	ide: AlephScriptIDEImpl;
+	assistanceId: string = "";
 	assistanceName: string = "";
 
 	private estadoA: any;
@@ -93,7 +94,9 @@ export class IDEEstado<IDEEstados> extends EstadoT<IDEEstados> {
 		if (!estado) {
 			this.estadoA = this.estado;
 		} else {
-			console.log(agentMessage(this.nombre, "OnTransicion - Set"), this.estadoA, " --> ", estado)
+			console.log(agentMessage("APP_PROGRESS_2", this.nombre + ":>" +
+				this.estadoA + ":>" + estado
+			), )
 		}
 
 	}

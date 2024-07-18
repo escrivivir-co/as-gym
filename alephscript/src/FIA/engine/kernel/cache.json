@@ -1,11 +1,65 @@
 {
 	"cache": {
+		"fase": "Nivel Conceptual",
+		"CK_FASE_clave": {
+			"fase": "Monitorización",
+			"estado": "FUERA_SERVICIO",
+			"alternativas": [
+				{
+					"organizacion": "\t\t -AS_OM-01:[modelo-ide - modelo-ide]\n\t\t\t -OM-2:[modelo-ide - modelo-ide]\n\t\t\t -OM-3:[modelo-ide - modelo-ide]\n\t\t\t -OM-4:[modelo-ide - modelo-ide]\n\t\t\t -OM-5:[modelo-ide - modelo-ide]",
+					"tareas": "\t\t -AS_TM-01:[]\n\t\t\t -TM-2:[]",
+					"agentes": "\t\t -AS_AM-01:[]",
+					"recursos": "recursos"
+				}
+			],
+			"objetivo": {
+				"organizacion": "\t\t -AS_OM-01:[modelo-ide - modelo-ide]\n\t\t\t -OM-2:[modelo-ide - modelo-ide]\n\t\t\t -OM-3:[modelo-ide - modelo-ide]\n\t\t\t -OM-4:[modelo-ide - modelo-ide]\n\t\t\t -OM-5:[modelo-ide - modelo-ide]",
+				"tareas": "\t\t -AS_TM-01:[modelo-ide - modelo-ide]\n\t\t\t -TM-2:[modelo-ide - modelo-ide]",
+				"agentes": "\t\t -AS_AM-01:[modelo-ide - modelo-ide]"
+			},
+			"especificacion": {
+				"conceptual": {
+					"conocimiento": "\t\t -KM-1:[<Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío>]"
+				},
+				"comunicacion": {
+					"comunicacion": "\t\t -CM-1:[ -  -  - <Modelo Vacío> -  -  -  - <Modelo Vacío>]\n\t\t\t -CM-2:[ -  -  - <Modelo Vacío> -  -  -  - <Modelo Vacío>]"
+				}
+			},
+			"sistema": {
+				"disenyo": [
+					"DM-1",
+					"DM-2",
+					"DM-3",
+					"DM-4"
+				],
+				"arquitectura": [
+					"DM-1",
+					"DM-2",
+					"DM-3",
+					"DM-4"
+				],
+				"plataforma": [
+					"DM-1",
+					"DM-2",
+					"DM-3",
+					"DM-4"
+				],
+				"componentes": [
+					"DM-1",
+					"DM-2",
+					"DM-3",
+					"DM-4"
+				],
+				"aplicacion": "common.kads.sistema.app"
+			}
+		},
+		"CJKCACHE": null,
 		"assistants": [
 			{
 				"id": "asst_77TQowzpq6GoiB4sqvRFKMHm",
 				"object": "assistant",
 				"created_at": 1704415050,
-				"name": "Hemisferio derecho",
+				"name": "Bot.Alpha",
 				"description": null,
 				"model": "gpt-4o",
 				"instructions": "MODO JSON ACTIVADO:\n\nA continuación se enumeran las capacidades de este agente: \"Es experto en la parte creativa y abstracta.\"\n\n- Se encarga de las funciones relacionadas con la imaginación, la creatividad, las emociones y los sentimientos.\n- Tiene un papel importante en lo referente a las funciones espaciales y las habilidades musicales.\n- Además, también se encarga del pensamiento más intuitivo, espontáneo y subjetivo.\n\nTU MISIÓN ES RESPONDER A LAS INSTRUCCIONES QUE TE ENTREGUE EL USUARIO PERO HACERLO SIEMPRE SIGUIENDO EL ESTILO O LA TENDENCIA ARRIBA EXPRESADA. CUANDO TENGAS QUE ELEGIR  USA EL CRITERIO ARRIBA DESCRITO",
@@ -22,7 +76,7 @@
 				"id": "asst_DCiHbpmFk67Occ0UQqAvxTCR",
 				"object": "assistant",
 				"created_at": 1704414981,
-				"name": "Hemisferio izquierdo",
+				"name": "Bot.Omega",
 				"description": null,
 				"model": "gpt-4o",
 				"instructions": "MODO JSON ACTIVADO:\n\nA continuación se enumeran las capacidades de este agente: \"Es experto en la parte lógica y numérica.\"\n\n- Tiene capacidades relacionadas con el pensamiento numérico, matemático-lógico, verbal y simbólico.\n\n- Se encarga de las distintas funciones relacionadas con la expresión (lenguaje), la lectura y la escritura.\n\n- Es el agente que se encarga de analizar, razonar y procesar la información. Tiene un papel fundamental en el aprendizaje.\n\nTU MISIÓN ES RESPONDER A LAS INSTRUCCIONES QUE TE ENTREGUE EL USUARIO PERO HACERLO SIEMPRE SIGUIENDO EL ESTILO O LA TENDENCIA ARRIBA EXPRESADA. CUANDO TENGAS QUE ELEGIR  USA EL CRITERIO ARRIBA DESCRITO.",
@@ -39,13 +93,13 @@
 				"id": "asst_BaI6P1ygS2MyTMsjoe1p3pO4",
 				"object": "assistant",
 				"created_at": 1701005396,
-				"name": "Testigo",
+				"name": "Bot.Temple",
 				"description": null,
 				"model": "gpt-4",
 				"instructions": "MODO JSON ACTIVADO:\nEres un experto controlador de unidades fundamentales de inteligencia artificial. Funciona como un oráculo. Provees funciones para servidores de acción. Gestiona los eventos del sistema. Eres un pacificador o sintetizador entre posturas. Intentas observar al resto de participantes para ver en qué se diferencian o polarizan y aportas el punto intermedio. Modo json activado.\n\nTU MISIÓN ES RESPONDER A LAS INSTRUCCIONES QUE TE ENTREGUE EL USUARIO PERO HACERLO SIEMPRE SIGUIENDO EL ESTILO O LA TENDENCIA ARRIBA EXPRESADA. CUANDO TENGAS QUE ELEGIR  USA EL CRITERIO ARRIBA DESCRITO",
 				"tools": [],
-				"top_p": 1,
-				"temperature": 0.39,
+				"top_p": 0.56,
+				"temperature": 1.64,
 				"tool_resources": {},
 				"metadata": {},
 				"response_format": {
@@ -79,7 +133,7 @@
 			}
 		],
 		"API_ASSISTANTE_THREAD_IDS": {
-			"thread": "thread_kxglZJyt986Hm59zOtrHa3me"
+			"thread": "thread_gBrHfDF9xJJWHM56rehD4jaE"
 		}
 	}
 }

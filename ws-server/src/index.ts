@@ -21,9 +21,10 @@ server.listen(3000, ()=> {
 
 	console.log("Server escuchando en el puerto 3000");
 
-	const asCli = new AlephScriptClient("SERVER_cRUNTIME", "http://localhost:3000", "/runtime");
-	// THIS IS UI APP ADMIN DASHBORAD, DON'T CONNECT const asCliA = new AlephScriptClient("SERVER_cADMIN", "http://localhost:3000", "/admin");
-	const noPath = new AlephScriptClient("SERVER_cNOPATH", "http://localhost:3000", "/");
+	const asCli = new AlephScriptClient("botRT", "http://localhost:3000", "/runtime");
+	// THE NAMESPACE '/admin' IS CREATED AND MANAGED BY UI APP ADMIN DASHBORAD, DON'T MESS WITH IT
+	// const asCliA = new AlephScriptClient("SERVER_cADMIN", "http://localhost:3000", "/admin");
+	const noPath = new AlephScriptClient("botGod", "http://localhost:3000", "/");
 
 	asCli.initTriggersDefinition.push(() => {
 

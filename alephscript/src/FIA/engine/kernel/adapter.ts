@@ -1,23 +1,30 @@
+import { ACTIVAR_SOPORTE_SOCKETIO, BORRAR_ESTADO_A_CADA_PLAY_STEP } from "../../../runCONFIG";
+import { agentMessage } from "../../agentMessage";
 import { iFIA } from "../../genesis-block";
 import { RunStateEnum } from "../../mundos/mundo";
 import { IFase } from "../../paradigmas/sbc/implementaciones/common-kads/IFase";
 import { systemMessage } from "../../systemMessage";
 import { AlephScriptClient } from "../apps/socketio/client";
+import { Bloque } from "./cadena-bloques";
 
 export class SocketAdapter {
 
 	static threads: iFIA[] = [];
-	static client: AlephScriptClient /* = new AlephScriptClient("CRT-AS-01") */;
+	static client: AlephScriptClient = ACTIVAR_SOPORTE_SOCKETIO ?
+		new AlephScriptClient("botSeed") :
+		null;
 
 	menuAnswer: (answer: string, mode: RunStateEnum) => void;
 	spider: AlephScriptClient;
 
-	getCurrentApps() {		const data = SocketAdapter.threads.map((t: iFIA, index: number) => {
-			return {
-				index,
-				name: t.nombre,
-				state: SocketAdapter.threads[index]?.runState
-			}
+	getCurrentApps() {
+		const data = SocketAdapter.threads
+			.map((t: iFIA, index: number) => {
+				return {
+					index,
+					name: t.nombre,
+					state: SocketAdapter.threads[index]?.runState
+				}
 		});
 		return data;
 	}
@@ -27,7 +34,7 @@ export class SocketAdapter {
 		if (!SocketAdapter.client) return;
 
 		const rData = args[0];
-		console.log(systemMessage(SocketAdapter.client?.name + ">> Sending list of threads... to: " + rData?.requesterName))
+		// console.log(systemMessage(SocketAdapter.client?.name + ">> Sending list of threads... to: " + rData?.requesterName))
 
 		const senderData = {
 			...rData,
@@ -51,71 +58,112 @@ export class SocketAdapter {
 
 		console.log(systemMessage(`Socket.Connected`));
 
-			SocketAdapter.client?.room("MAKE_MASTER", { features: []});
-			SocketAdapter.client?.room("MAKE_MASTER", { features: []}, "IDE-app");
+		SocketAdapter.client?.room("MAKE_MASTER", { features: []});
+		SocketAdapter.client?.room("MAKE_MASTER", { features: []}, "IDE-app");
 
-			SocketAdapter.client?.io.on("GET_LIST_OF_THREADS", (...args) => {
+		SocketAdapter.client?.io.on("GET_LIST_OF_THREADS", (...args) => {
 
-				this.sendFrameworkState(args);
+			this.sendFrameworkState(args);
 
-			})
+		})
 
-			SocketAdapter.client?.io.on("GET_ENGINE", (...args) => {
+		SocketAdapter.client?.io.on("GET_ENGINE", (...args) => {
 
-				const rData = args[0];
-				console.log(systemMessage(SocketAdapter.client?.name + ">> DO ENGINE... to: " + rData))
+			const rData = args[0];
+			console.log(systemMessage(SocketAdapter.client?.name + ">> DO ENGINE... to: "), rData)
 
-				// START/STOP
-				const action = rData?.data?.action;
 
-				const engine = rData?.data?.engine;
-				const fia = SocketAdapter.threads[engine];
+			// START/STOP
+			const action = rData?.data?.action;
 
-				switch(action as RunStateEnum) {
-					case RunStateEnum.PLAY:
-					case RunStateEnum.PLAY_STEP:
-						if (fia.runState == RunStateEnum.PAUSE) {
-							fia?.runStateEvent.next(action)
-						} else {
-							this.menuAnswer(engine, action);
-						}
-						break;
-					case RunStateEnum.STOP:
-						fia?.runStateEvent.next(RunStateEnum.STOP)
-						break;
-					case RunStateEnum.PAUSE:
-						fia.runStateEvent.next(RunStateEnum.PAUSE)
-						break;
-					default:
-						console.log("---------- DESCONOCIDA ACTION", action, action as RunStateEnum)
-				}
+			const engine = rData?.data?.engine;
+			const fia = SocketAdapter.threads[engine];
 
-				this.sendFrameworkState(args);
+			// console.log("BloqueDebuguer", Bloque.estado)
+			if (BORRAR_ESTADO_A_CADA_PLAY_STEP) {
+				Object.keys(Bloque.estado).forEach(k => {
+					Bloque.estado[k] = []
+				})
+			}
+			console.log(
+				agentMessage("APP_PROGRESS_3",
+					'S:>' +
+					action + ":>" + fia.nombre +
+							":>" + fia.runState +
+							":>" + fia.mundo.runState)
+			);
 
-			})
+			switch(action as RunStateEnum) {
+				case RunStateEnum.PLAY:
+				case RunStateEnum.PLAY_STEP:
+					if (fia.runState == RunStateEnum.PAUSE) {
 
-			if (!this.spider) {
-
-				this.spider = new AlephScriptClient("WEB-AS-01") ;
-				this.spider.initTriggersDefinition.push(() => {
-
-					this.spider.io.on("SET_LIST_OF_THREADS", (...args) => {
 						console.log(
-							systemMessage(this.spider.name + ">> Receiving list of threads...")
-						)
-					})
-					this.spider.room("GET_LIST_OF_THREADS", {});
+							agentMessage("APP_PROGRESS_3",
+								'S:>' +
+								'RESUMING' + ":>" + fia.nombre +
+										":>" + fia.runState +
+										":>" + fia.mundo.runState)
+						);
 
-					this.spider.io.on("SET_SERVER_STATE", (...args) => {
+						fia.mundo.runState = action;
+						fia?.runStateEvent.next(action)
+
+					} else {
 						console.log(
-							systemMessage(this.spider.name + ">> Receiving server state..."),
-						)
-					})
+							agentMessage("APP_PROGRESS_3",
+								'S:>' +
+								'BOOTING' + ":>" + fia.nombre +
+										":>" + fia.runState +
+										":>" + fia.mundo.runState)
+						);
 
-					this.spider.room("GET_SERVER_STATE");
+						this.menuAnswer(engine, action);
+					}
+					break;
+				case RunStateEnum.STOP:
+					fia?.runStateEvent.next(RunStateEnum.STOP)
+					break;
+				case RunStateEnum.PAUSE:
+					fia.runStateEvent.next(RunStateEnum.PAUSE)
+					break;
+				default:
+					console.log("---------- DESCONOCIDA ACTION", action, action as RunStateEnum)
+			}
 
+			this.sendFrameworkState(args);
+
+		})
+
+		if (!this.spider) {
+
+			this.spider = new AlephScriptClient("botSpider") ;
+			this.spider.initTriggersDefinition.push(() => {
+
+				this.spider.io.on("SET_LIST_OF_THREADS", (...args) => {
+					/*
+					console.log(
+						systemMessage(this.spider.name + ">> Receiving list of threads...")
+					)
+						*/
+				})
+				this.spider.room("GET_LIST_OF_THREADS", {});
+
+				this.spider.io.on("SET_SERVER_STATE", (...args) => {
+					/*
+					console.log(
+						systemMessage(this.spider.name + ">> Receiving server state..."),
+					)
+					*/
 				})
 
-			}
+				this.spider.room("GET_SERVER_STATE");
+
+			})
+
+		}
+
 	}
+
 }
+

@@ -55,6 +55,8 @@ export class Automata<T> implements IAutomataT<T> {
 
         this.mundo.eferencia.subscribe(async (m) => {
 
+			if (m.runState == RunStateEnum.PAUSE) return
+
             // console.log(agentMessage(this.nombre, i18.SITUADA.AUTOMATA.RECEPCION_AFERENCIA_LABEL));
 
             /**

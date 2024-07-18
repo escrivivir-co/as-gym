@@ -4,7 +4,7 @@ import * as fs from "fs";
 
 let CACHE_CONTAINER: IDominio;
 
-export const ACTIVAR_GUARDADO_LOGS = false
+
 
 export class RTCache {
 

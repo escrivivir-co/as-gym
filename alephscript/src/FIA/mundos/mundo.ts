@@ -150,7 +150,7 @@ export class Mundo implements IMundo {
 
 				if (this.runState == RunStateEnum.PLAY_STEP) {
 					this.runState = RunStateEnum.PAUSE;
-					// this.eferencia.next(this)
+					this.eferencia.next(this)
 				}
 
             } catch(ex) {

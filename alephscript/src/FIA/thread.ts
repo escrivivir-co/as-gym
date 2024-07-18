@@ -3,8 +3,6 @@ import { i18 } from "./i18/aleph-script-i18";
 
 import * as http from "http";
 import { systemMessage } from "./systemMessage";
-import { BaseExpertaSimulacion } from "./paradigmas/simbolica/modelos/formal/sistema/base-experta/simuacion";
-import { AlephScriptBoilerplate } from "../as-seed/guest/main";
 
 const host = 'localhost';
 const port = 8000;

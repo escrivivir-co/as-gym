@@ -25,7 +25,8 @@ export class Estado implements IEstado {
 
 export class EstadoT<T> extends Estado implements IEstadoT<T> {
 
-	assistanceName: string = "";
+	assistanceName?: string = "";
+	assistanceId?: string = "";
     actual: T;
 
     transicion(e: IEstadoT<T>): void {

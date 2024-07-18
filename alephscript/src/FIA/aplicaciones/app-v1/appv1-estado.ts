@@ -14,6 +14,14 @@ export interface Juego {
 	siguiente: string;
 	frase: string;
 	historial: string[];
+	entrada?: {
+		pregunta: string;
+	},
+	salida?: {
+		respuesta: string;
+		pregunta: string;
+
+	},
 }
 
 export interface QueryParamsJuego extends QueryParams {
@@ -55,7 +63,7 @@ export class IDEEstadoAppV1<IDEEstados> extends IDEEstado<IDEEstados> {
 
 		super.transicion();
 
-		console.log(agentMessage(this.nombre, "Status:> OnTransicion!"))
+		console.log(agentMessage("APP_PROGRESS_2", this.nombre + "OnT!"))
 
 		switch(this.estado) {
 
@@ -126,7 +134,13 @@ export class IDEEstadoAppV1<IDEEstados> extends IDEEstado<IDEEstados> {
 
 		if (request) {
 
+			console.log(agentMessage("APP_PROGRESS_2", "Bot: " + this.nombre))
+
 			request.solicitud = setNombre(request.solicitud, jugadorName)
+			request.contexto = setNombre(request.contexto, jugadorName)
+			request.instrucciones = setNombre(request.instrucciones, jugadorName)
+
+			console.log(agentMessage("APP_PROGRESS_3", request.solicitud))
 			console.log(agentMessage(this.nombre + "/" + this.assistanceName, "TAREA ENCONTRADA:", ""), api.queue.length)
 
 			this.ocupada = true;
@@ -148,13 +162,16 @@ export class IDEEstadoAppV1<IDEEstados> extends IDEEstado<IDEEstados> {
 
 	static addQuery(modelo: IModelo, param: QueryParamsJuego) {
 
-		console.log(agentMessage("IDEEstado", "Adding query..."), modelo.nombre)
 		const api = modelo.dominio.base[KEY] || {
 			queue: /* QueryParams[] = */ [],
 			results: /* ApiReply[] = */ []
 		}
 		api.queue.push(param)
 		modelo.dominio.base[KEY] = api
+
+		console.log(agentMessage("APP_PROGRESS_1",
+			(param.instrucciones ? "> M" : "> A ") +
+			"(" + api.queue.length + ")"), modelo.nombre)
 	}
 
 	async runQuery(param: QueryParamsJuego) {
@@ -171,11 +188,20 @@ export class IDEEstadoAppV1<IDEEstados> extends IDEEstado<IDEEstados> {
 		let m: any;
 
 		try {
-			console.log(agentMessage(this.nombre,
-				`runQuery: Mensaje ${ param.solicitud?.substring(0, 15) + "..." }`));
 
-			param.assistant_id = param.assistant_id || this.ide.assistant.id;
+			param.assistant_id = param.assistant_id || this.assistanceId /* || this.ide.assistant.id*/;
+			if (!param.assistant_id) {
+				console.log(this.assistanceId, this.assistanceName, this.nombre)
+				return
+			}
 			param.bot_info = this.assistanceName.replace("Asist.", "")
+			const asName = this.ide
+				.listaAsistentes().find(a => a.id == param.assistant_id)?.name || param.assistant_id
+			/* console.log(agentMessage(this.nombre,
+				`runQuery: Mensaje ${ param.solicitud?.substring(0, 15) + "..." }`)); */
+			console.log(agentMessage("APP_PROGRESS_4",
+				"IA: " + asName + ":>" + param.assistant_id + ":>" + this.assistanceName + ":>" + param.bot_info + ":>" + this.nombre))
+
 			const res = await this.ide.trainer.crearHilo(param);
 
 			if (res.ok) {
@@ -201,6 +227,8 @@ export class IDEEstadoAppV1<IDEEstados> extends IDEEstado<IDEEstados> {
 
 					console.log(agentMessage(this.nombre, "<]", ""));
 
+					console.log(agentMessage("APP_PROGRESS_5", mensajes[mensajes.length - 1]))
+
 					// Encolar siguiente peticion
 					IDEEstadoAppV1.addQuery(
 						this.modelo,
@@ -211,21 +239,32 @@ export class IDEEstadoAppV1<IDEEstados> extends IDEEstado<IDEEstados> {
 							instrucciones: "",
 							contexto: param.contexto
 						}
-				);
+					);
 
-				const printJuego = (juego) => {
-					const ret = {
-						...juego,
-						historial: juego.historial.map(f => JSON.stringify(f))
+					const printJuego = (juego) => {
+						const ret = {
+							...juego,
+							historial: juego.historial.map(f => JSON.stringify(f))
+						}
+						return ret;
 					}
-					return ret;
+					console.log(agentMessage(this.nombre,
+						"La cola tiene mensajes: " + this.getApi().queue.length +
+						". Mensajes [>", ""), );
+
+					console.log(
+						agentMessage(
+							"ASCREEN",
+							JSON.stringify(
+								this.getApi().queue
+									.map(q => printJuego(q.juego) || q)
+							)
+						),
+						"<]"
+					);
+
 				}
-				console.log(agentMessage(this.nombre,
-					"La cola tiene mensajes: " + this.getApi().queue.length +
-					". Mensajes [>", ""), );
-				console.log(agentMessage(this.nombre , ""),
-					this.getApi().queue.map(q => printJuego(q.juego) || q),  "<]", "");
-				}
+
 				return res;
 			} else {
 				console.log(agentMessage(this.nombre, res.data));
@@ -243,6 +282,9 @@ export class IDEEstadoAppV1<IDEEstados> extends IDEEstado<IDEEstados> {
 				console.log(value)
 				console.log(m)
 			console.log(agentMessage(this.nombre, "<]", ""));
+
+			console.log(agentMessage("APP_PROGRESS_4",
+				"IA Error. Repetir! " + this.ide.listaAsistentes().find(a => a.id == param.assistant_id)?.name))
 
 			// ENVIAR ERROR AL GENERAL
 			IDEEstadoAppV1.addQuery(
