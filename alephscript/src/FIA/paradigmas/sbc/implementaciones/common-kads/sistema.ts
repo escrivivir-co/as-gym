@@ -5,7 +5,7 @@ import { IDiccionarioI18 } from "../../../../genesis-block";
 import { AS_COMMON_KADS_I18 } from "./as-common-kads-i18";
 import { agentMessage } from "../../../../agentMessage";
 import { EstadoT } from "./estado";
-import { IEstadoT } from "./IEstadoT";
+import { IEstadoT } from "../../../situada/IEstadoT";
 import { ISistema } from "./ISistema";
 
 export interface ISistemaRuntime {

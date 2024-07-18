@@ -1,18 +1,20 @@
-import { Assistant } from "openai/resources/beta/assistants";
-import { ASOracleAs, Trainer_clave } from "../../paradigmas/conexionista/modelos-lenguaje/oai/Trainer_key";
-import { RTCache } from "../../engine/kernel/rt-cache";
-import { agentMessage } from "../../agentMessage";
+
 import { Observable, Subject } from "rxjs";
-import { CKCACHE_Clave, EXTERNAL_CACHE } from "../../paradigmas/sbc/implementaciones/common-kads/common-kads";
-import { IFase } from "../../paradigmas/sbc/implementaciones/common-kads/IFase";
-import { CKFases } from "../../paradigmas/sbc/implementaciones/common-kads/CKFases";
-import { IDiccionarioI18 } from "../../genesis-block";
-import { AS_IDE_i18 } from "./aleph-script-idle-i18";
-import { AsistenteApi } from '../../paradigmas/conexionista/modelos-lenguaje/oai/asisstant';
+import { agentMessage } from "../../../agentMessage";
+import { RTCache } from "../../../engine/kernel/rt-cache";
+import { IDiccionarioI18 } from "../../../genesis-block";
+import { AsistenteApi } from "../../../paradigmas/conexionista/modelos-lenguaje/oai/asisstant";
+import { Trainer_clave, ASOracleAs } from "../../../paradigmas/conexionista/modelos-lenguaje/oai/Trainer_key";
+import { CKFases } from "../../../paradigmas/sbc/implementaciones/common-kads/CKFases";
+import { EXTERNAL_CACHE } from "../../../paradigmas/sbc/implementaciones/common-kads/common-kads";
+import { IFase } from "../../../paradigmas/sbc/implementaciones/common-kads/IFase";
+import { AS_IDE_i18 } from "../../ide/aleph-script-idle-i18";
+import { Assistant } from "openai/resources/beta/assistants";
+
 
 export const CONST_CORPUS_PATH = '/Users/morente/Desktop/THEIA_PATH/taller_tc/JE20/je20/fia/src/as-seed/guest/';
 
-export interface AlephScriptIDE {
+export interface AlephScriptIDEv1 {
 
 	i18: IDiccionarioI18;
 
@@ -25,11 +27,13 @@ export interface AlephScriptIDE {
 	assistant: Assistant;
 	projectName: string;
 
+	listaAsistentes: () => Assistant[];
+
 	motor: () => void;
 	imprimir: () => void;
 }
 
-export class AlephScriptIDEImpl implements AlephScriptIDE {
+export class AlephScriptIDEImpl implements AlephScriptIDEv1 {
 
 	i18 = AS_IDE_i18;
 	nombre = this.i18.IDE.NOMBRE;
@@ -45,10 +49,16 @@ export class AlephScriptIDEImpl implements AlephScriptIDE {
 
 	arrancado: boolean;
 
-	constructor() {
+	listaAsistentes(): Assistant[] {
 
 		const c = new RTCache();
-		this.assistant = (c.leer(Trainer_clave) as Assistant[])
+		return (c.leer(Trainer_clave) as Assistant[])
+
+	}
+
+	constructor() {
+
+		this.assistant =this.listaAsistentes()
 			.find(a => a.id === ASOracleAs.id);
 
 		console.log(agentMessage(this.assistant.name, this.assistant.name ? "¡Listo!" :  "Error al inicializar IDE!"));

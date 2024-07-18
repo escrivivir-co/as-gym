@@ -15,7 +15,7 @@ export interface IFIAHibrida extends iFIA {
 
     fias: iFIA[];
 
-    situada: IFIASituada;
+    alphaBot: IFIASituada;
     simbolica: IFIASimbolica;
     conexionista: IFIAConexionista;
 
@@ -27,7 +27,11 @@ export class FIAHibrida extends GenesisBlock implements IFIAHibrida {
 
     fias: iFIA[] = [];
 
-    situada: IFIASituada;
+    alphaBot: IFIASituada;
+	omegaBot: IFIASituada;
+	templeBot: IFIASituada;
+
+	situada: IFIASituada;
     simbolica: IFIASimbolica;
     conexionista: IFIAConexionista;
 

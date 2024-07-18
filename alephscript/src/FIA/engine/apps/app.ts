@@ -10,6 +10,8 @@ import { agentMessage } from "../../agentMessage";
 import { IApp } from "./iapp";
 
 export class App extends FIAHibrida implements IApp {
+
+	dontConnectToSocket: boolean;
     dummy: GenesisBlock;
 
     i18 = i18.APPS;

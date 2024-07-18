@@ -2,7 +2,7 @@ import { Subscription, Subject } from "rxjs";
 import { IModelo } from "../../../../mundos/IModelo";
 import { CKFases } from "./CKFases";
 import { IEspecificacion } from "./IEspecificacion";
-import { IEstadoT } from "./IEstadoT";
+import { IEstadoT } from "../../../situada/IEstadoT";
 import { IAlternativa } from "./nivel/IAlternativa";
 import { IObjetivo } from "./nivel/IObjetivo";
 import { ISistema } from "./ISistema";

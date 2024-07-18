@@ -14,6 +14,7 @@ export interface ApiRequest {
 }
 
 export interface ApiReply {
+	id?: string;
 	ok:	 boolean;
 	data: any;
 }
@@ -38,14 +39,20 @@ export const IA_PARAMS = {
 	n: 1,
 }
 const configuration = /*new Configuration(*/{
-	apiKey: auth.openai.key
+	apiKey: auth.openai.key,
+	baseOptions: {
+		headers: {
+			"OpenAI-Beta": "assistants=v2"
+		}
+	}
 };
+
 
 export class Api {
 	openai: OpenAI;
 
   	constructor() {
-		this.openai = new OpenAI(configuration);
+		this.openai = new OpenAI(configuration,);
 
 		this.openai.apiKey = auth.openai.key;
   	}

@@ -1,6 +1,7 @@
 import { IModelo } from "../../../../mundos/IModelo";
+import { IEstadoT } from "../../../situada/IEstadoT";
 import { IEstado } from "./IEstado";
-import { IEstadoT } from "./IEstadoT";
+
 
 export class Estado implements IEstado {
 
@@ -21,6 +22,8 @@ export class Estado implements IEstado {
 }
 
 export class EstadoT<T> extends Estado implements IEstadoT<T> {
+
+	nombre: string;
 
     actual: T;
 

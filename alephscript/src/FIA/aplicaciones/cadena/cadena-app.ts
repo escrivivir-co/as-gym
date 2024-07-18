@@ -32,8 +32,8 @@ export class CadenaApp extends App {
          * APLICACIÓN PARA EL ESTUDIO DEL APRENDIZAJE INTELIGENTE
          * FUNDAMENTOS DE IA + TEORIA LENGUAJES PROGRAMACION
          */
-        this.situada = new CadenaFIASituada();
-        this.situada.mundo = this.mundo;
+        this.alphaBot = new CadenaFIASituada();
+        this.alphaBot.mundo = this.mundo;
 
         this.simbolica = new CadenaFIARedSemantica();
         this.simbolica.mundo = this.mundo;

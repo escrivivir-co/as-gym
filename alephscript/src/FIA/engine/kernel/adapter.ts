@@ -7,13 +7,12 @@ import { AlephScriptClient } from "../apps/socketio/client";
 export class SocketAdapter {
 
 	static threads: iFIA[] = [];
-	static client: AlephScriptClient = new AlephScriptClient("CRT-AS-01") ;
+	static client: AlephScriptClient /* = new AlephScriptClient("CRT-AS-01") */;
 
 	menuAnswer: (answer: string, mode: RunStateEnum) => void;
 	spider: AlephScriptClient;
 
-	getCurrentApps() {
-		const data = SocketAdapter.threads.map((t: iFIA, index: number) => {
+	getCurrentApps() {		const data = SocketAdapter.threads.map((t: iFIA, index: number) => {
 			return {
 				index,
 				name: t.nombre,
@@ -25,8 +24,10 @@ export class SocketAdapter {
 
 	sendFrameworkState(args) {
 
+		if (!SocketAdapter.client) return;
+
 		const rData = args[0];
-		console.log(systemMessage(SocketAdapter.client.name + ">> Sending list of threads... to: " + rData?.requesterName))
+		console.log(systemMessage(SocketAdapter.client?.name + ">> Sending list of threads... to: " + rData?.requesterName))
 
 		const senderData = {
 			...rData,
@@ -34,7 +35,7 @@ export class SocketAdapter {
 			event: "SET_LIST_OF_THREADS",
 			data: this.getCurrentApps()
 		}
-		SocketAdapter.client.roomP(senderData);
+		SocketAdapter.client?.roomP(senderData);
 
 	}
 
@@ -42,7 +43,7 @@ export class SocketAdapter {
 
 		const app = SocketAdapter.threads.find(t => t.nombre === appName);
 
-		SocketAdapter.client.room("SET_APP_STATE", f, appName)
+		SocketAdapter.client?.room("SET_APP_STATE", f, appName)
 
 	}
 
@@ -50,19 +51,19 @@ export class SocketAdapter {
 
 		console.log(systemMessage(`Socket.Connected`));
 
-			SocketAdapter.client.room("MAKE_MASTER", { features: []});
-			SocketAdapter.client.room("MAKE_MASTER", { features: []}, "IDE-app");
+			SocketAdapter.client?.room("MAKE_MASTER", { features: []});
+			SocketAdapter.client?.room("MAKE_MASTER", { features: []}, "IDE-app");
 
-			SocketAdapter.client.io.on("GET_LIST_OF_THREADS", (...args) => {
+			SocketAdapter.client?.io.on("GET_LIST_OF_THREADS", (...args) => {
 
 				this.sendFrameworkState(args);
 
 			})
 
-			SocketAdapter.client.io.on("GET_ENGINE", (...args) => {
+			SocketAdapter.client?.io.on("GET_ENGINE", (...args) => {
 
 				const rData = args[0];
-				console.log(systemMessage(SocketAdapter.client.name + ">> DO ENGINE... to: " + rData))
+				console.log(systemMessage(SocketAdapter.client?.name + ">> DO ENGINE... to: " + rData))
 
 				// START/STOP
 				const action = rData?.data?.action;

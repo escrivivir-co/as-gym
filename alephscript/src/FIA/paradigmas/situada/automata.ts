@@ -1,11 +1,12 @@
 import { Subject } from "rxjs";
 import { i18 } from "../../i18/aleph-script-i18";
-import { IMundo, Mundo } from "../../mundos/mundo";
+import { IMundo, Mundo, RunStateEnum } from "../../mundos/mundo";
 import { Modelo } from "../../mundos/modelo";
 import { agentMessage } from "../../agentMessage";
 import { EstadoT } from "./estado";
 import { IEstadoT } from "./IEstadoT";
 import { IEstado } from "./IEstado";
+import { IDEEstados } from "../../aplicaciones/ide-v1/situada/IDEEstados";
 
 export interface IAutomata {
 
@@ -52,7 +53,7 @@ export class Automata<T> implements IAutomataT<T> {
 
     async inicializar() {
 
-        this.mundo.eferencia.subscribe((m) => {
+        this.mundo.eferencia.subscribe(async (m) => {
 
             // console.log(agentMessage(this.nombre, i18.SITUADA.AUTOMATA.RECEPCION_AFERENCIA_LABEL));
 
@@ -62,10 +63,15 @@ export class Automata<T> implements IAutomataT<T> {
 
             const aferencia = new EstadoT<T>(m.modelo);
 
+			if (m.modelo.dia == (m.modelo.muerte)) {
+				this.estado.modelo.estado = IDEEstados.PARAR;
+			}
+
             /**
             * Ejecución de las transiciones de ciclo
             * */
-            this.estado.transicion(aferencia);
+            await this.estado.transicion(aferencia);
+
 
             this.mundo.modelo = this.estado.comoModelo();
 
@@ -74,12 +80,12 @@ export class Automata<T> implements IAutomataT<T> {
             * */
             // console.log(agentMessage(this.nombre, i18.SITUADA.AUTOMATA.ENVIO_EFERENCIA_LABEL));
 
-            this.eferencia.next(this.mundo);
+            // this.eferencia.next(this.mundo);
 
         });
 
         // Invocación génesis...
         await this.mundo.alAcabar(this.nombre);
-        console.log("automata esperando al acabar de mundo: ¡ya!")
+        console.log(agentMessage(this.nombre, "Acabé mis tareas. Adiós muy buenas!"))
     }
 }

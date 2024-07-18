@@ -28,6 +28,8 @@ export interface iFIA {
 
     imprimir: () => string;
 
+	configurar?: () => void;
+
     instanciar(): Promise<string>;
 
     razona: (mundo: IMundo, i: Aferencia) => Eferencia;
@@ -38,6 +40,8 @@ export interface iFIA {
 
 	runState: RunStateEnum;
 	runStateEvent: Subject<RunStateEnum>;
+
+	assistantId?: string;
 
 }
 

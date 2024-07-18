@@ -1,4 +1,4 @@
-import { Assistant } from "openai/resources/beta/assistants/assistants";
+
 import { Observable, Subject } from "rxjs";
 import { agentMessage } from "../../../../../../agentMessage";
 import { AS_IDE_i18 } from "../../../../../../aplicaciones/ide/aleph-script-idle-i18";
@@ -7,6 +7,7 @@ import { IDiccionarioI18 } from "../../../../../../genesis-block";
 import { Trainer_clave, ASOracleAs } from "../../../../../conexionista/modelos-lenguaje/oai/Trainer_key";
 import { AsistenteApi } from "../../../../../conexionista/modelos-lenguaje/oai/asisstant";
 import { IFase } from "../../../../../sbc/implementaciones/common-kads/IFase";
+import { Assistant } from "openai/resources/beta/assistants";
 
 export interface AlephScriptIDE {
 

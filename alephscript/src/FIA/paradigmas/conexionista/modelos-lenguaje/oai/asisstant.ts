@@ -1,14 +1,33 @@
-import { Assistant, AssistantListParams } from "openai/resources/beta/assistants/assistants";
 import { Api, ApiReply } from "./api";
 import { ThreadCreateParams } from "openai/resources/beta/threads/threads";
 import { agentMessage } from "../../../../agentMessage";
 import { RTCache } from "../../../../engine/kernel/rt-cache";
+import { Assistant, AssistantListParams } from "openai/resources/beta/assistants";
+
+// When launch API Assistant query, you need to polling to get the answer
+const runRetryTime = 5000
+
+let LAST_THREAD = "";
+
+const rt = new RTCache()
+
+export interface QueryParams {
+	id?: string;
+	assistant_id: string;
+	solicitud: string;
+	bot_info?: string;
+}
+
 
 export class AsistenteApi extends Api {
 
 	nombre = "oraculo-assistant-api";
 	cache = new RTCache();
 	usando = false;
+
+	constructor() {
+		super()
+	}
 
 	async asistente(ASOracleAs: Partial<Assistant>): Promise<ApiReply> {
 
@@ -74,11 +93,10 @@ export class AsistenteApi extends Api {
 	imprimirAsistente(a: Assistant) {
 		return `Asistente: ${a.name}, ${a.model}, \n ${a.instructions}
 			${a.tools.map(a => "\n\t\t --> " + a.type).join("")}
-			${a.file_ids.map(a => "\n\t\t --> " + a).join("")}
 		`;
 	}
 
-	async crearHilo(params: {assistant_id: string, solicitud: string }): Promise<ApiReply> {
+	async crearHilo(params: QueryParams): Promise<ApiReply> {
 
 		return new Promise(async (resolve, reject) => {
 
@@ -91,48 +109,78 @@ export class AsistenteApi extends Api {
 						messages : [
 							{
 								"role": "user",
-								"content": params.solicitud,
-								"file_ids": []
+								"content": params.solicitud
 							}
 						]
 					}
 
-					console.log(agentMessage(this.nombre,
-						"Crear thread con mensaje: " + JSON.stringify(p)
+					console.log(agentMessage(this.nombre + "/" + params.bot_info,
+						"Carga de datos que se envían:[>", ""), );
+							console.log(params.solicitud)
+						// ZONA DE LOGS
+					console.log(agentMessage(this.nombre + "/" + params.bot_info, "<]", ""));
+
+					console.log(agentMessage(this.nombre + "/" + params.bot_info, "Resolución de ThreadID", ""), LAST_THREAD);
+
+					if (LAST_THREAD) {
+
+						console.log(agentMessage(this.nombre + "/" + params.bot_info, "Reciclando ThreadID", ""), LAST_THREAD);
+
+					} else {
+						LAST_THREAD = (rt.leer("API_ASSISTANTE_THREAD_IDS") || { thread: "" }).thread;
+					}
+
+					if (LAST_THREAD) {
+
+						console.log(agentMessage(this.nombre + "/" + params.bot_info, "Reciclando ThreadID", ""), LAST_THREAD);
+
+					} else {
+
+						console.log(agentMessage(this.nombre + "/" + params.bot_info,
+							"Creando API Thread", /* con payload: " + JSON.stringify(p)*/
+						));
+						const thread = await this.openai.beta.threads.create(p);
+						LAST_THREAD = thread.id;
+						console.log(agentMessage(this.nombre + "/" + params.bot_info,
+							"Guardando API Thread en cache: " + LAST_THREAD,
+						));
+						rt.guardar("API_ASSISTANTE_THREAD_IDS", { thread: LAST_THREAD });
+						rt.persistir()
+
+					}
+
+					console.log(agentMessage(this.nombre + "/" + params.bot_info,
+						"Crear run: " + LAST_THREAD + JSON.stringify({ assistant_id: params.assistant_id }),
 					));
 
-					console.log(agentMessage(this.nombre,
-						"Crear thread con mensaje: " + JSON.stringify(p)
-					));
-					const thread = await this.openai.beta.threads.create(p);
-
-					console.log(agentMessage(this.nombre,
-						"Crear run: " + thread.id + JSON.stringify({ assistant_id: params.assistant_id }),
-					));
 					const run = await this.openai.beta.threads.runs.create(
-						thread.id,
+						LAST_THREAD,
 						{ assistant_id: params.assistant_id }
 					);
 
-					console.log(agentMessage(this.nombre,
-						"Comprobar estado run run: " + thread.id + "/" + run.id)
+					console.log(agentMessage(this.nombre + "/" + params.bot_info,
+						"Run lanzado, se espera respuesta. Cada " + runRetryTime / 1000 + " secs: " + LAST_THREAD + "/" + run.id)
 					);
 
+					let intervalRetries = 0;
 					const s = setInterval(async () => {
 
-						console.log(agentMessage(this.nombre,
-							"Comprobar estado run run: " + thread.id + "/" + run.id)
+						intervalRetries++;
+
+						console.log(agentMessage(this.nombre + "/" + params.bot_info,
+							"Intento: [" + intervalRetries + "] Comprobar estado run run: " + LAST_THREAD + "/" + run.id)
 						);
 						const r = await this.openai.beta.threads.runs.retrieve(
-							thread.id,
+							LAST_THREAD,
 							run.id
 						);
 
 						if (r.status === "completed") {
 							console.log(agentMessage("inner.assistant. thread-run-status", r.thread_id + "/" + r.id + ": " + r.status));
 
-							const refreshThread = await this.openai.beta.threads.messages.list(thread.id);
+							const refreshThread = await this.openai.beta.threads.messages.list(LAST_THREAD);
 							clearInterval(s);
+							this.usando = false;
 							resolve({
 								ok: true,
 								data: refreshThread
@@ -141,10 +189,10 @@ export class AsistenteApi extends Api {
 							console.log(agentMessage("inner.assistant. thread-run-status", r.thread_id + "/" + r.id + ": " + r.status))
 						}
 
-					}, 20000)
+					}, runRetryTime)
+				} else {
+					console.log(agentMessage(this.nombre + "/" + params.bot_info, "El agente se ha colgado!! :-(", ""), LAST_THREAD);
 				}
-
-
 
 			} catch(error) {
 

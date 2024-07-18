@@ -2,10 +2,16 @@ import { Ignoto } from "../../Intencion";
 import { Dominio, IDominio } from "../../mundos/dominio";
 import * as fs from "fs";
 
+let CACHE_CONTAINER: IDominio;
+
+export const ACTIVAR_GUARDADO_LOGS = false
+
 export class RTCache {
 
     dominio: IDominio = new Dominio({});
     archivo: string = '/cache.json';
+
+	cache = false;
 
     constructor() {
         this.recuperar();
@@ -13,6 +19,7 @@ export class RTCache {
 
     guardar(clave: string, valor: Ignoto): void {
 
+		console.log("Guardar calve", clave)
         this.dominio.base[clave] = valor;
 
     }
@@ -31,8 +38,14 @@ export class RTCache {
 
     persistir() {
 
+		this.dominio.base = {
+			...CACHE_CONTAINER.base,
+			...this.dominio.base
+		}
+		CACHE_CONTAINER.base = this.dominio.base;
+
         try {
-            // console.log("escribir datos", this.dominio)
+            console.log("escribir datos", Object.keys(this.dominio?.base || {}))
             fs.writeFileSync(__dirname + this.archivo, JSON.stringify(
                 { cache : this.dominio.base }, null, "\t"));
             // console.log("Cache escrita en", __dirname + '/cache.json' /*, this.dominio.base*/);
@@ -56,6 +69,11 @@ export class RTCache {
 
     recuperar() {
 
+		if (CACHE_CONTAINER) {
+			this.dominio = CACHE_CONTAINER;
+			return
+		}
+
         if (!fs.existsSync(__dirname + this.archivo)) {
             this.persistir();
         }
@@ -63,7 +81,9 @@ export class RTCache {
 
         this.dominio.base = JSON.parse(data || {})?.cache || {};
 
-        // console.log("Leida cache de: ", __dirname + '/cache.json');
+        console.log("Leida cache de: ", __dirname + '/cache.json');
+
+		CACHE_CONTAINER = this.dominio;
 
     }
 

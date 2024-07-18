@@ -2,16 +2,55 @@
 	"cache": {
 		"assistants": [
 			{
+				"id": "asst_77TQowzpq6GoiB4sqvRFKMHm",
+				"object": "assistant",
+				"created_at": 1704415050,
+				"name": "Hemisferio derecho",
+				"description": null,
+				"model": "gpt-4o",
+				"instructions": "MODO JSON ACTIVADO:\n\nA continuación se enumeran las capacidades de este agente: \"Es experto en la parte creativa y abstracta.\"\n\n- Se encarga de las funciones relacionadas con la imaginación, la creatividad, las emociones y los sentimientos.\n- Tiene un papel importante en lo referente a las funciones espaciales y las habilidades musicales.\n- Además, también se encarga del pensamiento más intuitivo, espontáneo y subjetivo.\n\nTU MISIÓN ES RESPONDER A LAS INSTRUCCIONES QUE TE ENTREGUE EL USUARIO PERO HACERLO SIEMPRE SIGUIENDO EL ESTILO O LA TENDENCIA ARRIBA EXPRESADA. CUANDO TENGAS QUE ELEGIR  USA EL CRITERIO ARRIBA DESCRITO",
+				"tools": [],
+				"top_p": 1,
+				"temperature": 0.32,
+				"tool_resources": {},
+				"metadata": {},
+				"response_format": {
+					"type": "json_object"
+				}
+			},
+			{
+				"id": "asst_DCiHbpmFk67Occ0UQqAvxTCR",
+				"object": "assistant",
+				"created_at": 1704414981,
+				"name": "Hemisferio izquierdo",
+				"description": null,
+				"model": "gpt-4o",
+				"instructions": "MODO JSON ACTIVADO:\n\nA continuación se enumeran las capacidades de este agente: \"Es experto en la parte lógica y numérica.\"\n\n- Tiene capacidades relacionadas con el pensamiento numérico, matemático-lógico, verbal y simbólico.\n\n- Se encarga de las distintas funciones relacionadas con la expresión (lenguaje), la lectura y la escritura.\n\n- Es el agente que se encarga de analizar, razonar y procesar la información. Tiene un papel fundamental en el aprendizaje.\n\nTU MISIÓN ES RESPONDER A LAS INSTRUCCIONES QUE TE ENTREGUE EL USUARIO PERO HACERLO SIEMPRE SIGUIENDO EL ESTILO O LA TENDENCIA ARRIBA EXPRESADA. CUANDO TENGAS QUE ELEGIR  USA EL CRITERIO ARRIBA DESCRITO.",
+				"tools": [],
+				"top_p": 1,
+				"temperature": 0.32,
+				"tool_resources": {},
+				"metadata": {},
+				"response_format": {
+					"type": "json_object"
+				}
+			},
+			{
 				"id": "asst_BaI6P1ygS2MyTMsjoe1p3pO4",
 				"object": "assistant",
 				"created_at": 1701005396,
-				"name": "as-2",
+				"name": "Testigo",
 				"description": null,
-				"model": "gpt-3.5-turbo",
-				"instructions": "Eres un experto controlador de unidades fundamentales de inteligencia artificial. Funciona como un oráculo. Provees funciones para servidores de acción. Gestiona los eventos del sistema. Eres enlace entre un servidor RASA y la AssistantsAPI. Modo json activado.",
+				"model": "gpt-4",
+				"instructions": "MODO JSON ACTIVADO:\nEres un experto controlador de unidades fundamentales de inteligencia artificial. Funciona como un oráculo. Provees funciones para servidores de acción. Gestiona los eventos del sistema. Eres un pacificador o sintetizador entre posturas. Intentas observar al resto de participantes para ver en qué se diferencian o polarizan y aportas el punto intermedio. Modo json activado.\n\nTU MISIÓN ES RESPONDER A LAS INSTRUCCIONES QUE TE ENTREGUE EL USUARIO PERO HACERLO SIEMPRE SIGUIENDO EL ESTILO O LA TENDENCIA ARRIBA EXPRESADA. CUANDO TENGAS QUE ELEGIR  USA EL CRITERIO ARRIBA DESCRITO",
 				"tools": [],
-				"file_ids": [],
-				"metadata": {}
+				"top_p": 1,
+				"temperature": 0.39,
+				"tool_resources": {},
+				"metadata": {},
+				"response_format": {
+					"type": "json_object"
+				}
 			},
 			{
 				"id": "asst_BKYPddAcD11niecWsUvTmQgh",
@@ -26,227 +65,21 @@
 						"type": "code_interpreter"
 					}
 				],
-				"file_ids": [
-					"file-pfoopiFYm7NFhsPr47dSznYd"
-				],
-				"metadata": {}
+				"top_p": 1,
+				"temperature": 1,
+				"tool_resources": {
+					"code_interpreter": {
+						"file_ids": [
+							"file-pfoopiFYm7NFhsPr47dSznYd"
+						]
+					}
+				},
+				"metadata": {},
+				"response_format": "auto"
 			}
 		],
-		"CJKCACHE": {
-			"fase": "",
-			"alternativas": [
-				{
-					"organizacion": "\t\t -OM-1:[<Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío>]\n\t\t\t -OM-2:[<Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío>]\n\t\t\t -OM-3:[<Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío>]\n\t\t\t -OM-4:[<Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío>]\n\t\t\t -OM-5:[<Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío>]",
-					"tareas": "\t\t -TM-1:[]\n\t\t\t -TM-2:[]",
-					"agentes": "\t\t -AM-1:[]",
-					"recursos": "recursos",
-					"conclusiones": "OTA-1:[<Modelo Vacío> - OM-1 - OM-2 - OM-3 - OM-4 - OM-5 - TM-1 - TM-2 - AM-1]"
-				}
-			],
-			"objetivo": {
-				"organizacion": "\t\t -OM-1:[<Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío>]\n\t\t\t -OM-2:[<Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío>]\n\t\t\t -OM-3:[<Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío>]\n\t\t\t -OM-4:[<Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío>]\n\t\t\t -OM-5:[<Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío>]",
-				"tareas": "\t\t -TM-1:[<Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío>]\n\t\t\t -TM-2:[<Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío>]",
-				"agentes": "\t\t -AM-1:[<Modelo Vacío> - <Modelo Vacío> - <Modelo Vacío>]",
-				"conclusiones": "OTA-1:[<Modelo Vacío> - OM-1 - OM-2 - OM-3 - OM-4 - OM-5 - TM-1 - TM-2 - AM-1]"
-			},
-			"especificacion": {
-				"conceptual": {
-					"conocimiento": "\t\t -KM-1:[<Modelo Vacío>]"
-				},
-				"comunicacion": {
-					"comunicacion": "\t\t -CM-1:[ -  -  - <Modelo Vacío>]\n\t\t\t -CM-2:[ -  -  - <Modelo Vacío>]"
-				}
-			},
-			"sistema": {
-				"disenyo": [
-					"DM-1",
-					"DM-2",
-					"DM-3",
-					"DM-4"
-				],
-				"arquitectura": [
-					"DM-1",
-					"DM-2",
-					"DM-3",
-					"DM-4"
-				],
-				"plataforma": [
-					"DM-1",
-					"DM-2",
-					"DM-3",
-					"DM-4"
-				],
-				"componentes": [
-					"DM-1",
-					"DM-2",
-					"DM-3",
-					"DM-4"
-				],
-				"aplicacion": "common.kads.sistema.app"
-			}
-		},
-		"genesis": {
-			"id": "IDE-app",
-			"estado": {
-				"IDE-app": [
-					{
-						"estado": "¡Arrancando simulación!",
-						"fecha": "2024-07-16T22:58:07.542Z"
-					}
-				],
-				"mundo-raíz-ide": [
-					{
-						"estado": "¡Mundo iniciado! Pulso: 1000",
-						"fecha": "2024-07-16T22:58:07.735Z"
-					},
-					{
-						"estado": "¡Más gente en el mundo!, ide.situada, suscriptores: 1",
-						"fecha": "2024-07-16T22:58:07.742Z"
-					},
-					{
-						"estado": "Hoy es el día: 1",
-						"fecha": "2024-07-16T22:58:08.737Z"
-					},
-					{
-						"estado": "Hoy es el día: 2",
-						"fecha": "2024-07-16T22:58:11.759Z"
-					},
-					{
-						"estado": "Hoy es el día: 3",
-						"fecha": "2024-07-16T22:58:14.763Z"
-					}
-				],
-				"ide.situada": [
-					{
-						"estado": "Hola soy un autómata situado.",
-						"fecha": "2024-07-16T22:58:07.736Z"
-					}
-				],
-				"fia.sbc": [
-					{
-						"estado": "Unirse a: mundo-raíz-ide",
-						"fecha": "2024-07-16T22:58:07.745Z"
-					},
-					{
-						"estado": "Arrancar IDE: AlephScriptIDE_Proyecto_1",
-						"fecha": "2024-07-16T22:58:08.774Z"
-					},
-					{
-						"estado": "Lanzando un sistema basado en conocimiento de tipo CommonKADS...",
-						"fecha": "2024-07-16T22:58:08.805Z"
-					}
-				],
-				"modelo-ide": [
-					{
-						"estado": "Autómata listo ide-estado transicion.",
-						"fecha": "2024-07-16T22:58:08.743Z"
-					}
-				],
-				"aleph-script-assistant": [
-					{
-						"estado": "¡Listo!",
-						"fecha": "2024-07-16T22:58:08.773Z"
-					},
-					{
-						"estado": "¡Listo para recibir peticiones de ayuda!",
-						"fecha": "2024-07-16T22:58:08.782Z"
-					}
-				],
-				"fia.sbc.common.kads": [
-					{
-						"estado": "Hola, voy a generar un app siguiendo la metodología Common KADS. 3..., 2..., 1..., ¡lanzando!",
-						"fecha": "2024-07-16T22:58:08.807Z"
-					}
-				],
-				"common.kads": [
-					{
-						"estado": "Ejecutaré 3 fases de construcción. Y, a continuación, monitorizaré la aplicación derivada. ¡Vamos!",
-						"fecha": "2024-07-16T22:58:11.788Z"
-					},
-					{
-						"estado": "AVANCE DE ESTADO:  --  --  PLAY_STEP ",
-						"fecha": "2024-07-16T22:58:11.852Z"
-					},
-					{
-						"estado": "Nivel Contextual",
-						"fecha": "2024-07-16T22:58:11.855Z"
-					},
-					{
-						"estado": " NCx.01 Realizado estudio de viabilidad:\n             \t\t -AS_OM-01:[modelo-ide]\n\t\t\t -OM-2:[modelo-ide]\n\t\t\t -OM-3:[modelo-ide]\n\t\t\t -OM-4:[modelo-ide]\n\t\t\t -OM-5:[modelo-ide]",
-						"fecha": "2024-07-16T22:58:11.857Z"
-					},
-					{
-						"estado": "AVANCE DE ESTADO: Nivel Contextual NCx.01 Realizado estudio de viabilidad PLAY_STEP ",
-						"fecha": "2024-07-16T22:58:14.769Z"
-					},
-					{
-						"estado": "Nivel Contextual",
-						"fecha": "2024-07-16T22:58:14.781Z"
-					},
-					{
-						"estado": " NCx.02 Realizado estudio de impacto y mejoras:\n\t\t\t\t \t\t -AS_TM-01:[modelo-ide]\n\t\t\t -TM-2:[modelo-ide],\n\t\t\t\t \t\t -AS_AM-01:[modelo-ide]",
-						"fecha": "2024-07-16T22:58:14.783Z"
-					}
-				],
-				"common.kadsProject": [
-					{
-						"estado": "Carga objeto fase",
-						"fecha": "2024-07-16T22:58:11.795Z"
-					},
-					{
-						"estado": "Carga objeto IDE",
-						"fecha": "2024-07-16T22:58:11.826Z"
-					},
-					{
-						"estado": "Vincula el IDE con el ActionServer",
-						"fecha": "2024-07-16T22:58:11.830Z"
-					},
-					{
-						"estado": "Creando modelo de organización",
-						"fecha": "2024-07-16T22:58:11.854Z"
-					},
-					{
-						"estado": "Creando modelo de organización",
-						"fecha": "2024-07-16T22:58:14.781Z"
-					}
-				],
-				"MyServer": [
-					{
-						"estado": "AS FK CK PROCESS REQUEST:  --  ",
-						"fecha": "2024-07-16T22:58:11.836Z"
-					},
-					{
-						"estado": "Carga el dominio de la semilla",
-						"fecha": "2024-07-16T22:58:11.838Z"
-					},
-					{
-						"estado": "AS FK CK PROCESS REQUEST: Nivel Contextual ",
-						"fecha": "2024-07-16T22:58:14.768Z"
-					}
-				],
-				"common.kadsFASES": [
-					{
-						"estado": "Creado modelo de organización",
-						"fecha": "2024-07-16T22:58:11.858Z"
-					},
-					{
-						"estado": "Creado modelo de impacto",
-						"fecha": "2024-07-16T22:58:14.782Z"
-					}
-				]
-			},
-			"fecha": "2024-07-16T22:58:00.831Z"
-		},
-		"claveFunciones": [
-			[
-				"{\"type\":\"text\",\"text\":{\"value\":\"Aquí tienes el código TypeScript generado para implementar las funciones solicitadas:\\n\\n```typescript\\nfunction FuncionCriterio(valor: number): boolean {\\n    return valor >= (1 - 20) * Nmax;\\n}\\n\\nfunction FuncionCriterio(valor: number): boolean {\\n    return valor >= (1 - 80) * Nmax;\\n}\\n\\nfunction FuncionCriterio(valor: number): boolean {\\n    return valor >= 20;\\n}\\n\\nfunction FuncionCriterio(valor: number): boolean {\\n    return valor >= 80;\\n}\\n```\\n\\nPuedes ejecutar este código en un entorno TypeScript para obtener los resultados deseados. Recuerda reemplazar la variable `Nmax` por el valor correspondiente en tu implementación real.\\n\\nSi necesitas el código en formato JSON, aquí tienes el resultado:\\n\\n```json\\n{\\n  \\\"funciones\\\": [\\n    \\\"function FuncionCriterio(valor: number): boolean {\\\\n    return valor >= (1 - 20) * Nmax;\\\\n}\\\\n\\\",\\n    \\\"function FuncionCriterio(valor: number): boolean {\\\\n    return valor >= (1 - 80) * Nmax;\\\\n}\\\\n\\\",\\n    \\\"function FuncionCriterio(valor: number): boolean {\\\\n    return valor >= 20;\\\\n}\\\\n\\\",\\n    \\\"function FuncionCriterio(valor: number): boolean {\\\\n    return valor >= 80;\\\\n}\\\\n\\\"\\n  ]\\n}\\n```\\n\\nEspero que esto sea lo que estabas buscando. Si tienes alguna otra pregunta, no dudes en hacerla.\",\"annotations\":[]}}"
-			],
-			[
-				"{\"type\":\"text\",\"text\":{\"value\":\"Entendido. Voy a generar el código TypeScript para implementar esas funciones. Primero, necesitamos definir el formato en el que se espera recibir las especificaciones y en qué formato se devolverán las funciones implementadas.\\n\\nEl formato de entrada será una lista de especificaciones en lenguaje natural en forma de cadena de texto. El formato de salida será un objeto JSON con un campo llamado \\\"funciones\\\" que contendrá un array de strings con el código TypeScript de las funciones.\\n\\nA continuación, generaré el código TypeScript para implementar las funciones solicitadas.\",\"annotations\":[]}}"
-			],
-			[
-				"{\"type\":\"text\",\"text\":{\"value\":\"Dada una lista de especificaciones en lenguaje natural, devuelve una lista de funciones en typescript que las implementen. Las funciones se llamarán todas igual: FuncionCriterio. Modo JSON. Devuelve el campo 'funciones' con un Array válida de strings con el código listo para ejecutar con la instrucción eval. Cada posición de la lista debe ser el código de la función con cabecera correcta dentro de un string. Lista de especificaciones: ['tendencia decreciente con pérdida del 20% Nmax','tendencia decreciente con pérdida del 80% Nmax','tendencia creciente con ganancia del 20% Nmin','tendencia creciente con ganancia del 80% Nmin']\",\"annotations\":[]}}"
-			]
-		]
+		"API_ASSISTANTE_THREAD_IDS": {
+			"thread": "thread_kxglZJyt986Hm59zOtrHa3me"
+		}
 	}
 }

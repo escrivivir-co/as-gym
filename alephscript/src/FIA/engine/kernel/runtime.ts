@@ -13,6 +13,8 @@ import { FIA_SBC } from "../../paradigmas/sbc/fia-sbc";
 import { IdeApp } from "../../aplicaciones/ide/semilla/semilla-app";
 import { SocketAdapter } from "./adapter";
 import { RunStateEnum } from "../../mundos/mundo";
+import { IdeAppV1 } from "../../aplicaciones/ide-v1/ide-v1-app";
+import { AppV1 } from "../../aplicaciones/app-v1/app-v1";
 
 export const EXIT_PROMPT_INDEX = 99;
 
@@ -25,6 +27,7 @@ export function menuOption(message: string) {
  */
 export class Runtime extends SocketAdapter {
 
+	nombre = "RT"
     start() {
 
         const fia = new FIA();
@@ -51,14 +54,18 @@ export class Runtime extends SocketAdapter {
         const cadenaApp = new CadenaApp();
         Runtime.threads.push(cadenaApp);
 
-        const ideApp = new IdeApp();
+        const ideAppV1 = new AppV1();
+        Runtime.threads.push(ideAppV1);
+
+		const ideApp = new IdeApp();
         Runtime.threads.push(ideApp);
 
     }
 
+	index = 0;
     async demo(): Promise<void> {
 
-		SocketAdapter.client.initTriggersDefinition.push(
+		SocketAdapter.client?.initTriggersDefinition.push(
 			() => this.run()
 		);
 
@@ -67,7 +74,42 @@ export class Runtime extends SocketAdapter {
             output: process.stdout
         });
 
+		let modeConsola = false;
 		this.menuAnswer = async (answer, mode: RunStateEnum) => {
+
+			if (answer == "n") {
+				console.log(agentMessage(this.nombre,
+					"Se ha desactivado el modo consola. Se responderá al canal externo. 'y' para activar."))
+				modeConsola = false;
+				return await waitForUserInput(false);
+			}
+
+			if (answer == "y") {
+
+				if (!modeConsola) {
+					console.log(agentMessage(this.nombre,
+						"Se ha activado el modo consola. No se responderá al canal externo. 'n' para desactivar."))
+					modeConsola = true;
+				}
+
+				const fia = Runtime.threads[this.index];
+
+				// APP TIMELINE FOR KEYBOARD
+				if (fia.mundo.runState == RunStateEnum.PAUSE) {
+
+					console.log(agentMessage(this.nombre, "Avanzar estado"), fia.mundo.nombre)
+
+					// Notificar al mundo
+					fia.mundo.runState = RunStateEnum.PLAY_STEP
+					fia.runStateEvent.next(fia.mundo.runState)
+
+					// Notificar clientes externos
+					this.sendFrameworkState({})
+					this.sendAppState(fia.nombre, fia.mundo.modelo.dominio.base["FASE"])
+				}
+
+				return await waitForUserInput(false);
+			}
 
 			const index = parseInt(answer);
 			if (isNaN(index)) {
@@ -76,8 +118,9 @@ export class Runtime extends SocketAdapter {
 
 				// try {
 					const fia = Runtime.threads[index];
+					this.index = index;
 
-					waitForUserInput();
+					waitForUserInput(true);
 
 					console.clear();
 					console.log(systemMessage(`${i18.LOOP.LAUNCH_FIA_LABEL}: ${fia.nombre}`));
@@ -85,6 +128,8 @@ export class Runtime extends SocketAdapter {
 					if (fia.runAsync) {
 
 						fia.mundo.eferencia.asObservable().subscribe(f => {
+
+							if (modeConsola) return;
 
 							// APP TIMELINE
 							if (f.runState == RunStateEnum.PAUSE) {
@@ -102,10 +147,14 @@ export class Runtime extends SocketAdapter {
 						})
 
 						// APP MAIN
-						fia.runStateEvent.next(mode || RunStateEnum.PLAY);
+						fia.runStateEvent.next(mode || RunStateEnum.PLAY_STEP);
+
+						if (mode || RunStateEnum.PLAY_STEP) {
+							modeConsola = true
+							console.log(agentMessage(this.nombre, "'y' para activar el modo consola."), fia.mundo.nombre)
+						}
 						const instancia = await fia.instanciar();
-						fia.runStateEvent.next(RunStateEnum.STOP)
-;
+						fia.runStateEvent.next(RunStateEnum.STOP);
 						console.log(agentMessage(fia.nombre, instancia));
 
 						// INITIAL STATE
@@ -124,25 +173,30 @@ export class Runtime extends SocketAdapter {
 				console.log(systemMessage(`"System closed by user! Bye!"`));
 				rl.close();
 			} else {
-				waitForUserInput();
+				waitForUserInput(true);
 			}
 		};
 
         let app;
         let cpu: number = 0;
-        const waitForUserInput = async (): Promise<void> => {
+        const waitForUserInput = async (menu: boolean): Promise<void> => {
 
-            Runtime.threads.forEach((t: iFIA, index: number) => {
-                console.log(menuOption(`[${index}]: Modelo: ${t.nombre}`));
-				t.runState = RunStateEnum.STOP;
-            });
-            console.log(menuOption(`[${EXIT_PROMPT_INDEX}]: ${i18.EXIT_PROMT_LABEL}`));
+			if (menu) {
+				Runtime.threads.forEach((t: iFIA, index: number) => {
+					console.log(menuOption(`[${index}]: Modelo: ${t.nombre}`));
+					t.runState = RunStateEnum.STOP;
+				});
+				console.log(menuOption(`[${EXIT_PROMPT_INDEX}]: ${i18.EXIT_PROMT_LABEL}`));
 
-            rl.question(`${i18.MENU_PROMPT_DATA_LABEL}`, (answer) => this.menuAnswer(answer, RunStateEnum.PLAY));
+			}
+			const m = menu ? i18.MENU_PROMPT_DATA_LABEL : "'y' para continuar... \n"
+			rl.question(`${m}`,
+				(answer) => this.menuAnswer(answer, RunStateEnum.PLAY_STEP));
+
         }
 
         console.log(systemMessage(`${i18.LOOP.LOAD_FIA_LABEL}`));
-        return await waitForUserInput();
+        return await waitForUserInput(true);
 
     }
 

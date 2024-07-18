@@ -1,5 +1,6 @@
 import { IModelo } from "../../../../../../mundos/IModelo";
-import { IEstadoT } from "../../IEstadoT";
+import { IEstadoT } from "../../../../../situada/IEstadoT";
+
 
 
 

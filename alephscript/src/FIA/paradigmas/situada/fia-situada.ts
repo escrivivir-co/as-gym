@@ -5,6 +5,7 @@ import { agentMessage } from "../../agentMessage";
 import { IAutomata, Automata } from "./automata";
 import { IEstado } from "./IEstado";
 import { TablaEstado } from "./tabla-estado";
+import { IModelo } from "../../mundos/IModelo";
 /**
  * Unidades de sensores/actuadores con tablas de asociación
  * o autómatas con máquinas de estado. 
@@ -14,9 +15,17 @@ export interface IFIASituada extends iFIA {
     tabla: TablaEstado;
     automata: IAutomata;
 
+	instanciarV(): Promise<IModelo>
+
 }
 
 export class FIASituada extends GenesisBlock implements IFIASituada {
+
+	instanciarV(): Promise<IModelo> {
+		throw new Error("Method not implemented.");
+	}
+
+	configurar?: () => void;
 
     runAsync = true;
 

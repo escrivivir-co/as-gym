@@ -31,7 +31,7 @@
   "dependencies": {
     "onnxruntime-node": "^1.16.1",
     "onnxruntime-web": "^1.16.1",
-    "openai": "^4.19.1",
+    "openai": "^4.52.7",
     "puppeteer": "^22.9.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
@@ -42,7 +42,7 @@
     "ts-json-schema-generator": "^1.4.0"
   },
   "openai": {
-    "key": "",
+    "key": "sk-svcacct-",
     "memory": "/Users/morente/Desktop/taller art/discord-bot/memory"
   }
 }

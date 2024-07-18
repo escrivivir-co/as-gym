@@ -41,9 +41,9 @@ export class IdeApp extends App {
 
 		this.mundo.runStateEvent = this.runStateEvent.asObservable();
 
-        this.situada = new IDEFIASituada();
-		this.situada.runStateEvent = this.runStateEvent;
-        this.situada.mundo = this.mundo;
+        this.alphaBot = new IDEFIASituada();
+		this.alphaBot.runStateEvent = this.runStateEvent;
+        this.alphaBot.mundo = this.mundo;
 
         this.sbc = new IDE_SBC();
 		this.sbc.runStateEvent = this.runStateEvent;
@@ -52,7 +52,7 @@ export class IdeApp extends App {
         const salidas = await Promise.allSettled(
             [
                 this.mundo.ciclo(),						// MAIN APP PULSE
-                this.situada.instanciar(),				// IDEFIA Situada, attaches a dummy automata
+                this.alphaBot.instanciar(),				// IDEFIA Situada, attaches a dummy automata
                 this.sbc.instanciarC(),					// SBC CommonKads, starts APP creation project
             ]
         );

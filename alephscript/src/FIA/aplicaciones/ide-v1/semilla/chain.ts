@@ -1,5 +1,5 @@
-import { RTCache } from "../../engine/kernel/rt-cache";
-import { Runtime } from "../../engine/kernel/runtime";
+import { RTCache } from "../../../engine/kernel/rt-cache";
+import { Runtime } from "../../../engine/kernel/runtime";
 
 export interface Bloque {
 
@@ -29,6 +29,6 @@ export function AgregarBloque(id: string, estado: Bloque | any, fecha?: Date) {
     c.guardar("genesis", Bloque);
     c.persistir();
 
-	Runtime.client?.room("SET_EXECUTION_PROCESS", Bloque);
+	Runtime.client.room("SET_EXECUTION_PROCESS", Bloque);
 
 }

@@ -124,7 +124,7 @@ export class Mundo implements IMundo {
 
     async ciclo(): Promise<IModelo> {
 
-		console.log("MUNDO CLICLO")
+
 		this.runStateEvent.subscribe((event) => this.runState = event);
 
         return await new Promise((resolve, reject) => {
@@ -141,6 +141,7 @@ export class Mundo implements IMundo {
 
             try {
 
+				// console.log(this.nombre, this.runState)
 				if (this.runState == RunStateEnum.STOP) throw new Error("Abort");
 
 				if (this.runState == RunStateEnum.PAUSE) return;
@@ -149,7 +150,7 @@ export class Mundo implements IMundo {
 
 				if (this.runState == RunStateEnum.PLAY_STEP) {
 					this.runState = RunStateEnum.PAUSE;
-					this.eferencia.next(this)
+					// this.eferencia.next(this)
 				}
 
             } catch(ex) {

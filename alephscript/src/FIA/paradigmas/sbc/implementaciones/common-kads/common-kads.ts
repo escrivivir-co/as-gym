@@ -9,7 +9,7 @@ import { ICKNivelConceptual } from "./nivel/ICKNivelConceptual";
 import { CKNivelContextual } from "./nivel/nivel-contextual";
 import { ICKNivelContextual } from "./nivel/ICKNivelContextual";
 import { EstadoT } from "./estado";
-import { IEstadoT } from "./IEstadoT";
+import { IEstadoT } from "../../../situada/IEstadoT";
 
 import { createGenerator, Config, TypeFormatter } from 'ts-json-schema-generator';
 
