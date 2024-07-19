@@ -41,7 +41,7 @@
     "ts-json-schema": "^1.1.3",
     "ts-json-schema-generator": "^1.4.0"
   },
-  "opena i": {
+  "openai": {
     "key": "sk-svcacct-",
     "memory": "/Users/morente/Desktop/taller art/discord-bot/memory"
   }
