@@ -1,4 +1,4 @@
-import { IDiccionarioI18 } from "../../../../genesis-block";
+import { IDiccionarioI18 } from "../../../../IDiccionarioI18";
 import { IModelo } from "../../../../mundos/IModelo";
 import { agentMessage } from '../../../../agentMessage';
 import { AS_COMMON_KADS_I18 } from "./as-common-kads-i18";
@@ -91,8 +91,8 @@ export class CK implements ICK {
                 e.unsubscribe();
 
                 console.log(agentMessage(this.nombre, this.i18.CABECERA));
-                const rt = new RTCache();
-                fase = rt.leer(CK_FASE_clave);
+                // const rt = new RTCache();
+                fase = this.fase; // rt.leer(CK_FASE_clave);
 
                 console.log(agentMessage(this.nombre + "Project", "Carga objeto fase"))
                 fase = fase || {
@@ -118,8 +118,9 @@ export class CK implements ICK {
 
                     const s = ide.actionServer.subscribe(f => {
 
+						// console.log("Recibe accion server action f", f)
 						if (f) {
-							rt.guardar(CK_FASE_clave, this.comoJSON(f));
+							// rt.guardar(CK_FASE_clave, f);
 						}
 
                     });
@@ -152,8 +153,10 @@ export class CK implements ICK {
 
 				if (m.runState != RunStateEnum.PAUSE) {
 
+					this.mundo.modelo.dia = fase.estado.modelo.dia;
 					this.mundo.modelo.dominio.base["FASE"] = this.comoJSON(this.fase);
 					this.fase.esperando = true;
+					// console.log("Aqui lanza fase***********************", this.fase)
 					ide.actionServerS.next(this.fase);
 				}
 
@@ -446,28 +449,20 @@ export class CK implements ICK {
 
     comoJSON(fase: IFase) {
 
-		let r = {}
-        try {
-			r = {
+		return {
 
-				fase: fase.fase,
+			fase: fase.fase,
 
-				estado: fase.estado,
+			estado: fase.estado,
 
-				alternativas: fase.alternativas.map(a => a.comoJSON()),
+			alternativas: fase.alternativas.map(a => a.comoJSON()),
 
-				objetivo: fase.objetivo?.comoJSON(),
+			objetivo: fase.objetivo?.comoJSON(),
 
-				especificacion: fase.especificacion?.comoJSON(),
+			especificacion: fase.especificacion?.comoJSON(),
 
-				sistema: fase.sistema?.comoJSON()
-			}
-		} catch(ex) {
-			console.log(this.nombre, "Error PERSISTE EN PRINT FASE!!!!!")
-			// console.log("La fase", fase)
-
+			sistema: fase.sistema?.comoJSON()
 		}
-		return r
     }
 
 	cycloAsyncS: Subject<IFase> = new Subject<IFase>();
@@ -475,6 +470,7 @@ export class CK implements ICK {
 
         return new Promise(async (resolve, reject) => {
 
+			// console.log("888888888888888888888ASIGNA LA FASE", fase)
 			this.fase = fase;
 
             fase.solicitar = this.cycloAsyncS;
@@ -546,7 +542,8 @@ import { AlephScriptIDE, CONST_CORPUS_PATH } from "../../../../aplicaciones/ide/
 import { IDE_clave } from "../../../conexionista/modelos-lenguaje/oai/Trainer_key";
 import { RTCache } from "../../../../engine/kernel/rt-cache";
 import path from "path";
-import { IMundo, RunStateEnum } from "../../../../mundos/mundo";
+import { RunStateEnum } from "../../../../mundos/RunStateEnum";
+import { IMundo } from "../../../../mundos/IMundo";
 import { Estudio } from "../../estudio";
 import { AlephScriptBoilerplate } from "../../../../../as-seed/guest/main";
 import { Conceptual } from '../../../simbolica/modelos/conceptual/paradigma';

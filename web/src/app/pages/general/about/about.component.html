@@ -59,8 +59,31 @@
 						})">
 						<i class="fas fa-stop me-1"></i>
 					</button>
-					{{ currentApp().index }}/{{ currentApp().state }}
-					</div>
+
+					<span class="small">
+						|| {{ currentApp().index }}/{{ currentApp().state }}
+					</span>
+					<span class="small">
+						|| [ {{ currentApp().mundo.nombre }} ] Bots: {{ currentApp().bots.length }}
+					</span>
+
+					<nav class = "small" aria-label="...">
+						<ul class="pagination">
+						  <li class="page-item"
+						  [ngClass]="{ 'disabled': (currentApp().mundo.modelo?.dia || 0) < 2}">
+							<a class="page-link small" href="#" tabindex="-1" aria-disabled="true">Prev</a>
+						  </li>
+						  	<li *ngFor="let item of getMundoPaginator(currentApp().mundo).dias" class="page-item">
+								<a class="page-link small" [ngClass]="{ 'active': item == currentApp().mundo.modelo?.dia }" href="#">{{ item }}</a>
+							</li>
+						  <li class="page-item"
+						  	[ngClass]="{ 'disabled': (currentApp().mundo.modelo?.dia || 0) == (currentApp().mundo.modelo?.muerte || 0) - 1}"
+						  	>
+							<a class="page-link small" href="#">Next</a>
+						  </li>
+						</ul>
+					</nav>
+				</div>
 			</section>
 
 
@@ -328,6 +351,9 @@
 						</h1>
 						<p>
 							App: {{currentApp().name}}
+							<span class="small">
+								[ {{ currentApp().mundo.nombre }} ] Bots: {{ currentApp().bots.length }}
+							</span>
 						</p>
 						<div *ngIf="currentApp().index && currentApp().index != -1">
 								{{ currentApp().index }}/{{ currentApp().state }}
@@ -412,6 +438,7 @@
 												<i class="fas fa-globe me-2"></i>
 												[ {{ i.index }} ] {{ i.name }}
 											</a>
+
 										</li>
 									</ul>
 								</ul>
@@ -472,6 +499,54 @@
 							<ul class="list-group text-dark">
 								<ul class="list-group text-dark small-list">
 									<li *ngFor="let i of serviceNamespaces()" class="list-group-item">
+										{{ i.name }}
+									</li>
+								</ul>
+							</ul>
+							</div>
+						</div>
+
+					</div>
+
+					<div class="card nga-card-menu">
+
+						<div class="card-header">
+							<a data-bs-toggle="collapse" data-parent="#accordionItems" href="#collapseRooms" aria-expanded="true">
+							<div class="card-item">
+								<i class="fas fa-film me-2 "></i>Rooms
+							</div>
+							</a>
+						</div>
+
+						<div id="collapseRooms" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionItems">
+							<div class="card-body">
+							<ul class="list-group text-dark">
+								<ul class="list-group text-dark small-list">
+									<li *ngFor="let i of serviceRooms()" class="list-group-item">
+										{{ i.name }}
+									</li>
+								</ul>
+							</ul>
+							</div>
+						</div>
+
+					</div>
+
+					<div class="card nga-card-menu">
+
+						<div class="card-header">
+							<a data-bs-toggle="collapse" data-parent="#accordionItems" href="#collapseUsuarios" aria-expanded="true">
+							<div class="card-item">
+								<i class="fas fa-film me-2 "></i>Usuarios
+							</div>
+							</a>
+						</div>
+
+						<div id="collapseUsuarios" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionItems">
+							<div class="card-body">
+							<ul class="list-group text-dark">
+								<ul class="list-group text-dark small-list">
+									<li *ngFor="let i of serviceUsuarios()" class="list-group-item">
 										{{ i.name }}
 									</li>
 								</ul>

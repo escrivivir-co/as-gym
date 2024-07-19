@@ -246,4 +246,10 @@
 	overflow: hidden; /* Prevent overflow */
 	font-size: 75%;
   }
+
+  .small {
+	font-size: 75%;
+  }
+
+  
   

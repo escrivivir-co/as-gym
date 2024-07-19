@@ -26,7 +26,6 @@ export const routes: Routes = [
         loadComponent: () => import(`./experience/experience.component`)
           .then(mod => mod.ExperienceComponent)
       },
-
     ]
   },
 ];

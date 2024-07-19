@@ -2,6 +2,28 @@
   font-size: 1.2em;
 }
 
+
+.nga-card-menu .card-header a {
+	text-decoration: none;
+  }
+
+  .nga-card-menu .card-header a .card-item {
+	color: black;
+  }
+
+  .nga-card-menu .card-header a .card-item i {
+	color: #191919;
+  }
+
+  .nga-card-menu .card-header a:hover .card-item {
+	text-decoration: none;
+	color: #191919;
+  }
+
+  .btn-small-font {
+	font-size: 75%;
+  }
+
 @media (max-width: 992px) {
   .nga-container {
     font-size: 1em;
@@ -92,3 +114,39 @@
   color: #010101;
 }
 
+
+.small {
+	padding-left: 0;
+	margin: 0;
+	font-size: 80%;
+  }
+
+.small-list {
+	padding-left: 0;
+	margin: 0;
+	list-style: none;
+  }
+
+  .small-list-item-right {
+	padding: 5px 5px;
+	margin: 0;
+	line-height: 1.2;
+	font-size: 12px; /* Adjust the font size as needed */
+	text-align: right;
+  }
+
+  .small-list-item {
+	padding: 5px 5px;
+	margin: 0;
+	line-height: 1.2;
+	font-size: 12px; /* Adjust the font size as needed */
+	text-align: left;
+  }
+
+  .small-list li {
+	padding: 2px 0;
+	margin: 0;
+	line-height: 1.2;
+	font-size: 12px; /* Adjust the font size as needed */
+	text-align: left;
+  }

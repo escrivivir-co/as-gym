@@ -1,11 +1,11 @@
-import { agentMessage } from "../../agentMessage";
-import { App } from "../../engine/apps/app";
+import { agentMessage } from "../../../agentMessage";
+import { App } from "../../../engine/apps/app";
 
 import { IDEModelo } from "./ide-modelo";
 import { IDEEstados } from './situada/IDEEstados';
 import { IDEFIASituada } from "./situada/ide-fia-situada";
 import { IDEMundo } from "./ide-mundo";
-import { Bloque } from "../../engine/kernel/cadena-bloques";
+import { Bloque } from "../../../engine/kernel/cadena-bloques";
 
 export class IdeAppV1 extends App {
 
@@ -31,6 +31,7 @@ export class IdeAppV1 extends App {
 		onReady();
 
 		console.log(agentMessage(this.nombre, "OnLaunching"), this.alphaBot.automata.estado.nombre)
+
         const salidas = await Promise.allSettled(
             [
                 this.mundo.ciclo(),						// MAIN APP PULSE

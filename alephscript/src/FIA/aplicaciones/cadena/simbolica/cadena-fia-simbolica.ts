@@ -2,7 +2,7 @@ import { i18 } from "../../../i18/aleph-script-i18";
 import { agentMessage } from "../../../agentMessage";
 import { IModeloFormal } from "../../../paradigmas/simbolica/paradigma";
 import { IProblema, IRequisitos, ISolucion } from "../../../paradigmas/simbolica/modelos/formal/inferencia/relacion/paradigma";
-import { IMundo } from "../../../mundos/mundo";
+import { IMundo } from "../../../mundos/IMundo";
 import { IFIASimbolica, FIASimbolica } from '../../../paradigmas/simbolica/fia-simbolica';
 
 // export namespace IASituada {

@@ -1,12 +1,11 @@
 import { Ignoto } from "../../Intencion";
 import { Dominio, IDominio } from "../../mundos/dominio";
 import * as fs from "fs";
+import { IRTCache } from "./IRTCache";
 
 let CACHE_CONTAINER: IDominio;
 
-
-
-export class RTCache {
+export class RTCache implements IRTCache {
 
     dominio: IDominio = new Dominio({});
     archivo: string = '/cache.json';

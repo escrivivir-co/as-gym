@@ -26,7 +26,7 @@ export class AlephScriptServer extends SocketServer {
 		})
 
 		this.admin = this.ioG("admin");
-
+ 
 		this.base = this.ioG("");
 
 	}

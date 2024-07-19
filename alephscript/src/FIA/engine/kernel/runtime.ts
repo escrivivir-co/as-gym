@@ -1,5 +1,6 @@
 
-import { iFIA, FIA, GenesisBlock } from "../../genesis-block";
+import { FIA, GenesisBlock } from "../../genesis-block";
+import { iFIA } from "../../iFIA";
 import { IACientifica } from "../../paradigmas/cientifica/paradigma";
 import { i18 } from "../../i18/aleph-script-i18";
 import { systemMessage } from "../../systemMessage";
@@ -12,7 +13,7 @@ import { FIASimbolica } from "../../paradigmas/simbolica/fia-simbolica";
 import { FIA_SBC } from "../../paradigmas/sbc/fia-sbc";
 import { IdeApp } from "../../aplicaciones/ide/semilla/semilla-app";
 import { SocketAdapter } from "./adapter";
-import { RunStateEnum } from "../../mundos/mundo";
+import { RunStateEnum } from "../../mundos/RunStateEnum";
 import { AppV1 } from "../../aplicaciones/app-v1/app-v1";
 import { BORRAR_ESTADO_A_CADA_PLAY_STEP, MODO_CONSOLA_ACTIVADO } from "../../../runCONFIG";
 import { Bloque } from "./cadena-bloques";
@@ -105,6 +106,7 @@ export class Runtime extends SocketAdapter {
 					fia.runStateEvent.next(fia.mundo.runState)
 
 					// Notificar clientes externos
+					console.log("^************99999999999999999999999999999999*************", fia.mundo.modelo.dia)
 					this.sendFrameworkState({})
 					this.sendAppState(fia.nombre, fia.mundo.modelo.dominio.base["FASE"])
 				}
@@ -142,16 +144,17 @@ export class Runtime extends SocketAdapter {
 							// APP TIMELINE FOR SOCKEITO
 							if (f.runState == RunStateEnum.PAUSE) {
 								fia.runStateEvent.next(f.runState)
+								console.log("^***********1111111111111111111111**************", fia.mundo.modelo.dia)
 								this.sendFrameworkState({})
 
-								console.log("*********** estado")
-								console.log(f.modelo.estado)
-								console.log("*********** dominio")
-								console.log(f.modelo.dominio.base["FASE"])
+								// console.log("*********** estado")
+								// console.log(f.modelo.estado)
+								// console.log("*********** dominio")
+								// console.log(f.modelo.dominio.base["FASE"])
 
 								this.sendAppState(fia.nombre, f.modelo.dominio.base["FASE"])
 							} else {
-								console.log("Is not paused--------<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
+								// console.log("Is not paused--------<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
 							}
 
 						})
@@ -161,7 +164,7 @@ export class Runtime extends SocketAdapter {
 
 						if (mode || RunStateEnum.PLAY_STEP) {
 							modeConsola = MODO_CONSOLA_ACTIVADO
-							console.log(agentMessage(this.nombre, "'y' para activar el modo consola."), fia.mundo.nombre)
+							console.log(agentMessage(this.nombre, "'y' para activar el modo consola."))
 						}
 
 						console.log(

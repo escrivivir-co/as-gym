@@ -1,8 +1,8 @@
 import { agentMessage } from "../../agentMessage";
 import { IModelo } from "../../mundos/IModelo";
 import { QueryParams } from "../../paradigmas/conexionista/modelos-lenguaje/oai/asisstant";
-import { IDEEstado } from "../ide-v1/ide-estado";
-import { IDEEstados } from "../ide-v1/situada/IDEEstados";
+import { IDEEstado } from "./ide-v1/ide-estado";
+import { IDEEstados } from "./ide-v1/situada/IDEEstados";
 import { ApiReply } from "../../paradigmas/conexionista/modelos-lenguaje/oai/api";
 import { Assistant } from "openai/resources/beta/assistants";
 import { INSTRUCCIONES_DE_CORRECION } from "./lore";

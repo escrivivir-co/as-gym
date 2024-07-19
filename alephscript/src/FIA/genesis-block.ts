@@ -2,53 +2,21 @@ import { Intencion, Aferencia, Eferencia } from "./Intencion";
 import { Bloque } from "./engine/kernel/cadena-bloques";
 import { RTCache } from "./engine/kernel/rt-cache";
 import { i18 } from "./i18/aleph-script-i18";
-import { RunStateEnum, IMundo, Mundo } from './mundos/mundo';
+import { iFIA } from "./iFIA";
+import { Mundo } from './mundos/mundo';
+import { RunStateEnum } from "./mundos/RunStateEnum";
+import { IMundo } from "./mundos/IMundo";
 import { Subject } from "rxjs";
+import { IDiccionarioI18 } from "./IDiccionarioI18";
+import { IPercepto } from "./IPercepto";
+import { IAprendize } from "./IAprendize";
+import { IRTCache } from "./engine/kernel/IRTCache";
 
 export type Objetivo = Intencion;
 
-export interface IAprendize {}
-
-export interface IPercepto {}
-
-export interface IAccion {}
-
-export interface IDiccionarioI18 {}
-
-export interface iFIA {
-
-    i18: IDiccionarioI18;
-
-    nombre: string;
-
-    runAsync: boolean;
-
-    objetivos: Aferencia[];
-
-    mundo: IMundo;
-
-    imprimir: () => string;
-
-	configurar?: () => void;
-
-    instanciar(): Promise<string>;
-
-    razona: (mundo: IMundo, i: Aferencia) => Eferencia;
-
-    abstrae: (p: IPercepto) => IAprendize;
-
-    cache: RTCache;
-
-	runState: RunStateEnum;
-	runStateEvent: Subject<RunStateEnum>;
-
-	assistantId?: string;
-
-}
-
 export class FIA implements iFIA {
 
-    cache: RTCache = new RTCache();
+    cache: IRTCache = new RTCache();
 
 	runStateEvent = new Subject<RunStateEnum>();
 	runState: RunStateEnum = RunStateEnum.STOP;

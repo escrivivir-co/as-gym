@@ -2,7 +2,7 @@ import { i18 } from "../../../i18/aleph-script-i18";
 import { agentMessage } from "../../../agentMessage";
 import { IProblema, IRequisitos, ISolucion } from "../../../paradigmas/simbolica/modelos/formal/inferencia/relacion/paradigma";
 import { IRedNeuronalArtificial, RedNeuronalArtificial } from "../../../paradigmas/conexionista/red-neuronal";
-import { IMundo } from "../../../mundos/mundo";
+import { IMundo } from "../../../mundos/IMundo";
 import { FIAConexionista, IFIAConexionista } from "../../../paradigmas/conexionista/fia-conexionista";
 
 // export namespace IASituada {

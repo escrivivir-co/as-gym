@@ -1,8 +1,9 @@
 import { Observable } from "rxjs";
 import { IModelo } from "../../mundos/IModelo";
-import { Mundo, IMundo } from "../../mundos/mundo";
+import { IMundo } from "../../mundos/IMundo";
+import { IDEMundo } from "./ide-v1/ide-mundo";
 
-export class IDEMundo extends Mundo {
+export class AppV1Mundo extends IDEMundo {
 
     modelo: IModelo;
 

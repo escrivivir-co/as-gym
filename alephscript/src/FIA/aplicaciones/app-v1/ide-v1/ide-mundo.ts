@@ -1,6 +1,7 @@
 import { Observable } from "rxjs";
-import { IModelo } from "../../mundos/IModelo";
-import { Mundo, IMundo } from "../../mundos/mundo";
+import { IModelo } from "../../../mundos/IModelo";
+import { Mundo } from "../../../mundos/mundo";
+import { IMundo } from "../../../mundos/IMundo";
 
 export class IDEMundo extends Mundo {
 

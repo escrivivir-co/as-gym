@@ -1,7 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { EstadoJuego, POSICION_TABLERO, SalaBackend, Tablero } from './interfaces/sala';
 import { Jugador } from './interfaces/jugador';
-import { ServerService } from './server.service';
+import { IServerService } from './server.service';
 import { CrearSalaArgs } from './interfaces/crearSala';
 import { UnirseASalaCrearSalaArgs } from './interfaces/unirseASala';
 import { UsuarioService } from './usuario.service';

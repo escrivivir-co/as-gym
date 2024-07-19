@@ -2,22 +2,19 @@ import { Component, inject, Inject, OnInit, signal, ViewEncapsulation } from '@a
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { PrettyJsonPipeV2 } from '../../application/example-prettyjson/pretty-json.pipe';
-
+import { ActivatedRoute } from '@angular/router';
 import { PLATFORM_ID } from '@angular/core';
 
 import { SeoService } from '../../../services/seo/seo.service';
 import { Feature, FeatureName, Name } from './feature';
 import { Dependency } from './dependency';
-import { ServerService, MenuState, RuntimeBlock } from '../../../services/socketio/server.service';
 import { DomSanitizer } from '@angular/platform-browser';
-
-export enum RunStateEnum {
-	PLAY = "PLAY",
-	PLAY_STEP = "PLAY_STEP",
-	RESUME = "RESUME",
-	PAUSE = "PAUSE",
-	STOP = "STOP"
-}
+import { IMenuState } from '/Users/morente/Desktop/THEIA_PATH/AlephWeb/angular-app/alephscript/src/FIA/engine/kernel/IMenuState';
+import { RunStateEnum } from '/Users/morente/Desktop/THEIA_PATH/AlephWeb/angular-app/alephscript/src/FIA/mundos/RunStateEnum';
+import { IMundo } from '../../../../../../alephscript/src/FIA/mundos/IMundo';
+import { ServerService } from '../../../services/socketio/server.service';
+import { IRuntimeBlock } from '../../../../../../ws-server/src/alephscript/IRuntimeBlock';
+import { IServerState } from "../../../../../../ws-server/src/alephscript/IServerState";
 
 const notValidItems = [" ", "/", "-"]
 function removeOccurrences(array: string[], target: string) {
@@ -61,10 +58,14 @@ export class AboutComponent implements OnInit {
 
 	playStep: boolean = false;
 
-	currentApp = signal<MenuState>({
+	currentApp = signal<IMenuState>({
 		index: -1,
 		name: "--",
 		state: RunStateEnum.STOP,
+		mundo: {
+			nombre: ""
+		},
+		bots: []
 	});
 
 	IDEapp = signal<LogLabel[]>([{
@@ -87,30 +88,36 @@ export class AboutComponent implements OnInit {
 
 	serviceNamespaces = signal<ServerNM[]>([]);
 	serviceClients = signal<ServerNM[]>([]);
+	serviceUsuarios = signal<ServerNM[]>([]);
+	serviceRooms = signal<ServerNM[]>([]);
 
-	serviceApps = signal<MenuState[]>([]);
+	serviceApps = signal<IMenuState[]>([]);
 	serviceModules = signal<FeatureName[]>([]);
 
 	serverService = inject(ServerService);
 	accordionState: any = {};
 
+	AppId: number = -1;
+
 	constructor(
 		private seoService: SeoService,
 		@Inject(PLATFORM_ID) private platformId: object,
-		private sanitizer: DomSanitizer) {
+		private sanitizer: DomSanitizer,
+		private route: ActivatedRoute) {
 
-		const content = 'About content with meta';
+		const content =
+		'Entorno de gimnasio y entrenamiento para unidades Fundamentales ' +
+		' de inteligencia artificial';
+
+		const title = 'AlephScript Gym/IDE';
 		this.seoService.setMetaDescription(content);
+		this.seoService.setMetaTitle(title);
 
 		this.id = 0;
 
 		this.dependencies = {
 			namespaces: [
-				{ name: 'Angular 17.2.4' },
-				{ name: 'Angular CLI 17.2.3' },
-				{ name: 'Angular SSR 17.2.3' },
-				{ name: 'Bootstrap 5.3.3' },
-				{ name: 'Font Awesome 6.5.1' },
+				{ name: 'Angular 17.2.4' }
 			],
 			sockets: [
 				{ name: 'Node.js 18.17.1' },
@@ -125,133 +132,93 @@ export class AboutComponent implements OnInit {
 					name: 'Angular CLI',
 					englishTutorial: 'https://www.escrivivir.co/tutorials/getting-started-with-angular',
 					frenchTutorial: 'https://www.escrivivir.co/tutorials/demarrer-avec-angular',
-				},
-				{
-					name: 'Routing',
-					englishTutorial: 'https://www.escrivivir.co/tutorials/routing-with-angular',
-					frenchTutorial: 'https://www.escrivivir.co/tutorials/routing-avec-angular',
-				},
-				{
-					name: 'Lazy loading',
-					englishTutorial: 'https://www.escrivivir.co/tutorials/lazy-loading-with-angular',
-					frenchTutorial: 'https://www.escrivivir.co/tutorials/lazy-loading-avec-angular',
-				},
-				{
-					name: 'Bootstrap',
-					englishTutorial: 'https://www.escrivivir.co/tutorials/bootstrap-with-angular',
-					frenchTutorial: 'https://www.escrivivir.co/tutorials/bootstrap-avec-angular',
-				},
-				{
-					name: 'Server side Rendering',
-					englishTutorial: 'https://www.escrivivir.co/tutorials/server-side-rendering-with-angular-universal',
-					frenchTutorial: 'https://www.escrivivir.co/tutorials/server-side-rendering-avec-angular-universal',
-				},
-				{
-					name: 'HTTPClient',
-					englishTutorial: 'https://www.escrivivir.co/tutorials/httpclient-with-angular',
-					frenchTutorial: 'https://www.escrivivir.co/tutorials/httpclient-avec-angular',
-				},
-				{
-					name: 'Transfer State',
-					englishTutorial: 'https://www.escrivivir.co/tutorials/transfer-state-with-angular',
-					frenchTutorial: 'https://www.escrivivir.co/tutorials/transfer-state-avec-angular',
-				},
-				{
-					name: 'Progressive Web App',
-					englishTutorial: 'https://www.escrivivir.co/tutorials/progressive-web-app-with-angular',
-					frenchTutorial: 'https://www.escrivivir.co/tutorials/progressive-web-app-avec-angular',
-				},
-				{
-					name: 'Search Engine optimization',
-					englishTutorial: 'https://www.escrivivir.co/tutorials/search-engine-optimization-with-angular',
-					frenchTutorial: 'https://www.escrivivir.co/tutorials/search-engine-optimization-avec-angular',
-				},
-				{
-					name: 'Components',
-					englishTutorial: '',
-					frenchTutorial: 'https://www.escrivivir.co/tutorials/components-avec-angular',
-				},
-				{
-					name: 'Services',
-					englishTutorial: '',
-					frenchTutorial: 'https://www.escrivivir.co/tutorials/services-avec-angular',
-				},
+				}
 			],
 			apps: [
 				{ name: 'Local JSON' },
-				{ name: 'RESTFull API' },
-				{ name: 'CRUD API' },
-				{ name: 'Database Creation' },
-				{ name: 'Data Import' },
-				{ name: 'Data Export' },
 			]
 		};
 
-		this.serverService.serverState$.subscribe(d => {
+		this.serverService.serverState$.subscribe(d => this.cargaServerState(d));
+		this.serverService.MenuAppsList$.subscribe(d => this.cargaMenuAppState(d));
+		this.serverService.chainState$.subscribe((d) => this.cargaChainState(d));
 
-			d.sockets = d.sockets || [];
+		this.cargaServerState(this.serverService.currentserverState$())
+		this.cargaMenuAppState(this.serverService.currentMenuState$())
+		this.cargaChainState(this.serverService.currentChainState$())
 
-			let sockets: Name[] = [];
-			const deps = d.socketsPerNamespace.map(nd => {
+	}
 
-				const ndsockets = nd.sockets.map(s => { return { name: nd.name + (s.id || "") } })
-				sockets = sockets.concat(ndsockets)
-				return {
-					name: nd.name + " (" + nd.socketsCount + " sockets)"
-				}
-			});
-			this.dependencies.namespaces = deps;
+	cargaMenuAppState(d: IMenuState[]) {
+		this.features.apps = d;
 
-			this.dependencies.sockets = sockets.flat();
+		this.serviceApps.set(this.features.apps);
 
-			this.serviceNamespaces.set(this.dependencies.namespaces);
-			this.serviceClients.set(this.dependencies.sockets);
-		});
-
-		this.serverService.menuState$.subscribe(d => {
-
-			this.features.apps = d;
-
-			this.serviceApps.set(this.features.apps);
-
-			// Update current
-			if (this.currentApp()?.index != -1) {
-				this.currentApp.set(this.features.apps[this.currentApp()?.index])
+		// Update current
+		if (this.currentApp()?.index != -1) {
+			// console.log("The set", this.features.apps[this.currentApp()?.index])
+			this.currentApp.set(this.features.apps[this.currentApp()?.index])
+		} else {
+			if (this.AppId != -1) {
+				this.findAndSetRoutingApp()
 			}
+		}
+	}
 
+	cargaServerState(d: IServerState) {
+		d.sockets = d.sockets || [];
+
+		let sockets: Name[] = [];
+		const deps = d.socketsPerNamespace.map(nd => {
+
+			const ndsockets = nd.sockets.map(s => { return { name: nd.name + (s.id || "") } })
+			sockets = sockets.concat(ndsockets)
+			return {
+				name: nd.name + " (" + nd.socketsCount + " sockets)"
+			}
 		});
+		this.dependencies.namespaces = deps;
 
-		this.serverService.chainState$.subscribe((d: RuntimeBlock) => {
+		this.dependencies.sockets = sockets.flat();
 
-			if (d.id != "FIA" && d.id != this.currentApp().name + "") {
-				console.log("REFUSE TO LOG AS APP NAMES DONT MATCH", this.currentApp().name, d.id)
-			};
+		this.serviceNamespaces.set(this.dependencies.namespaces);
+		this.serviceClients.set(this.dependencies.sockets);
+		this.serviceRooms.set(d.rooms.map(r => { return {
+			name: r.roomId + " (" + r.miembros.length + ") miembros :>" + r.miembros?.map(s => s.usuario.substring(0, 5) + s.sesion?.substring(0, 5)).join(":> ")
+		}}))
+		this.serviceUsuarios.set(d.miembros.map(r => { return {
+			name: r.usuario + " (" + (r.sesiones?.length || 0) + ") sockets :>" + r.sesiones?.map(s => s.substring(0, 5)).join(":>")
+		}}))
+	}
 
-			this.IDEapp.set([]);
+	cargaChainState(d: IRuntimeBlock) {
+		if (d.id != "FIA" && d.id != this.currentApp().name + "") {
+			console.log("DEPRECATED SUSCRIPTION TO ChainState. Use new method, app-room. REFUSE TO LOG AS APP NAMES DONT MATCH", this.currentApp().name, d.id)
+		};
 
-			this.features.modules = Object.keys(d.estado)
-				.sort(
-					(a: string, b: string) => a.toUpperCase() > b.toUpperCase() ? 1 : -1
-				)
-				.map((k: string) => {
+		this.IDEapp.set([]);
 
-					const savedK = removeOccurrences(notValidItems, k);
-					this.accordionState[savedK] = this.accordionState[savedK] == undefined ? false : this.accordionState[savedK];
-					this.IDEapp().push({
-						title: savedK,
-						logs: d.estado[k].map((e: any) => { return { title: e.estado } })
-					});
+		this.features.modules = Object.keys(d.estado)
+			.sort(
+				(a: string, b: string) => a.toUpperCase() > b.toUpperCase() ? 1 : -1
+			)
+			.map((k: string) => {
 
-					return {
-						name: k,
-						englishTutorial: d.estado[k].length,
-						frenchTutorial: ''
-					}
-			});
-			// ("Send new modules", this.features.modules)
-			this.serviceModules.set(this.features.modules);
+				const savedK = removeOccurrences(notValidItems, k);
+				this.accordionState[savedK] = this.accordionState[savedK] == undefined ? false : this.accordionState[savedK];
+				this.IDEapp().push({
+					title: savedK,
+					logs: d.estado[k].map((e: any) => { return { title: e.estado } })
+				});
 
+				return {
+					name: k,
+					englishTutorial: d.estado[k].length,
+					frenchTutorial: ''
+				}
 		});
+		// ("Send new modules", this.features.modules)
+		this.serviceModules.set(this.features.modules);
 	}
 
 	onCheckboxChange(event: Event): void {
@@ -265,7 +232,7 @@ export class AboutComponent implements OnInit {
 		this.serverService.sendEngineAction(signal);
 	}
 
-	setCurrentApp(app: MenuState) {
+	setCurrentApp(app: IMenuState) {
 
 		this.currentApp.set(app);
 
@@ -286,6 +253,19 @@ export class AboutComponent implements OnInit {
 		this.seoService.setMetaTitle(title);
 		this.playStep = true
 
+    	this.route.paramMap.subscribe(params => {
+
+			this.AppId = parseInt(params.get('id') || '-1', 10);
+			this.findAndSetRoutingApp()
+    	});
+
+	}
+
+	findAndSetRoutingApp() {
+		if (this.AppId) {
+			const app = this.serviceApps().find(a => a.index == this.AppId)
+			if ( app )this.setCurrentApp(app)
+		}
 	}
 
 	saveAccordionState(key: string) {
@@ -329,6 +309,21 @@ export class AboutComponent implements OnInit {
 	get(key: string, data: LogLabel[]): LogLabel[] {
 		return data.filter(d => (d.title).toUpperCase().includes(key.toUpperCase()))
 
+	}
+
+	getMundoPaginator(m: Partial<IMundo>): {
+		actual: number;
+		dias: number[]
+	} {
+
+		const actual = m?.modelo?.dia || 0;
+		const dias = Array.from({ length: (m?.modelo?.dia || 0) + 1}, (_, index) => index);
+		// console.log("Paginator mundo", actual, dias)
+		return {
+			actual,
+			dias
+
+		}
 	}
 
 }

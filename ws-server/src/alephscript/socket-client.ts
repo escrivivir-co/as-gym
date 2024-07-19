@@ -1,5 +1,6 @@
 import { io, Socket } from 'socket.io-client';
 import { isLogable, Message } from './message';
+import { getHash, IUserDetails } from './IUserDetails';
 
 export class SocketClient {
 
@@ -9,6 +10,8 @@ export class SocketClient {
 	initTriggersDefinition: (() => void)[] = [];
 
 	interval: any;
+
+	configurationSet = false;
 
 	constructor(
 		public name = "AlephClient",
@@ -21,12 +24,22 @@ export class SocketClient {
 
 		this.io.on("connect", () => {
 
+			this.log((namespace || "--") + ".onConnect: ", "S: " +
+				this.io.id + ":> Init Ts: " + this.initTriggersDefinition.length)
+
+			// if (this.configurationSet) return;
+			this.configurationSet = true;
+
 			this.initTriggers = [...this.initTriggersDefinition];
 
-			this.log((namespace || "--") + ".onConnect: ", "S: " + this.io.id)
+			this.interval = setInterval(() => {
 
-			this.io.emit("CLIENT_REGISTER", { name: this.name });
-			this.io.emit("CLIENT_SUSCRIBE", { room: "ENGINE_THREADS" });
+				while (this.initTriggers.length > 0) {
+					const f = this.initTriggers.pop();
+					if (f) f();
+				};
+
+			}, 1000)
 
 			this.io.onAny((event, ...args: any) => {
 
@@ -54,14 +67,8 @@ export class SocketClient {
 				)
 			});
 
-			this.interval = setInterval(() => {
-
-				while (this.initTriggers.length > 0) {
-					const f = this.initTriggers.pop();
-					if (f) f();
-				};
-
-			}, 1000)
+			this.io.emit("CLIENT_REGISTER", { usuario: this.name, sesion: getHash("") } as IUserDetails);
+			this.io.emit("CLIENT_SUSCRIBE", { room: "ENGINE_THREADS" });
 		});
 
 		this.io.on("disconnect", () => {
@@ -129,3 +136,4 @@ export class SocketClient {
 		);
 	}
 }
+

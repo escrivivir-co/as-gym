@@ -8,11 +8,11 @@ export class Modelo implements IModelo {
     nombre = "<Modelo Vacío>";
     dia: number = 0;
     muerte: number = 3;
-    pulso: number = BASE_MUNDO_PULSO;
-    dominio = new Dominio({});
-    estado;
+    pulso?: number = BASE_MUNDO_PULSO;
+    dominio? = new Dominio({});
+    estado?;
 
-    imprimir(): string {
+    imprimir?(): string {
         return Object
             .keys(this).map(k => {
 

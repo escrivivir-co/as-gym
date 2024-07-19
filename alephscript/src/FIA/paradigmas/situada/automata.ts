@@ -1,12 +1,14 @@
 import { Subject } from "rxjs";
 import { i18 } from "../../i18/aleph-script-i18";
-import { IMundo, Mundo, RunStateEnum } from "../../mundos/mundo";
+import { Mundo } from "../../mundos/mundo";
+import { RunStateEnum } from "../../mundos/RunStateEnum";
+import { IMundo } from "../../mundos/IMundo";
 import { Modelo } from "../../mundos/modelo";
 import { agentMessage } from "../../agentMessage";
 import { EstadoT } from "./estado";
 import { IEstadoT } from "./IEstadoT";
 import { IEstado } from "./IEstado";
-import { IDEEstados } from "../../aplicaciones/ide-v1/situada/IDEEstados";
+import { IDEEstados } from "../../aplicaciones/app-v1/ide-v1/situada/IDEEstados";
 
 export interface IAutomata {
 

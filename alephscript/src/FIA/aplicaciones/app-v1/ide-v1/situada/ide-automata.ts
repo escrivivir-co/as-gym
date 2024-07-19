@@ -1,10 +1,10 @@
-import { Automata } from "../../../paradigmas/situada/automata";
+import { Automata } from "../../../../paradigmas/situada/automata";
 import { IDE_SITUADA_i18 } from "../semilla/ide-v1-app.i18";
 import { IDEEstado } from "../ide-estado";
-import { EstadoT } from "../../../paradigmas/situada/estado";
+import { EstadoT } from "../../../../paradigmas/situada/estado";
 import { IDEEstados } from "./IDEEstados";
-import { agentMessage } from "../../../agentMessage";
-import { RunStateEnum } from "../../../mundos/mundo";
+import { agentMessage } from "../../../../agentMessage";
+import { RunStateEnum } from "../../../../mundos/RunStateEnum";
 
 export class IDEAutomata<IDEEstados> extends Automata<IDEEstados> {
 
@@ -19,7 +19,6 @@ export class IDEAutomata<IDEEstados> extends Automata<IDEEstados> {
 
 		this.estado.nombre = this.nombre + "/" + this.estado.nombre;
     }
-
 
     async inicializar() {
 

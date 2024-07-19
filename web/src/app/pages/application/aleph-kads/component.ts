@@ -1,8 +1,9 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 
 import { FeatureName } from '../../general/about/feature';
-import { ServerService, RuntimeBlock } from '../../../services/socketio/server.service';
 import { LogLabel } from '../../general/about/about.component';
+import { IRuntimeBlock } from '../../../../../../ws-server/src/alephscript/IRuntimeBlock';
+import { ServerService } from '../../../services/socketio/server.service';
 
 export interface LogData {
 	title: string,
@@ -44,7 +45,7 @@ export class AlephKadsComponent implements OnInit {
 
 		this.serverService.web.io.emit("CLIENT_SUSCRIBE", { room: "IDE-app" });
 
-		this.serverService.chainState$.subscribe((d: RuntimeBlock) => {
+		this.serverService.chainState$.subscribe((d: IRuntimeBlock) => {
 
 			this.filtro.set([]);
 

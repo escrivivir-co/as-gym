@@ -1,10 +1,10 @@
-import { IdeAppV1 } from "../ide-v1/ide-v1-app";
+import { IdeAppV1 } from "./ide-v1/ide-v1-app";
 import { IDEEstadoAppV1 } from "./appv1-estado";
 import { agentMessage } from "../../agentMessage";
 import { AlphaBot } from "./alpha-bot";
 import { Assistant } from "openai/resources/beta/assistants";
 import { q } from "./lore";
-import { IDEEstados } from "../ide-v1/situada/IDEEstados";
+import { IDEEstados } from "./ide-v1/situada/IDEEstados";
 import { IFIASituada } from "../../paradigmas/situada/fia-situada";
 import { Bloque } from "../../engine/kernel/cadena-bloques";
 
@@ -16,6 +16,7 @@ export class AppV1 extends IdeAppV1 {
 
 	receivedBots: number;
 	expectedBots: number;
+	bots = [];
 
     constructor() {
 
@@ -87,6 +88,15 @@ export class AppV1 extends IdeAppV1 {
 		this.templeBot = new AlphaBot();
 		this.templeEstado = new IDEEstadoAppV1<IDEEstados>(this.mundo.modelo);
 		this.crearBot("Bot.Temple", this.templeBot, this.templeEstado);
+
+		this.bots = [
+			{ nombre: this.alphaBot.nombre },
+			{ nombre: this.omegaBot.nombre },
+			{ nombre: this.templeBot.nombre }
+		]
+
+		console.log("XXXXXXXXX", this.nombre)
+		this.conectarEntorno()
 	}
 
 	crearBot(nombre: string, bot: IFIASituada, estado: IDEEstadoAppV1<IDEEstados>) {

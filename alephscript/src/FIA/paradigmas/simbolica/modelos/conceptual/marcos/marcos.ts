@@ -1,4 +1,4 @@
-import { IDiccionarioI18 } from "../../../../../genesis-block";
+import { IDiccionarioI18 } from "../../../../../IDiccionarioI18";
 import { IReglaMarco } from "../../../regla";
 import { IBusqueda, IGrafo } from "../../formal/sistema/semantica/grafo";
 import { InferenciaConcepto } from "../inferencia/concepto/paradigma";

@@ -1,43 +1,213 @@
 <div class="container py-5">
-  <div class="row">
-    <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 text-center mb-2">
-      <h1 class="h5">
-        <i class="fas fa-laptop fa-lg me-2 text-primary"></i>
-        {{ name }}<i class="fas fa-mobile-alt fa-lg ms-2 text-primary"></i>
-      </h1>
-    </div>
-    <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 text-center text-danger mb-2">
-      <h2 class="h5">
-        {{ angular }}<i class="fab fa-angular fa-lg ms-2"></i>
-      </h2>
-    </div>
-    <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 text-center text-primary mb-2">
-      <h2 class="h5">
-        {{ bootstrap }}<i class="fab fa-bootstrap fa-lg ms-2"></i>
-      </h2>
-    </div>
-    <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 text-center text-success mb-2">
-      <h2 class="h5">
-        {{ fontawesome }}<i class="fab fa-font-awesome-flag fa-lg ms-2"></i>
-      </h2>
-    </div>
-  </div>
-  <hr>
-  <div class="row mb-2">
-    <div class="col-md-12 text-center">
-      <h3 class="h5">Angular Features<i class="fas fa-list ms-2"></i></h3>
-    </div>
-  </div>
-  <div class="row g-4 py-2 row-cols-1 row-cols-md-2 row-cols-lg-5 text-center">
-    <div class="col" *ngFor="let item of items; let i=index">
-      <div class="nga-card-step p-4 ">
-        <a routerLink="{{ item.link }}">
-          <i class="nga-text-primary {{ item.icon }} fa-3x mb-2"></i>
-          <h3 class="h4 nga-text-primary fw-bold">{{ item.name }}</h3>
-          <p>{{ item.description }}</p>
-        </a>
-      </div>
-    </div>
-  </div>
+	<div class="row">
+		<div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 text-center mb-2">
+		<h1 class="h5">
+			<i class="fas fa-laptop fa-lg me-2 text-primary"></i>
+			{{ name }}<i class="fas fa-mobile-alt fa-lg ms-2 text-primary"></i>
+		</h1>
+		</div>
+		<div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 text-center text-danger mb-2">
+		<h2 class="h5">
+			{{ angular }}<i class="fab fa-angular fa-lg ms-2"></i>
+		</h2>
+		</div>
+		<div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 text-center text-primary mb-2">
+		<h2 class="h5">
+			{{ bootstrap }}<i class="fab fa-bootstrap fa-lg ms-2"></i>
+		</h2>
+		</div>
+		<div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 text-center text-success mb-2">
+		<h2 class="h5">
+			{{ fontawesome }}<i class="fab fa-font-awesome-flag fa-lg ms-2"></i>
+		</h2>
+		</div>
+		<hr>
+	</div>
+  	<div class="row">
+
+		<div class="row mb-2">
+			<div class="col-md-12">
+				<div class="accordion" id="accordionItems">
+					<div class="card nga-card-menu">
+
+						<div class="card-header">
+							<a data-bs-toggle="collapse" data-parent="#accordionItems" href="#collapseNamespaces" aria-expanded="false">
+							<div class="card-item">
+								<i class="fas fa-bullseye me-2 "></i>Namespaces
+							</div>
+							</a>
+						</div>
+
+						<div id="collapseNamespaces" class="collapse collapsed" aria-labelledby="headingOne" data-parent="#accordionItems">
+							<div class="card-body">
+							<ul class="list-group text-dark">
+								<ul class="list-group text-dark small-list">
+									<li *ngFor="let i of serviceNamespaces()" class="list-group-item">
+										{{ i.name }}
+									</li>
+								</ul>
+							</ul>
+							</div>
+						</div>
+
+					</div>
+
+					<div class="card nga-card-menu">
+		
+						<div class="card-header">
+							<a data-bs-toggle="collapse" data-parent="#accordionItems" href="#collapseRooms" aria-expanded="false">
+							<div class="card-item">
+								<i class="fas fa-film me-2 "></i>Rooms
+							</div>
+							</a>
+						</div>
+		
+						<div id="collapseRooms" class="collapse collapsed" aria-labelledby="headingOne" data-parent="#accordionItems">
+							<div class="card-body">
+							<ul class="list-group text-dark">
+								<ul class="list-group text-dark small-list">
+									<li *ngFor="let i of serviceRooms()" class="list-group-item">
+										{{ i.name }}
+									</li>
+								</ul>
+							</ul>
+							</div>
+						</div>
+		
+					</div>
+					<div class="card nga-card-menu">
+		
+						<div class="card-header">
+							<a data-bs-toggle="collapse" data-parent="#accordionItems" href="#collapseUsuarios" aria-expanded="false">
+							<div class="card-item">
+								<i class="fas fa-user me-2 "></i>Usuarios
+							</div>
+							</a>
+						</div>
+		
+						<div id="collapseUsuarios" class="collapse collapsed" aria-labelledby="headingOne" data-parent="#accordionItems">
+							<div class="card-body">
+							<ul class="list-group text-dark">
+								<ul class="list-group text-dark small-list">
+									<li *ngFor="let i of serviceUsuarios()" class="list-group-item">
+										{{ i.name }}
+									</li>
+								</ul>
+							</ul>
+							</div>
+						</div>
+					</div>
+
+					<div class="card nga-card-menu">
+
+						<div class="card-header">
+							<a data-bs-toggle="collapse" data-parent="#accordionItems" href="#collapseSockets" aria-expanded="false">
+							<div class="card-item">
+								<i class="fas fa-gear me-2 "></i>Sockets
+							</div>
+							</a>
+						</div>
+
+						<div id="collapseSockets" class="collapse collapsed" aria-labelledby="headingOne" data-parent="#accordionItems">
+							<div class="card-body">
+							<ul class="list-group text-dark">
+								<ul class="list-group text-dark small-list">
+									<li *ngFor="let i of serviceClients()" class="list-group-item">
+										{{ i.name }}
+									</li>
+								</ul>
+							</ul>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<hr>
+	</div>
+
+	<div class="row">
+		<div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 text-center mb-2">
+			<h1 class="h5">
+			<i class="fas fa-laptop fa-lg me-2 text-primary"></i>
+			NodeJS<i class="fas fa-nodejs fa-lg ms-2 text-primary"></i>
+			</h1>
+		</div>
+		<div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 text-center text-danger mb-2">
+			<h2 class="h5">
+			AssistantsAPI<i class="fab fa-typescript fa-lg ms-2"></i>
+			</h2>
+		</div>
+		<div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 text-center text-primary mb-2">
+			<h2 class="h5">
+			Socket.io<i class="fa fa-code fa-lg ms-2"></i>
+			</h2>
+		</div>
+		<div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 text-center text-success mb-2">
+			<h2 class="h5">
+			Alephscript<i class="fab fa fa-html5 fa-lg ms-2"></i>
+			</h2>
+		</div>
+		<hr>
+	</div>
+
+	<div class="row">
+
+		<div class="row mb-2">
+			<div class="col-md-12 text-center">
+				<h3 class="h5">IAs Fundamentales (Apps)<i class="fas fa-list ms-2"></i></h3>
+			</div>
+		</div>
+		<div class="row g-4 py-2 row-cols-1 row-cols-md-2 row-cols-lg-5 text-center">
+			<div class="col" *ngFor="let item of items(); let i=index">
+				<div class="nga-card-step p-4 ">
+					<a routerLink="{{ item.link }}">
+						<i class="nga-text-primary {{ item.icon }} fa-3x mb-2"></i>
+
+						<h3 class="h4 nga-text-primary fw-bold">{{ item.name }}</h3>
+
+						<div class="nga-card-step p-4 ">
+							<i title="Estado de la App" *ngIf="item.state == 'STOP'" class="fa fa-stop me-3"></i>
+							<i title="Estado de la App" *ngIf="item.state == 'PAUSE'" class="fa fa-pause me-3"></i>
+							<i title="Estado de la App" *ngIf="item.state == 'PLAY'" class="fa fa-play me-3"></i>
+							<i title="Estado de la App" *ngIf="item.state == 'PLAY_STEP'" class="fa fa-play me-3"></i>
+
+							<hr>
+							<div class="small">
+								<i class="fa fa fa-cog me-2" title="Pulso de ejecución">{{ (item.mundo.modelo?.pulso || 0) / 1000 }}</i>
+								<i class="fa fa-clock me-2" title="Dia actual de la ejecución"> {{item.mundo.modelo?.dia}}</i>
+								<i class="fa fa-microchip me-2" title="Último día de ejecución"> {{item.mundo.modelo?.muerte}} </i>
+								<i title="Estado del mundo" *ngIf="item.mundo?.runState == 'STOP'" class="fa fa-stop me-3"></i>
+								<i title="Estado del mundo" *ngIf="item.mundo?.runState == 'PAUSE'" class="fa fa-pause me-3"></i>
+								<i title="Estado del mundo" *ngIf="item.mundo?.runState == 'PLAY'" class="fa fa-play me-3"></i>
+								<i title="Estado del mundo" *ngIf="item.mundo?.runState == 'PLAY_STEP'" class="fa fa-play me-3"></i>
+							</div>
+						</div>
+
+						<div class="nga-card-step p-4 ">
+							<p>{{ item.description }}</p>
+						</div>
+
+						<div class="nga-card-step p-4 ">
+							<ul class="list-group text-dark">
+								<ul class="list-group text-dark small-list">
+									<li *ngFor="let i of item.bots" class="list-group-item">
+										<a href="/bots/{{i.nombre}}" data-bs-toggle="tooltip"
+											(click)="$event.stopPropagation()"
+											title="Seleccionar app">
+											<i class="fas fa-globe me-2"></i>
+											{{ i.nombre }}
+										</a>
+									</li>
+								</ul>
+							</ul>
+						</div>
+
+					</a>
+				</div>
+			</div>
+	
+	</div>
 </div>
 

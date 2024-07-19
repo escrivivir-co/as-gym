@@ -1,7 +1,7 @@
 import { Observable, Subject } from "rxjs";
 import { Modelo } from "../../../../mundos/modelo";
 import { IModelo } from "../../../../mundos/IModelo";
-import { IDiccionarioI18 } from "../../../../genesis-block";
+import { IDiccionarioI18 } from "../../../../IDiccionarioI18";
 import { AS_COMMON_KADS_I18 } from "./as-common-kads-i18";
 import { agentMessage } from "../../../../agentMessage";
 import { EstadoT } from "./estado";

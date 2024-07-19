@@ -48,6 +48,13 @@ export class IdeApp extends App {
 		this.sbc.runStateEvent = this.runStateEvent;
         this.sbc.mundo = this.mundo;
 
+		this.bots = [
+			{ nombre: this.sbc.nombre },
+			{ nombre: this.alphaBot.nombre }
+		]
+9
+		this.conectarEntorno();
+
         const salidas = await Promise.allSettled(
             [
                 this.mundo.ciclo(),						// MAIN APP PULSE

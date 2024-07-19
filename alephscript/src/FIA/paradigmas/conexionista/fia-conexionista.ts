@@ -1,7 +1,8 @@
-import { iFIA, GenesisBlock } from "../../genesis-block";
+import { GenesisBlock } from "../../genesis-block";
+import { iFIA } from "../../iFIA";
 import { Intencion } from "../../Intencion";
 import { i18 } from "../../i18/aleph-script-i18";
-import { IMundo } from "../../mundos/mundo";
+import { IMundo } from "../../mundos/IMundo";
 import { agentMessage } from "../../agentMessage";
 import { ICanalizacion } from "./canalizacion";
 import { IRedNeuronalArtificial, RedNeuronalArtificial } from "./red-neuronal";

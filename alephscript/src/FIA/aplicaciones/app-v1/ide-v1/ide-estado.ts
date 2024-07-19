@@ -1,8 +1,8 @@
-import { agentMessage } from '../../agentMessage';
-import { RTCache } from "../../engine/kernel/rt-cache";
-import { AsistenteApi } from '../../paradigmas/conexionista/modelos-lenguaje/oai/asisstant';
-import { IDE_clave, Trainer_clave } from "../../paradigmas/conexionista/modelos-lenguaje/oai/Trainer_key";
-import { EstadoT } from "../../paradigmas/situada/estado";
+import { agentMessage } from '../../../agentMessage';
+import { RTCache } from "../../../engine/kernel/rt-cache";
+import { AsistenteApi } from '../../../paradigmas/conexionista/modelos-lenguaje/oai/asisstant';
+import { IDE_clave, Trainer_clave } from "../../../paradigmas/conexionista/modelos-lenguaje/oai/Trainer_key";
+import { EstadoT } from "../../../paradigmas/situada/estado";
 import { IDEModelo } from "./ide-modelo";
 import { AlephScriptIDEImpl } from './semilla/AlephScriptIDEv1';
 import { IDEEstados } from './situada/IDEEstados';

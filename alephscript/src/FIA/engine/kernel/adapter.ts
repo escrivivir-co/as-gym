@@ -1,13 +1,17 @@
 import { ACTIVAR_SOPORTE_SOCKETIO, BORRAR_ESTADO_A_CADA_PLAY_STEP } from "../../../runCONFIG";
 import { agentMessage } from "../../agentMessage";
-import { iFIA } from "../../genesis-block";
-import { RunStateEnum } from "../../mundos/mundo";
+import { iFIA } from "../../iFIA";
+import { RunStateEnum } from '../../mundos/RunStateEnum';
 import { IFase } from "../../paradigmas/sbc/implementaciones/common-kads/IFase";
 import { systemMessage } from "../../systemMessage";
 import { AlephScriptClient } from "../apps/socketio/client";
 import { Bloque } from "./cadena-bloques";
+import { IMenuState } from "./IMenuState";
+
 
 export class SocketAdapter {
+
+	name: "SocketAdapter";
 
 	static threads: iFIA[] = [];
 	static client: AlephScriptClient = ACTIVAR_SOPORTE_SOCKETIO ?
@@ -17,13 +21,25 @@ export class SocketAdapter {
 	menuAnswer: (answer: string, mode: RunStateEnum) => void;
 	spider: AlephScriptClient;
 
-	getCurrentApps() {
+	getCurrentApps(): IMenuState[] {
 		const data = SocketAdapter.threads
+			.filter(t => t?.nombre)
 			.map((t: iFIA, index: number) => {
 				return {
 					index,
 					name: t.nombre,
-					state: SocketAdapter.threads[index]?.runState
+					state: SocketAdapter.threads[index]?.runState,
+					mundo: {
+						nombre: t.mundo.nombre,
+						runState: t.mundo.runState,
+						modelo: {
+							nombre: t.mundo.modelo.nombre,
+							dia: t.mundo.modelo.dia,
+							muerte: t.mundo.modelo.muerte,
+							pulso: t.mundo.modelo.pulso
+						}
+					},
+					bots: t.bots || []
 				}
 		});
 		return data;
@@ -42,6 +58,8 @@ export class SocketAdapter {
 			event: "SET_LIST_OF_THREADS",
 			data: this.getCurrentApps()
 		}
+		console.log(agentMessage(SocketAdapter.name,
+			"Solving (SET_LIST_OF_THREADS) for: " + senderData.requesterName))
 		SocketAdapter.client?.roomP(senderData);
 
 	}
@@ -50,19 +68,23 @@ export class SocketAdapter {
 
 		const app = SocketAdapter.threads.find(t => t.nombre === appName);
 
-		SocketAdapter.client?.room("SET_APP_STATE", f, appName)
+		//console.log("This sent SET_APP_STATE------------------", f?.imprimir(), appName)
+		// SocketAdapter.client?.room("SET_APP_STATE", f?.imprimir(), appName)
 
 	}
 
+	sus = ["GET_LIST_OF_THREADS", "GET_ENGINE"]
 	run() {
 
 		console.log(systemMessage(`Socket.Connected`));
 
-		SocketAdapter.client?.room("MAKE_MASTER", { features: []});
-		SocketAdapter.client?.room("MAKE_MASTER", { features: []}, "IDE-app");
+		SocketAdapter.client?.room("MAKE_MASTER", { features: [] });
+		SocketAdapter.client?.room("MAKE_MASTER", { features: ["GET_LIST_OF_THREADS", "GET_ENGINE"]}, "IDE-app");
 
+		this.sus.forEach(k => SocketAdapter.client?.io.off(k))
 		SocketAdapter.client?.io.on("GET_LIST_OF_THREADS", (...args) => {
 
+			console.log(agentMessage(SocketAdapter.name, "Received (GET_LIST_OF_THREADS) from: " + args[0].requesterName))
 			this.sendFrameworkState(args);
 
 		})
@@ -130,10 +152,14 @@ export class SocketAdapter {
 				default:
 					console.log("---------- DESCONOCIDA ACTION", action, action as RunStateEnum)
 			}
-
+			console.log("^***********7777777777777777777777777777777**************", fia.mundo.modelo.dia)
 			this.sendFrameworkState(args);
 
 		})
+
+	}
+
+	crearSpider() {
 
 		if (!this.spider) {
 
@@ -147,6 +173,10 @@ export class SocketAdapter {
 					)
 						*/
 				})
+
+				console.log(
+					agentMessage(this.spider.name,"Send GET_LIST_OF_THREADS")
+				)
 				this.spider.room("GET_LIST_OF_THREADS", {});
 
 				this.spider.io.on("SET_SERVER_STATE", (...args) => {
@@ -162,7 +192,6 @@ export class SocketAdapter {
 			})
 
 		}
-
 	}
 
 }

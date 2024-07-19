@@ -1,5 +1,5 @@
 import { Subject } from "rxjs";
-import { IMundo } from "../../../../mundos/mundo";
+import { IMundo } from "../../../../mundos/IMundo";
 import { IModeloFormal } from "../../paradigma";
 import { Conceptual } from "../conceptual/paradigma";
 import { IMotorInferencia, MotorInferencia } from "./sistema/semantica/motor-inferencia";

@@ -1,6 +1,7 @@
 import { Observable } from "rxjs";
 import { i18 } from "../../../i18/aleph-script-i18";
-import { IMundo, Mundo } from "../../../mundos/mundo";
+import { Mundo } from "../../../mundos/mundo";
+import { IMundo } from "../../../mundos/IMundo";
 import { agentMessage } from "../../../agentMessage";
 
 

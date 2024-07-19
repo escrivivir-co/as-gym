@@ -1,47 +1,14 @@
-import { Inject, inject, Injectable, NgZone, PLATFORM_ID } from '@angular/core';
-import { Socket } from 'socket.io-client';
+import { Inject, inject, Injectable, NgZone, PLATFORM_ID, signal } from '@angular/core';
 import { UsuarioService } from './usuario.service';
 import { SalaBackend } from './interfaces/sala';
 import { Subject } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
 import { SocketClient } from '/Users/morente/Desktop/THEIA_PATH/AlephWeb/angular-app/ws-server/src/alephscript/socket-client';
-import { RunStateEnum, SignalEvent } from '../../pages/general/about/about.component';
-import { IFase } from '/Users/morente/Desktop/THEIA_PATH/AlephWeb/angular-app/alephscript/src/FIA/paradigmas/sbc/implementaciones/common-kads/IFase';
-
-
-export type NamespaceDetails = {
-	name: string;
-	socketsCount: number;
-	sockets: Partial<Socket>[];
-  };
-
-export interface ServerState {
-	action: string;
-	socketId: string;
-	clientId: string;
-	socketsPerNamespace: NamespaceDetails[];
-	sockets: Partial<Socket>[];
-	clients: number;
-}
-
-export interface MenuState {
-	index: number;
-	name: string;
-	state: RunStateEnum;
-}
-
-export interface AppState {
-	index: number;
-	name: string;
-	fase: IFase;
-}
-
-export interface RuntimeBlock
-{
-    id: string;
-    estado: any;
-    fecha: Date;
-}
+import { SignalEvent } from '../../pages/general/about/about.component';
+import { IMenuState } from '/Users/morente/Desktop/THEIA_PATH/AlephWeb/angular-app/alephscript/src/FIA/engine/kernel/IMenuState';
+import { IServerState } from "../../../../../ws-server/src/alephscript/IServerState";
+import { IRuntimeBlock } from '/Users/morente/Desktop/THEIA_PATH/AlephWeb/angular-app/ws-server/src/alephscript/IRuntimeBlock'
+import { IAppState } from '/Users/morente/Desktop/THEIA_PATH/AlephWeb/angular-app/ws-server/src/alephscript/IAppState'
 
 @Injectable({
   providedIn: 'root'
@@ -54,10 +21,36 @@ export class ServerService {
 
 	usuarioService: UsuarioService = inject(UsuarioService);
 
-	serverState$ = new Subject<ServerState>();
-	menuState$ = new Subject<MenuState[]>();
-	chainState$ = new Subject<RuntimeBlock>();
-	appState$ = new Subject<AppState>();
+	serverState$ = new Subject<IServerState>();
+	currentserverState$ = signal<IServerState>({
+		action: '',
+		socketId: '',
+		clientId: '',
+		socketsPerNamespace: [],
+		sockets: [],
+		clients: 0,
+		miembros: [],
+		rooms: []
+
+	});
+
+	MenuAppsList$ = new Subject<IMenuState[]>();
+	currentMenuState$ = signal<IMenuState[]>([]);
+
+	chainState$ = new Subject<IRuntimeBlock>();
+	currentChainState$ = signal<IRuntimeBlock>({
+		id: '',
+		estado: {},
+		fecha: new Date()
+	});
+
+
+	appState$ = new Subject<IAppState>();
+	currentAppState$ = signal<IAppState>({
+		index: 0,
+		name: '' /*,
+		fase: IFase*/
+	});
 
 	actualizacionDeSala$ = new Subject<SalaBackend>();
 	web: any;
@@ -65,8 +58,6 @@ export class ServerService {
 	constructor(
 		@Inject(PLATFORM_ID) private platformId: object
 	) {
-
-		this.usuarioService.nombre.set("AlephEuler45");
 
 		if (isPlatformBrowser(this.platformId)) {
 			this.ngZone.runOutsideAngular(() => {
@@ -85,24 +76,28 @@ export class ServerService {
 
 	initSockets() {
 
-		this.web = new AlephScriptClient("AS-02");
+		this.web = new AlephScriptClient(this.usuarioService.nombre());
 		this.web.initTriggersDefinition.push(() => {
 
 			this.web.io.on("SET_LIST_OF_THREADS", (...args: any[]) => {
 				// console.log(agentMessage"Receiving list of threads...", args)
-				const data = Object.keys(args[0]).map(k => args[0][k])
-				this.menuState$.next(data);
+				const data = Object.keys(args[0])
+					.map(k => args[0][k]).filter(k => typeof k == "object")
+				this.MenuAppsList$.next(data);
+				this.currentMenuState$.set(data)
 			})
 			this.web.room("GET_LIST_OF_THREADS");
 
 			this.web.io.on("SET_SERVER_STATE", (...args: any[]) => {
 				// console.log("Receiving server state...", (args[0]))
 				this.serverState$.next(args[0])
+				this.currentserverState$.set(args[0])
 			})
 			this.web.room("GET_SERVER_STATE");
 			this.web.io.on("SET_EXECUTION_PROCESS", (...args: any[]) => {
 
 				this.chainState$.next(args[0])
+				this.currentChainState$.set(args[0])
 			})
 		})
 	}

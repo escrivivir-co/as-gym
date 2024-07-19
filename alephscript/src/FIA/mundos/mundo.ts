@@ -4,49 +4,8 @@ import { Observable, Subject, Subscription } from "rxjs"
 import { Modelo } from "./modelo";
 import { IModelo } from "./IModelo";
 import { AS_MUNDO_i18 } from "./mundos-i18";
-import { IDiccionarioI18 } from "../genesis-block";
-
-export enum RunStateEnum {
-	PLAY = "PLAY",
-	PLAY_STEP = "PLAY_STEP",
-	PAUSE = "PAUSE",
-	STOP = "STOP"
-}
-
-export interface IMundo {
-
-    i18: IDiccionarioI18;
-
-    nombre: string;
-    modelo: IModelo;
-
-    pulsoVital: NodeJS.Timeout;
-
-    instanciar(): Promise<IModelo>;
-
-    vivo(): boolean;
-
-    pulso: () => void;
-
-    ciclo: () => Promise<IModelo>;
-
-    jornada(vivir: Function, morir: Function): void;
-
-    eferencia: Subject<IMundo>;
-
-    aferencias: Subscription[];
-
-    agregarAferencia(o: Observable<IMundo>): void;
-
-    alAcabar(nombre: string): Promise<IModelo>;
-
-    destructor(): void;
-
-    elMundoAcabara: Observable<IMundo>;
-
-	runState: RunStateEnum;
-	runStateEvent: Observable<RunStateEnum>;
-}
+import { IMundo } from "./IMundo";
+import { RunStateEnum } from "./RunStateEnum";
 
 export interface AlAcabarCallbackDatos {
     nombre: string;

@@ -23,12 +23,12 @@ export interface IModelo {
 	/**
 	 * Frecuencia de ciclo (en ms)
 	 */
-	pulso: number;
+	pulso?: number;
 
-	dominio: IDominio;
+	dominio?: IDominio;
 
-	imprimir(): string;
+	imprimir?(): string;
 
-	estado: any;
+	estado?: any;
 
 }

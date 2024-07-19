@@ -15,4 +15,6 @@ export interface IApp extends IFIAHibrida {
     fuerte: GenesisBlock;
     dummy: GenesisBlock;
 
+	conectarEntorno();
+
 }

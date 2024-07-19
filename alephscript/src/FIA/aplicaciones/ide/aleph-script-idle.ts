@@ -6,7 +6,7 @@ import { Observable, Subject } from "rxjs";
 import { CKCACHE_Clave, EXTERNAL_CACHE } from "../../paradigmas/sbc/implementaciones/common-kads/common-kads";
 import { IFase } from "../../paradigmas/sbc/implementaciones/common-kads/IFase";
 import { CKFases } from "../../paradigmas/sbc/implementaciones/common-kads/CKFases";
-import { IDiccionarioI18 } from "../../genesis-block";
+import { IDiccionarioI18 } from "../../IDiccionarioI18";
 import { AS_IDE_i18 } from "./aleph-script-idle-i18";
 import { AsistenteApi } from '../../paradigmas/conexionista/modelos-lenguaje/oai/asisstant';
 

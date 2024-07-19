@@ -1,14 +1,14 @@
 
 import { Observable, Subject } from "rxjs";
-import { agentMessage } from "../../../agentMessage";
-import { RTCache } from "../../../engine/kernel/rt-cache";
-import { IDiccionarioI18 } from "../../../genesis-block";
-import { AsistenteApi } from "../../../paradigmas/conexionista/modelos-lenguaje/oai/asisstant";
-import { Trainer_clave, ASOracleAs } from "../../../paradigmas/conexionista/modelos-lenguaje/oai/Trainer_key";
-import { CKFases } from "../../../paradigmas/sbc/implementaciones/common-kads/CKFases";
-import { EXTERNAL_CACHE } from "../../../paradigmas/sbc/implementaciones/common-kads/common-kads";
-import { IFase } from "../../../paradigmas/sbc/implementaciones/common-kads/IFase";
-import { AS_IDE_i18 } from "../../ide/aleph-script-idle-i18";
+import { agentMessage } from "../../../../agentMessage";
+import { RTCache } from "../../../../engine/kernel/rt-cache";
+import { IDiccionarioI18 } from "../../../../IDiccionarioI18";
+import { AsistenteApi } from "../../../../paradigmas/conexionista/modelos-lenguaje/oai/asisstant";
+import { Trainer_clave, ASOracleAs } from "../../../../paradigmas/conexionista/modelos-lenguaje/oai/Trainer_key";
+import { CKFases } from "../../../../paradigmas/sbc/implementaciones/common-kads/CKFases";
+import { EXTERNAL_CACHE } from "../../../../paradigmas/sbc/implementaciones/common-kads/common-kads";
+import { IFase } from "../../../../paradigmas/sbc/implementaciones/common-kads/IFase";
+import { AS_IDE_i18 } from "../../../ide/aleph-script-idle-i18";
 import { Assistant } from "openai/resources/beta/assistants";
 
 

@@ -1,7 +1,7 @@
 import { Subject } from "rxjs";
 
 import { IMotorInferencia } from "./modelos/formal/sistema/semantica/motor-inferencia";
-import { IMundo } from "../../mundos/mundo";
+import { IMundo } from "../../mundos/IMundo";
 import { IBaseConocimiento } from "../../mundos/base-conocimiento";
 import { IDominio } from "../../mundos/dominio";
 

@@ -103,7 +103,7 @@ export const routes: Routes = [
   },
 
   {
-    path: 'about',
+    path: 'about/:id',
     loadChildren: () => import('./pages/general/about/about.routes').then(routes => routes.routes)
   },
 
