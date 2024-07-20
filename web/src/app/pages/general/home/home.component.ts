@@ -9,7 +9,7 @@ import { ServerService } from '../../../services/socketio/server.service';
 import { IMenuState } from '../../../../../../alephscript/src/FIA/engine/kernel/IMenuState';
 import { ServerNM } from '../about/about.component';
 import { IServerState } from '../../../../../../ws-server/src/alephscript/IServerState';
-import { ISocketDetails } from '../../../../../../ws-server/src/alephscript/SocketDetails';
+import { DynamicFormComponent } from '../../application/feature/dynamic-form.component';
 
 /*
 {
@@ -36,7 +36,7 @@ export interface IFiaBox extends IMenuState {
 @Component({
 	selector: 'app-home',
 	standalone: true,
-	imports: [CommonModule, RouterLink, RouterOutlet],
+	imports: [CommonModule, RouterLink, RouterOutlet, DynamicFormComponent],
 	templateUrl: './home.component.html',
 	styleUrl: './home.component.css'
 })
@@ -96,6 +96,21 @@ export class HomeComponent {
 	]
 	serverService = inject(ServerService);
 
+	jsonObject = {
+		name: 'John Doe',
+		age: 30,
+		isEmployed: true,
+		address: {
+		  street: '123 Main St',
+		  city: 'Anytown',
+		  zipcode: '12345'
+		},
+		skills: [
+		  { skillName: 'Programming', experience: 5 },
+		  { skillName: 'Design', experience: 3 }
+		]
+	  };
+
 	constructor(private seoService: SeoService) {
 
 		const content =
@@ -115,6 +130,7 @@ export class HomeComponent {
 		this.serverService.serverState$.subscribe(d => this.cargaServerState(d));
 		this.cargaServerState(this.serverService.currentserverState$())
 	}
+
 
 	cargaDatos(menus: IMenuState[]) {
 		// console.log("carga datos", menus)

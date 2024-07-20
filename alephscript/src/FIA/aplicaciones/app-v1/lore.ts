@@ -7,7 +7,7 @@ export const tablero: Juego =  {
 	siguiente: 'Bot.Alpha',
 	frase: "Preguntas encadenadas sobre P vs NP",
 	entrada: {
-		pregunta: "¿Cuál es la solución al problema N vs NP?",
+		pregunta: "¿Cuál es la solución al problema P vs NP?",
 	},
 	salida: {
 		respuesta: "<Aquí tu respuesta>",

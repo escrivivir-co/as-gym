@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AlephKadsComponent } from './component';
+import { AlephKadsComponent } from './dynamic-form.component';
 
 const routes: Routes = [
   {

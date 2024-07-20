@@ -15,6 +15,7 @@ import { IMundo } from '../../../../../../alephscript/src/FIA/mundos/IMundo';
 import { ServerService } from '../../../services/socketio/server.service';
 import { IRuntimeBlock } from '../../../../../../ws-server/src/alephscript/IRuntimeBlock';
 import { IServerState } from "../../../../../../ws-server/src/alephscript/IServerState";
+import { DynamicFormComponent } from '../../application/feature/dynamic-form.component';
 
 const notValidItems = [" ", "/", "-"]
 function removeOccurrences(array: string[], target: string) {
@@ -44,7 +45,7 @@ export interface SignalEvent {
 @Component({
 	selector: 'app-about',
 	standalone: true,
-	imports: [CommonModule, RouterLink, RouterOutlet, PrettyJsonPipeV2],
+	imports: [CommonModule, RouterLink, RouterOutlet, PrettyJsonPipeV2, DynamicFormComponent],
 	templateUrl: './about.component.html',
 	styleUrl: './about.component.css',
 	encapsulation: ViewEncapsulation.None // https://medium.com/@yaronu/making-angular-component-css-classes-in-innerhtml-work-without-losing-emulated-encapsulation-350d63dbffad
@@ -326,4 +327,8 @@ export class AboutComponent implements OnInit {
 		}
 	}
 
+	handleFormSubmit(updatedObject: any) {
+		console.log('Formulario actualizado:', updatedObject);
+		// Aquí puedes manejar el objeto actualizado, por ejemplo, cerrar el modal y pasar el objeto a un componente padre.
+	  }
 }

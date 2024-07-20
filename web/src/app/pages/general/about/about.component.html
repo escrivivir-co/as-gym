@@ -1,6 +1,12 @@
 <div class="py-5">
+
 	<div class="container">
 
+		<div class ="row">
+			<app-dynamic-form ngSkipHydration
+				class="small" [jsonObject]="currentApp()"
+				(formSubmit)="handleFormSubmit($event)"></app-dynamic-form>
+		</div>
 		<!--
 					BOTS
 		-->
