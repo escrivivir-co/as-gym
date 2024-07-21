@@ -144,7 +144,7 @@ export class Runtime extends SocketAdapter {
 							// APP TIMELINE FOR SOCKEITO
 							if (f.runState == RunStateEnum.PAUSE) {
 								fia.runStateEvent.next(f.runState)
-								console.log("^***********1111111111111111111111**************", fia.mundo.modelo.dia)
+								console.log("APP TIMELINE FOR SOCKEITO --> sendFrameworkState", fia.mundo.modelo.dia)
 								this.sendFrameworkState({})
 
 								// console.log("*********** estado")

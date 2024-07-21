@@ -62,3 +62,7 @@
   .small {
 	font-size: 80%;
   }
+  .small-left {
+	font-size: 80%;
+	text-align: "left";
+  }

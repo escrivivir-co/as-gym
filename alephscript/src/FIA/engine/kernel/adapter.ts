@@ -8,6 +8,8 @@ import { AlephScriptClient } from "../apps/socketio/client";
 import { Bloque } from "./cadena-bloques";
 import { IMenuState } from "./IMenuState";
 
+export const EXCLUDED_DOMINOS = ["AlephScriptIDEv0", "EXTERNAL_CACHE"]
+
 
 export class SocketAdapter {
 
@@ -36,13 +38,81 @@ export class SocketAdapter {
 							nombre: t.mundo.modelo.nombre,
 							dia: t.mundo.modelo.dia,
 							muerte: t.mundo.modelo.muerte,
-							pulso: t.mundo.modelo.pulso
+							pulso: t.mundo.modelo.pulso,
+							dominio: {
+								base: this.getBase(t)
+							}
 						}
 					},
 					bots: t.bots || []
 				}
 		});
 		return data;
+	}
+
+	getBase(t: iFIA) {
+		const items = Object
+			.keys(t.mundo.modelo.dominio.base)
+			.filter(k => EXCLUDED_DOMINOS.indexOf(k) == -1)
+
+		const isSystem = (k) => {
+			return typeof k === "function" || typeof k === "undefined"  || typeof k === "symbol"
+		}
+		const out = {}
+		items
+			.filter(k => !isSystem(t.mundo.modelo.dominio.base[k]) )
+			.forEach(k =>  {
+				out[k] = this.getSanitizedObject(k, t.mundo.modelo.dominio.base[k])
+			})
+		return out;
+	}
+
+	getSanitizedObject(clave: string, objeto: any, depth: number = 0, maxDepth: number = 25) {
+
+		// Error TODO
+		if (depth > maxDepth) {
+			return {
+				clave,
+				error: "Este objeto es demasiado profundo"
+			}
+		}
+
+		if (objeto === null || objeto === undefined) {
+			return {
+				vacio: ""
+			}
+		}
+
+		if (typeof objeto === "string" || typeof objeto === "number"  || typeof objeto === "bigint" || typeof objeto === "boolean" ||
+			typeof objeto === "number" || typeof objeto === "boolean"
+		) {
+			return objeto
+		}
+
+		if (objeto instanceof Date && !isNaN(objeto.getTime())) {
+			return objeto.toISOString()
+		}
+
+		if (typeof objeto === "object" && Object.keys(objeto).length > 0) {
+
+			const esInfinito = objeto["modelo"] && objeto["modelo"]["dominio"] && objeto["modelo"]["dominio"]["base"];
+			if (esInfinito) {
+				return {
+					clave,
+					error: "Recursividad del modelo detectada. Skip!"
+				}
+			}
+			const out: any = {}
+			Object.keys(objeto).forEach(k => {
+				out[k] = this.getSanitizedObject(k, objeto[k], depth + 1, maxDepth)
+			})
+			return out;
+		}
+
+		return {
+			clave,
+			error: "Este objeto no puede pasar por el socket"
+		}
 	}
 
 	sendFrameworkState(args) {
@@ -66,8 +136,8 @@ export class SocketAdapter {
 
 	sendAppState(appName: string, f: IFase) {
 
-		const app = SocketAdapter.threads.find(t => t.nombre === appName);
-
+		// const app = SocketAdapter.threads.find(t => t.nombre === appName);
+		// SocketAdapter.client?.room("APP_STATE", f, appName);
 		//console.log("This sent SET_APP_STATE------------------", f?.imprimir(), appName)
 		// SocketAdapter.client?.room("SET_APP_STATE", f?.imprimir(), appName)
 
@@ -152,7 +222,7 @@ export class SocketAdapter {
 				default:
 					console.log("---------- DESCONOCIDA ACTION", action, action as RunStateEnum)
 			}
-			console.log("^***********7777777777777777777777777777777**************", fia.mundo.modelo.dia)
+			console.log(this.name, "Antes de sendFrameworkState", fia.mundo.modelo.dia)
 			this.sendFrameworkState(args);
 
 		})

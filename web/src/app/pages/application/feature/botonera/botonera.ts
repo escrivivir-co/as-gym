@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IMenuState } from '../../../../../../../alephscript/src/FIA/engine/kernel/IMenuState';
 import { CommonModule } from '@angular/common';
-import { DynamicFormComponent } from '../dynamic-form.component';
+import { DynamicFormComponent } from '../dynamic-form/dynamic-form.component';
 import { IMundo } from '../../../../../../../alephscript/src/FIA/mundos/IMundo';
 import { GenericMap } from '../../../../../../../ws-server/src/alephscript/GenericMap';
 
@@ -49,6 +49,6 @@ export class BotoneraComponent {
 	}
 
 	handleAccordionEmiter(state: GenericMap) {
-		console.log("State Accordion", state)
+		// console.log("State Accordion", state)
 	}
 }

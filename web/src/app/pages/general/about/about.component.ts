@@ -15,7 +15,7 @@ import { IMundo } from '../../../../../../alephscript/src/FIA/mundos/IMundo';
 import { ServerService } from '../../../services/socketio/server.service';
 import { IRuntimeBlock } from '../../../../../../ws-server/src/alephscript/IRuntimeBlock';
 import { IServerState } from "../../../../../../ws-server/src/alephscript/IServerState";
-import { DynamicFormComponent } from '../../application/feature/dynamic-form.component';
+import { DynamicFormComponent } from '../../application/feature/dynamic-form/dynamic-form.component';
 import { BotoneraComponent } from '../../application/feature/botonera/botonera';
 
 const notValidItems = [" ", "/", "-"]

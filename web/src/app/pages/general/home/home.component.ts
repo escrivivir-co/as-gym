@@ -9,7 +9,7 @@ import { ServerService } from '../../../services/socketio/server.service';
 import { IMenuState } from '../../../../../../alephscript/src/FIA/engine/kernel/IMenuState';
 import { ServerNM } from '../about/about.component';
 import { IServerState } from '../../../../../../ws-server/src/alephscript/IServerState';
-import { DynamicFormComponent } from '../../application/feature/dynamic-form.component';
+import { DynamicFormComponent } from '../../application/feature/dynamic-form/dynamic-form.component';
 
 /*
 {

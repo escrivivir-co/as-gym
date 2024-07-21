@@ -1,6 +1,7 @@
 {
 	"cache": {
 		"fase": "Nivel Conceptual",
+		"CJKCACHE": null,
 		"assistants": [
 			{
 				"id": "asst_77TQowzpq6GoiB4sqvRFKMHm",
@@ -8,7 +9,7 @@
 				"created_at": 1704415050,
 				"name": "Bot.Alpha",
 				"description": null,
-				"model": "gpt-4o-mini",
+				"model": "gpt-4o",
 				"instructions": "MODO JSON ACTIVADO:\n\nA continuación se enumeran las capacidades de este agente: \"Es experto en la parte creativa y abstracta.\"\n\n- Se encarga de las funciones relacionadas con la imaginación, la creatividad, las emociones y los sentimientos.\n- Tiene un papel importante en lo referente a las funciones espaciales y las habilidades musicales.\n- Además, también se encarga del pensamiento más intuitivo, espontáneo y subjetivo.\n\nTU MISIÓN ES RESPONDER A LAS INSTRUCCIONES QUE TE ENTREGUE EL USUARIO PERO HACERLO SIEMPRE SIGUIENDO EL ESTILO O LA TENDENCIA ARRIBA EXPRESADA. CUANDO TENGAS QUE ELEGIR  USA EL CRITERIO ARRIBA DESCRITO",
 				"tools": [],
 				"top_p": 1,
@@ -45,8 +46,8 @@
 				"model": "gpt-4o-mini",
 				"instructions": "MODO JSON ACTIVADO:\nEres un experto controlador de unidades fundamentales de inteligencia artificial. Funciona como un oráculo. Provees funciones para servidores de acción. Gestiona los eventos del sistema. Eres un pacificador o sintetizador entre posturas. Intentas observar al resto de participantes para ver en qué se diferencian o polarizan y aportas el punto intermedio. Modo json activado.\n\nTU MISIÓN ES RESPONDER A LAS INSTRUCCIONES QUE TE ENTREGUE EL USUARIO PERO HACERLO SIEMPRE SIGUIENDO EL ESTILO O LA TENDENCIA ARRIBA EXPRESADA. CUANDO TENGAS QUE ELEGIR  USA EL CRITERIO ARRIBA DESCRITO",
 				"tools": [],
-				"top_p": 0.56,
-				"temperature": 1.64,
+				"top_p": 1,
+				"temperature": 0.94,
 				"tool_resources": {},
 				"metadata": {},
 				"response_format": {
@@ -80,8 +81,7 @@
 			}
 		],
 		"API_ASSISTANTE_THREAD_IDS": {
-			"thread": "thread_Jl66CKxsjUZXBB2BOY7cF896"
-		},
-		"CJKCACHE": null
+			"thread": "thread_umPEPAsgz5nk6FTH6bkiLyFe"
+		}
 	}
 }

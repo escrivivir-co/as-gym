@@ -4,7 +4,8 @@
 
 		<div class ="row">
 			<app-dynamic-form ngSkipHydration
-				id="idHeader"
+				class="small"
+				id="Estado"
 				class="small" [dataInput]="currentApp()"
 				(formSubmit)="handleFormSubmit($event)"></app-dynamic-form>
 		</div>
@@ -527,9 +528,78 @@
 				<!-- Tercer contenedor con dos columnas de igual tamaño -->
 				<div class="col-md-6">
 				  <p>Columna derecha 1</p>
+				  <div class="col-lg-4 col-md-4 col-sm-12 col-content">
+					<div class="card-body">
+						<div class="accordion" id="accordionExample2">
+							<div *ngFor="let item of IDEapp().slice(0, IDEapp().length / 2)" class="accordion-item" >
+		
+								<h2 class="accordion-header" id="headingOne" >
+									<button class="accordion-button collapsed" type="button"
+										data-bs-toggle="collapse"
+										[attr.data-bs-target]="'#' + item.title"
+										[attr.aria-controls]="item.title"
+										(click)="saveAccordionState(item.title)">
+										{{ item.title }} ({{ item.logs.length }})
+									</button>
+								</h2>
+								<div [id]="item.title" class="accordion-collapse collapse"
+									[class.show]="accordionState[item.title]"
+									aria-labelledby="headingOne"
+									data-bs-parent="#accordionExample">
+		
+									<div class="accordion-body" [class.show]="accordionState[item.title]">
+										<span class="myJson_parent" *ngIf="item.title == 'ASCREEN' && item.logs.length > 0">
+											<div class="myJson_child" [innerHTML]="sanitize(getLogAsJson(item.logs[item.logs.length - 1].title) | prettyjson)"></div>
+										</span>
+										<ul class="small-list" *ngIf="item.title != 'ASCREEN'">
+											<li *ngFor="let log of item.logs">
+												<span>
+													{{ log.title }}
+												</span>
+											</li>
+										</ul>
+									</div>
+		
+								</div>
+		
+							</div>
+						</div>
+					</div>
+				  </div>
 				</div>
 				<div class="col-md-6">
-				  <p>Columna derecha 2</p>
+					<div class="col-lg-4 col-md-4 col-sm-12 col-content">
+						<div class="card-body">
+							<div class="accordion" id="accordionExample">
+								<div *ngFor="let item of IDEapp().slice((IDEapp().length / 2), IDEapp().length)" class="accordion-item">
+		
+									<h2 class="accordion-header" id="headingOne">
+										<button class="accordion-button collapsed" type="button"
+											data-bs-toggle="collapse"
+											[attr.data-bs-target]="'#' + item.title"
+											[attr.aria-controls]="item.title"
+											(click)="saveAccordionState(item.title)">
+											{{ item.title }} ({{ item.logs.length }})
+										</button>
+									</h2>
+									<div [id]="item.title" class="accordion-collapse collapse"
+										[class.show]="accordionState[item.title]"
+										aria-labelledby="headingOne"
+										data-bs-parent="#accordionExample">
+		
+										<div class="accordion-body" [class.show]="accordionState[item.title]">
+											<ul class="small-list">
+												<li *ngFor="let log of item.logs">
+													{{ log.title }}
+												</li>
+											</ul>
+										</div>
+		
+									</div>
+								</div>
+							</div>
+					  </div>
+				  </div>
 				</div>
 			  </div>
 
@@ -570,88 +640,6 @@
 
 			</div>
 
-		</div>
-
-		<div class="row">
-
-		  	<div class="col-lg-4 col-md-4 col-sm-12 col-content">
-
-
-
-
-		  </div>
-
-		  <div class="col-lg-4 col-md-4 col-sm-12 col-content">
-			<div class="card-body">
-				<div class="accordion" id="accordionExample2">
-					<div *ngFor="let item of IDEapp().slice(0, IDEapp().length / 2)" class="accordion-item" >
-
-						<h2 class="accordion-header" id="headingOne" >
-							<button class="accordion-button collapsed" type="button"
-								data-bs-toggle="collapse"
-								[attr.data-bs-target]="'#' + item.title"
-								[attr.aria-controls]="item.title"
-								(click)="saveAccordionState(item.title)">
-								{{ item.title }} ({{ item.logs.length }})
-							</button>
-						</h2>
-						<div [id]="item.title" class="accordion-collapse collapse"
-							[class.show]="accordionState[item.title]"
-							aria-labelledby="headingOne"
-							data-bs-parent="#accordionExample">
-
-							<div class="accordion-body" [class.show]="accordionState[item.title]">
-								<span class="myJson_parent" *ngIf="item.title == 'ASCREEN' && item.logs.length > 0">
-									<div class="myJson_child" [innerHTML]="sanitize(getLogAsJson(item.logs[item.logs.length - 1].title) | prettyjson)"></div>
-								</span>
-								<ul class="small-list" *ngIf="item.title != 'ASCREEN'">
-									<li *ngFor="let log of item.logs">
-										<span>
-											{{ log.title }}
-										</span>
-									</li>
-								</ul>
-							</div>
-
-						</div>
-
-					</div>
-				</div>
-			</div>
-		  </div>
-
-		  <div class="col-lg-4 col-md-4 col-sm-12 col-content">
-				<div class="card-body">
-					<div class="accordion" id="accordionExample">
-						<div *ngFor="let item of IDEapp().slice((IDEapp().length / 2), IDEapp().length)" class="accordion-item">
-
-							<h2 class="accordion-header" id="headingOne">
-								<button class="accordion-button collapsed" type="button"
-									data-bs-toggle="collapse"
-									[attr.data-bs-target]="'#' + item.title"
-									[attr.aria-controls]="item.title"
-									(click)="saveAccordionState(item.title)">
-									{{ item.title }} ({{ item.logs.length }})
-								</button>
-							</h2>
-							<div [id]="item.title" class="accordion-collapse collapse"
-								[class.show]="accordionState[item.title]"
-								aria-labelledby="headingOne"
-								data-bs-parent="#accordionExample">
-
-								<div class="accordion-body" [class.show]="accordionState[item.title]">
-									<ul class="small-list">
-										<li *ngFor="let log of item.logs">
-											{{ log.title }}
-										</li>
-									</ul>
-								</div>
-
-							</div>
-						</div>
-					</div>
-			  </div>
-		  </div>
 		</div>
 
 	</div>

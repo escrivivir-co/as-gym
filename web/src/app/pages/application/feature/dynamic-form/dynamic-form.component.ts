@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormGroup, FormControl, FormArray, Validators, AbstractControl, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { GenericMap } from '../../../../../../ws-server/src/alephscript/GenericMap';
+import { GenericMap } from '../../../../../../../ws-server/src/alephscript/GenericMap';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -78,7 +78,6 @@ export class DynamicFormComponent implements OnInit {
 		} else {
 			this.accordionState[key] = true;
 		}
-		console.log(this.accordState)
 		this.accordionEmiter.emit(this.accordState)
 
 	}
@@ -140,7 +139,7 @@ export class DynamicFormComponent implements OnInit {
 	}
 
 	handleAccordionEmiter(state: GenericMap) {
-		console.log(this.level, "handleAccordionEmiter", this.accordState)
+		// console.log(this.level, "handleAccordionEmiter", this.accordState)
 		this.accordionEmiter.emit(state);
 	}
 
@@ -188,5 +187,4 @@ export class DynamicFormComponent implements OnInit {
 		}
 	}
 
-  
 }

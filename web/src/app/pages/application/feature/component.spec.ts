@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AlephKadsComponent } from './dynamic-form.component';
+import { AlephKadsComponent } from './dynamic-form/dynamic-form.component';
 import { SafePipe } from './safe.pipe';
 
 describe('ExampleServicesComponent', () => {
