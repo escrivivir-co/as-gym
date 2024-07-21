@@ -16,6 +16,7 @@ import { ServerService } from '../../../services/socketio/server.service';
 import { IRuntimeBlock } from '../../../../../../ws-server/src/alephscript/IRuntimeBlock';
 import { IServerState } from "../../../../../../ws-server/src/alephscript/IServerState";
 import { DynamicFormComponent } from '../../application/feature/dynamic-form.component';
+import { BotoneraComponent } from '../../application/feature/botonera/botonera';
 
 const notValidItems = [" ", "/", "-"]
 function removeOccurrences(array: string[], target: string) {
@@ -45,7 +46,7 @@ export interface SignalEvent {
 @Component({
 	selector: 'app-about',
 	standalone: true,
-	imports: [CommonModule, RouterLink, RouterOutlet, PrettyJsonPipeV2, DynamicFormComponent],
+	imports: [CommonModule, RouterLink, RouterOutlet, PrettyJsonPipeV2, DynamicFormComponent, BotoneraComponent],
 	templateUrl: './about.component.html',
 	styleUrl: './about.component.css',
 	encapsulation: ViewEncapsulation.None // https://medium.com/@yaronu/making-angular-component-css-classes-in-innerhtml-work-without-losing-emulated-encapsulation-350d63dbffad
@@ -229,7 +230,7 @@ export class AboutComponent implements OnInit {
 
 	}
 
-	sendSignal(signal: SignalEvent) {
+	sendSignal(signal: any /* SignalEvent */) {
 		this.serverService.sendEngineAction(signal);
 	}
 

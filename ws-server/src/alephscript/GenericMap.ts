@@ -1,6 +1,6 @@
 
 export interface GenericMap {
-	[key: string]: number;
+	[key: string]: any;
 }
 
 

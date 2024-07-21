@@ -1,0 +1,57 @@
+<section class="card nga-card-about card-logo p-3">
+	<div *ngIf="currentApp.index && currentApp.index != -1">
+	  <div class="d-flex justify-content-between align-items-center mb-3">
+		<div>
+		  <span class="me-2 fw-bold">App: {{ currentApp.name }}</span>
+		  <hr>
+		  <label class="switch me-2 small" >
+			PlayStep
+			<input type="checkbox" (change)="onCheckboxChange($event)" [checked]="playStep">
+			<span class="slider"></span>
+		  </label>
+		</div>
+		<div>
+		  <button type="button" class="btn btn-secondary me-2 btn-small-font" (click)="sendSignal({ event: 'GET_ENGINE', data: { engine: (currentApp.index + ''), action: 'CONFIG' } })">
+			<i class="fas fa-gear me-1"></i>
+		  </button>
+		  <button type="button" *ngIf="currentApp.state == 'PLAY' || currentApp.state == 'PLAY_STEP'" class="btn btn-primary me-2 btn-small-font" (click)="sendSignal({ event: 'GET_ENGINE', data: { engine: (currentApp.index + ''), action: 'PAUSE' } })">
+			<i class="fas fa-pause me-1"></i>
+		  </button>
+		  <button type="button" *ngIf="currentApp.state != 'PLAY' && currentApp.state != 'PLAY_STEP'" class="btn btn-success me-2 btn-small-font" (click)="sendSignal({ event: 'GET_ENGINE', data: { engine: (currentApp.index + ''), action: playStep ? 'PLAY_STEP' : 'PLAY' } })">
+			<i class="fas fa-play me-1"></i>
+		  </button>
+		  <button type="button" *ngIf="currentApp.state != 'STOP'" class="btn btn-danger me-2 btn-small-font" (click)="sendSignal({ event: 'GET_ENGINE', data: { engine: (currentApp.index + ''), action: 'STOP' } })">
+			<i class="fas fa-stop me-1"></i>
+		  </button>
+		</div>
+	  </div>
+	  <div class="d-flex justify-content-between align-items-center mb-3">
+		<!--
+			<span class="small">|| {{ currentApp.index }}/{{ currentApp.state }}</span>
+			<span class="small">|| [ {{ currentApp.mundo.nombre }} ] Bots: {{ currentApp.bots.length }}</span>
+	  	-->
+		{{ currentApp.mundo.modelo?.dia}}
+		<app-dynamic-form ngSkipHydration
+			id="idBotonera"
+		  	class="small" [dataInput]="currentApp"
+		  	(formSubmit)="handleFormSubmit($event)"
+			(accordionEmiter)="handleAccordionEmiter($event)">
+		</app-dynamic-form>
+
+	  </div>
+	  <nav class="small" aria-label="Pagination">
+		<ul class="pagination mb-0">
+		  <li class="page-item" [ngClass]="{ 'disabled': (currentApp.mundo.modelo?.dia || 0) < 2 }">
+			<a class="page-link small" href="#" tabindex="-1" aria-disabled="true">Prev</a>
+		  </li>
+		  <li *ngFor="let item of getMundoPaginator(currentApp.mundo).dias" class="page-item">
+			<a class="page-link small" [ngClass]="{ 'active': item == currentApp.mundo.modelo?.dia }" href="#">{{ item }}</a>
+		  </li>
+		  <li class="page-item" [ngClass]="{ 'disabled': (currentApp.mundo.modelo?.dia || 0) == (currentApp.mundo.modelo?.muerte || 0) - 1 }">
+			<a class="page-link small" href="#">Next</a>
+		  </li>
+		</ul>
+	  </nav>
+	</div>
+  </section>
+  

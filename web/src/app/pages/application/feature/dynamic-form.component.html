@@ -22,17 +22,30 @@
 
 							<div class="card nga-card-menu">
 
-								<div class="card-header">
-									<a data-bs-toggle="collapse" data-parent="#accordionItems" href="#collapse{{  key.key }}" aria-expanded="false">
-									<div class="card-item">
-										<span>{{ key.key }}:</span>
-									</div>
+								<div class="card-header accordion-header" >
+									<a data-bs-toggle="collapse" data-parent="#accordionItems"
+										href="#{{ id }}collapse{{ key.key }}"
+										(click)="saveAccordionState(key.key)"
+										aria-expanded="false">
+										<div class="card-item">
+											<span>{{ key.key }}:</span> {{ getStateSize() }} 
+										</div>
 									</a>
 								</div>
 
-								<div id="collapse{{ key.key }}" class="collapse collapsed" aria-labelledby="headingOne" data-parent="#accordionItems">
+								<div id="{{ id }}collapse{{ key.key }}" class="collapse"
+									[class.show]="accordionState[getKey(key.key)]"
+									aria-labelledby="headingOne" data-parent="#accordionItems">
 									<div class="card-body">
-										<app-dynamic-form [jsonObject]="jsonObject[key.key]" (formSubmit)="handleNestedSubmit({ name: key.key, value: $event.value })"></app-dynamic-form>
+										<app-dynamic-form
+											[id]="id"
+											[accordionState]="accordionState"
+											[level]="level + 1"
+											[dataInput]="jsonObject[key.key]"
+											(formSubmit)="handleNestedSubmit({ name: key.key, value: $event.value })"
+											(accordionEmiter)="handleAccordionEmiter($event)"
+										>
+										</app-dynamic-form>
 									</div>
 								</div>
 
@@ -45,23 +58,35 @@
 							<div class="card nga-card-menu">
 
 								<div class="card-header">
-									<a data-bs-toggle="collapse" data-parent="#accordionItems" href="#collapse{{  key.key }}" aria-expanded="false">
+									<a data-bs-toggle="collapse" data-parent="#accordionItems"
+									href="#{{ id }}collapse{{  key.key }}"
+									(click)="saveAccordionState(key.key)"
+									aria-expanded="false">
 									<div class="card-item">
-										<span>{{ key.key }}:</span>
+										<span>{{ key.key }}:</span>  {{ getStateSize() }}
 									</div>
 									</a>
 								</div>
 
-								<div id="collapse{{ key.key }}" class="collapse collapsed" aria-labelledby="headingOne" data-parent="#accordionItems">
+								<div id="{{ id }}collapse{{ key.key }}" class="collapse"
+									[class.show]="accordionState[getKey(key.key)]"
+									aria-labelledby="headingOne" data-parent="#accordionItems">
 									<div class="card-body">
 										<div *ngFor="let ctrl of getFormArrayControls(control); let i = index" class="th">
-											<app-dynamic-form [jsonObject]="getObject(key, i)" (formSubmit)="handleNestedSubmit({ name: key.key + 'ARRAY' + i, value: $event.value })"></app-dynamic-form>
+											<app-dynamic-form
+												[id]="id"
+												[accordionState]="accordionState"
+												[level]="level + 1"
+												[dataInput]="getObject(key, i)"
+												(formSubmit)="handleNestedSubmit({ name: key.key + 'ARRAY' + i, value: $event.value })"
+												(accordionEmiter)="handleAccordionEmiter($event)"
+												>
+											</app-dynamic-form>
 										</div>
 									</div>
 								</div>
 
 							</div>
-						
 						</div>
 
 					</ng-container>
@@ -70,6 +95,7 @@
 
 			</div>
 		</div>
-  	</form>
+
+	</form>
 
 </div>
