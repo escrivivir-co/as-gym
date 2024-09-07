@@ -19,6 +19,7 @@ import { MODO_CONSOLA_ACTIVADO } from "../../../runCONFIG";
 // import { ExpectedBenchmark, HostMonitor } from "../host-info";
 import { RTCache } from "./rt-cache";
 import { BusquedasApp } from "../../aplicaciones/busquedas/busquedas-app";
+import { AnSindicModelVF } from "../../aplicaciones/an-sindic-model-YV/user-app";
 
 export const EXIT_PROMPT_INDEX = 99;
 
@@ -78,6 +79,9 @@ return */
 
 		const ideApp = new IdeApp();
         Runtime.threads.push(ideApp);
+
+		const vfApp = new AnSindicModelVF();
+        Runtime.threads.push(vfApp);
 
     }
 
