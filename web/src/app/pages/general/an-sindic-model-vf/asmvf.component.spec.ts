@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AboutComponent } from './about.component';
+import { AnSindicModelVFComponent } from './asmvf.component';
 import { RouterTestingModule } from '@angular/router/testing';
 
-describe('AboutComponent', () => {
-  let component: AboutComponent;
-  let fixture: ComponentFixture<AboutComponent>;
+describe('AnSindicModelVFComponent', () => {
+  let component: AnSindicModelVFComponent;
+  let fixture: ComponentFixture<AnSindicModelVFComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AboutComponent,RouterTestingModule]
+      imports: [AnSindicModelVFComponent,RouterTestingModule]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(AboutComponent);
+    fixture = TestBed.createComponent(AnSindicModelVFComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

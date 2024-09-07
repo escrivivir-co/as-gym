@@ -49,10 +49,10 @@ export interface SignalEvent {
 @Component({
 	selector: 'app-about',
 	standalone: true,
-	imports: [LoggerComponent, CommonModule, RouterLink, RouterOutlet, 
+	imports: [LoggerComponent, CommonModule, RouterLink, RouterOutlet,
 		PrettyJsonPipeV2, DynamicFormComponent, BotoneraComponent, SearcherComponent],
-	templateUrl: './about.component.html',
-	styleUrl: './about.component.css',
+	templateUrl: './asmvf.component.html',
+	styleUrl: './asmvf.component.css',
 	encapsulation: ViewEncapsulation.None // https://medium.com/@yaronu/making-angular-component-css-classes-in-innerhtml-work-without-losing-emulated-encapsulation-350d63dbffad
 })
 export class AnSindicModelVFComponent implements OnInit {

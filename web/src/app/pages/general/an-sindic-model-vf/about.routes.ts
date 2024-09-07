@@ -1,6 +1,6 @@
 import { RouterModule, Routes } from '@angular/router';
 
-import { AnSindicModelVFComponent } from './about.component';
+import { AnSindicModelVFComponent } from './asmvf.component';
 
 export const routes: Routes = [
   {
