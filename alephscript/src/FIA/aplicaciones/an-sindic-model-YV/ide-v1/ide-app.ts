@@ -32,6 +32,9 @@ export class AnSindicModelVFIdeApp extends App {
 		this.inicializar();
 
 		console.log(agentMessage(this.nombre, "onReady"))
+
+		this.conectarEntorno();
+
 		onReady();
 
 		console.log(agentMessage(this.nombre, "OnLaunching"), this.alphaBot.automata.estado.nombre)
@@ -81,7 +84,9 @@ export class AnSindicModelVFIdeApp extends App {
 		this.omegaBot = new FIASituada();
 		this.omegaBot.runStateEvent = this.runStateEvent;
         this.omegaBot.mundo = this.mundo;
-		this.omegaBot.nombre = "OmegaBot"
+		this.omegaBot.nombre = "OmegaBot";
+
+		this.conectarEntorno();
 	}
 
 	async instanciar(): Promise<string> {

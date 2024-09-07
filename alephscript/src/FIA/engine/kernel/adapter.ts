@@ -34,7 +34,8 @@ export class SocketAdapter {
 					name: t.nombre,
 					state: SocketAdapter.threads[index]?.runState,
 					mundo: {
-						...t.mundo,
+						nombre: t.mundo.nombre,
+						renderer: t.mundo.renderer,
 						modelo: {
 							nombre: t.mundo.modelo.nombre,
 							dia: t.mundo.modelo.dia,
