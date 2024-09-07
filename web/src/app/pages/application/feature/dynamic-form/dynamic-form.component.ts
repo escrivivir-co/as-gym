@@ -12,6 +12,7 @@ import { GenericMap } from '../../../../../../../ws-server/src/alephscript/Gener
 })
 export class DynamicFormComponent implements OnInit {
 
+@Output() popUpEmiter = new EventEmitter<GenericMap>();
 @Output() accordionEmiter = new EventEmitter<GenericMap>();
 @Output() formSubmit = new EventEmitter<{ name: string, value: any }>();
 
@@ -32,6 +33,8 @@ export class DynamicFormComponent implements OnInit {
 @Input() level: number = 0;
 @Input()
 	set dataInput(value: object) {
+
+		// if (this.id == "PopUp")	console.log("OnSet", this.id, this.level, value)
 		this.jsonObject = value;
 		this.onInputChange(value);
 	}
@@ -143,8 +146,22 @@ export class DynamicFormComponent implements OnInit {
 		this.accordionEmiter.emit(state);
 	}
 
+	sendPopUpEvent() {
+
+		// console.log("handlePopUpEvent", this.id, this.jsonObject)
+		this.popUpEmiter.emit({
+			[this.id]: this.jsonObject
+		})
+	}
+
+	handlePopUpEvent(popup: any) {
+
+		// console.log("handlePopUpEvent", this.id, popup)
+		this.popUpEmiter.emit(popup)
+	}
+
 	updateJsonObject(original: any, keyPath: string, updated: any) {
-		console.log("Propagando cambios nested", "Nivel", this.level/*, this.jsonObject, name, updated*/)
+		// console.log("Propagando cambios nested", "Nivel", this.level/*, this.jsonObject, name, updated*/)
 		if (keyPath.includes("ARRAY")){
 			const field = keyPath.split("ARRAY")[0]
 			const i = keyPath.split("ARRAY")[1]

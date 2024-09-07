@@ -1,0 +1,78 @@
+<div class="row mt-12 small">
+
+	<header>
+        <h1>Simulación Interactiva de Algoritmos de Búsqueda</h1>
+        <nav>
+            Sin Información
+            <ul>
+                <li><button (mouseover)="showInfo('BFS')" (click)="selectAlgorithm('BFS')">Iniciar BFS</button></li>
+                <li><button (mouseover)="showInfo('DFS')" (click)="selectAlgorithm('DFS')">Iniciar DFS</button></li>
+                <li><button (mouseover)="showInfo('UniformCost')" (click)="selectAlgorithm('UniformCost')">Iniciar Coste Uniforme</button></li>
+                <li><button (mouseover)="showInfo('IterativeDeepening')" (click)="selectAlgorithm('IterativeDeepening')">Iniciar Búsqueda Iterativa</button></li>
+            </ul>
+            Con Información
+            <ul>
+                <li><button (mouseover)="showInfo('AStar')" (click)="selectAlgorithm('AStar')">Iniciar A*</button></li>
+                <li><button (mouseover)="showInfo('BranchAndBound')" (click)="selectAlgorithm('BranchAndBound')">Iniciar Ramificación y Poda</button></li>
+                <li><button (mouseover)="showInfo('GreedySearch')" (click)="selectAlgorithm('GreedySearch')">Iniciar Búsqueda Voraz</button></li>
+                <li><button (mouseover)="showInfo('SimulatedAnnealing')" (click)="selectAlgorithm('SimulatedAnnealing')">Iniciar Temple Simulado</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="info">
+        <h2 id="info-current">Información del Algoritmo</h2>
+        <div id="info-content" [innerHTML]="infoContent"></div>
+    </section>
+
+    <section id="search">
+        <h2>Búsqueda Web</h2>
+		<input type="text" #urlInput placeholder="Introduce la URL objetivo" value="https://es.wikipedia.org/wiki/Wikipedia:Portada">
+		<input type="text" #keywordInput placeholder="Introduce la palabra objetivo" value="casa">
+		<button (click)="executeSearch(urlInput.value, keywordInput.value)">Buscar</button>
+    </section>
+
+    <section id="simulacion">
+        <h2>Simulación Interactiva</h2>
+        <div id="graf-container">
+            <div class="visualizer-container">
+				<div id="visualizer-2d"></div>
+				<!--<div id="visualizer-3d"></div>-->
+			</div>
+        </div>
+        <div id="controls">
+            <button (click)="resetGraph()">Resetear</button>
+        </div>
+		<div id="iteration-info">
+			<h3>Información de la Iteración</h3>
+			<p><strong>Número de Iteración:</strong> <span id="iteration-number">0</span></p>
+			<p><strong>URL Actual:</strong> <span id="current-url">N/A</span></p>
+			<h4>Visited</h4>
+			<table id="visited-table">
+				<thead>
+					<tr>
+						<th>URL</th>
+						<th>Título</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+			<h4>Queue</h4>
+			<table id="queue-table">
+				<thead>
+					<tr>
+						<th>URL</th>
+						<th>Profundidad</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+    </section>
+
+    <footer>
+        <p>© 2024 Explorador de Esquemas de Búsqueda</p>
+    </footer>
+</div>

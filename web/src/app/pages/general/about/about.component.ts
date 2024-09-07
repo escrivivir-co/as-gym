@@ -8,7 +8,7 @@ import { PLATFORM_ID } from '@angular/core';
 import { SeoService } from '../../../services/seo/seo.service';
 import { Feature, FeatureName, Name } from './feature';
 import { Dependency } from './dependency';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { IMenuState } from '/Users/morente/Desktop/THEIA_PATH/AlephWeb/angular-app/alephscript/src/FIA/engine/kernel/IMenuState';
 import { RunStateEnum } from '/Users/morente/Desktop/THEIA_PATH/AlephWeb/angular-app/alephscript/src/FIA/mundos/RunStateEnum';
 import { IMundo } from '../../../../../../alephscript/src/FIA/mundos/IMundo';
@@ -17,6 +17,9 @@ import { IRuntimeBlock } from '../../../../../../ws-server/src/alephscript/IRunt
 import { IServerState } from "../../../../../../ws-server/src/alephscript/IServerState";
 import { DynamicFormComponent } from '../../application/feature/dynamic-form/dynamic-form.component';
 import { BotoneraComponent } from '../../application/feature/botonera/botonera';
+import { GenericMap } from '../../../../../../ws-server/src/alephscript/GenericMap';
+import { LoggerComponent } from '../../application/feature/logger/logger';
+import { SearcherComponent } from '../../application/feature/searcher/searcher';
 
 const notValidItems = [" ", "/", "-"]
 function removeOccurrences(array: string[], target: string) {
@@ -46,12 +49,17 @@ export interface SignalEvent {
 @Component({
 	selector: 'app-about',
 	standalone: true,
-	imports: [CommonModule, RouterLink, RouterOutlet, PrettyJsonPipeV2, DynamicFormComponent, BotoneraComponent],
+	imports: [LoggerComponent, CommonModule, RouterLink, RouterOutlet, 
+		PrettyJsonPipeV2, DynamicFormComponent, BotoneraComponent, SearcherComponent],
 	templateUrl: './about.component.html',
 	styleUrl: './about.component.css',
 	encapsulation: ViewEncapsulation.None // https://medium.com/@yaronu/making-angular-component-css-classes-in-innerhtml-work-without-losing-emulated-encapsulation-350d63dbffad
 })
 export class AboutComponent implements OnInit {
+
+	currentPopUp = signal<any>({
+		value: ''
+	});
 
 	dependencies: Dependency;
 	features: Feature;
@@ -234,6 +242,18 @@ export class AboutComponent implements OnInit {
 		this.serverService.sendEngineAction(signal);
 	}
 
+	handleSearcherEvent(app: any) {
+		console.log("Handle", app)
+		this.sendSignal({
+			event: "SET_MODEL_RPC_DATA",
+			data: {
+				engine: this.currentApp().index,
+				action: "SET_DATA",
+				app
+			}
+		})
+	}
+
 	setCurrentApp(app: IMenuState) {
 
 		this.currentApp.set(app);
@@ -283,33 +303,10 @@ export class AboutComponent implements OnInit {
 		// console.log("Accordion state is now", key, this.accordionState)
 	}
 
-	getLogAsJson(data: string ) {
-		try {
-			return JSON.parse(data).map((t: any) => {
-				return {
-					...t,
-					historial: t.historial.map((h: any) => JSON.parse(h))
-				}
-			})
-		} catch {
-			return {
-				data
-			}
-		}
-	}
-
-	sanitize(data: string) {
-		return this.sanitizer.bypassSecurityTrustHtml(data);
-	}
 
 	getASCREEN(data: LogLabel[]): LogLabel[] {
 		const d = data.find(d => d.title == "ASCREEN")
 		return d ? [d] : []
-
-	}
-
-	get(key: string, data: LogLabel[]): LogLabel[] {
-		return data.filter(d => (d.title).toUpperCase().includes(key.toUpperCase()))
 
 	}
 
@@ -328,8 +325,42 @@ export class AboutComponent implements OnInit {
 		}
 	}
 
-	handleFormSubmit(updatedObject: any) {
-		console.log('Formulario actualizado:', updatedObject);
-		// Aquí puedes manejar el objeto actualizado, por ejemplo, cerrar el modal y pasar el objeto a un componente padre.
-	  }
+	handleFormSubmit($event: { name: string; value: any; }) {
+		console.log("Datos actualizados")
+	}
+
+	handleAccordionEmiter(state: GenericMap) {
+		// console.log("State Accordion", state)
+	}
+
+	handlePopUpEvent($event: GenericMap, master: boolean) {
+
+		// console.log("Set", $event, master)
+		if (master) {
+			this.currentPopUp.set({... $event  });
+		} else {
+			this.currentPopUp.set({... $event  });
+		}
+
+	}
+
+	sanitize(value: string): SafeHtml {
+		return this.sanitizer.bypassSecurityTrustHtml(value);
+	}
+
+	getLogAsJson(data: string ) {
+		try {
+			return JSON.parse(data).map((t: any) => {
+				return {
+					...t,
+					historial: t.historial.map((h: any) => JSON.parse(h))
+				}
+			})
+		} catch {
+			return {
+				data
+			}
+		}
+	}
+
 }

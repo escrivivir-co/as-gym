@@ -1,6 +1,6 @@
 import { Ignoto } from "../../Intencion";
 import { Dominio, IDominio } from "../../mundos/dominio";
-import * as fs from "fs";
+import fs from "fs";
 import { IRTCache } from "./IRTCache";
 
 let CACHE_CONTAINER: IDominio;
@@ -38,10 +38,12 @@ export class RTCache implements IRTCache {
     persistir() {
 
 		this.dominio.base = {
-			...CACHE_CONTAINER.base,
+			...CACHE_CONTAINER?.base,
 			...this.dominio.base
 		}
-		CACHE_CONTAINER.base = this.dominio.base;
+		if (CACHE_CONTAINER?.base) {
+			CACHE_CONTAINER.base = this.dominio.base;
+		}
 
         try {
             console.log("escribir datos", Object.keys(this.dominio?.base || {}))

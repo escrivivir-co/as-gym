@@ -33,6 +33,8 @@ export class RedSemantica extends Formal implements IRedSemantica {
 
     crearNodosEntidad(clave: string) {
         // Creación de entidad
+        if (!this.baseR) return;
+
         const valor = this.baseR.red.ENTIDADES[clave];
 
         // Opcional: mapeo de valores por defecto
@@ -286,6 +288,8 @@ export class RedSemantica extends Formal implements IRedSemantica {
     cargar(red: any) {
 
         this.base = red;
+
+		if (!this.base) return
 
         const entidades = this.entidades; // árbol a grafo
         /**

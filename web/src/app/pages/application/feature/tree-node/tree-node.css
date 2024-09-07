@@ -1,0 +1,17 @@
+.node {
+	margin-left: 4px;
+	margin-top: 2px;
+	font-size: 10px;
+}
+
+.current-node {
+	color: green;
+}
+
+.backtrack-node {
+	color: red;
+}
+
+.children {
+	margin-left: 4px;
+}

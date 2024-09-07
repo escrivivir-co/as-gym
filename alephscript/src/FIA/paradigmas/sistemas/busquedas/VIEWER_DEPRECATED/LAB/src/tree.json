@@ -1,0 +1,524 @@
+{
+  "id": "root",
+  "children": [
+    {
+      "id": "root.0",
+      "children": [
+        {
+          "id": "root.0.0",
+          "children": [
+            {
+              "id": "root.0.0.0",
+              "children": [
+                {
+                  "id": "root.0.0.0.0",
+                  "children": []
+                },
+                {
+                  "id": "root.0.0.0.1",
+                  "children": []
+                },
+                {
+                  "id": "root.0.0.0.2",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "root.0.0.1",
+              "children": [
+                {
+                  "id": "root.0.0.1.0",
+                  "children": []
+                },
+                {
+                  "id": "root.0.0.1.1",
+                  "children": []
+                },
+                {
+                  "id": "root.0.0.1.2",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "root.0.0.2",
+              "children": [
+                {
+                  "id": "root.0.0.2.0",
+                  "children": []
+                },
+                {
+                  "id": "root.0.0.2.1",
+                  "children": []
+                },
+                {
+                  "id": "root.0.0.2.2",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "root.0.1",
+          "children": [
+            {
+              "id": "root.0.1.0",
+              "children": [
+                {
+                  "id": "root.0.1.0.0",
+                  "children": []
+                },
+                {
+                  "id": "root.0.1.0.1",
+                  "children": []
+                },
+                {
+                  "id": "root.0.1.0.2",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "root.0.1.1",
+              "children": [
+                {
+                  "id": "root.0.1.1.0",
+                  "children": []
+                },
+                {
+                  "id": "root.0.1.1.1",
+                  "children": []
+                },
+                {
+                  "id": "root.0.1.1.2",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "root.0.1.2",
+              "children": [
+                {
+                  "id": "root.0.1.2.0",
+                  "children": []
+                },
+                {
+                  "id": "root.0.1.2.1",
+                  "children": []
+                },
+                {
+                  "id": "root.0.1.2.2",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "root.0.2",
+          "children": [
+            {
+              "id": "root.0.2.0",
+              "children": [
+                {
+                  "id": "root.0.2.0.0",
+                  "children": []
+                },
+                {
+                  "id": "root.0.2.0.1",
+                  "children": []
+                },
+                {
+                  "id": "root.0.2.0.2",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "root.0.2.1",
+              "children": [
+                {
+                  "id": "root.0.2.1.0",
+                  "children": []
+                },
+                {
+                  "id": "root.0.2.1.1",
+                  "children": []
+                },
+                {
+                  "id": "root.0.2.1.2",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "root.0.2.2",
+              "children": [
+                {
+                  "id": "root.0.2.2.0",
+                  "children": []
+                },
+                {
+                  "id": "root.0.2.2.1",
+                  "children": []
+                },
+                {
+                  "id": "root.0.2.2.2",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "root.1",
+      "children": [
+        {
+          "id": "root.1.0",
+          "children": [
+            {
+              "id": "root.1.0.0",
+              "children": [
+                {
+                  "id": "root.1.0.0.0",
+                  "children": []
+                },
+                {
+                  "id": "root.1.0.0.1",
+                  "children": []
+                },
+                {
+                  "id": "root.1.0.0.2",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "root.1.0.1",
+              "children": [
+                {
+                  "id": "root.1.0.1.0",
+                  "children": []
+                },
+                {
+                  "id": "root.1.0.1.1",
+                  "children": []
+                },
+                {
+                  "id": "root.1.0.1.2",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "root.1.0.2",
+              "children": [
+                {
+                  "id": "root.1.0.2.0",
+                  "children": []
+                },
+                {
+                  "id": "root.1.0.2.1",
+                  "children": []
+                },
+                {
+                  "id": "root.1.0.2.2",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "root.1.1",
+          "children": [
+            {
+              "id": "root.1.1.0",
+              "children": [
+                {
+                  "id": "root.1.1.0.0",
+                  "children": []
+                },
+                {
+                  "id": "root.1.1.0.1",
+                  "children": []
+                },
+                {
+                  "id": "root.1.1.0.2",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "root.1.1.1",
+              "children": [
+                {
+                  "id": "root.1.1.1.0",
+                  "children": []
+                },
+                {
+                  "id": "root.1.1.1.1",
+                  "children": []
+                },
+                {
+                  "id": "root.1.1.1.2",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "root.1.1.2",
+              "children": [
+                {
+                  "id": "root.1.1.2.0",
+                  "children": []
+                },
+                {
+                  "id": "root.1.1.2.1",
+                  "children": []
+                },
+                {
+                  "id": "root.1.1.2.2",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "root.1.2",
+          "children": [
+            {
+              "id": "root.1.2.0",
+              "children": [
+                {
+                  "id": "root.1.2.0.0",
+                  "children": []
+                },
+                {
+                  "id": "root.1.2.0.1",
+                  "children": []
+                },
+                {
+                  "id": "root.1.2.0.2",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "root.1.2.1",
+              "children": [
+                {
+                  "id": "root.1.2.1.0",
+                  "children": []
+                },
+                {
+                  "id": "root.1.2.1.1",
+                  "children": []
+                },
+                {
+                  "id": "root.1.2.1.2",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "root.1.2.2",
+              "children": [
+                {
+                  "id": "root.1.2.2.0",
+                  "children": []
+                },
+                {
+                  "id": "root.1.2.2.1",
+                  "children": []
+                },
+                {
+                  "id": "root.1.2.2.2",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "root.2",
+      "children": [
+        {
+          "id": "root.2.0",
+          "children": [
+            {
+              "id": "root.2.0.0",
+              "children": [
+                {
+                  "id": "root.2.0.0.0",
+                  "children": []
+                },
+                {
+                  "id": "root.2.0.0.1",
+                  "children": []
+                },
+                {
+                  "id": "root.2.0.0.2",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "root.2.0.1",
+              "children": [
+                {
+                  "id": "root.2.0.1.0",
+                  "children": []
+                },
+                {
+                  "id": "root.2.0.1.1",
+                  "children": []
+                },
+                {
+                  "id": "root.2.0.1.2",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "root.2.0.2",
+              "children": [
+                {
+                  "id": "root.2.0.2.0",
+                  "children": []
+                },
+                {
+                  "id": "root.2.0.2.1",
+                  "children": []
+                },
+                {
+                  "id": "root.2.0.2.2",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "root.2.1",
+          "children": [
+            {
+              "id": "root.2.1.0",
+              "children": [
+                {
+                  "id": "root.2.1.0.0",
+                  "children": []
+                },
+                {
+                  "id": "root.2.1.0.1",
+                  "children": []
+                },
+                {
+                  "id": "root.2.1.0.2",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "root.2.1.1",
+              "children": [
+                {
+                  "id": "root.2.1.1.0",
+                  "children": []
+                },
+                {
+                  "id": "root.2.1.1.1",
+                  "children": []
+                },
+                {
+                  "id": "root.2.1.1.2",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "root.2.1.2",
+              "children": [
+                {
+                  "id": "root.2.1.2.0",
+                  "children": []
+                },
+                {
+                  "id": "root.2.1.2.1",
+                  "children": []
+                },
+                {
+                  "id": "root.2.1.2.2",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "root.2.2",
+          "children": [
+            {
+              "id": "root.2.2.0",
+              "children": [
+                {
+                  "id": "root.2.2.0.0",
+                  "children": []
+                },
+                {
+                  "id": "root.2.2.0.1",
+                  "children": []
+                },
+                {
+                  "id": "root.2.2.0.2",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "root.2.2.1",
+              "children": [
+                {
+                  "id": "root.2.2.1.0",
+                  "children": []
+                },
+                {
+                  "id": "root.2.2.1.1",
+                  "children": []
+                },
+                {
+                  "id": "root.2.2.1.2",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "root.2.2.2",
+              "children": [
+                {
+                  "id": "root.2.2.2.0",
+                  "children": []
+                },
+                {
+                  "id": "root.2.2.2.1",
+                  "children": []
+                },
+                {
+                  "id": "root.2.2.2.2",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

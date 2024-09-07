@@ -187,6 +187,16 @@ export class AsistenteApi extends Api {
 							});
 						} else {
 							console.log(agentMessage("inner.assistant. thread-run-status", r.thread_id + "/" + r.id + ": " + r.status))
+							if (intervalRetries > 25) {
+								resolve({
+									ok: false,
+									data: {
+										error: "La API no responde. Nos hemos cansado de esperar a que resuelva el run.",
+										thread: LAST_THREAD,
+										run: run.id
+									}
+								});
+							}
 						}
 
 					}, runRetryTime)

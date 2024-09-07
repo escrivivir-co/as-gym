@@ -15,8 +15,10 @@ import { IdeApp } from "../../aplicaciones/ide/semilla/semilla-app";
 import { SocketAdapter } from "./adapter";
 import { RunStateEnum } from "../../mundos/RunStateEnum";
 import { AppV1 } from "../../aplicaciones/app-v1/app-v1";
-import { BORRAR_ESTADO_A_CADA_PLAY_STEP, MODO_CONSOLA_ACTIVADO } from "../../../runCONFIG";
-import { Bloque } from "./cadena-bloques";
+import { MODO_CONSOLA_ACTIVADO } from "../../../runCONFIG";
+// import { ExpectedBenchmark, HostMonitor } from "../host-info";
+import { RTCache } from "./rt-cache";
+import { BusquedasApp } from "../../aplicaciones/busquedas/busquedas-app";
 
 export const EXIT_PROMPT_INDEX = 99;
 
@@ -32,6 +34,18 @@ export class Runtime extends SocketAdapter {
 	nombre = "RT"
     start() {
 
+/*// Uso de la clase HostMonitor
+(async () => {
+    const expectedBenchmark: ExpectedBenchmark = { cpuScore: 50, ramScore: 50, gpuScore: 50, storageScore: 50, networkScore: 50 };
+    const monitor = new HostMonitor();
+    await monitor.generateReport(expectedBenchmark);
+    console.log(monitor.Report);
+
+	const rt = new RTCache();
+	rt.guardar("Report", monitor.Report)
+	rt.persistir();
+})();
+return */
         const fia = new FIA();
         Runtime.threads.push(fia);
 
@@ -53,6 +67,9 @@ export class Runtime extends SocketAdapter {
         /**
          * APPS
          */
+		const busquedasApp = new BusquedasApp();
+        Runtime.threads.push(busquedasApp);
+
         const cadenaApp = new CadenaApp();
         Runtime.threads.push(cadenaApp);
 

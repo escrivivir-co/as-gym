@@ -1,0 +1,62 @@
+.sudoku-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 20px;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+td {
+	border: 1px solid black;
+	width: 30px;
+	height: 30px;
+	position: relative;
+}
+
+input {
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	border: none;
+}
+
+.current {
+	color: white;
+	background-color: green;
+}
+
+.backtrack {
+	color: white;
+	background-color: #112211;
+}
+
+.controls {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 20px;
+}
+
+button {
+	margin: 0 5px;
+	padding: 10px 20px;
+}
+
+/* Añadir bordes gruesos para subcuadros 3x3 */
+.sudoku-container table tr:nth-child(3n) td {
+	border-bottom: 4px solid black;
+}
+
+.sudoku-container table tr td:nth-child(3n) {
+	border-right: 4px solid black;
+}
+
+.sudoku-container table tr:nth-child(3n + 1) td {
+	border-top: 4px solid black;
+}
+
+.sudoku-container table tr td:nth-child(3n + 1) {
+	border-left: 4px solid black;
+}

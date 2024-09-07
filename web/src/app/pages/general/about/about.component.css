@@ -1,3 +1,16 @@
+/* app.component.css */
+.container-fluid {
+	padding: 100;
+	width: 100% !important;
+    max-width: 100% !important;
+	margin: 0;
+}
+
+.col-12 {
+	padding: 0;
+	margin: 0;
+}
+
 .nga-btn-about {
     position: relative;
     z-index: 1;
@@ -236,7 +249,7 @@
 	padding: 10px; /* Optional: Add padding for better readability */
 	font-family: monospace;
 	white-space: pre-wrap;
-	font-size: 75%;
+	font-size: 95%;
   }
   .myJson_child {
 	width: 100%; /* Ensure child width does not exceed the parent width */
@@ -244,7 +257,7 @@
 	word-wrap: break-word; /* Break long words to prevent overflow */
 	white-space: normal; /* Allow text to wrap normally */
 	overflow: hidden; /* Prevent overflow */
-	font-size: 75%;
+	font-size: 95%;
   }
 
   .small {

@@ -10,6 +10,10 @@ import { IMenuState } from '../../../../../../alephscript/src/FIA/engine/kernel/
 import { ServerNM } from '../about/about.component';
 import { IServerState } from '../../../../../../ws-server/src/alephscript/IServerState';
 import { DynamicFormComponent } from '../../application/feature/dynamic-form/dynamic-form.component';
+import { DEFAULT_ROOT_NODE, 
+	DEFAULT_SUDOKU_DATA, EMPTY_ROW, SudokuData } from '/Users/morente/Desktop/THEIA_PATH/AlephWeb/angular-app/alephscript/src/FIA/engine/kernel/sudoku';
+import { SudokuComponent } from '../../application/feature/sudoku/sudoku';
+import { SearcherComponent } from '../../application/feature/searcher/searcher';
 
 /*
 {
@@ -36,11 +40,43 @@ export interface IFiaBox extends IMenuState {
 @Component({
 	selector: 'app-home',
 	standalone: true,
-	imports: [CommonModule, RouterLink, RouterOutlet, DynamicFormComponent],
+	imports: [CommonModule, RouterLink, RouterOutlet,
+		SudokuComponent, SearcherComponent,
+		DynamicFormComponent],
 	templateUrl: './home.component.html',
 	styleUrl: './home.component.css'
 })
 export class HomeComponent {
+
+	sudokuData = signal<SudokuData>({
+			board: [
+				[0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0]
+			],
+			sol: [
+				[0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0]
+			],
+			currentCell: EMPTY_ROW,
+			backtrackCell: EMPTY_ROW,
+			k: 0,
+			level: 0
+		}
+	);
 
 	name = environment.application.name;
 	angular = environment.application.angular;
@@ -129,6 +165,10 @@ export class HomeComponent {
 
 		this.serverService.serverState$.subscribe(d => this.cargaServerState(d));
 		this.cargaServerState(this.serverService.currentserverState$())
+
+		this.serverService.sudokuBoard$.asObservable().subscribe(d => {
+			this.sudokuData.set(d);
+		})
 	}
 
 

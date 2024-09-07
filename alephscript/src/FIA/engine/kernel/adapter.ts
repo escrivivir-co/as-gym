@@ -7,6 +7,8 @@ import { systemMessage } from "../../systemMessage";
 import { AlephScriptClient } from "../apps/socketio/client";
 import { Bloque } from "./cadena-bloques";
 import { IMenuState } from "./IMenuState";
+// import { RTCache } from "./rt-cache";
+// import { SudokuData } from "./sudoku";
 
 export const EXCLUDED_DOMINOS = ["AlephScriptIDEv0", "EXTERNAL_CACHE"]
 
@@ -53,7 +55,7 @@ export class SocketAdapter {
 	getBase(t: iFIA) {
 		const items = Object
 			.keys(t.mundo.modelo.dominio.base)
-			.filter(k => EXCLUDED_DOMINOS.indexOf(k) == -1)
+			.filter(k => EXCLUDED_DOMINOS.indexOf(k) === -1)
 
 		const isSystem = (k) => {
 			return typeof k === "function" || typeof k === "undefined"  || typeof k === "symbol"
@@ -116,12 +118,9 @@ export class SocketAdapter {
 	}
 
 	sendFrameworkState(args) {
-
 		if (!SocketAdapter.client) return;
 
 		const rData = args[0];
-		// console.log(systemMessage(SocketAdapter.client?.name + ">> Sending list of threads... to: " + rData?.requesterName))
-
 		const senderData = {
 			...rData,
 			room: "ENGINE_THREADS",
@@ -129,7 +128,7 @@ export class SocketAdapter {
 			data: this.getCurrentApps()
 		}
 		console.log(agentMessage(SocketAdapter.name,
-			"Solving (SET_LIST_OF_THREADS) for: " + senderData.requesterName))
+			`Solving (SET_LIST_OF_THREADS) for: ${senderData.requesterName}`))
 		SocketAdapter.client?.roomP(senderData);
 
 	}
@@ -159,10 +158,33 @@ export class SocketAdapter {
 
 		})
 
+		SocketAdapter.client?.io.on("SET_MODEL_RPC_DATA", (...args) => {
+			const rData = args[0];
+			console.log(systemMessage(SocketAdapter.client?.name + ">> SET_MODEL_RPC_DATA ENGINE... to: "), rData)
+			const action = rData?.action;
+
+			const engine = rData.engine;
+			const fia = SocketAdapter.threads[engine];
+
+			if (action == "SET_DATA") {
+				const c = fia.mundo.modelo.dominio.base["RPC"];
+				fia.mundo.modelo.dominio.base["RPC"] =  {
+					...c,
+					...(rData?.app?.mundo?.modelo?.dominio?.base["RPC"] || { rpcid: 1})
+				}
+			}
+			console.log(systemMessage(SocketAdapter.client?.name +
+				">> SET_MODEL_RPC_DATA ENGINE... to: "), JSON.stringify(
+					fia?.mundo?.modelo?.dominio?.base['RPC'] || {}
+				)
+			)
+			this.sendFrameworkState(args);
+		});
+
 		SocketAdapter.client?.io.on("GET_ENGINE", (...args) => {
 
 			const rData = args[0];
-			console.log(systemMessage(SocketAdapter.client?.name + ">> DO ENGINE... to: "), rData)
+			console.log(systemMessage(SocketAdapter.client?.name + ">> DO ENGINE... PAYLOAD: "), rData)
 
 
 			// START/STOP
@@ -170,6 +192,12 @@ export class SocketAdapter {
 
 			const engine = rData?.data?.engine;
 			const fia = SocketAdapter.threads[engine];
+
+			console.log(systemMessage(SocketAdapter.client?.name +
+				">> DATA RPC... to: "), JSON.stringify(
+					fia?.mundo?.modelo?.dominio?.base['RPC']?.al || {}
+				)
+			)
 
 			// console.log("BloqueDebuguer", Bloque.estado)
 			if (BORRAR_ESTADO_A_CADA_PLAY_STEP) {
@@ -226,43 +254,68 @@ export class SocketAdapter {
 			this.sendFrameworkState(args);
 
 		})
-
+		this.crearSpider();
 	}
 
 	crearSpider() {
-
+		/*
+		const modoCAPTURAR = false;
 		if (!this.spider) {
 
 			this.spider = new AlephScriptClient("botSpider") ;
 			this.spider.initTriggersDefinition.push(() => {
 
-				this.spider.io.on("SET_LIST_OF_THREADS", (...args) => {
-					/*
-					console.log(
-						systemMessage(this.spider.name + ">> Receiving list of threads...")
-					)
-						*/
-				})
+				this.spider.io.emit(
+					"CLIENT_REGISTER",
+					{ usuario: this.spider.name, sesion: "111" }
+				);
+				this.spider.io.emit("CLIENT_SUSCRIBE", { room: "SUDOKU" });
 
-				console.log(
-					agentMessage(this.spider.name,"Send GET_LIST_OF_THREADS")
-				)
-				this.spider.room("GET_LIST_OF_THREADS", {});
+				let acabado = false;
+				const rt = new RTCache();
+				const sudoku: SudokuData[] = modoCAPTURAR ? [] : (rt.leer("SUDOKU") || []);
 
-				this.spider.io.on("SET_SERVER_STATE", (...args) => {
-					/*
-					console.log(
-						systemMessage(this.spider.name + ">> Receiving server state..."),
-					)
-					*/
-				})
+				if (modoCAPTURAR) {
 
-				this.spider.room("GET_SERVER_STATE");
+					console.log("Spider to SUDOKU board sub!")
+					this.spider.io.on("BOARD", (...args: any[]) => {
+						acabado = false
+						if (!modoCAPTURAR) return
 
+						sudoku.push(args[0])
+
+					})
+
+					setInterval(() => {
+						acabado = true
+					}, 10000)
+				}
+
+				if (modoCAPTURAR) {
+					setInterval(() => {
+						if (acabado) {
+							console.log("Guardando en cache", sudoku.length)
+							rt.guardar("SUDOKU", sudoku)
+							rt.persistir()
+						}
+					}, 20000)
+				}
+
+				if (!modoCAPTURAR) {
+					setInterval(() => {
+						if (sudoku.length > 0) {
+							const p = sudoku[0]
+							if (sudoku.length > 5) {
+								sudoku.splice(0, 5)
+							} else {
+								sudoku.splice(0, 1)
+							}
+							this.spider.room("BOARD_DATA", p, "SUDOKU");
+						}
+					}, 1)
+				}
 			})
-
-		}
+		} */
 	}
 
 }
-

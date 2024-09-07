@@ -60,11 +60,11 @@ export class SocketClient {
 				if (!isLogable(innerEvent)) return;
 				if (!isLogable(event)) return;
 
-				this.log(
+				/* this.log(
 					namespace + "/Socket.OnAny" + "/" + innerEvent +
 					`:> ${event} with data:`,
 					args
-				)
+				) */
 			});
 
 			this.io.emit("CLIENT_REGISTER", { usuario: this.name, sesion: getHash("") } as IUserDetails);

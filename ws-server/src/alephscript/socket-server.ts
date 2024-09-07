@@ -161,7 +161,7 @@ export class SocketServer {
 		const message = namespace + ".onRoomMessage." +
 			this.socketName(socket) +
 			": " + args.room + "/" + args.event;
-		if (args.event != "SET_EXECUTION_PROCESS") this.log(message);
+		// if (args.event != "SET_EXECUTION_PROCESS" ) this.log(args.event);
 
 		const argsMeta = { ...args, namespace, socket};
 
@@ -187,13 +187,13 @@ export class SocketServer {
 		/*
 			COMMUNICATION BETWEEN PEER FOLLOWING MASTER-ROOM PROTOCOL
 		*/
-		const isGETTER = args.event.substring(0, 4) == "GET_";
+		const isGETTER = args.event?.substring(0, 4) == "GET_";
 		if (isGETTER) {
 			this.forwardRequestToMaster(argsMeta)
 			return;
 		}
 
-		const isSETTER = args.event.substring(0, 4) == "SET_";
+		const isSETTER = args.event?.substring(0, 4) == "SET_";
 		if (isSETTER) {
 			this.forwardAnswerToRequester(argsMeta)
 			return;

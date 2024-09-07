@@ -9,6 +9,7 @@ import { IMenuState } from '/Users/morente/Desktop/THEIA_PATH/AlephWeb/angular-a
 import { IServerState } from "../../../../../ws-server/src/alephscript/IServerState";
 import { IRuntimeBlock } from '/Users/morente/Desktop/THEIA_PATH/AlephWeb/angular-app/ws-server/src/alephscript/IRuntimeBlock'
 import { IAppState } from '/Users/morente/Desktop/THEIA_PATH/AlephWeb/angular-app/ws-server/src/alephscript/IAppState'
+import { DEFAULT_ROOT_NODE, DEFAULT_SUDOKU_DATA, SudokuData } from '/Users/morente/Desktop/THEIA_PATH/AlephWeb/angular-app/alephscript/src/FIA/engine/kernel/sudoku';
 
 @Injectable({
   providedIn: 'root'
@@ -55,6 +56,8 @@ export class ServerService {
 	actualizacionDeSala$ = new Subject<SalaBackend>();
 	web: any;
 
+	sudokuBoard$ = new Subject<SudokuData>();
+
 	constructor(
 		@Inject(PLATFORM_ID) private platformId: object
 	) {
@@ -99,8 +102,23 @@ export class ServerService {
 				this.chainState$.next(args[0])
 				this.currentChainState$.set(args[0])
 			})
+			this.web.io.emit("CLIENT_SUSCRIBE", { room: "SUDOKU" });
+
+			this.web.io.on("BOARD_DATA", (...args: any[]) => {
+				//this.sudokuBoard$.next(args[0])
+				this.sudoku.push(args[0])
+			})
+
+			setInterval(() => {
+				if (this.sudoku.length > 0) {
+					const p = this.sudoku[0]
+					this.sudoku.splice(0, 1)
+					this.sudokuBoard$.next(p)
+				}
+			}, 1)
 		})
 	}
+	sudoku: SudokuData[] = [];
 }
 
 

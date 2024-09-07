@@ -1,0 +1,112 @@
+{
+	"https://es.wikipedia.org/wiki/Wikipedia:Portada": {
+		"enlaces": [
+			{
+				"id": "#bodyContent",
+				"text": "Ir al contenido"
+			},
+			{
+				"id": "",
+				"text": "<span>Portada</span>"
+			},
+			{
+				"id": "",
+				"text": "\n\t<img class=\"mw-logo-icon\" src=\"/static/images/icons/wikipedia.png\" alt=\"\" aria-hidden=\"true\" height=\"50\" width=\"50\">\n\t<span class=\"mw-logo-container skin-invert\">\n\t\t<img class=\"mw-logo-wordmark\" alt=\"Wikipedia\" src=\"/static/images/mobile/copyright/wikipedia-wordmark-en.svg\" style=\"width: 7.5em; height: 1.125em;\">\n\t\t<img class=\"mw-logo-tagline\" alt=\"La enciclopedia libre\" src=\"/static/images/mobile/copyright/wikipedia-tagline-es.svg\" width=\"120\" height=\"13\" style=\"width: 7.5em; height: 0.8125em;\">\n\t</span>\n"
+			},
+			{
+				"id": "",
+				"text": "<span>Portada</span>"
+			},
+			{
+				"id": "",
+				"text": "<span>Leer</span>"
+			},
+			{
+				"id": "",
+				"text": "<span>Leer</span>"
+			}
+		],
+		"externos": [
+			{
+				"id": "https://es.wikipedia.org/wiki/Portal:Comunidad",
+				"text": "<span>Portal de la comunidad</span>"
+			},
+			{
+				"id": "https://es.wikipedia.org/wiki/Portal:Actualidad",
+				"text": "<span>Actualidad</span>"
+			},
+			{
+				"id": "https://es.wikipedia.org/wiki/Especial:CambiosRecientes",
+				"text": "<span>Cambios recientes</span>"
+			},
+			{
+				"id": "https://es.wikipedia.org/wiki/Especial:P%C3%A1ginasNuevas",
+				"text": "<span>Páginas nuevas</span>"
+			},
+			{
+				"id": "https://es.wikipedia.org/wiki/Especial:Aleatoria",
+				"text": "<span>Página aleatoria</span>"
+			},
+			{
+				"id": "https://es.wikipedia.org/wiki/Ayuda:Contenidos",
+				"text": "<span>Ayuda</span>"
+			},
+			{
+				"id": "https://donate.wikimedia.org/wiki/Special:FundraiserRedirector?utm_source=donate&utm_medium=sidebar&utm_campaign=C13_es.wikipedia.org&uselang=es",
+				"text": "<span>Donaciones</span>"
+			},
+			{
+				"id": "https://es.wikipedia.org/wiki/Wikipedia:Informes_de_error",
+				"text": "<span>Notificar un error</span>"
+			},
+			{
+				"id": "https://es.wikipedia.org/wiki/Especial:Buscar",
+				"text": "<span class=\"vector-icon mw-ui-icon-search mw-ui-icon-wikimedia-search\"></span>\n\n<span>Buscar</span>\n\t"
+			},
+			{
+				"id": "https://es.wikipedia.org/w/index.php?title=Especial:Crear_una_cuenta&returnto=Wikipedia%3APortada",
+				"text": "<span>Crear una cuenta</span>"
+			},
+			{
+				"id": "https://es.wikipedia.org/w/index.php?title=Especial:Entrar&returnto=Wikipedia%3APortada",
+				"text": "<span>Acceder</span>"
+			},
+			{
+				"id": "https://es.wikipedia.org/w/index.php?title=Especial:Crear_una_cuenta&returnto=Wikipedia%3APortada",
+				"text": "<span class=\"vector-icon mw-ui-icon-userAdd mw-ui-icon-wikimedia-userAdd\"></span> <span>Crear una cuenta</span>"
+			},
+			{
+				"id": "https://es.wikipedia.org/w/index.php?title=Especial:Entrar&returnto=Wikipedia%3APortada",
+				"text": "<span class=\"vector-icon mw-ui-icon-logIn mw-ui-icon-wikimedia-logIn\"></span> <span>Acceder</span>"
+			},
+			{
+				"id": "https://es.wikipedia.org/wiki/Ayuda:Introducci%C3%B3n",
+				"text": "<span>más información</span>"
+			},
+			{
+				"id": "https://es.wikipedia.org/wiki/Especial:MisContribuciones",
+				"text": "<span>Contribuciones</span>"
+			},
+			{
+				"id": "https://es.wikipedia.org/wiki/Especial:MiDiscusi%C3%B3n",
+				"text": "<span>Discusión</span>"
+			},
+			{
+				"id": "https://es.wikipedia.org/wiki/Wikipedia_discusi%C3%B3n:Portada",
+				"text": "<span>Discusión</span>"
+			},
+			{
+				"id": "https://es.wikipedia.org/w/index.php?title=Wikipedia:Portada&action=edit",
+				"text": "<span>Ver código fuente</span>"
+			},
+			{
+				"id": "https://es.wikipedia.org/w/index.php?title=Wikipedia:Portada&action=history",
+				"text": "<span>Ver historial</span>"
+			},
+			{
+				"id": "https://es.wikipedia.org/w/index.php?title=Wikipedia:Portada&action=edit",
+				"text": "<span>Ver código fuente</span>"
+			}
+		]
+	}
+}

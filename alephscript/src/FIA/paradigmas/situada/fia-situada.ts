@@ -25,8 +25,8 @@ export interface IFIASituada extends iFIA {
 
 export class FIASituada extends GenesisBlock implements IFIASituada {
 
-	instanciarV(): Promise<IModelo> {
-		throw new Error("Method not implemented.");
+	async instanciarV(): Promise<IModelo> {
+		return this.mundo.modelo;
 	}
 
 	configurar?: () => void;

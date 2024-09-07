@@ -1,3 +1,17 @@
+<div class="row mt-12 small">
+	<!-- Segundo contenedor con cinco columnas -->
+	<div class="col-md-4 column">
+		<app-logger filterKey= 'APP_PROGRESS_2' [IDEapp]="IDEapp"></app-logger>
+	</div>
+	<div class="col-md-4 column">
+		<app-logger filterKey= 'APP_PROGRESS_4' [IDEapp]="IDEapp"></app-logger>
+	</div>
+	<div class="col-md-4 column">
+		<app-logger filterKey= 'APP_PROGRESS_5' [IDEapp]="IDEapp"></app-logger>
+	</div>
+
+</div>
+
 <section class="card nga-card-about p-3">
 	<div *ngIf="currentApp.index && currentApp.index != -1">
 	  <div class="d-flex justify-content-between align-items-center mb-3">
@@ -28,11 +42,12 @@
 		</div>
 	  </div>
 	  <div class="d-flex justify-content-between align-items-left mb-3">
+		<app-logger filterKey= 'APP_PROGRESS_1' [IDEapp]="IDEapp"></app-logger>
 		<!--
 			<span class="small">|| {{ currentApp.index }}/{{ currentApp.state }}</span>
 			<span class="small">|| [ {{ currentApp.mundo.nombre }} ] Bots: {{ currentApp.bots.length }}</span>
 	  	-->
-		<div class="card">
+		  <div class="card">
 			<div class="card-header">
 				Dia: 				{{ currentApp.mundo.modelo?.dia}}
 			</div>
@@ -41,11 +56,39 @@
 					id="App"
 					class="small-left" [dataInput]="currentApp"
 					(formSubmit)="handleFormSubmit($event)"
-					(accordionEmiter)="handleAccordionEmiter($event)">
+					(accordionEmiter)="handleAccordionEmiter($event)"
+					(popUpEmiter)="handlePopUpEvent($event, true)">
 				</app-dynamic-form>
 			</div>
 		</div>
+	  </div>
+	  <div class="d-flex justify-content-between align-items-left mb-3">
 
+				<!--
+			5 COLUMNAS
+		-->
+		
+		<!--
+		<div class="card">
+			<div class="card-header">
+				--
+			</div>
+			<div class="card-body small-left">
+				<app-dynamic-form ngSkipHydration
+					id="PopUp"
+					class="small-left" [dataInput]="currentPopUp()"
+					(formSubmit)="handleFormSubmit($event)"
+					(accordionEmiter)="handleAccordionEmiter($event)"
+					(popUpEmiter)="handlePopUpEvent($event, false)">
+				</app-dynamic-form>
+			</div>
+		</div>
+	-->
+		<!--
+			<div class="card">
+				<app-chat-room></app-chat-room>
+			</div>
+		-->
 	  </div>
 	  <nav class="small" aria-label="Pagination">
 		<ul class="pagination mb-0">

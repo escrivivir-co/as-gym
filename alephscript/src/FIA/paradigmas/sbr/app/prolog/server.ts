@@ -41,7 +41,7 @@ export class PrologServer {
       '--nodebug',
       '-O'
     ]);
-    this.engine = new swipl.Engine(sw);
+    this.engine = new swipl.Engine(/*sw*/);
 
     console.log("Then engine2 doing on!", top)
     console.log("Engine ready", this.engine.state.state);

@@ -14,7 +14,8 @@
     "dev-sc": "npm run build && ts-node-dev src/FIA/paradigmas/sistemas/scraper/webscraper.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npm run dev",
-    "deps": "madge --circular ./dist/FIA/thread.js"
+    "deps": "madge --circular ./dist/FIA/thread.js",
+	"lab": "npm run build && ts-node-dev src/FIA/paradigmas/sistemas/busquedas/VIEWER/laberinto.ts"
   },
   "author": "Martín Santomé on behalf of Álex Santomé",
   "license": "MIT",
@@ -29,6 +30,8 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
+    "d3": "^7.9.0",
+    "gpu.js": "^2.16.0",
     "onnxruntime-node": "^1.16.1",
     "onnxruntime-web": "^1.16.1",
     "openai": "^4.52.7",
@@ -42,7 +45,7 @@
     "ts-json-schema-generator": "^1.4.0"
   },
   "openai": {
-    "key": "sk-svcacct-",
+    "key": "sk-svcacct-lYXXePw4QHe6TOO2ODVwT3BlbkFJA8YXKNCU9OBZhikhYL2c",
     "memory": "/Users/morente/Desktop/taller art/discord-bot/memory"
   }
 }

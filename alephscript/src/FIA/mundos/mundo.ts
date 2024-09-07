@@ -84,7 +84,7 @@ export class Mundo implements IMundo {
     async ciclo(): Promise<IModelo> {
 
 
-		this.runStateEvent.subscribe((event) => this.runState = event);
+		this.runStateEvent?.subscribe((event) => this.runState = event);
 
         return await new Promise((resolve, reject) => {
 

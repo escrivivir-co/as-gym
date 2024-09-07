@@ -26,6 +26,9 @@ export interface Control {
 
     busquedaNoInformada(): BGrafo[];
 
+	busquedaNoInformadaStepInit?(): void;
+	busquedaNoInformadaStep?(): BGrafo[];
+
     busquedaHeuristica(): BGrafo[];
 
     creaNodo(valor: string): BGrafo;
@@ -41,6 +44,7 @@ export interface Control {
 
     O sea, la búsqueda en anchura tiene complejidad espacial y temporal exponencial en la profundidad, la búsqueda en profundidad tiene complejidad espacial lineal y temporal exponencial, y la bidireccional es exponencial pero en orden d/2.
     */
+	test();
 }
 
 export class Control implements Control {

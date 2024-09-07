@@ -1,0 +1,9 @@
+<div class="node">
+	<div [ngClass]="{'current-node': node.isCurrent, 'backtrack-node': node.isBacktrack}">
+	  {{ node.info }}
+	</div>
+	<div class="children" *ngIf="node.children">
+	  <app-tree-node *ngFor="let child of node.children" [node]="child"></app-tree-node>
+	</div>
+  </div>
+  
