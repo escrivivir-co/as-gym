@@ -180,7 +180,7 @@ export class HomeComponent {
 						... m,
 						icon: this.icos[index].icon,
 						description: m.mundo.nombre + "/" + m.mundo.modelo?.nombre,
-						link: '/about/' + m.index
+						link: "/" + ((m.mundo.renderer) || 'about') + "/" + m.index
 					}
 				}).sort((a, b) => (a.mundo.runState || "") > (b.mundo.runState || "") ? -1 : 1);
 
@@ -207,6 +207,5 @@ export class HomeComponent {
 			name: r.usuario + " (" + (r.sesiones?.length || 0) + ") sockets. :>" + r.sesiones?.map(s => "[" + s + "]").join(":> ")
 		}}))
 	}
-
 
 }

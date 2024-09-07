@@ -1,15 +1,16 @@
 import { agentMessage } from '../../../agentMessage';
 import { RTCache } from "../../../engine/kernel/rt-cache";
 import { AsistenteApi } from '../../../paradigmas/conexionista/modelos-lenguaje/oai/asisstant';
-import { IDE_clave, Trainer_clave } from "../../../paradigmas/conexionista/modelos-lenguaje/oai/Trainer_key";
+import { Trainer_clave } from "../../../paradigmas/conexionista/modelos-lenguaje/oai/Trainer_key";
 import { Control } from '../../../paradigmas/sistemas/busquedas/control';
-import { Operador } from '../../../paradigmas/sistemas/busquedas/operador';
-import { PrimeroEnAnchura } from '../../../paradigmas/sistemas/busquedas/PrimeroEnAnchura';
 import { WebScraper } from '../../../paradigmas/sistemas/scraper/webscraper';
 import { EstadoT } from "../../../paradigmas/situada/estado";
+import { AN_SINDIC_YV_mundo, SimuladorDAO } from '../base_conocimiento/dao';
 import { IDEModelo } from "./ide-modelo";
 import { AlephScriptIDEImpl } from './semilla/AlephScriptIDEv1';
 import { IDEEstados } from './situada/IDEEstados';
+
+const AN_SINDIC_MODDEL_VF = "AN_SINDIC_MODDEL_VF";
 
 export class IDEEstado<IDEEstados> extends EstadoT<IDEEstados> {
 
@@ -25,6 +26,7 @@ export class IDEEstado<IDEEstados> extends EstadoT<IDEEstados> {
 	private estadoA: any;
 	al: Control;
 	scrapper: WebScraper;
+	engine: SimuladorDAO;
 
 	async transicion(): Promise<void> {
 
@@ -41,7 +43,7 @@ export class IDEEstado<IDEEstados> extends EstadoT<IDEEstados> {
 				this.log()
 
 				await this.inicializarCache()
-				this.scrapper = new WebScraper();
+				this.engine = new SimuladorDAO();
 				this.estado = IDEEstados.ARRANCAR;
 
 				this.log(this.estado)
@@ -51,54 +53,26 @@ export class IDEEstado<IDEEstados> extends EstadoT<IDEEstados> {
 
 				this.log()
 
-				if (rpcData) {
-					console.log("---------------->>>>>>>>>>>>>>>>>>>>>>$$$$$$$$")
-					switch(rpcData.al) {
-						case "BFS":
-							this.al = new PrimeroEnAnchura("BFS", (arcos: Operador[]) => {
-								console.log(
-									agentMessage(
-										"ESTADO DE NIVEL INFERIOR:: ARCOS" + ": " + this.nombre,
-										arcos.length + ""
-									)
-								)
-								return []
-							});
-
-							const c = await this.scrapper.ejecutar(rpcData.target);
-							this.al.estadoInicial = c;
-							console.log("))))))))))))))))))", this.al.estadoInicial)
-
-						break;
-					default:
-						console.log(
-							agentMessage(
-								"ESTADO DE NIVEL INFERIOR S" + ": " + this.nombre,
-								"Algoritmo no implementado"
-							)
-						)
-					}
-				}
-
 				console.log("=======================================")
-
+				this.modelo.dominio.base[AN_SINDIC_MODDEL_VF] = AN_SINDIC_YV_mundo;
 				this.estado = IDEEstados.AVANZAR;
 
 				break;
 
 			case IDEEstados.AVANZAR:
 
-				this.al.busquedaNoInformadaStepInit();
+				this.engine.simularDia();
 
-				this.modelo.dominio.base["RPC"]["abierta"] = this.al.abierta;
-				this.modelo.dominio.base["RPC"]["tabla_a"] = this.al.tabla_a;
+				this.modelo.dominio.base["AN_SINDIC_MODDEL_VF"] = AN_SINDIC_YV_mundo;
+
+				this.engine.avanzarDia();
 
 				this.log()
 				this.log(this.estado)
 
 				break;
 			case IDEEstados.PARAR:
-				this.modelo.dominio.base["RPC"]["arbol3"] = "AVANZARPARAR";
+				this.modelo.dominio.base[AN_SINDIC_MODDEL_VF] = "AVANZARPARAR";
 				this.log()
 				this.estado = IDEEstados.PARADA
 				this.log(this.estado)

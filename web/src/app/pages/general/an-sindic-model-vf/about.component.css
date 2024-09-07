@@ -1,0 +1,268 @@
+/* app.component.css */
+.container-fluid {
+	padding: 100;
+	width: 100% !important;
+    max-width: 100% !important;
+	margin: 0;
+}
+
+.col-12 {
+	padding: 0;
+	margin: 0;
+}
+
+.nga-btn-about {
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+    padding: 0;
+    margin: 10px;
+    overflow: hidden;
+    vertical-align: middle;
+    cursor: pointer;
+    border-radius: 50%;
+    -webkit-box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+    width: 47px;
+    height: 47px
+  }
+
+  .nga-btn-about i {
+    font-size: 1.25rem;
+    line-height: 47px;
+    display: inline-block;
+    width: inherit;
+    color: #fff;
+    text-align: center
+  }
+
+  .nga-btn-about:hover {
+    -webkit-box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
+  }
+
+  .nga-btn-about i:hover {
+    color: black;
+  }
+
+  .nga-card-about {
+    -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  }
+
+  .nga-card-about.card-logo {
+    margin-top: 5rem;
+    text-align: center;
+  }
+
+  .nga-card-about.card-logo img {
+    margin-top: -5rem;
+  }
+
+  hr {
+    color: #191919;
+  }
+
+  .nga-about-hint {
+    -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    -webkit-border-radius: 0.125rem;
+    border-radius: 0.125rem;
+    border: 1px solid #202020;
+    color: #202020;
+    background-color: transparent;
+  }
+
+  .nga-about-hint:hover, .nga-about-hint:active, .nga-about-hint:focus {
+    -webkit-box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+    color: black;
+  }
+
+  .nga-btn-github {
+    background-color: #333;
+  }
+
+  .nga-btn-linkedin {
+    background-color: #0082ca;
+  }
+
+  .nga-btn-twitter {
+    background-color: #55acee;
+  }
+
+  .nga-tutorial {
+    color: #191919;
+  }
+
+  .nga-tutorial:hover {
+    color: black;
+  }
+
+  .small-list {
+	padding-left: 0;
+	margin: 0;
+	list-style: none;
+  }
+
+  .small-list-item-right {
+	padding: 5px 5px;
+	margin: 0;
+	line-height: 1.2;
+	font-size: 12px; /* Adjust the font size as needed */
+	text-align: right;
+  }
+
+  .small-list-item {
+	padding: 5px 5px;
+	margin: 0;
+	line-height: 1.2;
+	font-size: 12px; /* Adjust the font size as needed */
+	text-align: left;
+  }
+
+  .small-list li {
+	padding: 2px 0;
+	margin: 0;
+	line-height: 1.2;
+	font-size: 12px; /* Adjust the font size as needed */
+	text-align: left;
+  }
+
+
+.nga-card-menu {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	min-width: 0;
+	word-wrap: break-word;
+	background-color: #fff;
+	background-clip: border-box;
+	border: 1px solid rgba(0, 0, 0, 0.125);
+	border-radius: 0.25rem;
+	font-weight: 500;
+  }
+
+  .list-group-item {
+	padding: 3px 10px
+  }
+
+  .list-group-item a {
+	padding: 3px 10px;
+	color: black;
+	text-decoration: none;
+  }
+
+  .list-group-item a i {
+	color: #191919;
+  }
+
+  .list-group-item a:hover {
+	text-decoration: none;
+	color: #191919;
+  }
+
+  .nga-card-menu .card-header a {
+	text-decoration: none;
+  }
+
+  .nga-card-menu .card-header a .card-item {
+	color: black;
+  }
+
+  .nga-card-menu .card-header a .card-item i {
+	color: #191919;
+  }
+
+  .nga-card-menu .card-header a:hover .card-item {
+	text-decoration: none;
+	color: #191919;
+  }
+
+  .btn-small-font {
+	font-size: 75%;
+  }
+
+   /* Container around the slider */
+   .switch {
+	position: relative;
+	display: inline-block;
+	width: 34px;
+	height: 20px;
+  }
+
+  /* Hide default checkbox */
+  .switch input {
+	opacity: 0;
+	width: 0;
+	height: 0;
+  }
+
+  /* Slider */
+  .slider {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #ccc;
+	transition: .4s;
+	border-radius: 20px;
+  }
+
+  .slider:before {
+	position: absolute;
+	content: "";
+	height: 14px;
+	width: 14px;
+	left: 3px;
+	bottom: 3px;
+	background-color: white;
+	transition: .4s;
+	border-radius: 50%;
+  }
+
+  /* Checked state */
+  input:checked + .slider {
+	background-color: #2196F3;
+  }
+
+  input:checked + .slider:before {
+	transform: translateX(14px);
+  }
+
+  .string { color: green; }
+  .number { color: darkorange; }
+  .boolean { color: blue; }
+  .null { color: magenta; }
+  .key { color: red; }
+
+  .myJson_parent {
+	width: 300px; /* Set a width for the parent element */
+	height: 200px; /* Set a height for the parent element */
+	border: 1px solid #000; /* Optional: Add a border for visualization */
+	overflow: hidden; /* Prevent content from overflowing */
+	position: relative; /* Ensure absolute positioning of inner content is relative to this parent */
+	padding: 10px; /* Optional: Add padding for better readability */
+	font-family: monospace;
+	white-space: pre-wrap;
+	font-size: 95%;
+  }
+  .myJson_child {
+	width: 100%; /* Ensure child width does not exceed the parent width */
+	height: 100%; /* Ensure child height does not exceed the parent height */
+	word-wrap: break-word; /* Break long words to prevent overflow */
+	white-space: normal; /* Allow text to wrap normally */
+	overflow: hidden; /* Prevent overflow */
+	font-size: 95%;
+  }
+
+  .small {
+	font-size: 75%;
+  }
+
+  
+  

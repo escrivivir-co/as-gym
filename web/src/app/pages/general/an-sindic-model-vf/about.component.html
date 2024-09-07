@@ -1,0 +1,381 @@
+<div class="py-5">
+
+	<div class="container">
+
+		<div class="row">
+
+				<div class="col-md-3">
+					<div class="accordion" id="accordionCol1">
+						<section class="card nga-card-about card-logo">
+							<img class="" src="./assets/params/images/about/escrivivir_co-about.png" height="160" width="160" alt="Logo" title="Logo">
+							<div class="card-body">
+								<h1 class="card-title h5">
+									<strong><p>{{serverService.usuarioService.nombre()}}</p></strong>
+								</h1>
+								<p>
+									App: {{currentApp().name}}
+									<span class="small">
+										[ {{ currentApp().mundo.nombre }} ] Bots: {{ currentApp().bots.length }}
+									</span>
+								</p>
+								<div *ngIf="currentApp().index && currentApp().index != -1">
+										{{ currentApp().index }}/{{ currentApp().state }}
+
+									<label class="switch">
+										<input type="checkbox" (change)="onCheckboxChange($event)" [checked]="playStep">
+										<span class="slider"></span>
+									</label>
+
+									<hr>
+
+									<button type="button"
+										class="btn btn-secondary me-2 btn-small-font"
+										(click)="sendSignal({
+											event: 'GET_ENGINE',
+											data: {
+												engine: (currentApp().index + ''),
+												action: 'CONFIG'
+											}
+											})">
+											<i class="fas fa-gear me-1"></i>
+									</button>
+
+									<button type="button" *ngIf="currentApp().state == 'PLAY' || currentApp().state == 'PLAY_STEP'"
+										class="btn btn-primary me-2 btn-small-font"
+										(click)="sendSignal({
+											event: 'GET_ENGINE',
+											data: {
+												engine: (currentApp().index + ''),
+												action: 'PAUSE'
+											}
+											})">
+										<i class="fas fa-pause me-1"></i>
+									</button>
+									<button type="button" *ngIf="currentApp().state != 'PLAY' && currentApp().state != 'PLAY_STEP'"
+										class="btn btn-success me-2 btn-small-font"
+										(click)="sendSignal({
+											event: 'GET_ENGINE',
+											data: {
+												engine: (currentApp().index + ''),
+												action: playStep ? 'PLAY_STEP' : 'PLAY'
+											}
+										})"><i class="fas fa-play me-1"></i></button>
+									<button type="button" *ngIf="currentApp().state != 'STOP'"
+										class="btn btn-danger me-2 btn-small-font"
+										(click)="sendSignal({
+											event: 'GET_ENGINE',
+											data: {
+												engine: (currentApp().index + ''),
+												action: 'STOP'
+											}
+											})">
+										<i class="fas fa-stop me-1"></i>
+									</button>
+								</div>
+
+							</div>
+						</section>
+				</div>
+				</div>
+
+				<div class="col-md-3">
+					<div class="accordion" id="accordionCol2">
+					<div class="card nga-card-menu">
+
+						<div class="card-header">
+							<a data-bs-toggle="collapse" data-parent="#accordionItems" href="#collapseApps" aria-expanded="true">
+							<div class="card-item">
+								<i class="fas fa-film me-2 "></i>Apps
+							</div>
+							</a>
+						</div>
+
+						<div id="collapseApps" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionItems">
+							<div class="card-body">
+								<ul class="list-group text-dark">
+									<ul class="list-group text-dark small-list">
+										<li *ngFor="let i of serviceApps()" class="list-group-item">
+											<a href="#" data-bs-toggle="tooltip" title="Seleccionar app"
+												(click)="setCurrentApp(i); $event.preventDefault()">
+												<i class="fas fa-globe me-2"></i>
+												[ {{ i.index }} ] {{ i.name }}
+											</a>
+
+										</li>
+									</ul>
+								</ul>
+							</div>
+						</div>
+					</div>
+					</div>
+				</div>
+
+				<div class="col-md-3">
+					<div class="accordion" id="accordionCol3">
+					<div class="card nga-card-menu">
+
+						<div class="card-header">
+							<a data-bs-toggle="collapse" data-parent="#accordionItems" href="#collapseNamespaces" aria-expanded="true">
+							<div class="card-item">
+								<i class="fas fa-film me-2 "></i>Namespaces
+							</div>
+							</a>
+						</div>
+
+						<div id="collapseNamespaces" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionItems">
+							<div class="card-body">
+							<ul class="list-group text-dark">
+								<ul class="list-group text-dark small-list">
+									<li *ngFor="let i of serviceNamespaces()" class="list-group-item">
+										{{ i.name }}
+									</li>
+								</ul>
+							</ul>
+							</div>
+						</div>
+
+					</div>
+					<div class="card nga-card-menu">
+
+						<div class="card-header">
+							<a data-bs-toggle="collapse" data-parent="#accordionItems" href="#collapseRooms" aria-expanded="true">
+							<div class="card-item">
+								<i class="fas fa-film me-2 "></i>Rooms
+							</div>
+							</a>
+						</div>
+
+						<div id="collapseRooms" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionItems">
+							<div class="card-body">
+							<ul class="list-group text-dark">
+								<ul class="list-group text-dark small-list">
+									<li *ngFor="let i of serviceRooms()" class="list-group-item">
+										{{ i.name }}
+									</li>
+								</ul>
+							</ul>
+							</div>
+						</div>
+
+					</div>
+					</div>
+				</div>
+
+				<div class="col-md-3">
+					<div class="accordion" id="accordionCol4">
+					<div class="card nga-card-menu">
+
+						<div class="card-header">
+							<a data-bs-toggle="collapse" data-parent="#accordionItems" href="#collapseUsuarios" aria-expanded="true">
+							<div class="card-item">
+								<i class="fas fa-film me-2 "></i>Usuarios
+							</div>
+							</a>
+						</div>
+
+						<div id="collapseUsuarios" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionItems">
+							<div class="card-body">
+							<ul class="list-group text-dark">
+								<ul class="list-group text-dark small-list">
+									<li *ngFor="let i of serviceUsuarios()" class="list-group-item">
+										{{ i.name }}
+									</li>
+								</ul>
+							</ul>
+							</div>
+						</div>
+
+					</div>
+
+					<div class="card nga-card-menu">
+
+						<div class="card-header">
+							<a data-bs-toggle="collapse" data-parent="#accordionItems" href="#collapseSockets" aria-expanded="true">
+							<div class="card-item">
+								<i class="fas fa-film me-2 "></i>Sockets
+							</div>
+							</a>
+						</div>
+
+						<div id="collapseSockets" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionItems">
+							<div class="card-body">
+							<ul class="list-group text-dark">
+								<ul class="list-group text-dark small-list">
+									<li *ngFor="let i of serviceClients()" class="list-group-item">
+										{{ i.name }}
+									</li>
+								</ul>
+							</ul>
+							</div>
+						</div>
+
+					</div>
+					</div>
+				</div>
+
+		</div>
+
+	</div>
+
+	<div class="container-fluid container">
+		<div class="row">
+			<div class="accordion" id="accordionExample2">
+				<div *ngFor="let item of getASCREEN(IDEapp())" class="accordion-item" >
+
+					<h2 class="accordion-header" id="headingOne" >
+						<button class="accordion-button collapsed" type="button"
+							data-bs-toggle="collapse"
+							[attr.data-bs-target]="'#' + item.title"
+							[attr.aria-controls]="item.title"
+							(click)="saveAccordionState(item.title)">
+							{{ item.title }} ({{ item.logs.length }})
+						</button>
+					</h2>
+					<div [id]="item.title" class="accordion-collapse collapse"
+						[class.show]="accordionState[item.title]"
+						aria-labelledby="headingOne"
+						data-bs-parent="#accordionExample">
+
+						<div class="accordion-body" [class.show]="accordionState[item.title]">
+							<span class="myJson_parent" *ngIf="item.title == 'ASCREEN' && item.logs.length > 0">
+								<div class="myJson_child" [innerHTML]="sanitize(getLogAsJson(item.logs[item.logs.length - 1].title) | prettyjson)"></div>
+							</span>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+		<!-- BOTONERA -->
+		<div class ="row">
+
+			<app-botonera
+				[IDEapp]="IDEapp()"
+				[currentApp]="currentApp()"
+				[playStep]="playStep"
+				(popUpEmiter)="handlePopUpEvent($event, false)"
+				(handleSendSignal)="sendSignal($event)">
+			</app-botonera>
+
+			<div class="col-lg-4 col-md-4 col-sm-12 col-content">
+				<app-logger filterKey= 'Bot.Alpha' [IDEapp]="IDEapp()"></app-logger>
+			</div>
+			<div class="col-lg-4 col-md-4 col-sm-12 col-content">
+				<div class="accordion" id="accordionExample">
+					<app-logger filterKey= 'Bot.Temple' [IDEapp]="IDEapp()"></app-logger>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-4 col-sm-12 col-content">
+				<app-logger filterKey= 'Bot.Omega' [IDEapp]="IDEapp()"></app-logger>
+			</div>
+
+		</div>
+	</div>
+
+	<div class="container-fluid container">
+
+		<div class ="row">
+			<app-dynamic-form ngSkipHydration
+				id="PopUp"
+				class="small-left" [dataInput]="currentPopUp()"
+				(formSubmit)="handleFormSubmit($event)"
+				(accordionEmiter)="handleAccordionEmiter($event)"
+				(popUpEmiter)="handlePopUpEvent($event, false)">
+			</app-dynamic-form>
+		</div>
+
+
+		<!--
+			2 COLUMNAS
+		-->
+		<div class="row mt-3">
+			<!-- Tercer contenedor con dos columnas de igual tamaño -->
+			<div class="col-md-6">
+				<app-logger [IDEapp]="IDEapp().slice(0, IDEapp().length -1)"></app-logger>
+			</div>
+			<div class="col-md-6">
+				<app-logger [IDEapp]="IDEapp().slice((IDEapp().length / 2), IDEapp().length)"></app-logger>
+			</div>
+		</div>
+
+		<!--
+					OPERATION
+		-->
+		<div class="row">
+
+			<!--
+					BARRA LATERAL
+			-->
+			<div class="col-md-4">
+
+				<hr>
+
+				<div class="accordion" id="accordionItems">
+
+					<div class="card nga-card-menu">
+
+						<div class="card-header">
+							<a data-bs-toggle="collapse" data-parent="#accordionItems" href="#collapseRuntime" aria-expanded="true">
+								<div class="card-item">
+									<i class="fas fa-film me-2 "></i>Runtime
+								</div>
+							</a>
+						</div>
+
+						<div id="collapseRuntime" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionItems">
+							<div class="card-body">
+								<div class="table-responsive">
+									<table class="table table-hover table-striped table-bordered table-responsive-md table-sm">
+										<thead>
+											<tr>
+												<th class="h6">Módulo</th>
+												<th class="h6 ">--</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr *ngFor="let item of serviceModules()" class="small-list">
+												<td class="small-list-item">
+													{{ item.name }}
+												</td>
+												<td class="small-list-item-right">
+													{{ item.englishTutorial }}
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+
+				</div>
+
+			</div>
+
+			<!--
+				CONTENEDOR X2
+			-->
+			<div class="col-md-8">
+
+				<!--
+					SCREEN
+				-->
+			<div>
+				<!-- Primer contenedor que ocupa todo el ancho -->
+				<p>Contenedor completo</p>
+				<app-searcher [currentApp]="currentApp()" (popUpEmiter)="handleSearcherEvent($event)"></app-searcher>
+
+			</div>
+
+			</div>
+
+		</div>
+
+	</div>
+</div>

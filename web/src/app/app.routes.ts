@@ -103,9 +103,12 @@ export const routes: Routes = [
   },
 
   {
+    path: 'an-sindic-model-vf/:id',
+    loadChildren: () => import('./pages/general/an-sindic-model-vf/about.routes').then(routes => routes.routes)
+  },
+  {
     path: 'about/:id',
     loadChildren: () => import('./pages/general/about/about.routes').then(routes => routes.routes)
   },
-
   { path: '**', component: NotFoundComponent }
 ];

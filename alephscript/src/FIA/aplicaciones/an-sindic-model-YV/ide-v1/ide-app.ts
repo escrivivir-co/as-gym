@@ -7,6 +7,7 @@ import { IDEFIASituada } from "./situada/ide-fia-situada";
 import { IDEMundo } from "./ide-mundo";
 import { Bloque } from "../../../engine/kernel/cadena-bloques";
 import { FIASituada } from "../../../paradigmas/situada/fia-situada";
+import { ejecutarSimulacion } from "../base_conocimiento/bot";
 
 export class AnSindicModelVFIdeApp extends App {
 
@@ -18,6 +19,7 @@ export class AnSindicModelVFIdeApp extends App {
         super();
         this.nombre = "MyTestApp";
 		this.mundo = new IDEMundo();
+		this.mundo.renderer = "an-sindic-model-vf";
 		this.mundo.nombre = this.i18.MUNDO.NOMBRE;
     }
 
@@ -25,6 +27,7 @@ export class AnSindicModelVFIdeApp extends App {
 		onReady: () => void
 	): Promise<string> {
 
+		console.log(">>> THE LOG", ejecutarSimulacion())
 		console.log(agentMessage(this.nombre, "OnIniting..."))
 		this.inicializar();
 
@@ -62,7 +65,8 @@ export class AnSindicModelVFIdeApp extends App {
          */
         this.mundo.modelo = new IDEModelo();
         this.mundo.modelo.pulso = 1000;
-        this.mundo.modelo.muerte = 25;
+        this.mundo.modelo.muerte = 365;
+
         this.mundo.modelo.estado = IDEEstados.PARADA;
 
         this.mundo.nombre = this.i18.MUNDO.NOMBRE;

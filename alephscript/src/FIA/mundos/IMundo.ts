@@ -37,4 +37,6 @@ export interface IMundo {
 
 	runState: RunStateEnum;
 	runStateEvent: Observable<RunStateEnum>;
+
+	renderer?: string;
 }

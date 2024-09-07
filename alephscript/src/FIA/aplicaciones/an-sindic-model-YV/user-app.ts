@@ -5,7 +5,7 @@ export class AnSindicModelVF extends AnSindicModelVFIdeApp {
     constructor() {
 
         super();
-        this.nombre = "AnSindicModelVF";
+        this.nombre = "AnSindicModelVF-App";
     }
 
     async instanciar(): Promise<string> {
