@@ -1,11 +1,3 @@
-
-.sudoku-container {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	margin-top: 20px;
-}
-
 table {
 	border-collapse: collapse;
 }
@@ -17,109 +9,12 @@ td {
 	position: relative;
 }
 
-input {
-	width: 100%;
-	height: 100%;
-	text-align: center;
-	border: none;
-}
 
-.current {
-	color: white;
-	background-color: green;
-}
 
-.backtrack {
-	color: white;
-	background-color: #112211;
-}
-
-.controls {
-	display: flex;
-	justify-content: center;
-	margin-bottom: 20px;
-}
-
-button {
-	margin: 0 5px;
-	padding: 10px 20px;
-}
-
-/* Añadir bordes gruesos para subcuadros 3x3 */
-.sudoku-container table tr:nth-child(3n) td {
-	border-bottom: 4px solid black;
-}
-
-.sudoku-container table tr td:nth-child(3n) {
-	border-right: 4px solid black;
-}
-
-.sudoku-container table tr:nth-child(3n + 1) td {
-	border-top: 4px solid black;
-}
-
-.sudoku-container table tr td:nth-child(3n + 1) {
-	border-left: 4px solid black;
-}
-
-#overview {
-    background: none;
-    border: none;
-    box-shadow: none;
-    width: 1800px;
-    height: 1300px;
-}
-
-#overview div {
-    width: 100%;
-    height: 100%;
-}
-
-.step {
-    position: relative;
-    width: 1000px;
-    height: 1000px;
-    padding: 40px 60px;
-    margin: 20px auto;
-
-    box-sizing:         border-box;
-
-    line-height: 1.5;
-
-    background-color: yellow;
-    border-radius: 10px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, .1);
-
-    text-shadow: 0 2px 2px rgba(0, 0, 0, .1);
-
-    font-family: 'Open Sans', Arial, sans-serif;
-    font-size: 40pt;
-    letter-spacing: -1px;
-    border: solid 2px red;
-
-    opacity: 40%;
-}
-
-.step.active {
-    opacity: 100%;
-}
-
-.step.ring2 {
-    background-color: cyan;
-}
-
-.step.box {
-    background-color: purple;
-    opacity: 70%;
-}
-
-.step.box1 {
-    background-color: lightblue;
-}
 
 .box-3d {
 	width: 100%;
-	height: 500px;
+	height: 700px;
 	background-color: white;
 	border: 5px solid;
 	border-color: #cccccc #666666 #666666 #cccccc; /* Creating a 3D border effect */
@@ -127,7 +22,6 @@ button {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	font-size: 18px;
 	text-align: center;
 
 	overflow: hidden;
@@ -143,10 +37,214 @@ button {
 	transform-origin: center center;
 }
 
-html, body {
-	overflow: auto !important; /* Ensures the scrollbars are re-enabled */
+
+/*
+    We display a fallback message for users with browsers that don't support
+    all the features required by it. All of the content will be still fully 
+    accessible for them, but some more advanced effects would be missing.
+    When impress.js detects that browser supports all necessary CSS3 features, 
+    the fallback-message style is hidden.
+*/
+
+.fallback-message {
+    font-family: sans-serif;
+    line-height: 1.3;
+
+    width: 780px;
+    padding: 10px 10px 0;
+    margin: 20px auto;
+
+    border: 1px solid #E4C652;
+    border-radius: 10px;
+    background: #EEDC94;
 }
 
-element style {
-	overflow: auto !important; /* Ensures the scrollbars are re-enabled */
+.fallback-message p {
+    margin-bottom: 10px;
+}
+
+.impress-supported .fallback-message {
+    display: none;
+}
+
+
+/*
+    Now let's style the presentation steps.
+*/
+
+
+.step.active {
+    opacity: 100%;
+}
+
+.step {
+
+    opacity: 40%;
+}
+
+.step {
+    position: relative;
+    display: block;
+
+    width: 900px;
+
+    margin: 20px auto;
+    padding: 40px 60px;
+	text-align: left;
+
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-size: 100%;
+
+}
+
+/*
+    Make inactive steps a little bit transparent.
+*/
+.impress-enabled .step {
+    margin: 0;
+    opacity: 0.3;
+    transition:         opacity 1s;
+}
+
+.impress-enabled .step.active { opacity: 1 }
+
+h1, 
+h2, 
+h3 {
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+    text-align: center;
+}
+
+p {
+    text-align: center;
+    margin: 0.7em;
+}
+
+li {
+    margin: 0.2em;    
+}
+
+/* Highlight.js used for coloring pre > code blocks. */
+pre > code {
+    font-size: 90%;
+    text-shadow: 0 0 0 rgba(0, 0, 0, 0);
+}
+
+/* Inline code, no Highlight.js */
+code {
+    font-family: "Cutive mono","Courier New", monospace;
+}
+
+
+a {
+    color: inherit;
+    text-decoration: none;
+    padding: 0 0.1em;
+    background: rgba(200,200,200,0.3);
+    text-shadow: -1px 1px 2px rgba(100,100,100,0.9);
+    border-radius: 0.2em;
+    border-bottom: 1px solid rgba(100,100,100,0.4);
+    border-left:   1px solid rgba(100,100,100,0.4);
+
+    transition:         0.5s;
+}
+a:hover,
+a:focus {
+    background: rgba(200,200,200,1);
+    text-shadow: -1px 1px 2px rgba(100,100,100,0.5);
+}
+
+blockquote {
+    font-family: 'PT Serif';
+    font-style: italic;
+    font-weight: 400;    
+}
+
+em {
+    text-shadow: 0 2px 2px rgba(0, 0, 0, .3);    
+}
+
+strong {
+    text-shadow: -1px 1px 2px rgba(100,100,100,0.5);
+}
+
+q {
+    font-family: 'PT Serif';
+    font-style: italic;
+    font-weight: 400;    
+    text-shadow: 0 2px 2px rgba(0, 0, 0, .3);
+}
+
+strike {
+    opacity: 0.7;
+}
+
+
+img {
+    width: 300px
+}
+
+/****************** Background images **********************************************/
+
+
+img.bg {
+    position: fixed;
+    z-index: -100;
+    opacity: 0;
+    height: 50%;
+    width: auto;
+    transition:  opacity 2s;
+}
+
+#applepie-image {
+    left: 0px;
+    bottom: 0px;
+}
+
+body.impress-on-applepie #applepie-image,
+body.impress-on-applepie-pro #applepie-image,
+body.impress-on-applepie-con #applepie-image,
+body.impress-on-conclusion #applepie-image,
+body.impress-on-overview #applepie-image {
+    opacity: 0.7;
+    transition:  opacity 2s;
+}
+
+#icecream-image {
+    right: 0px;
+    top: 0px;
+}
+
+body.impress-on-icecream #icecream-image,
+body.impress-on-icecream-pro #icecream-image,
+body.impress-on-icecream-con #icecream-image,
+body.impress-on-conclusion #icecream-image,
+body.impress-on-overview #icecream-image {
+    opacity: 0.7;
+    transition:  opacity 2s;
+}
+
+#crisps-image {
+    right: 0px;
+    bottom: 0px;
+}
+
+body.impress-on-crisps #crisps-image,
+body.impress-on-crisps-pro #crisps-image,
+body.impress-on-crisps-con #crisps-image,
+body.impress-on-conclusion #crisps-image,
+body.impress-on-overview #crisps-image {
+    opacity: 0.7;
+    transition:  opacity 2s;
+}
+
+
+/*************** Slide specific things ****************************/
+
+#image-credits {
+    color: #779988;
+}
+.small {
+	font-size: 120%;
 }

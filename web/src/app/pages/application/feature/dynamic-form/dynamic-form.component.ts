@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, PLATFORM_ID, SimpleChanges } from '@angular/core';
 import { FormGroup, FormControl, FormArray, Validators, AbstractControl, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { GenericMap } from '../../../../../../../ws-server/src/alephscript/GenericMap';
@@ -64,6 +64,7 @@ export class DynamicFormComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+		this.jsonObject = this.jsonObject || {};
 		this.form = this.createFormGroup(this.jsonObject);
 	}
 
@@ -86,49 +87,50 @@ export class DynamicFormComponent implements OnInit {
 	}
 
 	createFormGroup(jsonObject: any): FormGroup {
-	const group: any = {};
-	for (const key of Object.keys(jsonObject)) {
-		const value = jsonObject[key];
-		if (typeof value === 'boolean') {
-		group[key] = new FormControl(value, Validators.required);
-		} else if (typeof value === 'number') {
-		group[key] = new FormControl(value, [Validators.required, Validators.pattern("^[0-9]*$")]);
-		} else if (typeof value === 'string') {
-		group[key] = new FormControl(value, Validators.required);
-		} else if (Array.isArray(value)) {
-		group[key] = new FormArray(value.map(v => this.createFormGroup(v)));
-		} else if (typeof value === 'object' && value !== null) {
-		group[key] = this.createFormGroup(value);
+		const group: any = {};
+		jsonObject = jsonObject || {};
+		for (const key of Object.keys(jsonObject)) {
+			const value = jsonObject[key];
+			if (typeof value === 'boolean') {
+			group[key] = new FormControl(value, Validators.required);
+			} else if (typeof value === 'number') {
+			group[key] = new FormControl(value, [Validators.required, Validators.pattern("^[0-9]*$")]);
+			} else if (typeof value === 'string') {
+			group[key] = new FormControl(value, Validators.required);
+			} else if (Array.isArray(value)) {
+			group[key] = new FormArray(value.map(v => this.createFormGroup(v)));
+			} else if (typeof value === 'object' && value !== null) {
+			group[key] = this.createFormGroup(value);
+			}
 		}
-	}
-	return new FormGroup(group);
+		return new FormGroup(group);
 	}
 
 	getInputType(value: any): string {
-	if (typeof value === 'boolean') {
-		return 'checkbox';
-	} else if (typeof value === 'number') {
-		return 'number';
-	} else if (typeof value === 'string') {
+		if (typeof value === 'boolean') {
+			return 'checkbox';
+		} else if (typeof value === 'number') {
+			return 'number';
+		} else if (typeof value === 'string') {
+			return 'text';
+		}
 		return 'text';
-	}
-	return 'text';
 	}
 
 	isFormControl(control: AbstractControl | null): control is FormControl {
-	return control instanceof FormControl;
+		return control instanceof FormControl;
 	}
 
 	isFormGroup(control: AbstractControl | null): control is FormGroup {
-	return control instanceof FormGroup;
+		return control instanceof FormGroup;
 	}
 
 	isFormArray(control: AbstractControl | null): control is FormArray {
-	return control instanceof FormArray;
+		return control instanceof FormArray;
 	}
 
 	getFormArrayControls(control: AbstractControl | null): AbstractControl[] {
-	return this.isFormArray(control) ? control.controls : [];
+		return this.isFormArray(control) ? control.controls : [];
 	}
 
 	onSubmit() {
@@ -144,19 +146,24 @@ export class DynamicFormComponent implements OnInit {
 	handleAccordionEmiter(state: GenericMap) {
 		// console.log(this.level, "handleAccordionEmiter", this.accordState)
 		this.accordionEmiter.emit(state);
+		console.log(Object.keys(this.jsonObject).join("/"), this.level, state);
 	}
 
 	sendPopUpEvent() {
 
 		// console.log("handlePopUpEvent", this.id, this.jsonObject)
 		this.popUpEmiter.emit({
-			[this.id]: this.jsonObject
+			[this.id]: this.jsonObject,
+			level: this.level
 		})
 	}
 
 	handlePopUpEvent(popup: any) {
 
 		// console.log("handlePopUpEvent", this.id, popup)
+		const pathKey = Object.keys(popup)[0];
+		const currentKey = [...pathKey].pop();
+		// console.log("Pop for", pathKey, "level", popup.level, "currentKey", currentKey, popup[pathKey]);
 		this.popUpEmiter.emit(popup)
 	}
 
@@ -205,3 +212,7 @@ export class DynamicFormComponent implements OnInit {
 	}
 
 }
+function Inject(PLATFORM_ID: any): (target: typeof DynamicFormComponent, propertyKey: undefined, parameterIndex: 0) => void {
+	throw new Error('Function not implemented.');
+}
+

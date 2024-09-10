@@ -1,4 +1,13 @@
 <div class="py-5">
+	<div class="container">
+		<app-pantalla ngSkipHydration
+			id="PuPantalla"
+			class="small-left" [dataInput]="currentApp()"
+			(formSubmit)="handleFormSubmit($event)"
+			(accordionEmiter)="handleAccordionEmiter($event)"
+			(popUpEmiter)="handlePopUpEvent($event, false)">
+		</app-pantalla>
+	</div>
 
 	<div class="container">
 		<div class="row">
@@ -297,11 +306,6 @@
 				(accordionEmiter)="handleAccordionEmiter($event)"
 				(popUpEmiter)="handlePopUpEvent($event, false)">
 			</app-dynamic-form>
-		</div>
-		<div class="container">
-			<app-pantalla ngSkipHydration></app-pantalla>
-
-
 		</div>
 
 		<!--
