@@ -156,16 +156,16 @@ return */
 							console.log(
 								agentMessage("APP_PROGRESS_3",
 									'S:>' +
-									'W_INPUT' + ":>" + fia.nombre +
-											":>" + fia.runState +
-											":>" + fia.mundo.runState)
+									'. W_INPUT' + ":>" + fia.nombre +
+									". FIA:>" + fia.runState +
+									". W:>" + fia.mundo.runState)
 							);
 							if (modeConsola) return;
 
 							// APP TIMELINE FOR SOCKEITO
 							if (f.runState == RunStateEnum.PAUSE) {
 								fia.runStateEvent.next(f.runState)
-								console.log("APP TIMELINE FOR SOCKEITO --> sendFrameworkState", fia.mundo.modelo.dia)
+								// console.log("APP TIMELINE FOR SOCKEITO --> sendFrameworkState", fia.mundo.modelo.dia)
 								this.sendFrameworkState({})
 
 								// console.log("*********** estado")

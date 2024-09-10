@@ -10,8 +10,6 @@ export class AnSindicModelVF extends AnSindicModelVFIdeApp {
 
     async instanciar(): Promise<string> {
 
-		console.log("Instanciar AnSindicModelVF app")
-
 		return await super.instanciar();
 
     }

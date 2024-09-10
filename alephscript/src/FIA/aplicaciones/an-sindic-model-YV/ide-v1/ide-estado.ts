@@ -53,7 +53,7 @@ export class IDEEstado<IDEEstados> extends EstadoT<IDEEstados> {
 
 				this.log()
 
-				console.log("=======================================")
+				// console.log("=======================================")
 				this.modelo.dominio.base[AN_SINDIC_MODDEL_VF] = AN_SINDIC_YV_mundo;
 				this.estado = IDEEstados.AVANZAR;
 

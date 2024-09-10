@@ -20,6 +20,7 @@ import { BotoneraComponent } from '../../application/feature/botonera/botonera';
 import { GenericMap } from '../../../../../../ws-server/src/alephscript/GenericMap';
 import { LoggerComponent } from '../../application/feature/logger/logger';
 import { SearcherComponent } from '../../application/feature/searcher/searcher';
+import { PantallaComponent } from '../../application/feature/pantalla/pantalla';
 
 const notValidItems = [" ", "/", "-"]
 function removeOccurrences(array: string[], target: string) {
@@ -50,7 +51,7 @@ export interface SignalEvent {
 	selector: 'app-about',
 	standalone: true,
 	imports: [LoggerComponent, CommonModule, RouterLink, RouterOutlet,
-		PrettyJsonPipeV2, DynamicFormComponent, BotoneraComponent, SearcherComponent],
+		PrettyJsonPipeV2, DynamicFormComponent, BotoneraComponent, SearcherComponent, PantallaComponent],
 	templateUrl: './asmvf.component.html',
 	styleUrl: './asmvf.component.css',
 	encapsulation: ViewEncapsulation.None // https://medium.com/@yaronu/making-angular-component-css-classes-in-innerhtml-work-without-losing-emulated-encapsulation-350d63dbffad

@@ -27,13 +27,10 @@ export class AnSindicModelVFIdeApp extends App {
 		onReady: () => void
 	): Promise<string> {
 
-		console.log(">>> THE LOG", ejecutarSimulacion())
 		console.log(agentMessage(this.nombre, "OnIniting..."))
 		this.inicializar();
 
 		console.log(agentMessage(this.nombre, "onReady"))
-
-		this.conectarEntorno();
 
 		onReady();
 
@@ -85,6 +82,11 @@ export class AnSindicModelVFIdeApp extends App {
 		this.omegaBot.runStateEvent = this.runStateEvent;
         this.omegaBot.mundo = this.mundo;
 		this.omegaBot.nombre = "OmegaBot";
+
+		this.bots = [
+			{ nombre: this.alphaBot.nombre },
+			{ nombre: this.omegaBot.nombre },
+		]
 
 		this.conectarEntorno();
 	}

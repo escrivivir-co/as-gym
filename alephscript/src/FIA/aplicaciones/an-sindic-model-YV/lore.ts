@@ -25,6 +25,17 @@ export const tablero1: Juego =  {
 	historial: []
 }
 
+export enum AN_VF_States {
+	"0_" = "Propiedad de los medios",
+	"1_" = "Distribución de recursos",
+	"2_" = "Roles y toma de decisiones",
+	"3_" = "Mercado",
+	"4_" = "Transparencia y control",
+	"5_" = "Descentralización del poder",
+	"6_" = "Mecanismo de asignación",
+	"7_" = "Intercambio de bienes",
+	"8_" = "Tecnología"
+}
 export const sJuego = `
 Definición de la INTERFAZ DE RESPUESTA:
 \n

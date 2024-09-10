@@ -250,7 +250,7 @@ export class SocketAdapter {
 				default:
 					console.log("---------- DESCONOCIDA ACTION", action, action as RunStateEnum)
 			}
-			console.log(this.name, "Antes de sendFrameworkState", fia.mundo.modelo.dia)
+			// console.log(this.name, "Antes de sendFrameworkState", fia.mundo.modelo.dia)
 			this.sendFrameworkState(args);
 
 		})
