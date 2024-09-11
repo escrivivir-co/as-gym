@@ -17,6 +17,7 @@ import { GenericMap } from '../../../../../../../../ws-server/src/alephscript/Ge
 export class DiapositivaComponent extends DynamicFormComponent{
 	data_x: number = 0;
 	data_y: number = 0;
+	data_z: number = 0;
 
 	@Input()
 	set dataX(value: number) {
@@ -25,6 +26,15 @@ export class DiapositivaComponent extends DynamicFormComponent{
 	}
 	get dataX(): number {
 		return this.data_x;
+	}
+
+	@Input()
+	set dataZ(value: number) {
+		this.data_z = value;
+		this.onInputChange(value);
+	}
+	get dataZ(): number {
+		return this.data_z;
 	}
 
 	@Input()
@@ -67,7 +77,8 @@ export class DiapositivaComponent extends DynamicFormComponent{
 			level: this.level,
 			dir,
 			origin_datax: this.data_x,
-			origin_datay: this.data_y
+			origin_datay: this.data_y,
+			origin_dataz: this.data_z
 		})
 	}
 

@@ -50,12 +50,16 @@
 				<ng-container *ngFor="let slider of sliders">
 
 						<div class="step small" data-scale="1"
-							[attr.data-x]="slider.datax" [attr.data-y]="slider.datay" data-height="300px">
-							<span>{{slider.level}}/{{ slider.datax }}/{{ slider.datay }}</span>
+							[attr.data-x]="slider.datax"
+							[attr.data-y]="slider.datay"
+							[attr.data-z]="slider.dataz"
+							data-height="300px">
+							<span>{{slider.level}}/{{ slider.datax }}/{{ slider.datay }}/{{ slider.dataz }}</span>
 							<app-diapositiva
 									id="{{ slider.key }}"
 									[dataX]="slider.datax"
 									[dataY]="slider.datay"
+									[dataZ]="slider.dataz"
 									[accordionState]="accordionState"
 									[level]="slider.level"
 									[dataInput]="slider.jsonObject"

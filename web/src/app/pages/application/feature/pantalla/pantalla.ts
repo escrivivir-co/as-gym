@@ -6,8 +6,6 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DiapositivaComponent } from './diapositiva/diapositiva';
 import { GenericMap } from '../../../../../../../ws-server/src/alephscript/GenericMap';
-import { parse } from 'path';
-
 
 declare var impress: any;
 
@@ -55,12 +53,13 @@ export class PantallaComponent extends DynamicFormComponent{
 		const currentKey = [...pathKey].pop();
 
 
-		const off = this.getOffset(event.dir, event.origin_datax, event.origin_datay);
+		const off = this.getOffset(event.dir, event.origin_datax, event.origin_datay, event.origin_dataz);
 
 		const slider = {
 			key: pathKey,
 			datax: off.datax,
 			datay: off.datay,
+			dataz: off.dataz,
 			level: event.level,
 			jsonObject: event[pathKey]
 		}
@@ -73,10 +72,12 @@ export class PantallaComponent extends DynamicFormComponent{
 		super.handlePopUpEvent(event);
 	}
 
-	getOffset(dir: number, odatax: number, odatay: number): { datax: number, datay: number } {
+	getOffset(dir: number, odatax: number, odatay: number, odataz: number):
+		{ datax: number, datay: number, dataz: number } {
 
 		let datax: number = odatax;
 		let datay: number = odatay;
+		let dataz: number = odataz;
 
 		const offset = 1000;
 		switch(dir) {
@@ -92,11 +93,18 @@ export class PantallaComponent extends DynamicFormComponent{
 			case 3: //right
 				datax = odatax + offset;
 				break
+			case 4: // zup
+				dataz = odataz + offset;
+				break
+			case 5: // zdown
+				dataz = odataz + offset;
+				break
 		}
 
 		return {
 			datax,
-			datay
+			datay,
+			dataz
 		}
 	}
 }

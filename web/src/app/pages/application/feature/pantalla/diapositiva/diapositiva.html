@@ -20,21 +20,30 @@
 						aria-expanded="false">
 							<span> {{ id }}</span> {{ accordionState[getKey(id)] ? '<' : '>' }}
 					</a>
+
 					<button type="button"
 					(click)="sendPopUpEventDir(0)"
-					class="btn btn-secondary "><i class="fa-solid fa-arrow-left"></i></button>
-
-					<button type="button"
-						(click)="sendPopUpEventDir(1)"
-						class="btn btn-secondary "><i class="fa-solid fa-arrow-down"></i></button>
-
-					<button type="button"
-						(click)="sendPopUpEventDir(2)"
-						class="btn btn-secondary "><i class="fa-solid fa-arrow-up"></i></button>
+					class="btn btn-secondary ">- <i class="fa-solid fa-x"></i></button>
 
 					<button type="button"
 						(click)="sendPopUpEventDir(3)"
-						class="btn btn-secondary "><i class="fa-solid fa-arrow-right"></i></button>
+						class="btn btn-secondary "><i class="fa-solid fa-x"></i></button>
+
+					<button type="button"
+						(click)="sendPopUpEventDir(1)"
+						class="btn btn-secondary ">- <i class="fa-solid fa-y"></i></button>
+
+					<button type="button"
+						(click)="sendPopUpEventDir(2)"
+						class="btn btn-secondary "><i class="fa-solid fa-y"></i></button>
+
+					<button type="button"
+						(click)="sendPopUpEventDir(4)"
+						class="btn btn-secondary ">- <i class="fa-solid fa-z"></i></button>
+
+					<button type="button"
+						(click)="sendPopUpEventDir(5)"
+						class="btn btn-secondary "><i class="fa-solid fa-z"></i></button>
 				</div>
 				<div class="card-body"
 					id="{{ id }}collapse" class="collapse"
@@ -75,6 +84,7 @@
 											<app-diapositiva
 												[dataX]="data_x"
 												[dataY]="data_y"
+												[dataZ]="data_z"
 												id="{{ id + '/' + key.key }}"
 												[accordionState]="accordionState"
 												[level]="level + 1"
@@ -116,6 +126,7 @@
 														id="{{ id + '/' + key.key + '/' + i }}"
 														[dataX]="data_x"
 														[dataY]="data_y"
+														[dataZ]="data_z"
 														[accordionState]="accordionState"
 														[level]="level + 1"
 														[dataInput]="getObject(key, i)"
