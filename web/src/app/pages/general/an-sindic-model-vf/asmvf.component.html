@@ -1,12 +1,36 @@
 <div class="py-5">
 	<div class="container">
-		<app-pantalla ngSkipHydration
-			id="PuPantalla"
-			class="small-left" [dataInput]="currentApp()"
-			(formSubmit)="handleFormSubmit($event)"
-			(accordionEmiter)="handleAccordionEmiter($event)"
-			(popUpEmiter)="handlePopUpEvent($event, false)">
-		</app-pantalla>
+
+		<div class="row">
+			<div class="accordion" id="accordionItems">
+
+				<div class="card nga-card-menu">
+
+					<div class="card-header">
+						<a data-bs-toggle="collapse" data-parent="#accordionItems" href="#collapseRuntime" aria-expanded="true">
+							<div class="card-item">
+								<i class="fas fa-film me-2 "></i> Pantalla
+							</div>
+						</a>
+					</div>
+
+					<div id="collapseRuntime" class="collapse collapsed" aria-labelledby="headingOne" data-parent="#accordionItems">
+						<div class="card-body">
+							<app-pantalla ngSkipHydration
+								id="PuPantalla"
+								class="small-left" [dataInput]="currentApp()"
+								(formSubmit)="handleFormSubmit($event)"
+								(accordionEmiter)="handleAccordionEmiter($event)"
+								(popUpEmiter)="handlePopUpEvent($event, false)">
+							</app-pantalla>
+						</div>
+					</div>
+
+				</div>
+
+
+			</div>
+		</div>
 	</div>
 
 	<div class="container">
@@ -172,7 +196,7 @@
 										</tbody>
 									</table>
 								</div>
-							</div> 
+							</div>
 						</div>
 					</div>
 					</div>
@@ -333,28 +357,7 @@
 
 				<hr>
 
-				<div class="accordion" id="accordionItems">
 
-					<div class="card nga-card-menu">
-
-						<div class="card-header">
-							<a data-bs-toggle="collapse" data-parent="#accordionItems" href="#collapseRuntime" aria-expanded="true">
-								<div class="card-item">
-									<i class="fas fa-film me-2 "></i> <!-- Runtime -->
-								</div>
-							</a>
-						</div>
-
-						<div id="collapseRuntime" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionItems">
-							<div class="card-body">
-
-							</div>
-						</div>
-
-					</div>
-
-
-				</div>
 
 			</div>
 

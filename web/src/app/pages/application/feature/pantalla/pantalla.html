@@ -17,7 +17,7 @@
 			   </div>
 
 			   <div class="step" data-scale="1"
-					data-x="-500" data-y="-500" data-height="300px">
+					data-x="0" data-y="0" data-height="300px">
 					<app-diapositiva
 							id="PopUpPantalla"
 							[accordionState]="accordionState"
@@ -30,21 +30,40 @@
 						</app-diapositiva>
 				</div>
 
-				<ng-container *ngFor="let slider of sliders">
-					{{slider.level}}
-					<div class="step small" data-scale="1"
-						[attr.data-x]="slider.datax" [attr.data-y]="slider.datay" data-height="300px">
-						<app-diapositiva
-								id="{{ slider.key }}"
-								[accordionState]="accordionState"
-								[level]="slider.level"
-								[dataInput]="slider.jsonObject"
-								(formSubmit)="handleNestedSubmit({ name: 'ev_pantalla', value: $event.value })"
-								(popUpEmiter)="handlePopUpEvent($event)"
-								(accordionEmiter)="handleAccordionEmiter($event)"
-						>
-						</app-diapositiva>
+				<!--<div class="step" data-scale="1"
+					data-x="1000" data-y="0" data-height="300px">
+					<H1>1000, 0</H1>
 				</div>
+				<div class="step" data-scale="1"
+					data-x="0" data-y="1000" data-height="300px">
+					<H1>0, 1000</H1>
+				</div>
+				<div class="step" data-scale="1"
+				data-x="-1000" data-y="0" data-height="300px">
+				<H1>-1000, 0</H1>
+				</div>
+				<div class="step" data-scale="1"
+					data-x="0" data-y="-1000" data-height="300px">
+					<H1>0, -1000</H1>
+				</div>-->
+
+				<ng-container *ngFor="let slider of sliders">
+
+						<div class="step small" data-scale="1"
+							[attr.data-x]="slider.datax" [attr.data-y]="slider.datay" data-height="300px">
+							<span>{{slider.level}}/{{ slider.datax }}/{{ slider.datay }}</span>
+							<app-diapositiva
+									id="{{ slider.key }}"
+									[dataX]="slider.datax"
+									[dataY]="slider.datay"
+									[accordionState]="accordionState"
+									[level]="slider.level"
+									[dataInput]="slider.jsonObject"
+									(formSubmit)="handleNestedSubmit({ name: 'ev_pantalla', value: $event.value })"
+									(popUpEmiter)="handlePopUpEvent($event)"
+									(accordionEmiter)="handleAccordionEmiter($event)">
+							</app-diapositiva>
+						</div>
 				</ng-container>
 			</div>
 

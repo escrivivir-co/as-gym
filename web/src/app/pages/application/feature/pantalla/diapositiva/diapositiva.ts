@@ -16,6 +16,7 @@ import { GenericMap } from '../../../../../../../../ws-server/src/alephscript/Ge
 })
 export class DiapositivaComponent extends DynamicFormComponent{
 	data_x: number = 0;
+	data_y: number = 0;
 
 	@Input()
 	set dataX(value: number) {
@@ -24,6 +25,15 @@ export class DiapositivaComponent extends DynamicFormComponent{
 	}
 	get dataX(): number {
 		return this.data_x;
+	}
+
+	@Input()
+	set dataY(value: number) {
+		this.data_y = value;
+		this.onInputChange(value);
+	}
+	get dataY(): number {
+		return this.data_y;
 	}
 
 	constructor(
@@ -47,6 +57,18 @@ export class DiapositivaComponent extends DynamicFormComponent{
 		if (changes['dataX'] /*&& this.accordState != changes['accordionState'].currentValue*/) {
 			// console.log(this.level, "OnStateChange", changes['accordionState'], this.accordState, this.jsonObject)
 		}
+	}
+
+	sendPopUpEventDir(dir: number) {
+
+		console.log("handlePopUpEvent", this.id, this.data_x, this.data_y)
+		this.popUpEmiter.emit({
+			[this.id]: this.jsonObject,
+			level: this.level,
+			dir,
+			origin_datax: this.data_x,
+			origin_datay: this.data_y
+		})
 	}
 
 	override saveAccordionState(key: string) {

@@ -53,16 +53,50 @@ export class PantallaComponent extends DynamicFormComponent{
 	override handlePopUpEvent(event: any) {
 		const pathKey = Object.keys(event)[0];
 		const currentKey = [...pathKey].pop();
-		console.log("Set new slider for", pathKey, "level", event.level, "currentKey", currentKey, event[pathKey]);
+
+
+		const off = this.getOffset(event.dir, event.origin_datax, event.origin_datay);
+
 		const slider = {
 			key: pathKey,
-			datax: -500,
-			datay: event.level * 500,
+			datax: off.datax,
+			datay: off.datay,
 			level: event.level,
 			jsonObject: event[pathKey]
 		}
+		console.log("Set new slider for", pathKey, "level", event.level,
+			"from",event.origin_datax, "/", event.origin_datay,  "direction",
+			event.dir, " at", slider.datax, "/", slider.datay);
 		this.sliders.push(slider);
-		// console.log(this.sliders)
+		impress().init();
+		console.log("Number of sliders", this.sliders.length, "Impress refreshed")
 		super.handlePopUpEvent(event);
+	}
+
+	getOffset(dir: number, odatax: number, odatay: number): { datax: number, datay: number } {
+
+		let datax: number = odatax;
+		let datay: number = odatay;
+
+		const offset = 1000;
+		switch(dir) {
+			case 0: //left
+				datax = odatax - offset;
+				break;
+			case 1: //down
+				datay = odatay + offset;
+				break;
+			case 2: //up
+				datay = odatay - offset;
+				break;
+			case 3: //right
+				datax = odatax + offset;
+				break
+		}
+
+		return {
+			datax,
+			datay
+		}
 	}
 }

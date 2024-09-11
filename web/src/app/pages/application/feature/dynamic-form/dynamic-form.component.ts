@@ -146,7 +146,7 @@ export class DynamicFormComponent implements OnInit {
 	handleAccordionEmiter(state: GenericMap) {
 		// console.log(this.level, "handleAccordionEmiter", this.accordState)
 		this.accordionEmiter.emit(state);
-		console.log(Object.keys(this.jsonObject).join("/"), this.level, state);
+		// console.log(Object.keys(this.jsonObject).join("/"), this.level, state);
 	}
 
 	sendPopUpEvent() {

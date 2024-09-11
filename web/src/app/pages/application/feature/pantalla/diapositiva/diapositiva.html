@@ -1,6 +1,5 @@
 
-
-	<div class="accordion" id="accordionItems">
+	<div class="accordion " id="accordionItems">
 		<div class="card nga-card-menu">
 
 			<form [formGroup]="form" (ngSubmit)="onSubmit()">
@@ -9,11 +8,11 @@
 
 					{{ level }}
 					<button type="submit"
-						class="btn btn-primary small"><i class="fa fa-save me-1"></i></button>
+						class="btn btn-primary "><i class="fa fa-save me-1"></i></button>
 
 					<button type="button"
 						(click)="sendPopUpEvent()"
-						class="btn btn-secondary small"><i class="fa fa-copy me-1"></i></button>
+						class="btn btn-secondary "><i class="fa fa-copy me-1"></i></button>
 
 					<a data-bs-toggle="collapse" data-parent="#accordionItems"
 						href="#{{ id }}collapse"
@@ -21,7 +20,21 @@
 						aria-expanded="false">
 							<span> {{ id }}</span> {{ accordionState[getKey(id)] ? '<' : '>' }}
 					</a>
+					<button type="button"
+					(click)="sendPopUpEventDir(0)"
+					class="btn btn-secondary "><i class="fa-solid fa-arrow-left"></i></button>
 
+					<button type="button"
+						(click)="sendPopUpEventDir(1)"
+						class="btn btn-secondary "><i class="fa-solid fa-arrow-down"></i></button>
+
+					<button type="button"
+						(click)="sendPopUpEventDir(2)"
+						class="btn btn-secondary "><i class="fa-solid fa-arrow-up"></i></button>
+
+					<button type="button"
+						(click)="sendPopUpEventDir(3)"
+						class="btn btn-secondary "><i class="fa-solid fa-arrow-right"></i></button>
 				</div>
 				<div class="card-body"
 					id="{{ id }}collapse" class="collapse"
@@ -31,35 +44,37 @@
 					<ng-container  *ngFor="let key of form.controls | keyvalue">
 
 						<section>
-							<ul class="custom-list" [ngClass]="isFormControl(control) ? 'card-body' : ''"
+							<div class="custom-list" [ngClass]="isFormControl(control) ? 'card-body' : ''"
 								*ngIf="form.get(key.key) as control">
 
 								<!--
 								PRINT HTML INPUTS
 								-->
-								<li class="small" *ngIf="isFormControl(control)">
+								<div class="" *ngIf="isFormControl(control)">
 									<label>{{ key.key }}</label> {{ accordionState[getKey(key.key)] ? '<' : '>' }}
 
 									<input *ngIf="(control.value + '').length < 100"
 										[formControlName]="key.key"
-										class="form-control small"
+										class="form-control "
 										[type]="getInputType(control.value)">
 
 									<textarea *ngIf="(control.value + '').length > 100"
 										[formControlName]="key.key"
-										class="form-control small"></textarea>
+										class="form-control "></textarea>
 
-								</li>
+								</div>
 
 
 								<!--
 								PRINT OBJECT
 								-->
-								<li *ngIf="isFormGroup(control)" class="form-group" [formGroup]="control">
+								<div *ngIf="isFormGroup(control)" class="form-group" [formGroup]="control">
 
 									<div class="card nga-card-menu">
 										<div class="card-body">
 											<app-diapositiva
+												[dataX]="data_x"
+												[dataY]="data_y"
 												id="{{ id + '/' + key.key }}"
 												[accordionState]="accordionState"
 												[level]="level + 1"
@@ -73,21 +88,21 @@
 
 									</div>
 
-								</li>
+								</div>
 
 								<!--
 								PRINT ARRAYS
 								-->
-								<li *ngIf="isFormArray(control) && getFormArrayControls(control).length > 0" class="form-group">
+								<div *ngIf="isFormArray(control) && getFormArrayControls(control).length > 0" class="form-group">
 
 									<div class="card nga-card-menu">
 
 										<div class="card-header">
 											<a data-bs-toggle="collapse" data-parent="#accordionItems"
-											href="#{{ id }}collapse{{  key.key }}"
-											(click)="saveAccordionState(key.key)"
-											aria-expanded="false">
-												<span>{{ id + '/' + key.key }}</span> {{ accordionState[getKey(key.key)] ? '<' : '>' }}
+												href="#{{ id }}collapse{{  key.key }}"
+												(click)="saveAccordionState(key.key)"
+												aria-expanded="false">
+													<span class="">{{ id + '/' + key.key }}</span> {{ accordionState[getKey(key.key)] ? '<' : '>' }}
 											</a>
 										</div>
 
@@ -96,9 +111,11 @@
 											aria-labelledby="headingOne" data-parent="#accordionItems">
 											<div class="card-body">
 												<div *ngFor="let ctrl of getFormArrayControls(control); let i = index" class="th">
-													LISTA: {{ id + '/' + key.key + '/' + i }}
+													<span class="">LISTA: {{ id + '/' + key.key + '/' + i }}</span>
 													<app-diapositiva
 														id="{{ id + '/' + key.key + '/' + i }}"
+														[dataX]="data_x"
+														[dataY]="data_y"
 														[accordionState]="accordionState"
 														[level]="level + 1"
 														[dataInput]="getObject(key, i)"
@@ -113,9 +130,9 @@
 
 									</div>
 
-								</li>
+								</div>
 
-							</ul>
+							</div>
 						</section>
 
 					</ng-container>
@@ -126,4 +143,3 @@
 
 		</div>
 	</div>
-
