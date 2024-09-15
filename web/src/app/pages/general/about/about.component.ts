@@ -40,6 +40,7 @@ export interface LogLabel {
 
 export interface SignalEvent {
 	event: string,
+	room?: string,
 	data: {
 		engine: string;
 		action: string

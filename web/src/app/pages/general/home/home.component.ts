@@ -128,6 +128,27 @@ export class HomeComponent {
 		},
 		{
 			icon: "fa-regular fa-comment-dots",
+		},
+		{
+			icon: "fa-solid fa-sun",
+		},
+		{
+			icon: "fa-solid fa-screwdriver-wrench",
+		},
+		{
+			icon: "fa-solid fa-network-wired",
+		},
+		{
+			icon: "fa-regular fa-rectangle-list",
+		},
+		{
+			icon: "fa-regular fa-window-restore",
+		},
+		{
+			icon: "fa-solid fa-spell-check",
+		},
+		{
+			icon: "fa-regular fa-comment-dots",
 		}
 	]
 	serverService = inject(ServerService);

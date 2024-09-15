@@ -46,11 +46,10 @@ export class App extends FIAHibrida implements IApp {
 	}
 
 	getRoomName() {
-		return "[" + this.nombre + "/" + this.mundo.nombre + "/" + this.mundo.modelo.nombre + "]";
+		return this.mundo.nombre;
 	}
 
 	conectarEntorno() {
-
 
 		this.spider = new AlephScriptClient(this.nombre)
 		this.spider.initTriggersDefinition.push(() => {
@@ -58,6 +57,7 @@ export class App extends FIAHibrida implements IApp {
 			this.spider.io.emit("CLIENT_REGISTER", { usuario: this.nombre, sesion: getHash("xS")} as IUserDetails);
 			this.spider.io.emit("CLIENT_SUSCRIBE", { room:   this.getRoomName()});
 			this.spider.room("MAKE_MASTER", { features: this.bots.map(b => b.nombre)}, this.getRoomName());
+
 
 		})
 

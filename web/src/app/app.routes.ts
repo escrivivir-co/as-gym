@@ -107,6 +107,10 @@ export const routes: Routes = [
     loadChildren: () => import('./pages/general/an-sindic-model-vf/about.routes').then(routes => routes.routes)
   },
   {
+    path: 'iot-logic-engine/:id',
+    loadChildren: () => import('./pages/general/iot-logic-engine/about.routes').then(routes => routes.routes)
+  },
+  {
     path: 'about/:id',
     loadChildren: () => import('./pages/general/about/about.routes').then(routes => routes.routes)
   },

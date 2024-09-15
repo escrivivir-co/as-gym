@@ -10,6 +10,7 @@ import { IServerState } from "../../../../../ws-server/src/alephscript/IServerSt
 import { IRuntimeBlock } from '/Users/morente/Desktop/THEIA_PATH/AlephWeb/angular-app/ws-server/src/alephscript/IRuntimeBlock'
 import { IAppState } from '/Users/morente/Desktop/THEIA_PATH/AlephWeb/angular-app/ws-server/src/alephscript/IAppState'
 import { DEFAULT_ROOT_NODE, DEFAULT_SUDOKU_DATA, SudokuData } from '/Users/morente/Desktop/THEIA_PATH/AlephWeb/angular-app/alephscript/src/FIA/engine/kernel/sudoku';
+import { kStringMaxLength } from 'buffer';
 
 @Injectable({
   providedIn: 'root'
@@ -72,8 +73,8 @@ export class ServerService {
 	}
 
 	sendEngineAction(signal: SignalEvent) {
-
-		(this.web as AlephScriptClient).room(signal.event, signal.data, "ENGINE_THREADS");
+		console.log("Send to", signal.event);
+		(this.web as AlephScriptClient).room(signal.event, signal.data, signal.room || "ENGINE_THREADS");
 
 	}
 

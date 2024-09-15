@@ -1,3 +1,4 @@
+import { Assistant } from "openai/resources/beta/assistants";
 import { IModelo } from "../../mundos/IModelo";
 import { IEstado } from "./IEstado";
 import { IEstadoT } from "./IEstadoT";
@@ -28,6 +29,9 @@ export class EstadoT<T> extends Estado implements IEstadoT<T> {
 	assistanceName?: string = "";
 	assistanceId?: string = "";
     actual: T;
+	ocupada: boolean = false;
+
+	onAssistantsReady?: (as: Assistant[], caller?: string) => void;
 
     transicion(e: IEstadoT<T>): void {
 
@@ -37,5 +41,5 @@ export class EstadoT<T> extends Estado implements IEstadoT<T> {
 
         this.modelo = e.comoModelo();
     }
-
+	
 }

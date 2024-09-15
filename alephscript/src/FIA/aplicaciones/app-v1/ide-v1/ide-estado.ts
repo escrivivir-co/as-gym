@@ -1,3 +1,4 @@
+import { Assistant } from 'openai/resources/beta/assistants';
 import { agentMessage } from '../../../agentMessage';
 import { RTCache } from "../../../engine/kernel/rt-cache";
 import { AsistenteApi } from '../../../paradigmas/conexionista/modelos-lenguaje/oai/asisstant';
@@ -100,4 +101,6 @@ export class IDEEstado<IDEEstados> extends EstadoT<IDEEstados> {
 		}
 
 	}
+
+	
 }

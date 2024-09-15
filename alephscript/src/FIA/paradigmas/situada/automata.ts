@@ -9,6 +9,7 @@ import { EstadoT } from "./estado";
 import { IEstadoT } from "./IEstadoT";
 import { IEstado } from "./IEstado";
 import { IDEEstados } from "../../aplicaciones/app-v1/ide-v1/situada/IDEEstados";
+import { Assistant } from "openai/resources/beta/assistants";
 
 export interface IAutomata {
 
@@ -22,11 +23,15 @@ export interface IAutomata {
     configurar(): void;
     inicializar(): void;
 
+	onAssistantsReady?: (assistances: Assistant[], selectectName: string) => void;
+
 }
 
 export interface IAutomataT<T> extends IAutomata {
 
     estado: IEstadoT<T>;
+
+	onAssistantsReady?: (assistances: Assistant[], selectectName: string) => void;
 
 }
 
@@ -47,6 +52,8 @@ export class Automata<T> implements IAutomataT<T> {
         this.estado = new EstadoT<T>(this.mundo.modelo);
     }
 
+	onAssistantsReady?: (assistances: Assistant[], selectectName: string) => void;
+
     configurar() {
 
         this.mundo.agregarAferencia(this.eferencia.asObservable());
@@ -54,6 +61,9 @@ export class Automata<T> implements IAutomataT<T> {
     }
 
     async inicializar() {
+
+		console.log("Set ------------------------------------", this.onAssistantsReady)
+		if (this.estado.onAssistantsReady) this.estado.onAssistantsReady = this.onAssistantsReady;
 
         this.mundo.eferencia.subscribe(async (m) => {
 

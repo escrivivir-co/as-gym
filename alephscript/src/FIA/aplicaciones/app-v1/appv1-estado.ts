@@ -4,7 +4,6 @@ import { QueryParams } from "../../paradigmas/conexionista/modelos-lenguaje/oai/
 import { IDEEstado } from "./ide-v1/ide-estado";
 import { IDEEstados } from "./ide-v1/situada/IDEEstados";
 import { ApiReply } from "../../paradigmas/conexionista/modelos-lenguaje/oai/api";
-import { Assistant } from "openai/resources/beta/assistants";
 import { INSTRUCCIONES_DE_CORRECION } from "./lore";
 
 export interface Juego {
@@ -56,9 +55,6 @@ export class IDEEstadoAppV1<IDEEstados> extends IDEEstado<IDEEstados> {
 
 	nombre = "ST-v1"
 
-	ocupada = false;
-	onAssistantsReady: (as: Assistant[], caller?: string) => void;
-
 	async transicion(): Promise<void> {
 
 		super.transicion();
@@ -77,16 +73,16 @@ export class IDEEstadoAppV1<IDEEstados> extends IDEEstado<IDEEstados> {
 
 				this.onAssistantsReady(this.ide.listaAsistentes(), this.assistanceName);
 
-					const interval = setInterval(() => {
+				const interval = setInterval(() => {
 
-						if (this.ocupada) {
-							console.log(agentMessage(this.nombre, "Status:> Buscando..."))
-						} else {
-							clearInterval(interval);
-							this.trigger()
-						}
+					if (this.ocupada) {
+						console.log(agentMessage(this.nombre, "Status:> Buscando..."))
+					} else {
+						clearInterval(interval);
+						this.trigger()
+					}
 
-					}, 500)
+				}, 500)
 
 			default:
 

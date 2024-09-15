@@ -20,6 +20,7 @@ import { MODO_CONSOLA_ACTIVADO } from "../../../runCONFIG";
 import { RTCache } from "./rt-cache";
 import { BusquedasApp } from "../../aplicaciones/busquedas/busquedas-app";
 import { AnSindicModelVF } from "../../aplicaciones/an-sindic-model-YV/user-app";
+import { IoTLogicEngine } from "../../aplicaciones/iot-logic-engine/user-app";
 
 export const EXIT_PROMPT_INDEX = 99;
 
@@ -82,6 +83,9 @@ return */
 
 		const vfApp = new AnSindicModelVF();
         Runtime.threads.push(vfApp);
+
+		const vIoT = new IoTLogicEngine();
+        Runtime.threads.push(vIoT);
 
     }
 

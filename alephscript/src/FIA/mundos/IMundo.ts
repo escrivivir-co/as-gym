@@ -38,5 +38,5 @@ export interface IMundo {
 	runState: RunStateEnum;
 	runStateEvent: Observable<RunStateEnum>;
 
-	renderer?: string;
+	renderer?: string;	// the client template or component that should render this world, adhoc.
 }

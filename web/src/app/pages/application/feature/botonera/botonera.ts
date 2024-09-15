@@ -67,7 +67,16 @@ export class BotoneraComponent {
 	}
 
 	handleFormSubmit($event: { name: string; value: any; }) {
-		console.log("Datos actualizados")
+		console.log("Datos actualizados", $event)
+
+		this.sendSignal({
+			event: "SET_DOMAIN_BASE_DATA",
+			data: {
+				engine: this.m_currentApp.index,
+				action: "SET_DATA",
+				blob: $event
+			}
+		})
 	}
 
 	handleAccordionEmiter(state: GenericMap) {

@@ -1,3 +1,4 @@
+import { Assistant } from "openai/resources/beta/assistants";
 import { IModelo } from "../../mundos/IModelo";
 
 
@@ -11,4 +12,6 @@ export interface IEstado {
 	deModelo: (m: IModelo) => void;
 
 	transicion(e: IEstado): void;
+
+	onAssistantsReady?: (assistances: Assistant[], selectectName: string) => void;
 }

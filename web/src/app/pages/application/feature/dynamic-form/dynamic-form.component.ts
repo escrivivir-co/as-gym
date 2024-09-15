@@ -134,7 +134,12 @@ export class DynamicFormComponent implements OnInit {
 	}
 
 	onSubmit() {
-		this.formSubmit.emit({ name: '', value: this.form.getRawValue() });
+		const  raw = this.form.getRawValue();
+		Object.keys(raw).forEach(k => {
+			this.jsonObject[k] = raw[k];
+		});
+
+		this.formSubmit.emit({ name: '', value: raw });
 	}
 
 	handleNestedSubmit(event: { name: string, value: any }) {
@@ -212,7 +217,5 @@ export class DynamicFormComponent implements OnInit {
 	}
 
 }
-function Inject(PLATFORM_ID: any): (target: typeof DynamicFormComponent, propertyKey: undefined, parameterIndex: 0) => void {
-	throw new Error('Function not implemented.');
-}
+
 

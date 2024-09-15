@@ -1,25 +1,26 @@
 export const environment = {
-  application:
-  {
-    name: 'angular-starter',
-    angular: 'Angular 18.1.0',
-    bootstrap: 'Bootstrap 5.3.3',
-    fontawesome: 'Font Awesome 6.5.2',
-  },
-  urlNews: './assets/params/json/mock/trailers.json',
-  /*   urlNews: 'http://localhost:5004/trailers', */
+	apiUrl: 'http://127.0.0.1:8000/api',
+	application:
+	{
+		name: 'angular-starter',
+		angular: 'Angular 18.1.0',
+		bootstrap: 'Bootstrap 5.3.3',
+		fontawesome: 'Font Awesome 6.5.2',
+	},
+	urlNews: './assets/params/json/mock/trailers.json',
+	/*   urlNews: 'http://localhost:5004/trailers', */
 
-  urlMovies: './assets/params/json/mock/movies.json',
-  // url: 'https://api.escrivivir.co/tutorials',
-  config: {
-    /* SELECT ONE OF THOSE CONFIGURATIONS */
+	urlMovies: './assets/params/json/mock/movies.json',
+	// url: 'https://api.escrivivir.co/tutorials',
+	config: {
+	/* SELECT ONE OF THOSE CONFIGURATIONS */
 
-    /* LOCAL JSON (NO CRUD) */
-    api: false,
-    url: './assets/params/json/crud/',
+	/* LOCAL JSON (NO CRUD) */
+	api: false,
+	url: './assets/params/json/crud/',
 
-    /* LOCAL REST API CRUD WITH POSTGRESQL */
-    /* api: true,
-    url: 'http://localhost:5004/', */
-  },
+	/* LOCAL REST API CRUD WITH POSTGRESQL */
+	/* api: true,
+	url: 'http://localhost:5004/', */
+	},
 };

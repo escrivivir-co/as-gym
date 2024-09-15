@@ -1,0 +1,66 @@
+<div class="row">
+	<div class="accordion" id="accordionItemsIA">
+
+		<div class="card nga-card-menu">
+
+			<div class="card-header">
+				<a data-bs-toggle="collapse" data-parent="#accordionItemsIA" href="#collapseAI" aria-expanded="true">
+					<div class="card-item">
+						<i class="fas fa-film me-2 "></i> Ingenio lógico
+					</div>
+				</a>
+			</div>
+
+			<div id="collapseAI" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionItemsIA">
+				<div class="card-body">
+					<div class="editor-container">
+						<!-- Editor 1 -->
+						<div class="editor">
+						  <h3> Agente IA</h3>
+						  <textarea [(ngModel)]="editor1Content" rows="10" cols="50"></textarea>
+						  <button (click)="saveEditor1Content()">Save Editor 1</button>
+						  <button (click)="resetEditor1Content()">Reset Editor 1</button>
+						</div>
+
+						<!-- Editor 2 -->
+						<div class="editor">
+						  <h3>Código</h3>
+						  <textarea [(ngModel)]="editor2Content" rows="10" cols="50"></textarea>
+						  <button (click)="saveEditor2Content()">Save Editor 2</button>
+						  <button (click)="resetEditor2Content()">Reset Editor 2</button>
+						</div>
+					</div>
+
+					<div class="merge-container">
+						{{ theApp.app }}
+						<ul class="list-group">
+							<li *ngFor="let rule of (theAppCode?.content?.rules || [])" class="list-group-item d-flex justify-content-between align-items-center">
+
+								<table>
+									<tr>
+										<!--<td>
+											<button class="btn btn-secondary btn-sm" (click)="kitRun(rule, $event)">R</button>
+										</td>
+
+										<td>
+											<button class="btn btn-danger btn-sm" (click)="kitDelete(rule, $event)">D</button>
+										</td>-->
+										<td>
+											<label>{{ rule.example }}</label>
+										</td>
+									</tr>
+								</table>
+							</li>
+						</ul>
+						<h3>Do you want to merge the contents of Editor 1 and Editor 2?</h3>
+						<button (click)="mergeContents()">Merge</button>
+						<button (click)="discardMerge()">Discard</button>
+						<p>Merged Content:</p>
+						<textarea [value]="mergedContent" rows="5" cols="50" readonly></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

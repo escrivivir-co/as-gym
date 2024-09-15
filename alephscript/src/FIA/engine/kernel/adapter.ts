@@ -1,6 +1,7 @@
 import { ACTIVAR_SOPORTE_SOCKETIO, BORRAR_ESTADO_A_CADA_PLAY_STEP } from "../../../runCONFIG";
 import { agentMessage } from "../../agentMessage";
 import { iFIA } from "../../iFIA";
+import { IMundo } from "../../mundos/IMundo";
 import { RunStateEnum } from '../../mundos/RunStateEnum';
 import { IFase } from "../../paradigmas/sbc/implementaciones/common-kads/IFase";
 import { systemMessage } from "../../systemMessage";
@@ -142,7 +143,7 @@ export class SocketAdapter {
 
 	}
 
-	sus = ["GET_LIST_OF_THREADS", "GET_ENGINE"]
+	sus = ["GET_LIST_OF_THREADS", "GET_ENGINE", "SET_DOMAIN_BASE_DATA", "SET_MODEL_RPC_DATA", "SET_EXECUTION_PROCESS"]
 	run() {
 
 		console.log(systemMessage(`Socket.Connected`));
@@ -158,6 +159,37 @@ export class SocketAdapter {
 
 		})
 
+		SocketAdapter.client?.io.on("SET_DOMAIN_BASE_DATA", (...args) => {
+			const rData = args[0];
+			console.log(systemMessage(SocketAdapter.client?.name + ">> SET_DOMAIN_BASE_DATA ENGINE... to: "))
+			const action = rData?.action;
+
+			const engine = rData.engine;
+			const fia = SocketAdapter.threads[engine];
+
+			if (action == "SET_DATA") {
+				const info = rData.blob;
+
+				if (info?.name == "mundo") {
+					const mundo = (info?.value?.mundo || {} ) as IMundo;
+
+					Object.keys(mundo).forEach(k => {
+						console.log("Update mundo property", k) //, mundo[k])
+
+						if (k == "modelo") {
+							Object.keys(mundo[k]).forEach(kk => {
+								console.log("Update modelo property", kk) //, mundo[k][kk])
+								fia.mundo.modelo[kk] = mundo[k][kk];
+							})
+						} else {
+							fia.mundo[k] = mundo[k];
+						}
+					})
+				}
+			}
+			console.log("After done", fia.mundo.nombre, fia.mundo.modelo.nombre)
+			this.sendFrameworkState(args);
+		});
 		SocketAdapter.client?.io.on("SET_MODEL_RPC_DATA", (...args) => {
 			const rData = args[0];
 			console.log(systemMessage(SocketAdapter.client?.name + ">> SET_MODEL_RPC_DATA ENGINE... to: "), rData)
@@ -184,7 +216,7 @@ export class SocketAdapter {
 		SocketAdapter.client?.io.on("GET_ENGINE", (...args) => {
 
 			const rData = args[0];
-			console.log(systemMessage(SocketAdapter.client?.name + ">> DO ENGINE... PAYLOAD: "), rData)
+			console.log(systemMessage(SocketAdapter.client?.name + ">> DO ENGINE... PAYLOAD >>: "))
 
 
 			// START/STOP
@@ -192,6 +224,8 @@ export class SocketAdapter {
 
 			const engine = rData?.data?.engine;
 			const fia = SocketAdapter.threads[engine];
+
+			console.log(systemMessage(SocketAdapter.client?.name + ">> DO ENGINE... PAYLOAD >>: "), fia.mundo.nombre)
 
 			console.log(systemMessage(SocketAdapter.client?.name +
 				">> DATA RPC... to: "), JSON.stringify(
