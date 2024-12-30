@@ -1,3 +1,85 @@
+
+# Alephscript
+
+- Socket.io ws pub/sub server. [ws-server](./ws-server/)
+- Socket.io Admin UI. [ws-server-ui](./socket.io-admin-ui-develop)
+
+## Ws pub/sub server
+
+```console
+secre@ALEPH MINGW64 /e/as-gym/ws-server
+$ npm run dev
+
+> backend-ta-te-ti@1.0.0 dev
+> nodemon --watch "src/**" --ext "ts,json" --ignore "src/**/*.spec.ts" --exec npx tsx src/index.ts
+
+[nodemon] 3.1.3
+[nodemon] to restart at any time, enter `rs`
+[nodemon] watching path(s): src\**
+[nodemon] watching extensions: ts,json
+[nodemon] starting `npx tsx src/index.ts`
+- AlephServer admin There is now namespaces: 1
+- AlephServer runtime There is now namespaces: 2
+- AlephServer  There is now namespaces: 3
+Server escuchando en el puerto 3000
+         -  SERVER_cRUNTIME Conectando al backend... 
+         -  SERVER_cNOPATH Conectando al backend...
+- AlephServer New connection at runtime. Socket: El socket no se ha registrado: pXVfvN4hyx1GE-ZtAAAB: pXVfvN4hyx1GE-ZtAAAB
+         -  SERVER_cRUNTIME Conectado al back Socket: pXVfvN4hyx1GE-ZtAAAB
+- AlephServer New connection at . Socket: El socket no se ha registrado: fzptOYMnBGJcaDIMAAAC: fzptOYMnBGJcaDIMAAAC
+         -  SERVER_cNOPATH Conectado al back Socket: fzptOYMnBGJcaDIMAAAC
+- AlephServer runtime.onClientRegister.pXVfvN4hyx1GE-ZtAAAB { name: 'SERVER_cRUNTIME' }
+- AlephServer JOIN:> runtime.onClientSuscribe.SERVER_cRUNTIME { room: 'ENGINE_THREADS' }
+- AlephServer .onClientRegister.fzptOYMnBGJcaDIMAAAC { name: 'SERVER_cNOPATH' }
+- AlephServer JOIN:> .onClientSuscribe.SERVER_cNOPATH { room: 'ENGINE_THREADS' }
+- AlephServer runtime.onRoomMessage.SERVER_cRUNTIME. Event: ENGINE_THREADS/GET_LIST_OF_THREADS 
+- AlephServer Resolving GETTER... Is there any Master configured for this room?
+- AlephServer Can't Resolve GETTER...!!! There is no master at room: [ENGINE_THREADS]
+{ event: 'GET_LIST_OF_THREADS', room: 'ENGINE_THREADS', data: {} }
+- AlephServer runtime.onRoomMessage.SERVER_cRUNTIME. Event: ENGINE_THREADS/GET_SERVER_STATE
+- AlephServer Emit >> State  to: SERVER_cRUNTIME event: SET_SERVER_STATE
+>>>> Receiving server state...
+```
+## Ws Admin UI
+
+```console
+secre@ALEPH MINGW64 /e/as-gym/socket.io-admin-ui-develop
+$ npm start
+
+> @socket.io/admin-ui@0.5.1 start
+> sh run.sh
+
+/e/as-gym/socket.io-admin-ui-develop/ui/dist
+Starting up http-server, serving ./
+
+http-server version: 14.1.1
+
+http-server settings: 
+CORS: disabled
+Cache: 3600 seconds
+Connection Timeout: 120 seconds
+Directory Listings: visible
+AutoIndex: visible
+Serve GZIP Files: false
+Serve Brotli Files: false
+Default File Extension: none
+
+Available on:
+  http://172.20.64.1:8080
+  http://192.168.1.42:8080
+  http://127.0.0.1:8080
+Hit CTRL-C to stop the server
+```
+
+![](./socket.io-admin-ui-develop/ui_demo.png)
+
+
+
+
+
+
+
+
  # Angular 18 / Bootstrap 5 & CRUD REST API
 
 <table>
