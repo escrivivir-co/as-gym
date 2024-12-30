@@ -1,12 +1,13 @@
-import { GenesisBlock, iFIA } from "../../genesis-block";
+import { GenesisBlock } from "../../genesis-block";
+import { iFIA } from "../../iFIA";
 import { agentMessage } from "../../agentMessage";
 import { AS_SBC_I18 } from "./as-sbc-i18";
 import { SBC_CK } from "./implementaciones/common-kads/fia-sbc-ck";
 import { CKCACHE_Clave } from "./implementaciones/common-kads/common-kads";
-import { IModelo } from "../../mundos/modelo";
-import { IEstadoT } from "../situada/estado";
+import { IModelo } from "../../mundos/IModelo";
+import { IEstadoT } from "../situada/IEstadoT";
 import { RTCache } from "../../engine/kernel/rt-cache";
-import { IMundo } from "../../mundos/mundo";
+import { IMundo } from "../../mundos/IMundo";
 
 export interface FIA_SBC extends iFIA {
 
@@ -44,8 +45,12 @@ export class FIA_SBC extends GenesisBlock implements iFIA {
 
                 const resultado = await ck.instanciar(m);
 
-                this.cache.guardar(CKCACHE_Clave, resultado?.comoModelo().dominio.base[CKCACHE_Clave]);
-                this.cache.persistir();
+				try {
+					this.cache.guardar(CKCACHE_Clave, resultado?.comoModelo().dominio.base[CKCACHE_Clave]);
+					this.cache.persistir();
+				} catch(ex) {
+					console.log(agentMessage(this.nombre, "No pude guardar la cache de la transición", ex))
+				}
 
                 console.log(agentMessage(this.nombre, this.i18.PIE));
 

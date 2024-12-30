@@ -1,16 +1,33 @@
-import { Component, inject, Inject, OnInit, signal } from '@angular/core';
+import { Component, inject, Inject, OnInit, signal, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterOutlet } from '@angular/router';
-
+import { PrettyJsonPipeV2 } from '../../application/example-prettyjson/pretty-json.pipe';
+import { ActivatedRoute } from '@angular/router';
 import { PLATFORM_ID } from '@angular/core';
-
-import { Quote } from './quote';
 
 import { SeoService } from '../../../services/seo/seo.service';
 import { Feature, FeatureName, Name } from './feature';
 import { Dependency } from './dependency';
-import { ServerService, MenuState, RuntimeBlock } from '../../../services/socketio/server.service';
-import { Socket } from 'socket.io-client';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { IMenuState } from '../../../../../../alephscript/src/FIA/engine/kernel/IMenuState';
+import { RunStateEnum } from '../../../../../../alephscript/src/FIA/mundos/RunStateEnum';
+import { IMundo } from '../../../../../../alephscript/src/FIA/mundos/IMundo';
+import { ServerService } from '../../../services/socketio/server.service';
+import { IRuntimeBlock } from '../../../../../../ws-server/src/alephscript/IRuntimeBlock';
+import { IServerState } from "../../../../../../ws-server/src/alephscript/IServerState";
+import { DynamicFormComponent } from '../../application/feature/dynamic-form/dynamic-form.component';
+import { BotoneraComponent } from '../../application/feature/botonera/botonera';
+import { GenericMap } from '../../../../../../ws-server/src/alephscript/GenericMap';
+import { LoggerComponent } from '../../application/feature/logger/logger';
+
+const notValidItems = [" ", "/", "-"]
+function removeOccurrences(array: string[], target: string) {
+	array.forEach(item => {
+	  const regex = new RegExp(item, 'g'); // Create a global regex for the current item
+	  target = target.replace(regex, ''); // Replace all occurrences of the item with an empty string
+	});
+	return target;
+  }
 
 export interface ServerNM { name: string };
 
@@ -20,20 +37,46 @@ export interface LogLabel {
 
 };
 
+export interface SignalEvent {
+	event: string,
+	room?: string,
+	data: {
+		engine: string;
+		action: string
+	}
+}
+
 @Component({
 	selector: 'app-about',
 	standalone: true,
-	imports: [CommonModule, RouterLink, RouterOutlet],
+	imports: [LoggerComponent, CommonModule, RouterLink, RouterOutlet, 
+		PrettyJsonPipeV2, DynamicFormComponent, BotoneraComponent],
 	templateUrl: './about.component.html',
-	styleUrl: './about.component.css'
+	styleUrl: './about.component.css',
+	encapsulation: ViewEncapsulation.None // https://medium.com/@yaronu/making-angular-component-css-classes-in-innerhtml-work-without-losing-emulated-encapsulation-350d63dbffad
 })
 export class AboutComponent implements OnInit {
 
+	currentPopUp = signal<any>({
+		value: ''
+	});
+
 	dependencies: Dependency;
 	features: Feature;
-	quote: Quote;
+
 	id: number;
 
+	playStep: boolean = false;
+
+	currentApp = signal<IMenuState>({
+		index: -1,
+		name: "--",
+		state: RunStateEnum.STOP,
+		mundo: {
+			nombre: ""
+		},
+		bots: []
+	});
 
 	IDEapp = signal<LogLabel[]>([{
 		title: "Esperando",
@@ -53,33 +96,40 @@ export class AboutComponent implements OnInit {
 	// fiasbccommonkads
 	// commonkads
 
-
 	serviceNamespaces = signal<ServerNM[]>([]);
 	serviceClients = signal<ServerNM[]>([]);
+	serviceUsuarios = signal<ServerNM[]>([]);
+	serviceRooms = signal<ServerNM[]>([]);
 
-	serviceApps = signal<MenuState[]>([]);
+	serviceApps = signal<IMenuState[]>([]);
 	serviceModules = signal<FeatureName[]>([]);
 
 	serverService = inject(ServerService);
+	accordionState: any = {};
+
+	AppId: number = -1;
 
 	constructor(
 		private seoService: SeoService,
-		@Inject(PLATFORM_ID) private platformId: object) {
+		@Inject(PLATFORM_ID) private platformId: object,
+		private sanitizer: DomSanitizer,
+		private route: ActivatedRoute) {
 
-		const content = 'About content with meta';
+		const content =
+		'Entorno de gimnasio y entrenamiento para unidades Fundamentales ' +
+		' de inteligencia artificial';
+
+		const title = 'AlephScript Gym/IDE';
 		this.seoService.setMetaDescription(content);
+		this.seoService.setMetaTitle(title);
 
 		this.id = 0;
-		this.quote = new Quote();
+
 		this.dependencies = {
-			frontend: [
-				{ name: 'Angular 17.2.4' },
-				{ name: 'Angular CLI 17.2.3' },
-				{ name: 'Angular SSR 17.2.3' },
-				{ name: 'Bootstrap 5.3.3' },
-				{ name: 'Font Awesome 6.5.1' },
+			namespaces: [
+				{ name: 'Angular 17.2.4' }
 			],
-			backend: [
+			sockets: [
 				{ name: 'Node.js 18.17.1' },
 				{ name: 'Express 4.18.2' },
 				{ name: 'pg-promise 11.5.4' },
@@ -87,109 +137,88 @@ export class AboutComponent implements OnInit {
 		};
 
 		this.features = {
-			frontend: [
+			modules: [
 				{
 					name: 'Angular CLI',
 					englishTutorial: 'https://www.escrivivir.co/tutorials/getting-started-with-angular',
 					frenchTutorial: 'https://www.escrivivir.co/tutorials/demarrer-avec-angular',
-				},
-				{
-					name: 'Routing',
-					englishTutorial: 'https://www.escrivivir.co/tutorials/routing-with-angular',
-					frenchTutorial: 'https://www.escrivivir.co/tutorials/routing-avec-angular',
-				},
-				{
-					name: 'Lazy loading',
-					englishTutorial: 'https://www.escrivivir.co/tutorials/lazy-loading-with-angular',
-					frenchTutorial: 'https://www.escrivivir.co/tutorials/lazy-loading-avec-angular',
-				},
-				{
-					name: 'Bootstrap',
-					englishTutorial: 'https://www.escrivivir.co/tutorials/bootstrap-with-angular',
-					frenchTutorial: 'https://www.escrivivir.co/tutorials/bootstrap-avec-angular',
-				},
-				{
-					name: 'Server side Rendering',
-					englishTutorial: 'https://www.escrivivir.co/tutorials/server-side-rendering-with-angular-universal',
-					frenchTutorial: 'https://www.escrivivir.co/tutorials/server-side-rendering-avec-angular-universal',
-				},
-				{
-					name: 'HTTPClient',
-					englishTutorial: 'https://www.escrivivir.co/tutorials/httpclient-with-angular',
-					frenchTutorial: 'https://www.escrivivir.co/tutorials/httpclient-avec-angular',
-				},
-				{
-					name: 'Transfer State',
-					englishTutorial: 'https://www.escrivivir.co/tutorials/transfer-state-with-angular',
-					frenchTutorial: 'https://www.escrivivir.co/tutorials/transfer-state-avec-angular',
-				},
-				{
-					name: 'Progressive Web App',
-					englishTutorial: 'https://www.escrivivir.co/tutorials/progressive-web-app-with-angular',
-					frenchTutorial: 'https://www.escrivivir.co/tutorials/progressive-web-app-avec-angular',
-				},
-				{
-					name: 'Search Engine optimization',
-					englishTutorial: 'https://www.escrivivir.co/tutorials/search-engine-optimization-with-angular',
-					frenchTutorial: 'https://www.escrivivir.co/tutorials/search-engine-optimization-avec-angular',
-				},
-				{
-					name: 'Components',
-					englishTutorial: '',
-					frenchTutorial: 'https://www.escrivivir.co/tutorials/components-avec-angular',
-				},
-				{
-					name: 'Services',
-					englishTutorial: '',
-					frenchTutorial: 'https://www.escrivivir.co/tutorials/services-avec-angular',
-				},
+				}
 			],
-			backend: [
+			apps: [
 				{ name: 'Local JSON' },
-				{ name: 'RESTFull API' },
-				{ name: 'CRUD API' },
-				{ name: 'Database Creation' },
-				{ name: 'Data Import' },
-				{ name: 'Data Export' },
 			]
 		};
 
-		this.serverService.serverState$.subscribe(d => {
+		this.serverService.serverState$.subscribe(d => this.cargaServerState(d));
+		this.serverService.MenuAppsList$.subscribe(d => this.cargaMenuAppState(d));
+		this.serverService.chainState$.subscribe((d) => this.cargaChainState(d));
 
-			d.sockets = d.sockets || [];
+		this.cargaServerState(this.serverService.currentserverState$())
+		this.cargaMenuAppState(this.serverService.currentMenuState$())
+		this.cargaChainState(this.serverService.currentChainState$())
 
-			let sockets: Name[] = [];
-			const deps = d.socketsPerNamespace.map(nd => {
+	}
 
-				const ndsockets = nd.sockets.map(s => { return { name: nd.name + (s.id || "") } })
-				sockets = sockets.concat(ndsockets)
-				return {
-					name: nd.name + "(" + nd.socketsCount + ")"
-				}
-			});
-			this.dependencies.frontend = deps;
+	cargaMenuAppState(d: IMenuState[]) {
+		this.features.apps = d;
 
-			this.dependencies.backend = sockets.flat();
+		this.serviceApps.set(this.features.apps);
 
-			this.serviceNamespaces.set(this.dependencies.frontend);
-			this.serviceClients.set(this.dependencies.backend);
+		// Update current
+		if (this.currentApp()?.index != -1) {
+			// console.log("The set", this.features.apps[this.currentApp()?.index])
+			this.currentApp.set(this.features.apps[this.currentApp()?.index])
+		} else {
+			if (this.AppId != -1) {
+				this.findAndSetRoutingApp()
+			}
+		}
+	}
+
+	cargaServerState(d: IServerState) {
+		d.sockets = d.sockets || [];
+
+		let sockets: Name[] = [];
+		const deps = d.socketsPerNamespace.map(nd => {
+
+			const ndsockets = nd.sockets.map(s => { return { name: nd.name + (s.id || "") } })
+			sockets = sockets.concat(ndsockets)
+			return {
+				name: nd.name + " (" + nd.socketsCount + " sockets)"
+			}
 		});
+		this.dependencies.namespaces = deps;
 
-		this.serverService.menuState$.subscribe(d => {
+		this.dependencies.sockets = sockets.flat();
 
-			this.features.backend = d;
+		this.serviceNamespaces.set(this.dependencies.namespaces);
+		this.serviceClients.set(this.dependencies.sockets);
+		this.serviceRooms.set(d.rooms.map(r => { return {
+			name: r.roomId + " (" + r.miembros.length + ") miembros :>" + r.miembros?.map(s => s.usuario.substring(0, 5) + s.sesion?.substring(0, 5)).join(":> ")
+		}}))
+		this.serviceUsuarios.set(d.miembros.map(r => { return {
+			name: r.usuario + " (" + (r.sesiones?.length || 0) + ") sockets :>" + r.sesiones?.map(s => s.substring(0, 5)).join(":>")
+		}}))
+	}
 
-			this.serviceApps.set(this.features.backend);
-		});
+	cargaChainState(d: IRuntimeBlock) {
+		if (d.id != "FIA" && d.id != this.currentApp().name + "") {
+			console.log("DEPRECATED SUSCRIPTION TO ChainState. Use new method, app-room. REFUSE TO LOG AS APP NAMES DONT MATCH", this.currentApp().name, d.id)
+		};
 
-		this.serverService.chainState$.subscribe((d: RuntimeBlock) => {
+		this.IDEapp.set([]);
 
-			this.IDEapp.set([]);
+		this.features.modules = Object.keys(d.estado)
+			.sort(
+				(a: string, b: string) => a.toUpperCase() > b.toUpperCase() ? 1 : -1
+			)
+			.map((k: string) => {
 
-			this.features.frontend = Object.keys(d.estado).map((k: string) => {
+				const savedK = removeOccurrences(notValidItems, k);
+				this.accordionState[savedK] = this.accordionState[savedK] == undefined ? false : this.accordionState[savedK];
 				this.IDEapp().push({
-					title: k,
-					logs: d.estado[k].map((e: any) => { return { title: e.estado.substring(0, 50) } })
+					title: savedK,
+					logs: d.estado[k].map((e: any) => { return { title: e.estado } })
 				});
 
 				return {
@@ -197,55 +226,141 @@ export class AboutComponent implements OnInit {
 					englishTutorial: d.estado[k].length,
 					frenchTutorial: ''
 				}
-			});
-
-			this.serviceModules.set(this.features.frontend);
-
 		});
+		// ("Send new modules", this.features.modules)
+		this.serviceModules.set(this.features.modules);
+	}
+
+	onCheckboxChange(event: Event): void {
+
+		const checkbox = event.target as HTMLInputElement;
+		this.playStep = checkbox.checked;
+
+	}
+
+	sendSignal(signal: any /* SignalEvent */) {
+		this.serverService.sendEngineAction(signal);
+	}
+
+	handleSearcherEvent(app: any) {
+		console.log("Handle", app)
+		this.sendSignal({
+			event: "SET_MODEL_RPC_DATA",
+			data: {
+				engine: this.currentApp().index,
+				action: "SET_DATA",
+				app
+			}
+		})
+	}
+
+	setCurrentApp(app: IMenuState) {
+
+		this.currentApp.set(app);
+
+		this.serviceModules.set([]);
+		this.IDEapp.set([]);
+
 	}
 
 	ngOnInit(): void {
-		this.loadQuote();
 
 		const content =
 			'Cette application a été développée avec Angular version 16.1.7 et bootstrap 5.3.2' +
 			' Elle applique le Routing, le Lazy loading, le Server side rendering et les Progressive Web App (PWA)';
 
-		const title = 'angular-starter Title : About Page';
+		const title = 'AlephScript UI/UX | About';
 
 		this.seoService.setMetaDescription(content);
 		this.seoService.setMetaTitle(title);
+		this.playStep = true
+
+    	this.route.paramMap.subscribe(params => {
+
+			this.AppId = parseInt(params.get('id') || '-1', 10);
+			this.findAndSetRoutingApp()
+    	});
 
 	}
 
-
-	loadQuote() {
-		const quotes = [
-			{
-				name: 'Lawrence of Arabia',
-				title: 'There is nothing in the desert and no man needs nothing',
-				link: 'https://en.wikipedia.org/wiki/Lawrence_of_Arabia_(film)'
-			},
-			{
-				name: 'Alien Prometheus',
-				title: 'Big things have small beginnings',
-				link: 'https://en.wikipedia.org/wiki/Prometheus_(2012_film)'
-			},
-			{
-				name: 'Blade Runner',
-				title: 'All those moments will be lost in time... like tears in rain... Time to die.',
-				link: 'https://en.wikipedia.org/wiki/Blade_Runner'
-			},
-		];
-		const index = quotes.length;
-		let id = this.id;
-		while (this.id === id) {
-			id = Math.floor(Math.random() * index);
+	findAndSetRoutingApp() {
+		if (this.AppId) {
+			const app = this.serviceApps().find(a => a.index == this.AppId)
+			if ( app )this.setCurrentApp(app)
 		}
-		this.id = id;
-		this.quote = quotes[id];
+	}
+
+	saveAccordionState(key: string) {
+
+		if (
+			Object.keys(this.accordionState).find(k => k == key)
+		) {
+			this.accordionState[key] = !this.accordionState[key];
+		} else {
+			this.accordionState[key] = false;
+		}
+
+		// console.log("Accordion state is now", key, this.accordionState)
 	}
 
 
+	getASCREEN(data: LogLabel[]): LogLabel[] {
+		const d = data.find(d => d.title == "ASCREEN")
+		return d ? [d] : []
+
+	}
+
+	getMundoPaginator(m: Partial<IMundo>): {
+		actual: number;
+		dias: number[]
+	} {
+
+		const actual = m?.modelo?.dia || 0;
+		const dias = Array.from({ length: (m?.modelo?.dia || 0) + 1}, (_, index) => index);
+		// console.log("Paginator mundo", actual, dias)
+		return {
+			actual,
+			dias
+
+		}
+	}
+
+	handleFormSubmit($event: { name: string; value: any; }) {
+		console.log("Datos actualizados")
+	}
+
+	handleAccordionEmiter(state: GenericMap) {
+		// console.log("State Accordion", state)
+	}
+
+	handlePopUpEvent($event: GenericMap, master: boolean) {
+
+		// console.log("Set", $event, master)
+		if (master) {
+			this.currentPopUp.set({... $event  });
+		} else {
+			this.currentPopUp.set({... $event  });
+		}
+
+	}
+
+	sanitize(value: string): SafeHtml {
+		return this.sanitizer.bypassSecurityTrustHtml(value);
+	}
+
+	getLogAsJson(data: string ) {
+		try {
+			return JSON.parse(data).map((t: any) => {
+				return {
+					...t,
+					historial: t.historial.map((h: any) => JSON.parse(h))
+				}
+			})
+		} catch {
+			return {
+				data
+			}
+		}
+	}
 
 }

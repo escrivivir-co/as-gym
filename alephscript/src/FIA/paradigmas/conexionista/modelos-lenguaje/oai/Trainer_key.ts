@@ -1,4 +1,4 @@
-import { Assistant } from "openai/resources/beta/assistants/assistants";
+import { Assistant } from "openai/resources/beta/assistants";
 
 export const Trainer_clave = "assistants";
 

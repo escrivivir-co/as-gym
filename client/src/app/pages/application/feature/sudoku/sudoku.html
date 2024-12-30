@@ -1,0 +1,37 @@
+<section class="card nga-card-about p-3">
+	<div class="sudoku-info">
+		<p>Current K: {{ data.k }}</p>
+		<p>Current Level: {{ data.level }}</p>
+	</div>
+	<div class="row mb-2">
+		<div class="col-md-6">
+			<div class="sudoku-container">
+				<table>
+					<tr *ngFor="let row of data.board; let rowIndex = index">
+					<td *ngFor="let cell of row; let colIndex = index"
+						[ngClass]="">
+						{{ cell == -1 ? '' : cell }}
+					</td>
+					</tr>
+				</table>
+			</div>
+			<div class="sudoku-container">
+				<table>
+					<tr *ngFor="let row of data.sol; let rowIndex = index">
+					<td *ngFor="let cell of row; let colIndex = index"
+						[ngClass]="{'current': isCurrentCell(rowIndex, colIndex), 'backtrack': isBacktrackCell(rowIndex, colIndex)}">
+						{{ isBacktrackCell(rowIndex, colIndex) ? data.k : (cell == -1 ? '' : cell) }}
+					</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<!--<div class="col-md-6">
+			<div class="tree-container">
+				<app-tree-node [node]="rootNode"></app-tree-node>
+			</div>
+		</div>-->
+	</div>
+</section>
+
+

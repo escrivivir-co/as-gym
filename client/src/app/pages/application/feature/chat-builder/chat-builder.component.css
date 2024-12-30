@@ -1,0 +1,18 @@
+.editor-container {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 20px;
+  }
+  
+  .editor {
+	margin-right: 10px;
+  }
+  
+  textarea {
+	width: 100%;
+  }
+  
+  .merge-container {
+	margin-top: 20px;
+  }
+  

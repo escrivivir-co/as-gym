@@ -1,0 +1,80 @@
+<div class="row">
+
+	<div id="impress-toolbar"></div>
+	<div id="impress-help"></div>
+
+	<section class="card nga-card-about p-3 box-3d">
+
+		<div class="row mb-2">
+			<div id="impress" data-transition-duration="1000"
+				data-width="1000px" data-height="1000px">
+
+				<div id="overview" class="step"
+					data-x="2000" data-y="1000"
+					data-scale="10"
+					style="pointer-events: none;"
+					data-bookmark-key-list="z [" >
+			   </div>
+
+			   <div class="step" data-scale="1"
+					data-x="0" data-y="0" data-height="300px">
+					<app-diapositiva
+							id="PopUpPantalla"
+							[accordionState]="accordionState"
+							[level]="level + 1"
+							[dataInput]="jsonObject"
+							(formSubmit)="handleNestedSubmit({ name: 'ev_pantalla', value: $event.value })"
+							(popUpEmiter)="handlePopUpEvent($event)"
+							(accordionEmiter)="handleAccordionEmiter($event)"
+						>
+						</app-diapositiva>
+				</div>
+
+				<!--<div class="step" data-scale="1"
+					data-x="1000" data-y="0" data-height="300px">
+					<H1>1000, 0</H1>
+				</div>
+				<div class="step" data-scale="1"
+					data-x="0" data-y="1000" data-height="300px">
+					<H1>0, 1000</H1>
+				</div>
+				<div class="step" data-scale="1"
+				data-x="-1000" data-y="0" data-height="300px">
+				<H1>-1000, 0</H1>
+				</div>
+				<div class="step" data-scale="1"
+					data-x="0" data-y="-1000" data-height="300px">
+					<H1>0, -1000</H1>
+				</div>-->
+
+				<ng-container *ngFor="let slider of sliders">
+
+						<div class="step small" data-scale="1"
+							[attr.data-x]="slider.datax"
+							[attr.data-y]="slider.datay"
+							[attr.data-z]="slider.dataz"
+							data-height="300px">
+							<span>{{slider.level}}/{{ slider.datax }}/{{ slider.datay }}/{{ slider.dataz }}</span>
+							<app-diapositiva
+									id="{{ slider.key }}"
+									[dataX]="slider.datax"
+									[dataY]="slider.datay"
+									[dataZ]="slider.dataz"
+									[accordionState]="accordionState"
+									[level]="slider.level"
+									[dataInput]="slider.jsonObject"
+									(formSubmit)="handleNestedSubmit({ name: 'ev_pantalla', value: $event.value })"
+									(popUpEmiter)="handlePopUpEvent($event)"
+									(accordionEmiter)="handleAccordionEmiter($event)">
+							</app-diapositiva>
+						</div>
+				</ng-container>
+			</div>
+
+			<div class="impress-progressbar"><div></div></div>
+			<div class="impress-progress"></div>
+		</div>
+
+	</section>
+
+</div>

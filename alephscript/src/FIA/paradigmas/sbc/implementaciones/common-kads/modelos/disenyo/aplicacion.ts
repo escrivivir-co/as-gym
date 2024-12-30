@@ -1,15 +1,9 @@
-import { IModelo } from "../../../../../../mundos/modelo";
+import { IModelo } from "../../../../../../mundos/IModelo";
 import { agentMessage } from "../../../../../../agentMessage";
 import { EstadoT } from "../../../../../situada/estado";
 import { AS_COMMON_KADS_I18 } from "../../as-common-kads-i18";
+import { IAplicacion } from "./IAplicacion";
 
-export interface IAplicacion {
-    comoJSON(): unknown;
-
-    nombre: string;
-    iniciar(estado: EstadoT<IModelo>): Promise<EstadoT<IModelo>>;
-
-}
 export class Aplicacion implements IAplicacion {
 
     i18 = AS_COMMON_KADS_I18.COMMON_KADS.SISTEMA.APLICACION;

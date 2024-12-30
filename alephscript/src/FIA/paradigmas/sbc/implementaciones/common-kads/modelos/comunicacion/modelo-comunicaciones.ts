@@ -1,5 +1,4 @@
-import { IComponentes } from "../disenyo/componentes";
-import { IComunicacion } from "./comunicacion";
+import { IComunicacion } from "./IComunicacion";
 import { IIntercambio } from "./intercambio";
 import { IPlan } from "./plan";
 import { ITransaccion } from "./transacciones";

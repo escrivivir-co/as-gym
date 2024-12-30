@@ -38,6 +38,6 @@ export class BGrafo implements BGrafo {
     estimado: number;
 
     Id(): string {
-        return this.nodo.modelo.dominio.base as string;
+        return this.nodo?.modelo?.dominio?.base as string;
     }
 }

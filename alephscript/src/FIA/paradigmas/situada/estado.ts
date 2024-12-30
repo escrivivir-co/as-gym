@@ -1,23 +1,11 @@
-import { IModelo } from "../../mundos/modelo";
-
-export interface IEstado {
-
-    modelo: IModelo;
-
-    comoModelo: () => IModelo;
-    deModelo: (m: IModelo) => void;
-
-    transicion(e: IEstado): void;
-}
-
-export interface IEstadoT<T> extends IEstado {
-
-    actual: T;
-
-    transicion(e: IEstadoT<T>): void;
-}
+import { Assistant } from "openai/resources/beta/assistants";
+import { IModelo } from "../../mundos/IModelo";
+import { IEstado } from "./IEstado";
+import { IEstadoT } from "./IEstadoT";
 
 export class Estado implements IEstado {
+
+	nombre;
 
     constructor(public modelo: IModelo) {}
 
@@ -38,7 +26,12 @@ export class Estado implements IEstado {
 
 export class EstadoT<T> extends Estado implements IEstadoT<T> {
 
+	assistanceName?: string = "";
+	assistanceId?: string = "";
     actual: T;
+
+	onAssistantsReady?: (as: Assistant[], caller?: string) => void;
+	emitResponse?: (data: any) => void = () => { return };
 
     transicion(e: IEstadoT<T>): void {
 
@@ -50,6 +43,3 @@ export class EstadoT<T> extends Estado implements IEstadoT<T> {
     }
 
 }
-
-
-

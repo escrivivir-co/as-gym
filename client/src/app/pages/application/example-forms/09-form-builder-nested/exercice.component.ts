@@ -3,6 +3,7 @@ import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-form-builder-nested',
+  // standalone: true
   templateUrl: './exercice.component.html',
   styleUrls: ['./exercice.component.css'],
 })

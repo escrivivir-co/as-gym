@@ -1,5 +1,7 @@
-import { AgregarBloque } from "./aplicaciones/ide/cadena-bloques";
-import { IModelo } from "./mundos/modelo";
+
+import { ACTIVAR_GUARDADO_LOGS, SET_EXECUTION_PROCESS } from "../runCONFIG";
+import { AgregarBloque } from "./engine/kernel/cadena-bloques";
+import { IModelo } from "./mundos/IModelo";
 import { IDE_clave } from "./paradigmas/conexionista/modelos-lenguaje/oai/Trainer_key";
 
 const CKCACHE_Clave = "CJKCACHE";
@@ -9,9 +11,12 @@ export function agentMessageCache(m: IModelo) {
 }
 export function agentMessage(id: string, message: string, nivel?: string) {
 
-    AgregarBloque(nivel || id, {
-        estado: message,
-        fecha:new Date()
-    });
+	if (ACTIVAR_GUARDADO_LOGS || SET_EXECUTION_PROCESS) {
+		AgregarBloque(nivel || id, {
+			estado: message,
+			fecha:new Date()
+		});
+	}
+
     return `${id}> ${message}`;
 }

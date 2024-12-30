@@ -1,18 +1,8 @@
 import { Dominio, IDominio } from "../../../../../mundos/dominio";
 import { Estudio } from "../../../estudio";
+import { IFormulario } from "./IFormulario";
 
 export const FORM_KEY = "FORM_KEY";
-
-export interface IFormulario {
-
-    nombre: string;
-
-    dominio: IDominio;
-    rellenar: (d: IDominio) => void;
-
-    imprimir(): string;
-
-}
 
 export class Formulario implements IFormulario {
 

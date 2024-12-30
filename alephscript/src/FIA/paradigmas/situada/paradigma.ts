@@ -1,6 +1,6 @@
 import { Aferencia } from "../../Intencion";
 import { i18 } from "../../i18/aleph-script-i18";
-import { IMundo } from "../../mundos/mundo";
+import { IMundo } from "../../mundos/IMundo";
 import { FIASituada } from "./fia-situada"
 
 export namespace IASituada {

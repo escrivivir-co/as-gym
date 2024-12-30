@@ -1,10 +1,12 @@
 import { agentMessage } from "../../../../agentMessage";
-import { IDiccionarioI18 } from "../../../../genesis-block";
-import { IModelo } from "../../../../mundos/modelo";
-import { IMundo, Mundo } from "../../../../mundos/mundo";
+import { IDiccionarioI18 } from "../../../../IDiccionarioI18";
+import { IModelo } from "../../../../mundos/IModelo";
+import { Mundo } from "../../../../mundos/mundo";
+import { IMundo } from "../../../../mundos/IMundo";
+import { IEstadoT } from "../../../situada/IEstadoT";
 import { AS_COMMON_KADS_I18 } from "./as-common-kads-i18";
-import { CK, IFase } from "./common-kads";
-import { IEstadoT } from "./estado";
+import { CK } from "./common-kads";
+
 
 export interface ISBC_CK {
 

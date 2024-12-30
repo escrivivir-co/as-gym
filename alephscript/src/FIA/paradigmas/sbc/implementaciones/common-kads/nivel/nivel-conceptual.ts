@@ -1,29 +1,15 @@
-import { IComunicacion, Comunicacion } from "../modelos/comunicacion/comunicacion";
-import { IConocimiento, Conocimiento } from "../modelos/conocimiento/conocimiento";
+import { Comunicacion } from "../modelos/comunicacion/comunicacion";
+import { IComunicacion } from "../modelos/comunicacion/IComunicacion";
+import { Conocimiento } from "../modelos/conocimiento/conocimiento";
+import { IConocimiento } from "../modelos/conocimiento/IConocimiento";
 import { IModeloConceptual } from "../modelos/conocimiento/modelo-conceptual";
-import { IFormulario } from "./formulario";
-import { ICMLModelo } from "./cml";
-import { ICKNivel } from "./nivel";
-import { IFormularioOTA1 } from "./nivel-contextual";
+import { IFormulario } from "./IFormulario";
+import { IFormularioOTA1 } from "./IFormularioOTA1";
 import { IModeloComunicaciones } from "../modelos/comunicacion/modelo-comunicaciones";
 import { Estudio } from "../../../estudio";
-
-export interface ICKModeloConceptual extends IModeloConceptual {
-
-    conocimiento: IConocimiento;
-    cml: ICMLModelo;
-
-}
-
-export interface ICKNivelConceptual extends ICKNivel {
-
-    conocimiento: IConocimiento;
-    comunicacion: IComunicacion;
-
-    modeloConocimiento(ota1: IFormularioOTA1): ICKModeloConceptual;
-    modeloComunicaciones(mc: ICKModeloConceptual): IModeloComunicaciones;
-
-}
+import { ICKModeloConceptual } from "./ICKModeloConceptual";
+import { ICKNivelConceptual } from "./ICKNivelConceptual";
+import { IValoracion } from "./IValoracion";
 
 export class CKNivelConceptual implements ICKNivelConceptual {
 
@@ -99,7 +85,5 @@ export class CKNivelConceptual implements ICKNivelConceptual {
     }
 
 }
-
-export interface IValoracion {}
 
 export class Valoracion implements IValoracion {}

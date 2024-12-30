@@ -15,7 +15,7 @@ export interface OperadorInfinito extends Operador {
 
     espacio: Infinito;
     nodo: GrafoAGBG;
-    
+
 }
 
 export class GrafoAGBG extends BGrafo {
@@ -25,7 +25,7 @@ export class GrafoAGBG extends BGrafo {
 }
 
 /**
- * 
+ *
  * Algoritmo General Busqueda de Grafos
  */
 export class AGBG extends Control {

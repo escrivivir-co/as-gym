@@ -1,8 +1,11 @@
+import { Subject } from "rxjs";
 import { Control, Arbol } from "./control";
 import { Operador } from "./operador";
 
 export type FuncSucesores = (arcos: Operador[]) => Operador[];
 export class PrimeroEnAnchura extends Control {
+
+	events: Subject<Partial<Control>> = new Subject();
 
     static sucesores: FuncSucesores = (arcos) => arcos;
 
@@ -63,6 +66,49 @@ export class PrimeroEnAnchura extends Control {
         }
 
         return this.metas;
+    }
+
+	busquedaNoInformadaStepInit(): void {
+
+        console.log("Búsqueda no informada.", this.titulo);
+
+        this.abierta = [this.estadoInicial];
+
+        this.tabla_a[this.estadoInicial?.Id()] = {
+            anterior: null,
+            coste_desde_inicio: 0,
+            profundidad: 0
+        };
+
+	}
+	
+	busquedaNoInformadaStep(): Arbol[] {
+
+		console.log("\t - Abierta: ", this.abierta.length);
+		const n = this.abiertaPrimero();
+
+		console.log("\t - Nodo n: ", n.Id());
+		if (n.nodo.esObjetivo()) {
+			console.log("\t - esObjetivo: ", n.Id());
+			this.metas = this.camino(this.estadoInicial, n);
+			return this.metas;
+		}
+
+		const reverse = (arcos) => { const cs = [...arcos]; return cs.reverse() };
+		const S = this.sucesores(this.derecha_a_izquierda ? reverse(n.arcos) : n.arcos);
+		S.forEach(q => {
+			console.log("\t - Sucesor q: ", q.nodo.Id());
+			const ta = {
+				anterior: n,
+				coste_desde_inicio: (this.tabla_a[n.Id()]?.coste_desde_inicio || 0) + q.coste,
+				profundidad: this.tabla_a[n.Id()].profundidad + 1
+			};
+
+			this.tabla_a[q.nodo.Id()] = ta;
+			this.abierta.push(q.nodo);
+		});
+		this.imprimir(true, true);
+
     }
 
     test() {

@@ -157,7 +157,7 @@ export class AlephScriptBoilerplate {
 
         console.log("Sintesis", r.sintesis);
 
-        const c = path.join(this.app.baseFolder, this.app.navigationFolder, "search" + new Date().getTime() + ".aleph");
+        const c = path.join(this.app.baseFolder, this.app.navigationFolder || "", "search" + new Date().getTime() + ".aleph");
 
         rt.dominio.base = {
             ...r

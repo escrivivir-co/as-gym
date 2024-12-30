@@ -1,10 +1,5 @@
-import { IFormulario } from "../nivel/formulario";
-
-export interface ICKModelo {
-
-    formularios: IFormulario[];
-    imprimir(): string;
-}
+import { IFormulario } from "../nivel/IFormulario";
+import { ICKModelo } from "./ICKModelo";
 
 export class CKModelo implements ICKModelo {
 

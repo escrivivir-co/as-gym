@@ -1,8 +1,7 @@
 import { Observable } from "rxjs";
-import { IMundo, Mundo } from "../../../../mundos/mundo";
-import { IModelo } from "../../../../mundos/modelo";
-import { agentMessage } from "../../../../agentMessage";
-import { i18 } from "../../../../i18/aleph-script-i18";
+import { Mundo } from "../../../../mundos/mundo";
+import { IMundo } from "../../../../mundos/IMundo";
+import { IModelo } from "../../../../mundos/IModelo";
 
 export class IDEMundo extends Mundo {
 

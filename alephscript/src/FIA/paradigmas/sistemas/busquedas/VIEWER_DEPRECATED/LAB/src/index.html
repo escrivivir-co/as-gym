@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Visualización de Búsqueda</title>
+    <style>
+        .wall { fill: black; }
+        .path { fill: white; }
+        .explored { fill: yellow; }
+        .solution { fill: red; }
+        #status {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        #details {
+            margin-top: 10px;
+            font-family: Arial, sans-serif;
+        }
+        .node {
+            cursor: pointer;
+        }
+        .node circle {
+            fill: #fff;
+            stroke: steelblue;
+            stroke-width: 1.5px;
+        }
+        .node text {
+            font: 10px sans-serif;
+        }
+        .link {
+            fill: none;
+            stroke: #ccc;
+            stroke-width: 1.5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Visualización de Búsqueda</h1>
+    <button id="regenerateMaze">Regenerar Laberinto</button>
+    <button id="regenerateTree">Regenerar Árbol</button>
+    <select id="algorithm">
+        <option value="breadthFirstSearch">Búsqueda en Anchura</option>
+        <option value="depthFirstSearch">Búsqueda en Profundidad</option>
+        <option value="iterativeDeepeningBreadthFirstSearch">Búsqueda en Anchura Iterativa</option>
+        <option value="iterativeDeepeningDepthFirstSearch">Búsqueda en Profundidad Iterativa</option>
+    </select>
+    <select id="mode">
+        <option value="maze">Laberinto</option>
+        <option value="tree">Árbol</option>
+    </select>
+    <svg id="visualization" width="960" height="500"></svg>
+    <div id="status">Estado: Listo</div>
+    <div id="details"></div>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script type="module" src="main.js"></script>
+</body>
+</html>

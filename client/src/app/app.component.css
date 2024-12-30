@@ -57,3 +57,33 @@
   opacity: 0.8;
 }
 
+
+.small-list {
+	padding-left: 0;
+	margin: 0;
+	list-style: none;
+  }
+
+  .small-list-item-right {
+	padding: 5px 5px;
+	margin: 0;
+	line-height: 1.2;
+	font-size: 12px; /* Adjust the font size as needed */
+	text-align: right;
+  }
+
+  .small-list-item {
+	padding: 5px 5px;
+	margin: 0;
+	line-height: 1.2;
+	font-size: 12px; /* Adjust the font size as needed */
+	text-align: left;
+  }
+
+  .small-list li {
+	padding: 2px 0;
+	margin: 0;
+	line-height: 1.2;
+	font-size: 12px; /* Adjust the font size as needed */
+	text-align: left;
+  }

@@ -9,7 +9,7 @@ export class AlephScriptServer extends SocketServer {
 
 	constructor(public server: ServerInstance) {
 
-		super("AlephServer", server);
+		super("ASsrv", server);
 
 		this.createNamespace("admin");
 		this.createNamespace("runtime");
@@ -26,7 +26,7 @@ export class AlephScriptServer extends SocketServer {
 		})
 
 		this.admin = this.ioG("admin");
-
+ 
 		this.base = this.ioG("");
 
 	}

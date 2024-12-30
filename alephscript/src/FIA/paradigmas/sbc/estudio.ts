@@ -1,5 +1,6 @@
-import { IModelo, Modelo } from "../../mundos/modelo";
-import { IFormulario } from "./implementaciones/common-kads/nivel/formulario";
+import { Modelo } from "../../mundos/modelo";
+import { IModelo } from "../../mundos/IModelo";
+import { IFormulario } from "./implementaciones/common-kads/nivel/IFormulario";
 
 export interface IEstudio {
 

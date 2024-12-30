@@ -1,13 +1,7 @@
-import { IModelo } from "../../../../mundos/modelo";
+import { IModelo } from "../../../../mundos/IModelo";
+import { IEstadoT } from "../../../situada/IEstadoT";
+import { IEstado } from "./IEstado";
 
-export interface IEstado {
-
-    modelo: IModelo;
-
-    comoModelo: () => IModelo;
-    deModelo: (m: IModelo) => void;
-
-}
 
 export class Estado implements IEstado {
 
@@ -27,14 +21,9 @@ export class Estado implements IEstado {
 
 }
 
-export interface IEstadoT<T> extends IEstado {
-
-    actual: T;
-
-    transicion(e: IEstadoT<T>): void;
-}
-
 export class EstadoT<T> extends Estado implements IEstadoT<T> {
+
+	nombre: string;
 
     actual: T;
 

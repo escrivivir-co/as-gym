@@ -4,10 +4,14 @@
 - Socket.io ws pub/sub server. [ws-server](./ws-server/)
 - Socket.io Admin UI. [ws-server-ui](./socket.io-admin-ui-develop)
 
+- NodeJS Engine Pool. [alephscript](./alephscript/)
+- Angular Engine Admin UI. [client](./client/)
+
+
 ## Ws pub/sub server
 
 ```console
-secre@ALEPH MINGW64 /e/as-gym/ws-server
+secre@ALEPH MINGW64 ../../../../../../ws-server
 $ npm run dev
 
 > backend-ta-te-ti@1.0.0 dev
@@ -43,13 +47,13 @@ Server escuchando en el puerto 3000
 ## Ws Admin UI
 
 ```console
-secre@ALEPH MINGW64 /e/as-gym/socket.io-admin-ui-develop
+secre@ALEPH MINGW64 ../../../../../../socket.io-admin-ui-develop
 $ npm start
 
 > @socket.io/admin-ui@0.5.1 start
 > sh run.sh
 
-/e/as-gym/socket.io-admin-ui-develop/ui/dist
+../../../../../../socket.io-admin-ui-develop/ui/dist
 Starting up http-server, serving ./
 
 http-server version: 14.1.1
@@ -74,8 +78,71 @@ Hit CTRL-C to stop the server
 ![](./socket.io-admin-ui-develop/ui_demo.png)
 
 
+## NodeJs Engine Pool
+
+```console
+secre@ALEPH MINGW64 ../../../../../../alephscript (draft)
+$ npm start
+
+> jd20-fia@1.0.0 start
+> npm run dev
 
 
+> jd20-fia@1.0.0 dev
+> npm run build && ts-node-dev src/FIA/thread.ts
+
+
+> jd20-fia@1.0.0 build
+> tsc
+
+[INFO] 18:41:08 ts-node-dev ver. 2.0.0 (using ts-node ver. 10.9.1, typescript ver. 5.2.2)
+         -  CRT-AS-01 Conectando al backend... 
+sistema> Arrancando el sistema
+Pushing
+sistema> Cargando FIAs disponibles, por favor espera...
+         - [0]: Modelo: FIA
+         - [1]: Modelo: FIA_Genesis
+         - [2]: Modelo: debil
+         - [3]: Modelo: fuerte
+         - [4]: Modelo: simbolica
+         - [5]: Modelo: situada
+         - [6]: Modelo: conexionista
+         - [7]: Modelo: fia.sbc
+         - [8]: Modelo: cadena-app
+         - [9]: Modelo: IDE-app
+         - [99]: Not today! ¡Cerrar!, please, bye!
+Test emit socket.io
+Escribe:         -  CRT-AS-01 Conectado al back Socket: iTyaYi49H689P1HCAAAM
+sistema> Socket.Connected
+         -  WEB-AS-01 Conectando al backend...
+         -  WEB-AS-01 Conectado al back Socket: vFHfvLnd9jaCKduOAAAO      
+sistema> CRT-AS-01>> Sending list of threads... to: WEB-AS-01
+sistema> WEB-AS-01>> Receiving server state...
+sistema> WEB-AS-01>> Receiving list of threads...
+```
+
+
+
+## Angular Engine Admin UI
+
+```console
+secre@ALEPH MINGW64 ../../../../../../client (draft)     
+$ npm start
+
+> angular-starter@18.1.0 start
+> ng serve --port 4200
+
+Application bundle generation complete. [2.485 seconds]
+
+Watch mode enabled. Watching for file changes...
+NOTE: Raw file sizes do not reflect development server per-request transformations.
+  ➜  Local:   http://localhost:4200/
+  ➜  press h + enter to show help
+
+```
+
+
+![](./client/web_ui_demo.png)
 
 
 

@@ -1,0 +1,31 @@
+<div class="accordion" id="accordionExample">
+	<div *ngFor="let item of get(); let i=index" class="accordion-item">
+
+		<h2 class="accordion-header" id="headingOne" >
+			<button class="accordion-button collapsed" type="button"
+				data-bs-toggle="collapse"
+				[attr.data-bs-target]="'#' + item.title"
+				[attr.aria-controls]="item.title"
+				(click)="saveLoggerState(item.title)">
+				{{ item.title }}
+					<span
+						[ngClass]="(item.logs.length > 0) ? 'blink' : ''">
+						({{ item.logs.length }})
+					</span>
+			</button>
+		</h2>
+		<div [id]="item.title" class="accordion-collapse collapse"
+			[class.show]="loggerState[item.title]"
+			aria-labelledby="headingOne"
+			data-bs-parent="#accordionExample">
+
+			<div class="accordion-body" [class.show]="loggerState[item.title]">
+				<ul class="small-list">
+					<li *ngFor="let log of item.logs">
+						{{ log.title }}
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>

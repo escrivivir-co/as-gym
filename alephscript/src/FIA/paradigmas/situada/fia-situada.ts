@@ -1,11 +1,15 @@
-import { iFIA, GenesisBlock, IAccion, IPercepto, IAprendize } from "../../genesis-block";
+import { GenesisBlock } from "../../genesis-block";
+import { IAprendize } from "../../IAprendize";
+import { IPercepto } from "../../IPercepto";
+import { IAccion } from "../../IAccion";
+import { iFIA } from "../../iFIA";
 import { i18 } from "../../i18/aleph-script-i18";
-import { IMundo } from "../../mundos/mundo";
+import { IMundo } from "../../mundos/IMundo";
 import { agentMessage } from "../../agentMessage";
 import { IAutomata, Automata } from "./automata";
-import { IEstado } from "./estado";
+import { IEstado } from "./IEstado";
 import { TablaEstado } from "./tabla-estado";
-
+import { IModelo } from "../../mundos/IModelo";
 /**
  * Unidades de sensores/actuadores con tablas de asociación
  * o autómatas con máquinas de estado. 
@@ -15,9 +19,17 @@ export interface IFIASituada extends iFIA {
     tabla: TablaEstado;
     automata: IAutomata;
 
+	instanciarV(): Promise<IModelo>
+
 }
 
 export class FIASituada extends GenesisBlock implements IFIASituada {
+
+	async instanciarV(): Promise<IModelo> {
+		return this.mundo.modelo;
+	}
+
+	configurar?: () => void;
 
     runAsync = true;
 
@@ -30,6 +42,7 @@ export class FIASituada extends GenesisBlock implements IFIASituada {
         console.log(agentMessage(i18.FIA_SITUADA_LABEL, i18.SITUADA.SIMULATION_START));
 
         this.automata.configurar();
+
         const modelo = await this.automata.mundo.instanciar();
         console.log(
             agentMessage(i18.FIA_SITUADA_LABEL,

@@ -1,12 +1,8 @@
 import { Formulario } from "../../nivel/formulario";
-import { ICKModelo, CKModelo } from "../ck-modelo";
+import { CKModelo } from "../ck-modelo";
 import { FormularioOM1 } from "./formulario-OM-01";
+import { IOrganizacion } from "./IOrganizacion";
 
-
-export interface IOrganizacion extends ICKModelo {
-
-
-}
 
 export class Organizacion extends CKModelo implements IOrganizacion {
 

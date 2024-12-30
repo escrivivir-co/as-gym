@@ -1,4 +1,4 @@
-import { SocketClient } from '/Users/morente/Desktop/THEIA_PATH/AlephWeb/angular-app/ws-server/src/alephscript/socket-client';
+import { SocketClient } from '../../../../../..//ws-server/src/alephscript/socket-client';
 
 export class AlephScriptClient extends SocketClient {
 

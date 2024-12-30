@@ -1,36 +1,15 @@
-import { Inject, inject, Injectable, NgZone, PLATFORM_ID } from '@angular/core';
-import { io, Socket } from 'socket.io-client';
+import { Inject, inject, Injectable, NgZone, PLATFORM_ID, signal } from '@angular/core';
 import { UsuarioService } from './usuario.service';
 import { SalaBackend } from './interfaces/sala';
 import { Subject } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
-import { SocketClient } from '/Users/morente/Desktop/THEIA_PATH/AlephWeb/angular-app/ws-server/src/alephscript/socket-client';
-
-export type NamespaceDetails = {
-	name: string;
-	socketsCount: number;
-	sockets: Partial<Socket>[];
-  };
-
-export interface ServerState {
-	action: string;
-	socketId: string;
-	clientId: string;
-	socketsPerNamespace: NamespaceDetails[];
-	sockets: Partial<Socket>[];
-	clients: number;
-}
-
-export interface MenuState {
-	name: string;
-}
-
-export interface RuntimeBlock
-{
-    id: string;
-    estado: any;
-    fecha: Date;
-}
+import { SocketClient } from '../../../../../ws-server/src/alephscript/socket-client';
+import { SignalEvent } from '../../pages/general/about/about.component';
+import { IMenuState } from '../../../../../alephscript/src/FIA/engine/kernel/IMenuState';
+import { IServerState } from "../../../../../ws-server/src/alephscript/IServerState";
+import { IRuntimeBlock } from '../../../../../ws-server/src/alephscript/IRuntimeBlock'
+import { IAppState } from '../../../../../ws-server/src/alephscript/IAppState'
+import { SudokuData } from '../../../../../alephscript/src/FIA/engine/kernel/sudoku';
 
 @Injectable({
   providedIn: 'root'
@@ -43,18 +22,46 @@ export class ServerService {
 
 	usuarioService: UsuarioService = inject(UsuarioService);
 
-	serverState$ = new Subject<ServerState>();
-	menuState$ = new Subject<MenuState[]>();
-	chainState$ = new Subject<RuntimeBlock>();
+	serverState$ = new Subject<IServerState>();
+	currentserverState$ = signal<IServerState>({
+		action: '',
+		socketId: '',
+		clientId: '',
+		socketsPerNamespace: [],
+		sockets: [],
+		clients: 0,
+		miembros: [],
+		rooms: []
+
+	});
+
+	MenuAppsList$ = new Subject<IMenuState[]>();
+	currentMenuState$ = signal<IMenuState[]>([]);
+
+	chainState$ = new Subject<IRuntimeBlock>();
+	currentChainState$ = signal<IRuntimeBlock>({
+		id: '',
+		estado: {},
+		fecha: new Date()
+	});
+
+
+	appState$ = new Subject<IAppState>();
+	currentAppState$ = signal<IAppState>({
+		index: 0,
+		name: '' /*,
+		fase: IFase*/
+	});
 
 	actualizacionDeSala$ = new Subject<SalaBackend>();
 	web: any;
 
+	sudokuBoard$ = new Subject<SudokuData>();
+	IAresponses$ = new Subject<any>();
+
 	constructor(
 		@Inject(PLATFORM_ID) private platformId: object
 	) {
-
-		this.usuarioService.nombre.set("AlephEuler45");
 
 		if (isPlatformBrowser(this.platformId)) {
 			this.ngZone.runOutsideAngular(() => {
@@ -65,31 +72,69 @@ export class ServerService {
 		}
 	}
 
+	enterRoom(room: string) {
+		this.web.io.emit("CLIENT_SUSCRIBE", { room });
+	}
+
+	sendEngineAction(signal: SignalEvent) {
+		console.log("Send to", signal.event);
+		(this.web as AlephScriptClient).room(signal.event, signal.data, signal.room || "ENGINE_THREADS");
+
+	}
+
 	initSockets() {
 
-		this.web = new AlephScriptClient("AS-02");
+		this.web = new AlephScriptClient(this.usuarioService.nombre());
 		this.web.initTriggersDefinition.push(() => {
 
 			this.web.io.on("SET_LIST_OF_THREADS", (...args: any[]) => {
-				// console.log("Receiving list of threads...")
-				const data = Object.keys(args[0]).map(k => args[0][k])
-				this.menuState$.next(data);
+				// console.log(agentMessage"Receiving list of threads...", args)
+				const data = Object.keys(args[0])
+					.map(k => args[0][k]).filter(k => typeof k == "object")
+				this.MenuAppsList$.next(data);
+				this.currentMenuState$.set(data)
 			})
 			this.web.room("GET_LIST_OF_THREADS");
 
 			this.web.io.on("SET_SERVER_STATE", (...args: any[]) => {
 				// console.log("Receiving server state...", (args[0]))
 				this.serverState$.next(args[0])
+				this.currentserverState$.set(args[0])
 			})
-			this.web.room("GET_SERVER_STATE", "ENGINE_THREADS", {});
+			this.web.room("GET_SERVER_STATE");
 			this.web.io.on("SET_EXECUTION_PROCESS", (...args: any[]) => {
 
-				const bloque = args[0];
-				// console.log("SET_EXECUTION_PROCESS", bloque)
 				this.chainState$.next(args[0])
+				this.currentChainState$.set(args[0])
 			})
+			this.web.io.emit("CLIENT_SUSCRIBE", { room: "SUDOKU" });
+
+			this.web.io.on("BOARD_DATA", (...args: any[]) => {
+				//this.sudokuBoard$.next(args[0])
+				this.sudoku.push(args[0])
+			})
+
+			this.web.io.on("SET_IA_RESPONSE", (...args: any) => {
+				console.log("SET_IA_RESPONSE", args)
+				this.IAresponses$.next(args)
+			})
+
+			this.web.io.on((event: any, ...args: any) => {
+				console.log("ANT", event, args)
+				this.IAresponses$.next(args)
+			})
+
+			setInterval(() => {
+				if (this.sudoku.length > 0) {
+					const p = this.sudoku[0]
+					this.sudoku.splice(0, 1)
+					this.sudokuBoard$.next(p)
+				}
+			}, 1)
 		})
 	}
+	sudoku: SudokuData[] = [];
+	IAresponses: any[] = [];
 }
 
 

@@ -1,8 +1,9 @@
-import { IDisenyo, Disenyo } from "../modelos/disenyo/disenyo";
-import { IFormulario } from "./formulario";
-import { IEspecificacion } from "../common-kads";
-import { ISistema } from "../sistema";
-import { ICKNivel } from "./nivel";
+import { Disenyo } from "../modelos/disenyo/disenyo";
+import { IDisenyo } from "../modelos/disenyo/IDisenyo";
+import { IFormulario } from "./IFormulario";
+import { IEspecificacion } from "../IEspecificacion";
+import { ISistema } from "../ISistema";
+import { ICKNivel } from "./ICKNivel";
 import { map } from 'rxjs/operators';
 
 

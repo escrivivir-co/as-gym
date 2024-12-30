@@ -2,7 +2,7 @@ import { GenesisBlock } from "../../genesis-block";
 import { Intencion } from "../../Intencion";
 import { i18 } from "../../i18/aleph-script-i18";
 import { TuringTester } from "../../agents/turing-test";
-import { IMundo } from "../../mundos/mundo";
+import { IMundo } from "../../mundos/IMundo";
 
 export namespace IACientifica {
 

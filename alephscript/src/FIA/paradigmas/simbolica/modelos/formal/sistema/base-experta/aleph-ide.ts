@@ -1,12 +1,13 @@
-import { Assistant } from "openai/resources/beta/assistants/assistants";
+
 import { Observable, Subject } from "rxjs";
 import { agentMessage } from "../../../../../../agentMessage";
 import { AS_IDE_i18 } from "../../../../../../aplicaciones/ide/aleph-script-idle-i18";
 import { RTCache } from "../../../../../../engine/kernel/rt-cache";
-import { IDiccionarioI18 } from "../../../../../../genesis-block";
+import { IDiccionarioI18 } from "../../../../../../IDiccionarioI18";
 import { Trainer_clave, ASOracleAs } from "../../../../../conexionista/modelos-lenguaje/oai/Trainer_key";
 import { AsistenteApi } from "../../../../../conexionista/modelos-lenguaje/oai/asisstant";
-import { IFase } from "../../../../../sbc/implementaciones/common-kads/common-kads";
+import { IFase } from "../../../../../sbc/implementaciones/common-kads/IFase";
+import { Assistant } from "openai/resources/beta/assistants";
 
 export interface AlephScriptIDE {
 
@@ -58,7 +59,7 @@ export class AlephIDE implements AlephScriptIDE {
             console.log(agentMessage(this.nombre, "Autómata listo." /* + new AsistenteApi().imprimir(as) */));
         } else {
             const s = new AsistenteApi();
-            const r = await s.list([]);
+            const r = await s.list();
             if (r.ok) {
                 this.cache.guardar(Trainer_clave, r.data);
                 this.cache.persistir();

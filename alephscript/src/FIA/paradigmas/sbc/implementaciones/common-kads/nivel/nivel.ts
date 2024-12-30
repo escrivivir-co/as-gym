@@ -1,6 +1,6 @@
 import { Modelo } from "../../../../../mundos/modelo";
-import { IFormulario } from "./formulario";
-import { CML, ICML } from "./cml";
+import { CML } from "./cml";
+import { ICML } from "./ICML";
 
 
 export class Vacio extends Modelo {
@@ -10,14 +10,5 @@ export class Vacio extends Modelo {
     cml: ICML = new CML();
 
 }
-
-export interface ICKNivel {
-
-    formularios: () => IFormulario[];
-
-    comoJSON(): object;
-
-}
-
 
 

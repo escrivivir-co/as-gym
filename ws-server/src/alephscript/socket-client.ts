@@ -1,14 +1,17 @@
 import { io, Socket } from 'socket.io-client';
 import { isLogable, Message } from './message';
+import { getHash, IUserDetails } from './IUserDetails';
 
 export class SocketClient {
 
-	io: Socket;
+	public io: Socket;
 
 	initTriggers: (() => void)[] = [];
 	initTriggersDefinition: (() => void)[] = [];
 
 	interval: any;
+
+	configurationSet = false;
 
 	constructor(
 		public name = "AlephClient",
@@ -21,12 +24,22 @@ export class SocketClient {
 
 		this.io.on("connect", () => {
 
+			this.log((namespace || "--") + ".onConnect: ", "S: " +
+				this.io.id + ":> Init Ts: " + this.initTriggersDefinition.length)
+
+			// if (this.configurationSet) return;
+			this.configurationSet = true;
+
 			this.initTriggers = [...this.initTriggersDefinition];
 
-			this.log("Conectado al back", "Socket: " + this.io.id)
+			this.interval = setInterval(() => {
 
-			this.io.emit("CLIENT_REGISTER", { name: this.name });
-			this.io.emit("CLIENT_SUSCRIBE", { room: "ENGINE_THREADS" });
+				while (this.initTriggers.length > 0) {
+					const f = this.initTriggers.pop();
+					if (f) f();
+				};
+
+			}, 1000)
 
 			this.io.onAny((event, ...args: any) => {
 
@@ -47,28 +60,21 @@ export class SocketClient {
 				if (!isLogable(innerEvent)) return;
 				if (!isLogable(event)) return;
 
-				this.log(
+				/* this.log(
 					namespace + "/Socket.OnAny" + "/" + innerEvent +
 					`:> ${event} with data:`,
 					args
-				)
+				) */
 			});
 
-			this.interval = setInterval(() => {
-
-				while (this.initTriggers.length > 0) {
-					const f = this.initTriggers.pop();
-					if (f) f();
-				};
-
-			}, 1000)
+			this.io.emit("CLIENT_REGISTER", { usuario: this.name, sesion: getHash("") } as IUserDetails);
+			this.io.emit("CLIENT_SUSCRIBE", { room: "ENGINE_THREADS" });
 		});
 
 		this.io.on("disconnect", () => {
 
 			this.log("OnDisconnect");
 			clearInterval(this.interval);
-
 		});
 
 		this.io.on("connect_error", (error) => {
@@ -109,10 +115,12 @@ export class SocketClient {
 	}
 
 	log(message: string, data: any = undefined) {
-		console.log("\t - ", this.name, message, data ? data : "");
+		console.log("\t -", this.name + ":>", message, data ? data : "");
 	}
 
 	room(event: string, data: any = {}, room: string = "ENGINE_THREADS") {
+
+		// if (event != "SET_EXECUTION_PROCESS") console.log("Doing emit", event, room, data)
 		this.io.emit(
 			"ROOM_MESSAGE",
 			{
@@ -130,3 +138,4 @@ export class SocketClient {
 		);
 	}
 }
+

@@ -9,8 +9,12 @@ import { IFIAHibrida } from "../../paradigmas/hibrido/fia-hibrida";
  */
 export interface IApp extends IFIAHibrida {
 
+	dontConnectToSocket: boolean;
+
     debil: GenesisBlock;
     fuerte: GenesisBlock;
     dummy: GenesisBlock;
+
+	conectarEntorno();
 
 }

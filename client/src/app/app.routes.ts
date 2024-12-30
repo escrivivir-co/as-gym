@@ -76,6 +76,11 @@ export const routes: Routes = [
       .then(mod => mod.TutorialModule)
   },
   {
+    path: 'alephkads',
+    loadChildren: () => import('./pages/application/aleph-kads/module')
+      .then(mod => mod.AlephKadsModule)
+  },
+  {
     path: 'services',
     loadChildren: () => import('./pages/application/example-services/tutorial.module')
       .then(mod => mod.TutorialModule)
@@ -98,9 +103,20 @@ export const routes: Routes = [
   },
 
   {
-    path: 'about',
+    path: 'an-sindic-model-vf/:id',
+    loadChildren: () => import('./pages/general/an-sindic-model-vf/about.routes').then(routes => routes.routes)
+  },
+  {
+    path: 'iot-logic-engine/:id',
+    loadChildren: () => import('./pages/general/iot-logic-engine/about.routes').then(routes => routes.routes)
+  },
+  {
+    path: 'inet-app/:id',
+    loadChildren: () => import('./pages/general/inet-app/about.routes').then(routes => routes.routes)
+  },
+  {
+    path: 'about/:id',
     loadChildren: () => import('./pages/general/about/about.routes').then(routes => routes.routes)
   },
-
   { path: '**', component: NotFoundComponent }
 ];

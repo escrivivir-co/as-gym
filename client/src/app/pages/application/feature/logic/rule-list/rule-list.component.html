@@ -1,0 +1,84 @@
+
+
+
+<div class="row">
+	<div class="accordion" id="accordionItemsRulesList">
+
+		<div class="card nga-card-menu">
+
+			<div class="card-header">
+				<a data-bs-toggle="collapse" data-parent="#accordionItemsRulesList" href="#collapseRulesList" aria-expanded="true">
+					<div class="card-item">
+						<i class="fas fa-film me-2 "></i> Reglas cargadas
+					</div>
+				</a>
+			</div>
+
+			<div id="collapseRulesList" class="collapse collapsed" aria-labelledby="headingOne" data-parent="#accordionItemsRulesList">
+				<div class="card-body">
+					<ul class="list-group">
+					<li *ngFor="let rule of rules" class="list-group-item d-flex justify-content-between align-items-center">
+						<table>
+							<tr>
+								<td>
+									<button class="btn btn-secondary  btn-sm" (click)="runRule(rule.id)">R</button>
+								</td>
+								<td>
+									<button class="btn btn-danger btn-sm" (click)="deleteRule(rule.id)">D</button>
+								</td>
+								<td colspan="2" style="padding-left: 10px;">
+									{{ rule.evalCompatible }}
+								</td>
+							</tr>
+						</table>
+					</li>
+					</ul>
+					<div id="ResTable" class="mt-12" *ngIf="result">
+						<!--{{ data.length }} {{ objectKeys.length }}
+						{{ result.status }}: {{ getResultText() }}-->
+				
+						<table *ngIf="data && data.length > 0" class="small">
+							<thead>
+							<tr>
+								<th *ngFor="let key of objectKeys()">{{ key }}</th>
+							</tr>
+							</thead>
+							<tbody>
+							<tr *ngFor="let item of data">
+								<td *ngFor="let key of objectKeys()">
+				
+									<div *ngIf="isObject(item[key])" class="small">
+				
+											<table *ngIf="item[key] && item[key].length > 0" class="small">
+												<thead>
+													<tr>
+														<th *ngFor="let key of objectKeysFalt(item[key])">{{ key }}</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr><td>{{ item[key].length }}</td></tr>
+													<tr *ngFor="let subitem of item[key]">
+														<td *ngFor="let subKey of objectKeysFalt(item[key])">
+				
+															{{ escapeHtml(subitem[subKey]) }}
+														</td>
+													</tr>
+												</tbody>
+											</table>
+									</div>
+				
+									<div *ngIf="!isObject(item[key])" class="small">
+										{{ item[key] }}
+									</div>
+								</td>
+							</tr>
+							</tbody>
+						</table>
+						<p *ngIf="!data || data.length === 0">No data available</p>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,10 +1,14 @@
-import { iFIA, GenesisBlock, IAccion, IPercepto, IAprendize } from "../../genesis-block";
+import { GenesisBlock } from "../../genesis-block";
+import { IAprendize } from "../../IAprendize";
+import { IPercepto } from "../../IPercepto";
+import { IAccion } from "../../IAccion";
+import { iFIA } from "../../iFIA";
 import { i18 } from "../../i18/aleph-script-i18";
-import { IMundo } from "../../mundos/mundo";
+import { IMundo } from "../../mundos/IMundo";
 import { agentMessage } from "../../agentMessage";
 import { IFIAConexionista } from "../conexionista/fia-conexionista";
 import { IFIASimbolica } from "../simbolica/fia-simbolica";
-import { IEstado } from "../situada/estado";
+import { IEstado } from "../situada/IEstado";
 import { IFIASituada } from "../situada/fia-situada";
 
 /**
@@ -15,7 +19,7 @@ export interface IFIAHibrida extends iFIA {
 
     fias: iFIA[];
 
-    situada: IFIASituada;
+    alphaBot: IFIASituada;
     simbolica: IFIASimbolica;
     conexionista: IFIAConexionista;
 
@@ -27,7 +31,11 @@ export class FIAHibrida extends GenesisBlock implements IFIAHibrida {
 
     fias: iFIA[] = [];
 
-    situada: IFIASituada;
+    alphaBot: IFIASituada;
+	omegaBot: IFIASituada;
+	templeBot: IFIASituada;
+
+	situada: IFIASituada;
     simbolica: IFIASimbolica;
     conexionista: IFIAConexionista;
 

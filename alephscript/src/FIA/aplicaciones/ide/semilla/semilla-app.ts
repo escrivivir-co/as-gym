@@ -1,7 +1,6 @@
 import { agentMessage } from "../../../agentMessage";
 import { App } from "../../../engine/apps/app";
-import { RTCache } from "../../../engine/kernel/rt-cache";
-import { Bloque } from "../cadena-bloques";
+import { Bloque } from "../../../engine/kernel/cadena-bloques";
 
 import { IDEModelo } from "./modelo/ide-modelo";
 import { IDEMundo } from "./mundo/ide-mundo";
@@ -19,10 +18,11 @@ export class IdeApp extends App {
     constructor() {
         super();
         this.nombre = this.i18.NOMBRE;
+		this.mundo = new IDEMundo();
+		this.mundo.nombre = this.i18.MUNDO.NOMBRE;
     }
 
     async instanciar(): Promise<string> {
-
 
 		Bloque.estado = {};
 
@@ -31,26 +31,35 @@ export class IdeApp extends App {
         /**
          * CREACIÓN DEL MUNDO RAÍZ
          */
-        this.mundo = new IDEMundo();
-
         this.mundo.modelo = new IDEModelo();
         this.mundo.modelo.pulso = 1000;
-        this.mundo.modelo.muerte = 10;
+        this.mundo.modelo.muerte = 15;
         this.mundo.modelo.estado = IDEEstados.PARADA;
 
         this.mundo.nombre = this.i18.MUNDO.NOMBRE;
 
-        this.situada = new IDEFIASituada();
-        this.situada.mundo = this.mundo;
+		this.mundo.runStateEvent = this.runStateEvent.asObservable();
+
+        this.alphaBot = new IDEFIASituada();
+		this.alphaBot.runStateEvent = this.runStateEvent;
+        this.alphaBot.mundo = this.mundo;
 
         this.sbc = new IDE_SBC();
+		this.sbc.runStateEvent = this.runStateEvent;
         this.sbc.mundo = this.mundo;
+
+		this.bots = [
+			{ nombre: this.sbc.nombre },
+			{ nombre: this.alphaBot.nombre }
+		]
+9
+		this.conectarEntorno();
 
         const salidas = await Promise.allSettled(
             [
-                this.mundo.ciclo(),
-                this.situada.instanciar(),
-                this.sbc.instanciarC(),
+                this.mundo.ciclo(),						// MAIN APP PULSE
+                this.alphaBot.instanciar(),				// IDEFIA Situada, attaches a dummy automata
+                this.sbc.instanciarC(),					// SBC CommonKads, starts APP creation project
             ]
         );
 

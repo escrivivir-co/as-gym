@@ -1,9 +1,9 @@
 
-import { iFIA } from "../genesis-block";
+import { iFIA } from "../iFIA";
 import { Ignoto } from "../Intencion";
 import { agentMessage } from "../agentMessage";
 import { i18 } from "../i18/aleph-script-i18"
-import { IMundo } from '../mundos/mundo';
+import { IMundo } from "../mundos/IMundo";
 
 export type TestResult = Ignoto;
 export type Test = (tested: iFIA) => TestResult;

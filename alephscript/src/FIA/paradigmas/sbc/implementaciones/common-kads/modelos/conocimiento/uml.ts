@@ -1,27 +1,9 @@
-import { Dominio, IDominio } from "../../../../../../mundos/dominio";
+import { Dominio } from "../../../../../../mundos/dominio";
 import { Modelo } from "../../../../../../mundos/modelo";
-import { IInferencia } from "../../../../../simbolica/inferencia";
 import { AS_COMMON_KADS_I18 } from "../../as-common-kads-i18";
-import { IFormularioOTA1 } from "../../nivel/nivel-contextual";
-import { ITarea } from "../tareas/tarea";
-
-/**
- * Conceptual Modeling Language
- */
-export interface IUML {
-
-    modelar(f: IFormularioOTA1): IUMLModelo;
-}
-
-export interface IUMLModelo {
-
-    dominio: IDominio;
-
-    imprimir(): string;
-
-    comoJSON(): Object;
-
-}
+import { IFormularioOTA1 } from "../../nivel/IFormularioOTA1";
+import { IUML } from "./IUML";
+import { IUMLModelo } from "./IUMLModelo";
 
 export class UML implements IUML {
 

@@ -1,13 +1,10 @@
-import { IModelo, Modelo } from "../../../../../../mundos/modelo";
-import { Formulario, IFormulario } from "../../nivel/formulario";
-import { ICKModelo, CKModelo } from "../ck-modelo";
+import { Modelo } from "../../../../../../mundos/modelo";
+import { IModelo } from "../../../../../../mundos/IModelo";
+import { Formulario } from "../../nivel/formulario";
+import { IFormulario } from "../../nivel/IFormulario";
+import { CKModelo } from "../ck-modelo";
 import { FormularioTM1 } from "./formulario-TM-01";
-
-export interface ITarea extends ICKModelo {
-
-    formularios: IFormulario[];
-
-}
+import { ITarea } from "./ITarea";
 
 export class Tarea extends CKModelo implements ITarea {
 
