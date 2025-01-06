@@ -5,28 +5,29 @@ interface Instance {
 
 type Hypothesis = string[];
 
+
 function versionSpaceLearning(trainingData: Instance[]): { S: Hypothesis[], G: Hypothesis[] } {
 
-    console.log("Inicializar G")
+    // console.log("Inicializar G")
     let G: Hypothesis[] = [Array(trainingData[0].attributes.length).fill('?')]; // Más general
     console.log("G0:", G);
 
-    console.log("Inicializar S")
+    // console.log("Inicializar S")
     let S: Hypothesis[] = [];
     console.log("S0:", S);
 
     let index = 1;
     for (const instance of trainingData) {
 
-        console.log('\t - Instance:\n', instance);
+        console.log('\t - ', instance);
 
-        if (instance.label === 'positive') {
+        if (instance.label === '+') {
 
-            console.log('\t\t - Especializar G:');
+            // console.log('\t\t - Especializar G:');
             G = specializeGPositive(G, instance)
             console.log('\t\t\t - G' + index + ':', G);
 
-            console.log('\t\t - Generalizar S:');
+            // console.log('\t\t - Generalizar S:');
             S = generalizeSPositive(S, instance)
             console.log('\t\t\t - S' + index + ':', S);
 
@@ -38,11 +39,11 @@ function versionSpaceLearning(trainingData: Instance[]): { S: Hypothesis[], G: H
 
         } else {
 
-            console.log('\t\t - Generalizar S:');
+            // console.log('\t\t - Generalizar S:');
             S = generalizeSNegative(S, instance)
             console.log('\t\t\t - S' + index + ':', S);
 
-            console.log('\t\t - Especializar G:');
+            // console.log('\t\t - Especializar G:');
             G = specializeGNegative(G, S, instance)
             console.log('\t\t\t - G' + index + ':', G);          
             
@@ -67,7 +68,6 @@ function versionSpaceLearning(trainingData: Instance[]): { S: Hypothesis[], G: H
         //}
         index++;
 
-        if (index > 5) return { S, G };
     }
 
     return { S, G };
@@ -99,21 +99,21 @@ function isMoreGeneral(h1: Hypothesis, h2: Hypothesis): boolean {
 
 function generalizeSPositive(S: Hypothesis[], instance: Instance): Hypothesis[] {
 
-    console.log("\t\t\t\t - Eliminar las que no cubren a instance");
+    // console.log("\t\t\t\t - Eliminar las que no cubren a instance");
     const original = S.length
     const sfil = S.filter(h => !isCovered(h, instance));
     const filtered = sfil.length
-    console.log("\t\t\t\t\t - Existentes, Resultantes", original, filtered, sfil);
+    // console.log("\t\t\t\t\t - Existentes, Resultantes", original, filtered, sfil);
 
-    console.log("\t\t\t\t - Agregar las generalizaciones maximales consistentes con instance");
+    // console.log("\t\t\t\t - Agregar las generalizaciones maximales consistentes con instance");
     const atout = [...instance.attributes];
     for (let i = 0; i < instance.attributes.length; i++) {
 
         const at = instance.attributes[i];
-        console.log("\t\t\t\t\t - ", i, at);
+        // console.log("\t\t\t\t\t - ", i, at);
 
         const s = sfil.filter(h => h[i] !== at);
-        console.log("\t\t\t\t\t - Diferentes", s.length, s);
+        // console.log("\t\t\t\t\t - Diferentes", s.length, s);
 
         if (s.length == 0) {
             atout[i] = at;
@@ -121,7 +121,7 @@ function generalizeSPositive(S: Hypothesis[], instance: Instance): Hypothesis[] 
             atout[i] = '?';
         }
     }
-    console.log("\t\t\t\t - ", atout);
+    // console.log("\t\t\t\t - ", atout);
     S.push(atout);
 
     return [atout];
@@ -129,11 +129,11 @@ function generalizeSPositive(S: Hypothesis[], instance: Instance): Hypothesis[] 
 
 function generalizeSNegative(S: Hypothesis[], instance: Instance): Hypothesis[] {
 
-    console.log("\t\t\t\t - Eliminar las que no cubren a instance");
+    // console.log("\t\t\t\t - Eliminar las que no cubren a instance");
     const original = S.length
     S = S.filter(h => !isCovered(h, instance));
     const filtered = S.length
-    console.log("\t\t\t\t\t - Existentes, Resultantes", original, filtered);
+    // console.log("\t\t\t\t\t - Existentes, Resultantes", original, filtered);
 
     return S;
 }
@@ -154,9 +154,9 @@ function specializeGPositive(G: Hypothesis[], instance: Instance): Hypothesis[] 
 
         if (isConsistent) {
             consistentHypotheses.push(hypothesis);
-            console.log(`\t\t\t\t - Hypothesis ${hypothesis} is consistent with instance`);
+            // console.log(`\t\t\t\t - Hypothesis ${hypothesis} is consistent with instance`);
         } else {
-            console.log(`\t\t\t\t - Hypothesis ${hypothesis} is not consistent with instance`);
+            // console.log(`\t\t\t\t - Hypothesis ${hypothesis} is not consistent with instance`);
         }
     }
 
@@ -165,15 +165,15 @@ function specializeGPositive(G: Hypothesis[], instance: Instance): Hypothesis[] 
 
 function specializeGNegative(G: Hypothesis[], S: Hypothesis[], instance: Instance): Hypothesis[] {
 
-    console.log(`\t\t\t\t - G `, G);
+    // console.log(`\t\t\t\t - G `, G);
     const Gout =  G.filter(h => isCoveredNegative(h, instance));
-    console.log(`\t\t\t\t - G ini/filter `, G.length, Gout.length);
+    // console.log(`\t\t\t\t - G ini/filter `, G.length, Gout.length);
     
     const add = Gout.length == 0;
     for (let i = 0; i < instance.attributes.length; i++) {
 
         const s = S.filter(h => h[i] !== instance.attributes[i]);
-        console.log("\t\t\t\t - Negaciones de ", instance.attributes[i], ": ", s.length);
+        // console.log("\t\t\t\t - Negaciones de ", instance.attributes[i], ": ", s.length);
 
         if (s.length > 0) {
 
@@ -207,12 +207,12 @@ function specializeGNegative(G: Hypothesis[], S: Hypothesis[], instance: Instanc
                         }
                     }
                         
-                    console.log("difes", newg)
+                    // console.log("difes", newg)
                 } else {
-                    console.log("iguales", newg)
+                    // console.log("iguales", newg)
                 }
 
-                console.log("\t\t\t\t\t - Negaciones de ", instance.attributes[i], ": ", newg);
+                // console.log("\t\t\t\t\t - Negaciones de ", instance.attributes[i], ": ", newg);
             });
             
         }
@@ -235,22 +235,21 @@ function deduplicate(hypotheses: Hypothesis[]): Hypothesis[] {
 }
 
 const trainingData: Instance[] = [
-    { attributes: ['Japón', 'Honda', 'Azul', '1980', 'Económico'], label: 'positive' },
-    { attributes: ['Japón', 'Toyota', 'Verde', '1970', 'Deportivo'], label: 'negative' },
-    { attributes: ['Japón', 'Toyota', 'Azul', '1990', 'Económico'], label: 'positive' },
-    { attributes: ['EEUU', 'Chrysler', 'Azul', '1980', 'Económico'], label: 'negative' },
-    { attributes: ['Japón', 'Honda', 'Blanco', '1980', 'Económico'], label: 'positive' },
+    { attributes: ['Japón', 'Honda', 'Azul', '1980', 'Económico'], label: '+' },
+    { attributes: ['Japón', 'Toyota', 'Verde', '1970', 'Deportivo'], label: '-' },
+    { attributes: ['Japón', 'Toyota', 'Azul', '1990', 'Económico'], label: '+' },
+    { attributes: ['EEUU', 'Chrysler', 'Azul', '1980', 'Económico'], label: '-' },
+    { attributes: ['Japón', 'Honda', 'Blanco', '1980', 'Económico'], label: '+' }
 ];
 
 
-const { S, G } = versionSpaceLearning(trainingData);
-
-
-const testData: Instance[] = [
-    { attributes: ['Alemania', 'Honda', 'Azul', '2000', 'Económico'], label: '?' },
-    { attributes: ['Japón', 'Suzyki', 'Blanco', '1970', 'Económico'], label: '?' },
-    { attributes: ['Alemania', 'Audi', 'rojo', '1990', 'Deportivo'], label: '?' }
-];
+let { S, G } = versionSpaceLearning(trainingData);
+const Sexpected =  [ [ 'Japón', '?', '?', '?', 'Económico' ] ];
+const Gexpected =  [ [ 'Japón', '?', '?', '?', 'Económico' ] ];
+console.log("The result is: ", S, G, 
+    "Expected Test S:", areSGEqual(S, Sexpected),
+    "Expected Test G:", areSGEqual(G, Gexpected)
+);
 
 function areSGEqual(S: Hypothesis[], G: Hypothesis[]): boolean {
     if (S.length !== G.length) {
@@ -265,6 +264,47 @@ function areSGEqual(S: Hypothesis[], G: Hypothesis[]): boolean {
 
     return true;
 }
+
+const trainingData2: Instance[] = [
+    { attributes: ['roja', 'dulce', 'mediana'], label: '+' },
+    { attributes: ['roja', 'dulce', 'pequeña'], label: '+' },
+    { attributes: ['roja', 'amarga', 'mediana'], label: '-' },
+    { attributes: ['naranja', 'dulce', 'pequeña'], label: '-' }
+];
+
+const c  = versionSpaceLearning(trainingData2);
+const S1expected =  [ [ 'roja', 'dulce', '?' ] ];
+const G1expected =  [ [ 'roja', 'dulce', '?' ] ];
+console.log("The result is: ", c, 
+    "Expected Test S:", areSGEqual(c.S, S1expected),
+    "Expected Test G:", areSGEqual(c.G, G1expected)
+);
+
+const trainingData3: Instance[] = [
+    { attributes: ['Sí', 'Sí', 'Sí', 'Sí', 'Sí'], label: '+' },  // d1 - Elefante
+    { attributes: ['Sí', 'Sí', 'Sí', 'No', 'Sí'], label: '+' },  // d2 - Elefante
+    { attributes: ['Sí', 'Sí', 'No', 'No', 'Sí'], label: '-' },  // d3 - Ratón
+    { attributes: ['No', 'Sí', 'Sí', 'Sí', 'Sí'], label: '-' },  // d4 - Jirafa
+    { attributes: ['Sí', 'No', 'Sí', 'No', 'Sí'], label: '-' },  // d5 - Dinosaurio
+    { attributes: ['Sí', 'Sí', 'Sí', 'Sí', 'No'], label: '+' },  // d6 - Elefante
+];
+
+const c2  = versionSpaceLearning(trainingData3);
+const S2expected = [ [ 'Sí', 'Sí', 'Sí', '?', '?' ] ];
+const G2expected = [ [ 'Sí', 'Sí', 'Sí', '?', '?' ] ];
+console.log("The result is: ", c2, 
+    "Expected Test S:", areSGEqual(c2.S, S2expected),
+    "Expected Test G:", areSGEqual(c2.G, G2expected)
+);
+
+
+
+const testData: Instance[] = [
+    { attributes: ['Alemania', 'Honda', 'Azul', '2000', 'Económico'], label: '?' },
+    { attributes: ['Japón', 'Suzyki', 'Blanco', '1970', 'Económico'], label: '?' },
+    { attributes: ['Alemania', 'Audi', 'rojo', '1990', 'Deportivo'], label: '?' }
+];
+
 
 function validarInstance(S: Hypothesis[], G: Hypothesis[], instances: Instance[]): void {
 
@@ -291,7 +331,7 @@ function validarInstance(S: Hypothesis[], G: Hypothesis[], instances: Instance[]
         }
 
         if (areSGEqual) {
-            instance.label = isPositive ? 'positive' : 'negative';
+            instance.label = isPositive ? '+' : '-';
             continue;
         }
 
@@ -308,11 +348,11 @@ function validarInstance(S: Hypothesis[], G: Hypothesis[], instances: Instance[]
             instance.label = '?';
             console.log(`Instance ${instance.attributes} is labeled as '?'`);
         } else if (isPositive) {
-            instance.label = 'positive';
-            console.log(`Instance ${instance.attributes} is labeled as 'positive'`);
+            instance.label = '+';
+            console.log(`Instance ${instance.attributes} is labeled as '+'`);
         } else if (isNegative) {
-            instance.label = 'negative';
-            console.log(`Instance ${instance.attributes} is labeled as 'negative'`);
+            instance.label = '-';
+            console.log(`Instance ${instance.attributes} is labeled as '-'`);
         }
     }
 }
