@@ -1,0 +1,20 @@
+{
+    "projects": {
+        "alephscript": {
+            "credentialSecret": false
+        },
+        "AS_Node": {
+            "credentialSecret": false
+        },
+        "gdgasdg": {
+            "credentialSecret": false
+        },
+        "AsNodeNull": {
+            "credentialSecret": false
+        },
+        "gsdgsadg": {
+            "credentialSecret": false
+        }
+    },
+    "activeProject": "gsdgsadg"
+}
