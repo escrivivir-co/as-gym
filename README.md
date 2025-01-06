@@ -148,3 +148,48 @@ NOTE: Raw file sizes do not reflect development server per-request transformatio
 
 ![](./webapp/web_ui_demo.png)
 
+# Picture
+
+TODO (provisional)
+
+```mermaid
+sequenceDiagram
+    participant Client as Client Requests
+    participant SERVER as Server Backend
+    participant ENGINE as ENGINE_THREADS
+    participant IDE as IDE-app
+
+    SERVER->>ENGINE: Connect SERVER_cRUNTIME (Init Ts: 1)
+    SERVER->>ENGINE: Connect SERVER_cNOPATH (Init Ts: 0)
+    SERVER->>Client: CLIENT_REGISTER (SERVER_cRUNTIME >8084)
+    SERVER->>ENGINE: Join Room ENGINE_THREADS
+    ENGINE->>SERVER: Joined ENGINE_THREADS
+
+    SERVER->>Client: CLIENT_REGISTER (SERVER_cNOPATH >8362)
+    SERVER->>ENGINE: Join Room ENGINE_THREADS
+    ENGINE->>SERVER: Joined ENGINE_THREADS
+
+    SERVER->>Client: CLIENT_REGISTER (Aleph-333 >0636)
+    SERVER->>ENGINE: Join Room ENGINE_THREADS
+    ENGINE->>SERVER: Joined ENGINE_THREADS
+
+    SERVER->>ENGINE: ROOM_MESSAGE (GET_LIST_OF_THREADS)
+    ENGINE-->>SERVER: WARNING! No GET/SET agent at ENGINE_THREADS
+
+    SERVER->>ENGINE: ROOM_MESSAGE (GET_SERVER_STATE)
+    ENGINE->>SERVER: SET_SERVER_STATE
+
+    SERVER->>Client: CLIENT_SUSCRIBE (Room SUDOKU)
+    SERVER->>ENGINE: Joined SUDOKU
+
+    SERVER->>Client: CLIENT_REGISTER (botSeed >7336)
+    SERVER->>ENGINE: Join Room ENGINE_THREADS
+    ENGINE->>SERVER: Joined ENGINE_THREADS
+
+    SERVER->>ENGINE: ROOM_MESSAGE (MAKE_MASTER)
+    ENGINE->>SERVER: botSeed is now master of ENGINE_THREADS
+
+    SERVER->>IDE: ROOM_MESSAGE (MAKE_MASTER)
+    IDE->>SERVER: botSeed is now master of IDE-app
+    IDE->>SERVER: Features [GET_LIST_OF_THREADS, GET_ENGINE]
+```
