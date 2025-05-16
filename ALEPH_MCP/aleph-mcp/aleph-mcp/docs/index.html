@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aleph MCP - Model Context Protocol</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap">
+    <meta name="description" content="Aleph MCP: Un protocolo avanzado para comunicación con modelos de IA">
+</head>
+<body>
+    <div class="stars"></div>
+    <div class="twinkling"></div>
+    
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <div class="logo">α</div>
+                <h1 class="glitch" data-text="ALEPH MCP">ALEPH MCP</h1>
+            </div>
+            <div class="subtitle">Model Context Protocol</div>
+        </header>
+
+        <section class="intro">
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-button"></div>
+                    <div class="terminal-button"></div>
+                    <div class="terminal-button"></div>
+                    <div class="terminal-title">aleph-mcp.terminal</div>
+                </div>
+                <div class="terminal-content">
+                    <div class="typed-text" id="typed-text"></div>
+                    <div class="cursor"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="features">
+            <h2>Características Principales</h2>
+            <div class="feature-grid">
+                <div class="feature">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Comunicación Avanzada</h3>
+                    <p>Protocolo optimizado para interacción fluida entre el agente IA y el entorno de desarrollo.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🔧</div>
+                    <h3>Herramientas Extendidas</h3>
+                    <p>Suite de herramientas especializadas para aumentar las capacidades del agente de VS Code.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📝</div>
+                    <h3>Novelist Assistant</h3>
+                    <p>Sistema integrado de asistencia para escritura creativa y desarrollo de novelas.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🧩</div>
+                    <h3>Extensibilidad</h3>
+                    <p>Arquitectura diseñada para ser fácilmente ampliable con nuevas capacidades y herramientas.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="installation">
+            <h2>Instalación Rápida</h2>
+            <div class="code-block">
+                <pre><code># Clonar el repositorio
+git clone https://github.com/tu-usuario/aleph-mcp.git
+
+# Instalar dependencias
+cd aleph-mcp
+npm install
+
+# Configurar el servidor MCP
+cp .env.example .env
+# Editar .env con tus credenciales
+
+# Iniciar el servidor MCP
+npm run start-server</code></pre>
+                <button class="copy-button" onclick="copyCode()">Copiar</button>
+            </div>
+        </section>
+
+        <section class="tutorial">
+            <h2>Tutorial: Integración con VS Code Copilot</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Instala VS Code</h3>
+                        <p>Si aún no lo tienes, descarga e instala la última versión de <a href="https://code.visualstudio.com/" target="_blank">Visual Studio Code</a>.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Instala GitHub Copilot</h3>
+                        <p>Activa la extensión de GitHub Copilot en VS Code y asegúrate de tener una suscripción válida.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Configura Aleph MCP</h3>
+                        <p>Inicia el servidor MCP siguiendo las instrucciones de instalación anteriores.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Conecta VS Code con el Servidor MCP</h3>
+                        <p>Edita la configuración de VS Code para apuntar al servidor MCP local.</p>
+                        <div class="mini-code-block">
+                            <pre><code>"github.copilot.advanced": {
+    "model": "mcp://localhost:3000"
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h3>Utiliza las Herramientas Extendidas</h3>
+                        <p>Ahora puedes acceder a todas las herramientas personalizadas, incluido el Novelist Assistant, desde Copilot en VS Code.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta">
+            <a href="https://github.com/tu-usuario/aleph-mcp" class="cta-button">Ver en GitHub</a>
+            <a href="DOCUMENTATION.md" class="cta-button secondary">Documentación</a>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Aleph MCP. Todos los derechos reservados.</p>
+        <div class="footer-links">
+            <a href="https://github.com/tu-usuario/aleph-mcp">GitHub</a>
+            <a href="CONTRIBUTING.md">Contribuir</a>
+            <a href="LICENSE">Licencia</a>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
