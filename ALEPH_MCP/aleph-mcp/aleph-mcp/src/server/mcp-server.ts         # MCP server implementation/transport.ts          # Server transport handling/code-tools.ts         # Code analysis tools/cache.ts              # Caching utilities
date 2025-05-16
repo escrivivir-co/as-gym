@@ -1,0 +1,21 @@
+import { StdioServerTransport } from './transport.js';
+import { z } from 'zod';
+
+export class Server {
+    private transport: StdioServerTransport;
+
+    constructor() {
+        this.transport = new StdioServerTransport();
+    }
+
+    public async start() {
+        await this.transport.connect();
+        console.log("MCP Server started and listening for connections.");
+    }
+
+    public tool(name: string, schema: z.ZodSchema<any>, handler: (args: any) => Promise<any>) {
+        // Register tool logic here
+    }
+
+    // Additional server methods can be added here
+}
