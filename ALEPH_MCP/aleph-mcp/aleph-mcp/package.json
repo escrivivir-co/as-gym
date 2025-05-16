@@ -5,6 +5,7 @@
   "main": "dist/index.js",
   "type": "module",
   "scripts": {
+    "inspector": "mcp-inspector",
     "clean": "rimraf dist",
     "prebuild": "npm run clean",
     "build": "tsc -p tsconfig.json",
@@ -12,6 +13,7 @@
     "dev": "tsx watch src/index.ts",
     "client": "node dist/client-cli.js",
     "client:dev": "tsx src/client-cli.ts",
+    "mcp": "node dist/index.js",
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "eslint src/**/*.ts",
