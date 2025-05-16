@@ -5,10 +5,10 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
  * Register documentation tools to the MCP server
  * These tools simulate resources by providing reference documentation
  */
-export function registerDocumentationTools(server: McpServer) {
-  // Tool to get documentation
+export function registerDocumentationTools(server: McpServer) {  // Tool to get documentation
   server.tool(
-    "getDocumentation",
+    "alephAlpha_getDocumentation",
+    "Retrieves comprehensive documentation on a specific programming topic or technology",
     {
       topic: z.string().describe("The documentation topic to retrieve")
     },
@@ -22,14 +22,16 @@ export function registerDocumentationTools(server: McpServer) {
             type: "text", 
             text: documentationContent 
           }
-        ]
+        ],
+        description: "Retrieves comprehensive documentation on a specific programming topic or technology"
       };
     }
-  );
-
+  );  
+  
   // Tool to search documentation
   server.tool(
-    "searchDocumentation",
+    "alephAlpha_searchDocumentation",
+    "Performs a search across documentation resources and returns relevant matches",
     {
       query: z.string().describe("Search query"),
       limit: z.number().optional().describe("Maximum number of results to return")
@@ -44,7 +46,8 @@ export function registerDocumentationTools(server: McpServer) {
             type: "text", 
             text: JSON.stringify(results, null, 2)
           }
-        ]
+        ],
+        description: "Performs a search across documentation resources and returns relevant matches"
       };
     }
   );

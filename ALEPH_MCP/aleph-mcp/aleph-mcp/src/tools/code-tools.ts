@@ -4,10 +4,10 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 /**
  * Register code analysis and manipulation tools to the MCP server
  */
-export function registerCodeTools(server: McpServer) {
-  // Analyze code
+export function registerCodeTools(server: McpServer) {  // Analyze code
   server.tool(
-    "analyzeCode",
+    "alephAlpha_analyzeCode",
+    "Analyzes code snippets to provide insights about structure, complexity and potential issues",
     {
       code: z.string().describe("Code to analyze"),
       language: z.string().describe("Programming language")
@@ -20,14 +20,16 @@ export function registerCodeTools(server: McpServer) {
                       `- Number of functions: ${countFunctions(code, language)}\n`;
       
       return {
-        content: [{ type: "text", text: analysis }]
+        content: [{ type: "text", text: analysis }],
+        description: "Analyzes code snippets to provide insights about structure, complexity and potential issues"
       };
     }
-  );
-
+  );  
+  
   // Find code examples
   server.tool(
-    "findCodeExamples",
+    "alephAlpha_findCodeExamples",
+    "Searches for and returns code examples on a specific topic in the specified programming language",
     {
       topic: z.string().describe("Topic or function to find examples for"),
       language: z.string().describe("Programming language")
@@ -40,7 +42,8 @@ export function registerCodeTools(server: McpServer) {
         content: [{ 
           type: "text", 
           text: examples || "No examples found for this topic and language combination." 
-        }]
+        }],
+        description: "Searches for and returns code examples on a specific topic in the specified programming language"
       };
     }
   );

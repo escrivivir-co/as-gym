@@ -8,7 +8,8 @@ import { promptTemplates } from "./templates.js";
 export function registerPromptTools(server: McpServer) {
   // Tool to list all available templates
   server.tool(
-    "listPromptTemplates",
+    "alephAlpha_listPromptTemplates",
+    "Lists all available prompt templates that can be used with getPromptTemplate",
     {},
     async () => {
       return {
@@ -17,14 +18,16 @@ export function registerPromptTools(server: McpServer) {
             type: "text", 
             text: JSON.stringify(Object.keys(promptTemplates))
           }
-        ]
+        ],
+        description: "Lists all available prompt templates that can be used with getPromptTemplate"
       };
     }
   );
-
+  
   // Tool to retrieve a specific template
   server.tool(
-    "getPromptTemplate",
+    "alephAlpha_getPromptTemplate",
+    "Retrieves the content of a specific prompt template by name",
     {
       name: z.string().describe("Name of the template to retrieve")
     },
@@ -37,14 +40,16 @@ export function registerPromptTools(server: McpServer) {
             type: "text", 
             text: template || "Template not found"
           }
-        ]
+        ],
+        description: "Retrieves the content of a specific prompt template by name"
       };
     }
   );
-
+  
   // Tool to apply variables to a template
   server.tool(
-    "applyPromptTemplate",
+    "alephAlpha_applyPromptTemplate",
+    "Applies variable substitutions to a prompt template and returns the resulting text",
     {
       templateName: z.string().describe("Name of the template to use"),
       variables: z.record(z.string()).describe("Variables to replace in the template")
@@ -54,7 +59,8 @@ export function registerPromptTools(server: McpServer) {
       
       if (!template) {
         return {
-          content: [{ type: "text", text: "Template not found" }]
+          content: [{ type: "text", text: "Template not found" }],
+          description: "Applies variable substitutions to a prompt template and returns the resulting text"
         };
       }
       
@@ -65,7 +71,8 @@ export function registerPromptTools(server: McpServer) {
       });
       
       return {
-        content: [{ type: "text", text: template }]
+        content: [{ type: "text", text: template }],
+        description: "Applies variable substitutions to a prompt template and returns the resulting text"
       };
     }
   );
