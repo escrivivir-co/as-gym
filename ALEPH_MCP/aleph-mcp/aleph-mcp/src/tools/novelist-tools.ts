@@ -245,4 +245,111 @@ export function registerNovelistTools(server: McpServer) {
       };
     }
   );
+
+  // Herramienta para documentar el sistema de novela
+  server.tool(
+    "alephAlpha_getNovelistSystemInfo",
+    "Provides information about the Novelist Assistant system architecture and features",
+    {},
+    async () => {
+      const systemInfo = {
+        overview: "El Asistente para Novelistas de AlephAlpha proporciona herramientas para ayudar en el proceso de escritura creativa, gestionando recursos como novelas, personajes, escenas y capítulos, así como plantillas de prompts específicas para la escritura.",
+
+        architecture: {
+          components: [
+            {
+              name: "Recursos (Resources)",
+              description: "Representan entidades en el sistema de novela",
+              types: [
+                {
+                  name: "Novela (Novel)",
+                  description: "Contenedor principal que incluye título, autor, género, resumen, y referencias a personajes y capítulos",
+                  properties: ["id", "title", "author", "genre", "summary", "characters", "chapters", "setting", "timeline"]
+                },
+                {
+                  name: "Personaje (Character)",
+                  description: "Representa un personaje de la novela con nombre, descripción, rasgos y trasfondo",
+                  properties: ["id", "name", "description", "traits", "backstory"]
+                },
+                {
+                  name: "Escena (Scene)",
+                  description: "Representa una escena individual con título, ubicación, personajes presentes y contenido",
+                  properties: ["id", "title", "setting", "characters", "summary", "content"]
+                },
+                {
+                  name: "Capítulo (Chapter)",
+                  description: "Agrupa escenas relacionadas bajo un título común",
+                  properties: ["id", "title", "scenes", "summary"]
+                }
+              ]
+            },
+            {
+              name: "Plantillas (Prompts)",
+              description: "Plantillas de texto predefinidas para diferentes aspectos de la escritura creativa",
+              examples: [
+                {
+                  name: "start-novel",
+                  description: "Para comenzar una nueva novela"
+                },
+                {
+                  name: "develop-character",
+                  description: "Para desarrollar personajes en profundidad"
+                },
+                {
+                  name: "continue-scene",
+                  description: "Para continuar escribiendo una escena en curso"
+                },
+                {
+                  name: "plot-development",
+                  description: "Para generar ideas de desarrollo de trama"
+                },
+                {
+                  name: "writing-feedback",
+                  description: "Para obtener retroalimentación sobre fragmentos escritos"
+                }
+              ]
+            },
+            {
+              name: "Herramientas (Tools)",
+              description: "Funciones MCP para interactuar con los recursos y plantillas",
+              list: [
+                { name: "alephAlpha_listNovels", description: "Lista todas las novelas disponibles" },
+                { name: "alephAlpha_getNovelDetails", description: "Obtiene información detallada de una novela" },
+                { name: "alephAlpha_listCharacters", description: "Lista personajes, opcionalmente filtrados por novela" },
+                { name: "alephAlpha_getCharacterDetails", description: "Obtiene información detallada de un personaje" },
+                { name: "alephAlpha_getScene", description: "Obtiene el contenido de una escena específica" },
+                { name: "alephAlpha_listNovelistPromptTemplates", description: "Lista plantillas disponibles para escritura" },
+                { name: "alephAlpha_getNovelistPromptTemplate", description: "Obtiene una plantilla específica" },
+                { name: "alephAlpha_applyNovelistPromptTemplate", description: "Aplica variables a una plantilla" }
+              ]
+            }
+          ]
+        },
+
+        workflow: {
+          description: "Flujo de trabajo típico para usar el asistente de novelista",
+          steps: [
+            "1. Explorar novelas disponibles con alephAlpha_listNovels",
+            "2. Crear o seleccionar una novela existente",
+            "3. Explorar o crear personajes usando alephAlpha_listCharacters y alephAlpha_getCharacterDetails",
+            "4. Trabajar en escenas específicas con alephAlpha_getScene",
+            "5. Utilizar plantillas de prompts para diferentes tareas de escritura mediante alephAlpha_applyNovelistPromptTemplate"
+          ]
+        },
+
+        bestPractices: [
+          "Organizar personajes y escenas antes de comenzar a escribir capítulos completos",
+          "Utilizar las plantillas de prompts para superar el bloqueo del escritor",
+          "Mantener resúmenes actualizados para facilitar la navegación por la estructura de la novela",
+          "Desarrollar personajes en profundidad usando la plantilla develop-character",
+          "Solicitar feedback sobre fragmentos escritos usando writing-feedback"
+        ]
+      };
+
+      return {
+        content: [{ type: "text", text: JSON.stringify(systemInfo, null, 2) }],
+        description: "Información sobre el sistema de asistente para novelistas"
+      };
+    }
+  );
 }
