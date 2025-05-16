@@ -8,11 +8,11 @@ export const getDocumentation = async (topic: string): Promise<string> => {
 
 // Simulated function to fetch documentation
 async function fetchDocumentationForTopic(topic: string): Promise<string> {
-  const docs = {
+  const docs: Record<string, string> = {
     "typescript": "TypeScript is a typed superset of JavaScript...",
     "mcp": "Model Context Protocol is an open standard developed by Anthropic...",
     // More topics can be added here...
   };
   
-  return docs[topic] || "Documentation not found for this topic";
+  return topic in docs ? docs[topic] : "Documentation not found for this topic";
 }

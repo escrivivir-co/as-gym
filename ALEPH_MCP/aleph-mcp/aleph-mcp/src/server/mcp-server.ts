@@ -1,6 +1,6 @@
-import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio';
+import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { z } from 'zod';
-import { JSONRPCMessage, JSONRPCRequest, JSONRPCResponse, JSONRPCError } from '@modelcontextprotocol/sdk/types';
+import { JSONRPCMessage, JSONRPCRequest, JSONRPCResponse, JSONRPCError } from '@modelcontextprotocol/sdk/types.js';
 
 export class Server {
     private transport: StdioServerTransport;

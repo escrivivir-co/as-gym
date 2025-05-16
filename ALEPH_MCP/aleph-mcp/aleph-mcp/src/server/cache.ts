@@ -1,4 +1,4 @@
-import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio';
+import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { z } from 'zod';
 
 export class Server {
@@ -9,7 +9,8 @@ export class Server {
     }
 
     public async start() {
-        await this.transport.connect();
+        // La API ha cambiado y el método connect ha sido eliminado
+        // El transporte se inicia automáticamente al crear la instancia
         console.log("MCP Server started and listening for connections.");
     }
 

@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { promptTemplates } from "./templates";
+import { promptTemplates } from "./templates.js";
 
 /**
  * Register prompt-related tools to the MCP server

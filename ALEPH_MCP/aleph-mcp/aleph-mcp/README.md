@@ -1,93 +1,104 @@
-# aleph-mcp
+# Aleph MCP
 
-## Overview
+Un servidor implementado con el Model Context Protocol (MCP) que proporciona herramientas para análisis de código, documentación y plantillas de prompts.
 
-The `aleph-mcp` project implements a Model Context Protocol (MCP) server using TypeScript. This server facilitates the connection between language models and external data sources, allowing for enhanced interaction and functionality.
+## Características
 
-## Project Structure
+- Implementación completa del protocolo MCP
+- Herramientas para análisis de código
+- Herramientas para documentación
+- Plantillas de prompts precargadas
+- Cliente CLI para interactuar con el servidor
+
+## Estructura del proyecto
 
 ```
-aleph-mcp
-├── src
-│   ├── index.ts                  # Main entry point
-│   ├── server
-│   │   ├── mcp-server.ts         # MCP server implementation
-│   │   └── transport.ts          # Server transport handling
-│   ├── tools
-│   │   ├── code-tools.ts         # Code analysis tools
-│   │   ├── documentation-tools.ts # Documentation retrieval tools
-│   │   └── prompt-tools.ts       # Tools to simulate prompts
-│   ├── utils
-│   │   ├── cache.ts              # Caching utilities
-│   │   └── templates.ts          # Template handling functions
-│   ├── types
-│   │   └── index.ts              # Type definitions
-│   └── client
-│       └── test-client.ts        # Client for testing
-├── examples
-│   └── prompt-templates.json     # Example prompt templates
-├── tests
-│   ├── server.test.ts            # Server tests
-│   └── tools.test.ts             # Tools tests
-├── package.json
-├── tsconfig.json
-└── README.md
+aleph-mcp/
+├── src/                     # Código fuente
+│   ├── client/              # Cliente MCP
+│   ├── server/              # Servidor MCP
+│   ├── tools/               # Herramientas disponibles
+│   │   ├── code-tools.ts
+│   │   ├── documentation-tools.ts
+│   │   └── prompt-tools.ts
+│   ├── types/               # Definiciones de tipos
+│   ├── client-cli.ts        # Cliente de línea de comandos
+│   ├── index.ts             # Punto de entrada principal
+│   ├── types.ts             # Tipos globales
+│   └── utils.ts             # Utilidades compartidas
+├── .env.example             # Ejemplo de variables de entorno
+├── .prettierrc              # Configuración de Prettier
+├── eslint.config.js         # Configuración de ESLint
+├── package.json             # Dependencias y scripts
+├── tsconfig.json            # Configuración de TypeScript
+└── README.md                # Este archivo
 ```
 
-## Installation
+## Requisitos
 
-To set up the project, follow these steps:
+- Node.js 18.x o superior
+- npm 8.x o superior
 
-1. Clone the repository:
-   ```bash
-   git clone <repository-url>
-   cd aleph-mcp
-   ```
-
-2. Install the dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Build the project:
-   ```bash
-   npm run build
-   ```
-
-## Usage
-
-To start the MCP server, run the following command:
+## Instalación
 
 ```bash
+# Clonar el repositorio
+git clone https://your-repository-url/aleph-mcp.git
+cd aleph-mcp
+
+# Instalar dependencias
+npm install
+
+# Copiar el archivo de ejemplo de variables de entorno
+cp .env.example .env
+```
+
+## Desarrollo
+
+El proyecto incluye varios scripts para facilitar el desarrollo:
+
+```bash
+# Iniciar el servidor en modo desarrollo (con hot-reload)
+npm run dev
+
+# Iniciar el cliente CLI en modo desarrollo
+npm run client:dev
+
+# Limpiar la carpeta de distribución
+npm run clean
+
+# Compilar el proyecto
+npm run build
+
+# Ejecutar pruebas
+npm run test
+
+# Ejecutar linting
+npm run lint
+
+# Formatear el código
+npm run format
+```
+
+## Producción
+
+Para construir y ejecutar el proyecto en producción:
+
+```bash
+# Compilar el proyecto
+npm run build
+
+# Iniciar el servidor
 npm start
+
+# Iniciar el cliente CLI
+npm run client
 ```
 
-This will initialize the server and make it ready to accept connections from clients.
+## Contribuir
 
-## Tools
+Las contribuciones son bienvenidas. Por favor, asegúrate de seguir las directrices de estilo y añadir pruebas para cualquier nueva funcionalidad.
 
-The project includes several tools for different functionalities:
+## Licencia
 
-- **Code Analysis Tools**: Located in `src/tools/code-tools.ts`, these tools provide functionalities like analyzing code snippets.
-  
-- **Documentation Tools**: Found in `src/tools/documentation-tools.ts`, these tools help retrieve documentation based on specific topics.
-
-- **Prompt Tools**: Implemented in `src/tools/prompt-tools.ts`, these tools manage prompt templates and allow for their simulation.
-
-## Testing
-
-To run the tests, use the following command:
-
-```bash
-npm test
-```
-
-This will execute the unit tests defined in the `tests` directory, ensuring that the server and tools function as expected.
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a pull request or open an issue for any enhancements or bug fixes.
-
-## License
-
-This project is licensed under the MIT License. See the LICENSE file for more details.
+MIT

@@ -1,0 +1,16 @@
+export default [
+  {
+    files: ['src/**/*.ts'],
+    extends: [
+      'eslint:recommended',
+      'plugin:@typescript-eslint/recommended'
+    ],
+    parser: '@typescript-eslint/parser',
+    plugins: ['@typescript-eslint'],
+    rules: {
+      '@typescript-eslint/explicit-function-return-type': 'warn',
+      '@typescript-eslint/no-unused-vars': ['error', { 'argsIgnorePattern': '^_' }],
+      'no-console': ['warn', { allow: ['warn', 'error'] }]
+    }
+  }
+];
