@@ -3,6 +3,7 @@ import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/
 import { registerPromptTools } from "./tools/prompt-tools.js";
 import { registerCodeTools } from "./tools/code-tools.js";
 import { registerDocumentationTools } from "./tools/documentation-tools.js";
+import { registerNovelistTools } from './tools/novelist-tools.js';
 import dotenv from 'dotenv';
 import { randomUUID } from "crypto";
 import { createServer, Server as HttpServer } from "http";
@@ -52,6 +53,7 @@ function registerAllTools(): void {
     registerPromptTools(server);
     registerCodeTools(server);
     registerDocumentationTools(server);
+    registerNovelistTools(server); // Añadir esta línea para registrar las nuevas herramientas
     
     logger.info("All tools registered successfully");
   } catch (error) {

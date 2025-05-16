@@ -1,0 +1,87 @@
+{
+  "resources": {
+    "characters": {
+      "char1": {
+        "id": "char1",
+        "name": "Elena Vega",
+        "description": "Una arqueóloga brillante de 35 años con un pasado misterioso",
+        "traits": ["inteligente", "valiente", "desconfiada", "resiliente"],
+        "backstory": "Creció en una pequeña ciudad costera. Perdió a sus padres en circunstancias misteriosas cuando tenía 18 años, lo que la impulsó a estudiar arqueología para descubrir la verdad."
+      },
+      "char2": {
+        "id": "char2",
+        "name": "Daniel Ortiz",
+        "description": "Un ex-militar reconvertido en guía de expediciones",
+        "traits": ["leal", "pragmático", "protector", "reservado"],
+        "backstory": "Sirvió 10 años en fuerzas especiales. Una misión fallida lo llevó a abandonar el ejército y buscar una vida menos complicada como guía en expediciones arqueológicas."
+      }
+    },
+    "scenes": {
+      "scene1": {
+        "id": "scene1",
+        "title": "Descubrimiento en la cueva",
+        "setting": "Una cueva antigua en los Andes peruanos",
+        "characters": ["char1", "char2"],
+        "summary": "Elena descubre un artefacto extraño mientras explora una cueva inexplorada. Daniel nota símbolos inquietantes en las paredes.",
+        "content": "La linterna de Elena iluminó débilmente las paredes de la cueva. Sus dedos rozaron la superficie rugosa y fría de la piedra, deteniéndose al sentir un cambio en la textura. '¡Daniel, ven a ver esto!', exclamó mientras limpiaba cuidadosamente el polvo acumulado durante siglos."
+      }
+    },
+    "chapters": {
+      "chap1": {
+        "id": "chap1",
+        "title": "Ecos del pasado",
+        "scenes": ["scene1"],
+        "summary": "Elena y Daniel comienzan su expedición en los Andes y hacen un descubrimiento inquietante que podría cambiar la historia conocida."
+      }
+    },
+    "novels": {
+      "novel1": {
+        "id": "novel1",
+        "title": "El Secreto de los Antiguos",
+        "author": "Usuario",
+        "genre": ["aventura", "misterio", "histórica"],
+        "summary": "Una arqueóloga descubre un artefacto antiguo que desata una serie de eventos misteriosos, obligándola a resolver un enigma milenario antes de que caiga en las manos equivocadas.",
+        "characters": ["char1", "char2"],
+        "chapters": ["chap1"],
+        "setting": "Perú contemporáneo, con expediciones en sitios arqueológicos remotos"
+      }
+    }
+  },
+  "promptTemplates": [
+    {
+      "id": "start-novel",
+      "name": "Comenzar nueva novela",
+      "description": "Plantilla para iniciar una nueva novela desde cero",
+      "template": "Ayúdame a comenzar una nueva novela de género {{genre}}. Quiero crear una historia que trate sobre {{theme}} y que tenga lugar en {{setting}}. Me gustaría que el protagonista sea {{protagonist}}.",
+      "variables": ["genre", "theme", "setting", "protagonist"]
+    },
+    {
+      "id": "develop-character",
+      "name": "Desarrollar personaje",
+      "description": "Plantilla para desarrollar un personaje en profundidad",
+      "template": "Necesito desarrollar un personaje llamado {{name}} para mi novela {{novelTitle}}. Este personaje es {{briefDescription}}. Ayúdame a crear:\n\n1. Un pasado detallado\n2. Rasgos de personalidad\n3. Motivaciones y conflictos internos\n4. Apariencia física\n5. Hábitos y manías características",
+      "variables": ["name", "novelTitle", "briefDescription"]
+    },
+    {
+      "id": "continue-scene",
+      "name": "Continuar escena",
+      "description": "Plantilla para continuar escribiendo una escena en curso",
+      "template": "Estoy escribiendo una escena para mi novela {{novelTitle}}. Hasta ahora he escrito:\n\n{{sceneContent}}\n\nLos personajes presentes son: {{characters}}. El ambiente es {{mood}}. Por favor, ayúdame a continuar esta escena enfocándote en {{focus}}.",
+      "variables": ["novelTitle", "sceneContent", "characters", "mood", "focus"]
+    },
+    {
+      "id": "plot-development",
+      "name": "Desarrollo de trama",
+      "description": "Plantilla para generar ideas de desarrollo de trama",
+      "template": "Estoy trabajando en mi novela \"{{novelTitle}}\" de género {{genre}}. La premisa principal es: {{premise}}. Los principales personajes son: {{characters}}. Hasta ahora ha ocurrido: {{currentPlot}}. Necesito ideas para desarrollar la trama hacia {{direction}}.",
+      "variables": ["novelTitle", "genre", "premise", "characters", "currentPlot", "direction"]
+    },
+    {
+      "id": "writing-feedback",
+      "name": "Retroalimentación de escritura",
+      "description": "Plantilla para obtener feedback sobre un fragmento escrito",
+      "template": "He escrito el siguiente fragmento para mi novela {{novelTitle}}:\n\n{{content}}\n\nPor favor, proporciona feedback constructivo sobre:\n1. Estilo y voz narrativa\n2. Ritmo y fluidez\n3. Desarrollo de personajes\n4. Diálogos\n5. Descripción y ambientación\n6. Sugerencias para mejorar",
+      "variables": ["novelTitle", "content"]
+    }
+  ]
+}
