@@ -20,6 +20,7 @@ if (cluster.isMaster) {
   httpServer.listen(3000);
 
   for (let i = 0; i < cpus().length; i++) {
+    console.log(`Forking worker ${i}`);
     cluster.fork();
   }
 
