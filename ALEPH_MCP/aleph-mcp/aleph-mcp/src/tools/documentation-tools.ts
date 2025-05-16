@@ -110,7 +110,8 @@ React is a JavaScript library for building user interfaces, particularly single-
 - useMemo`
   };
   
-  return docs[topic.toLowerCase()] || "Documentation not found for this topic";
+  // Corrección: Verificar si el topic existe en el objeto docs
+  return topic.toLowerCase() in docs ? docs[topic.toLowerCase()] : "Documentation not found for this topic";
 }
 
 /**

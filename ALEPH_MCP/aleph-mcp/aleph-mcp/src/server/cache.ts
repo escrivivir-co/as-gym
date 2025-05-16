@@ -1,4 +1,4 @@
-import { StdioServerTransport } from './transport.js';
+import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio';
 import { z } from 'zod';
 
 export class Server {
