@@ -6,8 +6,7 @@
         "esModuleInterop": true,
         "baseUrl": "./",
         "paths": {
-            "@/*": ["src/*"],
-            "@ws-server/*": ["../ws-server/*"]
+            "@/*": ["src/*"]
         },
         "strict": true,
         "skipLibCheck": true,

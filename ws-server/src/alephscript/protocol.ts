@@ -1,9 +1,3 @@
 export class Protocol {
-
-	readServerState
-
-
-
-
-
+  readServerState: any;
 }
