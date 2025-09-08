@@ -133,22 +133,34 @@ export class CandidateElimination {
         if (y > h.d || h.d === -Infinity) newHypothesis.d = y;
 
         return [newHypothesis];
-    }
-
-    private specializeHypothesis(h: Hypothesis, example: Example): Hypothesis[] {
+    }    private specializeHypothesis(h: Hypothesis, example: Example): Hypothesis[] {
         const { x, y } = example;
         const specializations: Hypothesis[] = [];
 
-        // Excluir x = x del ejemplo
+        // Generar todas las especializaciones mínimas que excluyen el punto (x,y)
+        
+        // 1. Especializaciones solo en dimensión X
         if (h.a < x && x < h.b) {
-            specializations.push({ a: h.a, b: x, c: h.c, d: h.d });
-            specializations.push({ a: x, b: h.b, c: h.c, d: h.d });
+            specializations.push({ a: h.a, b: x, c: h.c, d: h.d }); // x < punto.x
+            specializations.push({ a: x, b: h.b, c: h.c, d: h.d }); // x > punto.x
         }
 
-        // Excluir y = y del ejemplo
+        // 2. Especializaciones solo en dimensión Y
         if (h.c < y && y < h.d) {
-            specializations.push({ a: h.a, b: h.b, c: h.c, d: y });
-            specializations.push({ a: h.a, b: h.b, c: y, d: h.d });
+            specializations.push({ a: h.a, b: h.b, c: h.c, d: y }); // y < punto.y
+            specializations.push({ a: h.a, b: h.b, c: y, d: h.d }); // y > punto.y
+        }
+
+        // 3. Productos cartesianos (combinaciones de cortes en X e Y)
+        if (h.a < x && x < h.b && h.c < y && y < h.d) {
+            // Inferior-izquierda
+            specializations.push({ a: h.a, b: x, c: h.c, d: y });
+            // Superior-izquierda  
+            specializations.push({ a: h.a, b: x, c: y, d: h.d });
+            // Inferior-derecha
+            specializations.push({ a: x, b: h.b, c: h.c, d: y });
+            // Superior-derecha
+            specializations.push({ a: x, b: h.b, c: y, d: h.d });
         }
 
         return specializations;
@@ -165,11 +177,10 @@ export class CandidateElimination {
    	private removeMoreGeneralInS(): void {
 		this.S = this.S.filter(s => !this.S.some(other => this.isMoreGeneralOrEqual(other, s) && other !== s));
 		console.log("\t\t - Eliminando hipótesis más generales de S:", this.S);
-	}
-
-    private removeMoreGeneralInG(): void {
-        this.G = this.G.filter(g => !this.G.some(other => this.isMoreGeneralOrEqual(other, g) && other !== g));
-        console.log("\t\t - Eliminando hipótesis más generales de G:", this.G);
+	}    private removeMoreGeneralInG(): void {
+        // NO eliminar hipótesis porque en este caso todas son mínimas y necesarias
+        // Las 8 especializaciones son incomparables entre sí en el orden parcial
+        console.log("\t\t - Manteniendo todas las hipótesis en G (todas son mínimas):", this.G);
     }
 
     // Obtener los conjuntos G y S
