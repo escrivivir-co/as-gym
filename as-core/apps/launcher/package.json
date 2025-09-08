@@ -1,0 +1,28 @@
+{
+  "name": "@fia/launcher",
+  "version": "1.0.0",
+  "description": "Thread launcher application for FIA AI Framework",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch && node dist/index.js",
+    "start": "node dist/index.js",
+    "clean": "rm -rf dist",
+    "test": "jest",
+    "lint": "eslint src/**/*.ts"
+  },
+  "dependencies": {
+    "@fia/core": "^1.0.0",
+    "@fia/runtime": "^1.0.0",
+    "@fia/search-algorithms": "^1.0.0",
+    "@fia/machine-learning": "^1.0.0",
+    "@fia/grammars": "^1.0.0",
+    "@fia/devops": "^1.0.0",
+    "@fia/i18n": "^1.0.0",
+    "@fia/mundo": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  }
+}

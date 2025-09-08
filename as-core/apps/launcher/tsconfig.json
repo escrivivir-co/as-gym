@@ -1,0 +1,18 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src"
+  },
+  "include": ["src/**/*"],
+  "references": [
+    { "path": "../../packages/core" },
+    { "path": "../../packages/runtime" },
+    { "path": "../../packages/search-algorithms" },
+    { "path": "../../packages/machine-learning" },
+    { "path": "../../packages/grammars" },
+    { "path": "../../packages/devops" },
+    { "path": "../../packages/i18n" },
+    { "path": "../../packages/mundo" }
+  ]
+}

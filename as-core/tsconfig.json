@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "commonjs",
+    "lib": ["ES2020", "DOM"],
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "composite": true,
+    "incremental": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "paths": {
+      "@fia/core": ["packages/core/src"],
+      "@fia/runtime": ["packages/runtime/src"],
+      "@fia/mundo": ["packages/mundo/src"],
+      "@fia/search-algorithms": ["packages/search-algorithms/src"],
+      "@fia/machine-learning": ["packages/machine-learning/src"],
+      "@fia/grammars": ["packages/grammars/src"],
+      "@fia/expert-systems": ["packages/expert-systems/src"],
+      "@fia/neural-networks": ["packages/neural-networks/src"],
+      "@fia/devops": ["packages/devops/src"],
+      "@fia/i18n": ["packages/i18n/src"]
+    }
+  },
+  "exclude": ["node_modules", "dist"]
+}

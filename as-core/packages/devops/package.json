@@ -1,0 +1,24 @@
+{
+  "name": "@fia/devops",
+  "version": "1.0.0",
+  "description": "DevOps utilities for FIA AI Framework",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist",
+    "test": "jest",
+    "lint": "eslint src/**/*.ts"
+  },
+  "dependencies": {
+    "@fia/core": "^1.0.0",
+    "@fia/runtime": "^1.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "files": [
+    "dist/**/*"
+  ]
+}
