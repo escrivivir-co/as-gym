@@ -1,4 +1,4 @@
-import { ISocketDetails } from "./SocketDetails";
+import { ISocketDetails } from "./ISocketDetails";
 
 export type masterSocketId = string;
 export type roomId = string;
@@ -18,4 +18,3 @@ export function getHash(key: string) {
 	const b = Math.random().toString()
 	return key + ">" + l(a) + l(b)
 }
-

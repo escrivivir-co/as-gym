@@ -1,6 +1,6 @@
 import { io, Socket } from 'socket.io-client';
-import { isLogable, Message } from './message';
-import { getHash, IUserDetails } from './IUserDetails';
+import { isLogable, Message } from '../utils';
+import { getHash, IUserDetails } from '../types';
 
 export class SocketClient {
 
@@ -138,4 +138,3 @@ export class SocketClient {
 		);
 	}
 }
-

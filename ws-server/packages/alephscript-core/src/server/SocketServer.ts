@@ -3,16 +3,22 @@ import { Socket, Server, Namespace } from 'socket.io';
 import type { Server as HTTPSServer } from "https";
 import type { Http2SecureServer, Http2Server } from "http2";
 const { instrument } = require("@socket.io/admin-ui");
-import { isLogable, Message } from "./message";
-import { NamespaceDetails } from "./NamespaceDetails";
-import { RoomDetails } from "./RoomDetails";
-import { IRoomDetails } from "./IRoomDetails";
-import { SuscriptionDetails } from "./SuscriptionDetails";
-import { ArgsMeta } from "./ArgsMeta";
-import { namespaceId, socketId, IUserDetails, roomId, masterSocketId } from "./IUserDetails";
-import { IServerState } from './IServerState';
-import { INamespaceDetails } from "./INamespaceDetails";
-import { ISocketDetails } from "./SocketDetails";
+import { isLogable, Message } from "../utils";
+import { 
+	NamespaceDetails, 
+	RoomDetails, 
+	IRoomDetails, 
+	SuscriptionDetails, 
+	ArgsMeta, 
+	namespaceId, 
+	socketId, 
+	IUserDetails, 
+	roomId, 
+	masterSocketId,
+	IServerState,
+	INamespaceDetails,
+	ISocketDetails
+} from "../types";
 
 export type ServerInstance = http.Server | HTTPSServer | Http2SecureServer | Http2Server;
 
@@ -278,7 +284,7 @@ export class SocketServer {
 		for(let r of this.roomsSockets.keys()) {
 			const sid = this.roomsSockets.get(r)
 			if (sid) {
-				const miembros: IUserDetails[] = sid.map(s => this.sockets.get(s)).filter(s => s != undefined);
+				const miembros: IUserDetails[] = sid.map(s => this.sockets.get(s)).filter((s): s is IUserDetails => s != undefined);
 				rooms.push({
 					roomId: r,
 					miembros

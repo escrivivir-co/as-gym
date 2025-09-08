@@ -1,4 +1,4 @@
-import { SocketClient } from "./socket-client";
+import { SocketClient } from "./SocketClient";
 
 export class AlephScriptClient extends SocketClient {
   disconnect() {
