@@ -10,7 +10,7 @@
     "build": "npm run build --workspaces",
     "build:core": "npm run build --workspace=packages/alephscript-core",
     "build:demo": "npm run build --workspace=packages/socket-gym-demo", 
-    "dev:demo": "npm run dev --workspace=packages/socket-gym-demo",
+    "dev": "npm run dev --workspace=packages/socket-gym-demo",
     "clean": "npm run clean --workspaces",
     "test": "npm run test --workspaces",
     "legacy:dev": "nodemon --watch \"src/**\" --ext \"ts,json\" --ignore \"src/**/*.spec.ts\" --exec npx tsx src/index.ts"
