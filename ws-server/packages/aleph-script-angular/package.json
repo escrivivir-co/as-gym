@@ -1,0 +1,57 @@
+{
+  "name": "@alephscript/angular",
+  "version": "1.0.0",
+  "description": "Angular integration for AlephScript - RxJS-powered reactive client",
+  "keywords": [
+    "alephscript",
+    "angular",
+    "rxjs",
+    "websocket",
+    "real-time",
+    "reactive"
+  ],
+  "author": "AlephScript Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/escrivivir-co/aleph-script-angular"
+  },
+  "bugs": {
+    "url": "https://github.com/escrivivir-co/aleph-script-angular/issues"
+  },
+  "homepage": "https://github.com/escrivivir-co/aleph-script-angular#readme",
+  "main": "bundles/alephscript-angular.umd.js",
+  "module": "fesm2015/alephscript-angular.js",
+  "es2015": "fesm2015/alephscript-angular.js",
+  "esm2015": "esm2015/alephscript-angular.js",
+  "fesm2015": "fesm2015/alephscript-angular.js",
+  "typings": "alephscript-angular.d.ts",
+  "sideEffects": false,
+  "peerDependencies": {
+    "@alephscript/core-browser": "^1.0.0",
+    "@angular/common": "^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0",
+    "@angular/core": "^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0",
+    "rxjs": "^7.0.0"
+  },
+  "devDependencies": {
+    "@alephscript/core-browser": "file:../aleph-script-core-browser/alephscript-core-browser-1.0.0.tgz",
+    "@angular/common": "^20.0.0",
+    "@angular/core": "^20.0.0",
+    "@angular/platform-browser": "^20.0.0",
+    "@types/node": "^20.0.0",
+    "ng-packagr": "^18.0.0",
+    "rxjs": "^7.8.0",
+    "typescript": "^5.0.0"
+  },
+  "scripts": {
+    "build": "ng-packagr -p ng-package.json",
+    "dev": "ng-packagr -p ng-package.json --watch",
+    "build:watch": "ng-packagr -p ng-package.json --watch",
+    "pack": "npm run build && cd dist && npm pack && mv *.tgz ..",
+    "test": "echo \"Test command not implemented yet\"",
+    "prepublishOnly": "npm run build"
+  },
+  "ng-add": {
+    "save": "dependencies"
+  }
+}

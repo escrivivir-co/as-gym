@@ -9,8 +9,14 @@
   "scripts": {
     "build": "npm run build --workspaces",
     "build:core": "npm run build --workspace=packages/alephscript-core",
+    "build:core-browser": "npm run build --workspace=packages/aleph-script-core-browser",
+    "build:angular": "npm run build --workspace=packages/aleph-script-angular",
     "build:demo": "npm run build --workspace=packages/socket-gym-demo", 
     "dev": "npm run dev --workspace=packages/socket-gym-demo",
+    "dev:core-browser": "npm run dev --workspace=packages/aleph-script-core-browser",
+    "dev:angular": "npm run dev --workspace=packages/aleph-script-angular",
+    "pack:core-browser": "npm run pack --workspace=packages/aleph-script-core-browser",
+    "pack:angular": "npm run pack --workspace=packages/aleph-script-angular",
     "clean": "npm run clean --workspaces",
     "test": "npm run test --workspaces",
     "legacy:dev": "nodemon --watch \"src/**\" --ext \"ts,json\" --ignore \"src/**/*.spec.ts\" --exec npx tsx src/index.ts"
