@@ -158,13 +158,31 @@ export class SocketClient extends AlephEventEmitter {
 
     // Catch-all for other events
     this.socket.onAny((event: string, ...args: any[]) => {
-      if (!isLogable(event)) return;
+      // 🔍 DEBUG: Log all events regardless of filters
+      console.log(`🔥 [SOCKET-CLIENT] Raw event received: ${event}`, args);
+      console.log(`🔍 [SOCKET-CLIENT] isLogable(${event}):`, isLogable(event));
+      console.log(`🔍 [SOCKET-CLIENT] hasListeners(${event}):`, this.hasListeners(event as any));
+      
+      if (!isLogable(event)) {
+        console.log(`⚠️ [SOCKET-CLIENT] Event ${event} filtered out by isLogable`);
+        return;
+      }
       
       this.logger.log(`Event received: ${event}`, args);
       
+      // 🚀 FORCE EMIT: Always emit room events regardless of listeners
+      if (event.includes('_ROOM') || event === 'LuzbelBot_AS-NG_ROOM') {
+        console.log(`🚀 [SOCKET-CLIENT] Force emitting room event: ${event}`);
+        this.emit(event as any, args[0] || {});
+        return;
+      }
+      
       // Forward to custom event handlers
       if (this.hasListeners(event as any)) {
+        console.log(`✅ [SOCKET-CLIENT] Emitting event with listeners: ${event}`);
         this.emit(event as any, args[0] || {});
+      } else {
+        console.log(`⚠️ [SOCKET-CLIENT] No listeners for event: ${event}`);
       }
     });
   }

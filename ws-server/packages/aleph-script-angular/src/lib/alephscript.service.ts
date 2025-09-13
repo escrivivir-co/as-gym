@@ -277,6 +277,8 @@ export class AlephScriptService {
   private setupClientEventHandlers(): void {
     if (!this.client) return;
 
+    console.log('🔧 [ANGULAR-SERVICE] Setting up client event handlers...');
+
     // Connection events
     this.client.on('connected', () => {
       console.log('✅ Connected to AlephScript server');
@@ -305,25 +307,56 @@ export class AlephScriptService {
 
     // Message events
     this.client.on('message', (message) => {
+      console.log('📨 [ANGULAR-SERVICE] Received message event:', message);
       this.messageStream$.next(message);
       this.routeMessageToChannel(message);
     });
 
     this.client.on('agent_message', (data) => {
+      console.log('🤖 [ANGULAR-SERVICE] Received agent_message:', data);
       this.agentMessages$.next(data);
     });
 
     this.client.on('system_message', (data) => {
+      console.log('⚙️ [ANGULAR-SERVICE] Received system_message:', data);
       this.systemMessages$.next(data);
     });
 
     this.client.on('ui_message', (data) => {
+      console.log('🎨 [ANGULAR-SERVICE] Received ui_message:', data);
       this.uiMessages$.next(data);
     });
 
     this.client.on('game_state_update', (data) => {
+      console.log('🎮 [ANGULAR-SERVICE] Received game_state_update:', data);
       this.gameMessages$.next(data);
     });
+
+    // 🚀 NEW: Listen for room events specifically
+    // Use 'any' type to bypass TypeScript restrictions for custom events
+    (this.client as any).on('LuzbelBot_AS-NG_ROOM', (data: any) => {
+      console.log('🏠 [ANGULAR-SERVICE] Received LuzbelBot_AS-NG_ROOM event:', data);
+      this.systemMessages$.next(data);
+    });
+
+    // 🚀 NEW: Access underlying socket for generic event listening
+    const underlyingSocket = (this.client as any).socket;
+    if (underlyingSocket && typeof underlyingSocket.onAny === 'function') {
+      console.log('🌐 [ANGULAR-SERVICE] Setting up generic socket event listener...');
+      underlyingSocket.onAny((event: string, ...args: any[]) => {
+        console.log(`🌐 [ANGULAR-SERVICE] Socket event received: ${event}`, args);
+        
+        // Route room events to systemMessages
+        if (event.includes('_ROOM') || event.includes('_AS-NG_')) {
+          console.log(`🏠 [ANGULAR-SERVICE] Routing room event ${event} to systemMessages`);
+          this.systemMessages$.next(args[0] || args);
+        }
+      });
+    } else {
+      console.warn('⚠️ [ANGULAR-SERVICE] Cannot access underlying socket onAny method');
+    }
+
+    console.log('✅ [ANGULAR-SERVICE] Client event handlers setup complete');
   }
 
   /**
