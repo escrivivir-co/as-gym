@@ -48,14 +48,14 @@ export interface AlephScriptAngularConfig extends AlephClientConfig {
 export const DEFAULT_ANGULAR_CONFIG: Required<AlephScriptAngularConfig> = {
   name: "AngularAlephClient",
   url: "http://localhost:3000",
-  namespace: "/",
+  namespace: "/runtime",
   autoConnect: true,
   debug: true,
   reconnection: true,
   reconnectionAttempts: 5,
   timeout: 10000,
-  uiType: "angular",
-  uiId: "default",
+  uiType: "LuzbelBot",
+  uiId: "AS-NG",
   enableSSR: true,
   fallbackMode: {
     enabled: true,

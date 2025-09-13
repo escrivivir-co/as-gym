@@ -17,6 +17,7 @@
     "dev:angular": "npm run dev --workspace=packages/aleph-script-angular",
     "pack:core-browser": "npm run pack --workspace=packages/aleph-script-core-browser",
     "pack:angular": "npm run pack --workspace=packages/aleph-script-angular",
+    "pack_browser_client_for_install": "bash scripts/pack-for-dist.sh",
     "clean": "npm run clean --workspaces",
     "test": "npm run test --workspaces",
     "legacy:dev": "nodemon --watch \"src/**\" --ext \"ts,json\" --ignore \"src/**/*.spec.ts\" --exec npx tsx src/index.ts"

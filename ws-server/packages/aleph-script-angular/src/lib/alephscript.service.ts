@@ -87,7 +87,7 @@ export class AlephScriptService {
     this.config = { ...DEFAULT_ANGULAR_CONFIG, ...config };
 
     // Initialize observables with RxJS configuration
-    const { debounceTime: defaultDebounce, bufferTime } = this.config.rxjs;
+    const { debounceTime: defaultDebounce = 100, bufferTime = 50 } = this.config.rxjs || {};
 
     this.connectionStatus = this.connectionStatus$.asObservable();
     
@@ -286,9 +286,15 @@ export class AlephScriptService {
     });
 
     this.client.on('disconnected', () => {
-      console.log('🔌 Disconnected from AlephScript server');
-      this.connectionStatus$.next('disconnected');
-      this.startReconnection();
+      // Only trigger disconnection logic if we're actually disconnected
+      if (!this.client?.isConnected()) {
+        console.log('🔌 Disconnected from AlephScript server');
+        this.connectionStatus$.next('disconnected');
+        // Only start reconnection if we're actually disconnected
+        if (this.config.reconnection && !this.isReconnecting$.value) {
+          this.startReconnection();
+        }
+      }
     });
 
     this.client.on('connection_error', (error) => {
@@ -351,6 +357,8 @@ export class AlephScriptService {
     this.connectionStatus$.pipe(
       filter(status => status === 'disconnected'),
       filter(() => this.config.reconnection),
+      // Check if we're actually disconnected before starting reconnection
+      filter(() => !this.client?.isConnected()),
       debounceTime(1000),
       takeUntil(this.destroy$)
     ).subscribe(() => {
@@ -421,7 +429,12 @@ export class AlephScriptService {
    * Start reconnection process
    */
   private startReconnection(): void {
-    if (!this.config.reconnection || this.isReconnecting$.value) {
+    // Don't start reconnection if already connected or already reconnecting
+    if (!this.config.reconnection || this.isReconnecting$.value || this.client?.isConnected()) {
+      if (this.client?.isConnected()) {
+        console.log('🔗 Connection already active, skipping reconnection');
+        this.connectionStatus$.next('connected');
+      }
       return;
     }
 
@@ -432,6 +445,14 @@ export class AlephScriptService {
     const maxAttempts = this.config.reconnectionAttempts;
 
     this.reconnectionTimer = setInterval(() => {
+      // Double-check if we're already connected before attempting
+      if (this.client?.isConnected()) {
+        console.log('🔗 Already connected, stopping reconnection');
+        this.stopReconnection();
+        this.connectionStatus$.next('connected');
+        return;
+      }
+
       attempts++;
       console.log(`🔄 Reconnection attempt ${attempts}/${maxAttempts}`);
 

@@ -142,7 +142,7 @@ export class AlephScriptClient extends SocketClient {
       data: { input, metadata },
       timestamp: Date.now()
     };
-
+    console.log("SOCKET-GYM-WS-SERVE-CORE-BROWSER-CLIENT", "sendUserInput");
     this.room('USER_INPUT', message);
     this.emit('message', message);
   }
