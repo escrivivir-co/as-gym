@@ -17,15 +17,16 @@ const server = createServer(app);
 // Usar la librería AlephScript
 const as = new AlephScriptServer(server);
 
-server.listen(3000, ()=> {
+const PORT = 3010;
+server.listen(PORT, ()=> {
 
-	console.log("🚀 Socket Gym Demo - Server escuchando en el puerto 3000");
+	console.log(`🚀 Socket Gym Demo - Server escuchando en el puerto ${PORT}`);
 	console.log("📦 Usando @alephscript/core library");
 
 	// Crear clientes usando la librería
-	const asCli = new AlephScriptClient("SERVER_cRUNTIME", "http://localhost:3000", "/runtime");
-	// THIS IS UI APP ADMIN DASHBOARD, DON'T CONNECT const asCliA = new AlephScriptClient("SERVER_cADMIN", "http://localhost:3000", "/admin");
-	const noPath = new AlephScriptClient("SERVER_cNOPATH", "http://localhost:3000", "/");
+	const asCli = new AlephScriptClient("SERVER_cRUNTIME", `http://localhost:${PORT}`, "/runtime");
+	// THIS IS UI APP ADMIN DASHBOARD, DON'T CONNECT const asCliA = new AlephScriptClient("SERVER_cADMIN", `http://localhost:${PORT}`, "/admin");
+	const noPath = new AlephScriptClient("SERVER_cNOPATH", `http://localhost:${PORT}`, "/");
 
 	// Configurar triggers usando la librería
 	asCli.initTriggersDefinition.push(() => {
