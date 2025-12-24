@@ -1,0 +1,279 @@
+{
+  "version": "1.0.0",
+  "last_updated": "2025-12-24T12:00:00Z",
+  "source": "alephscript/src/FIA/paradigmas/",
+  "integration": {
+    "project": "ALEPH Scriptorium",
+    "plugin": "AGENT_CREATOR",
+    "purpose": "Catálogo de paradigmas FIA para selección en creación de agentes"
+  },
+  "paradigmas": {
+    "logica": {
+      "id": "logica",
+      "nombre": "Lógica Formal",
+      "descripcion": "Razonamiento proposicional, lógica de predicados, lógica modal. Permite deducción formal y verificación de consistencia.",
+      "carpeta": "paradigmas/logica/",
+      "afinidad_banderas": {
+        "primaria": "blueflag",
+        "secundarias": []
+      },
+      "capacidades": [
+        "deduccion",
+        "verificacion_formal",
+        "consistencia",
+        "demostracion_teoremas"
+      ],
+      "limitaciones": [
+        "no_maneja_incertidumbre",
+        "explosion_combinatoria",
+        "requiere_formalizacion"
+      ],
+      "nivel_madurez": "estable",
+      "modelos": []
+    },
+    "conexionista": {
+      "id": "conexionista",
+      "nombre": "Redes Neuronales",
+      "descripcion": "Deep learning, reconocimiento de patrones, embeddings. Captura relaciones emergentes en datos.",
+      "carpeta": "paradigmas/conexionista/",
+      "afinidad_banderas": {
+        "primaria": "yellowflag",
+        "secundarias": ["blueflag"]
+      },
+      "capacidades": [
+        "reconocimiento_patrones",
+        "generalizacion",
+        "embeddings",
+        "aproximacion_funciones"
+      ],
+      "limitaciones": [
+        "caja_negra",
+        "requiere_datos_entrenamiento",
+        "no_explicable"
+      ],
+      "nivel_madurez": "experimental",
+      "modelos": [
+        {
+          "id": "red_neuronal",
+          "nombre": "Red Neuronal",
+          "archivo": "cadena-fia-red-neuronal.ts"
+        }
+      ]
+    },
+    "simbolica": {
+      "id": "simbolica",
+      "nombre": "IA Simbólica",
+      "descripcion": "Manipulación de símbolos, representación del conocimiento, sistemas expertos clásicos.",
+      "carpeta": "paradigmas/simbolica/",
+      "afinidad_banderas": {
+        "primaria": "aleph",
+        "secundarias": ["blueflag"]
+      },
+      "capacidades": [
+        "representacion_conocimiento",
+        "inferencia_simbolica",
+        "explicabilidad",
+        "manipulacion_estructuras"
+      ],
+      "limitaciones": [
+        "fragilidad_ante_ruido",
+        "dificil_adquisicion_conocimiento",
+        "mantenimiento_costoso"
+      ],
+      "nivel_madurez": "estable",
+      "modelos": [
+        {
+          "id": "red_semantica",
+          "nombre": "Red Semántica",
+          "descripcion": "Grafo de conceptos con arcos estructurales (SUBCLASE, PARTE_DE, INSTANCIA_DE) y descriptivos. Permite herencia de propiedades e inferencia por equiparación.",
+          "archivo": "modelos/formal/sistema/semantica/red.ts",
+          "interfaz": "IRedSemantica",
+          "capacidades": [
+            "definir_entidades",
+            "crear_arcos_estructurales",
+            "crear_arcos_descriptivos",
+            "herencia_propiedades",
+            "equiparacion_patrones"
+          ],
+          "persistencia": {
+            "formato": "json",
+            "schema": "red_semantica.schema.json"
+          },
+          "epocas_soportadas": ["edicion", "consulta"]
+        },
+        {
+          "id": "frames",
+          "nombre": "Frames (Marcos)",
+          "descripcion": "Estructuras de datos con slots y valores por defecto.",
+          "archivo": "modelos/formal/sistema/frames/",
+          "nivel_madurez": "parcial"
+        }
+      ]
+    },
+    "sbc": {
+      "id": "sbc",
+      "nombre": "Sistemas Basados en Casos",
+      "descripcion": "Razonamiento por analogía con casos precedentes. Recupera, adapta y aprende de experiencias pasadas.",
+      "carpeta": "paradigmas/sbc/",
+      "afinidad_banderas": {
+        "primaria": "revisor",
+        "secundarias": ["blueflag"]
+      },
+      "capacidades": [
+        "razonamiento_analogico",
+        "recuperacion_casos",
+        "adaptacion",
+        "aprendizaje_experiencial"
+      ],
+      "limitaciones": [
+        "requiere_base_casos",
+        "sensible_a_representacion",
+        "adaptacion_limitada"
+      ],
+      "nivel_madurez": "parcial",
+      "modelos": []
+    },
+    "sbr": {
+      "id": "sbr",
+      "nombre": "Sistemas Basados en Reglas",
+      "descripcion": "Motor de inferencia con reglas IF-THEN. Encadenamiento hacia adelante y hacia atrás.",
+      "carpeta": "paradigmas/sbr/",
+      "afinidad_banderas": {
+        "primaria": "blackflag",
+        "secundarias": ["redflag"]
+      },
+      "capacidades": [
+        "encadenamiento_adelante",
+        "encadenamiento_atras",
+        "explicacion_razonamiento",
+        "modularidad"
+      ],
+      "limitaciones": [
+        "orden_reglas_importa",
+        "conflictos_reglas",
+        "mantenimiento_complejo"
+      ],
+      "nivel_madurez": "estable",
+      "modelos": []
+    },
+    "situada": {
+      "id": "situada",
+      "nombre": "IA Situada",
+      "descripcion": "Inteligencia embodied, reactiva al entorno. Comportamiento emerge de la interacción.",
+      "carpeta": "paradigmas/situada/",
+      "afinidad_banderas": {
+        "primaria": "redflag",
+        "secundarias": ["yellowflag"]
+      },
+      "capacidades": [
+        "reactividad",
+        "adaptacion_entorno",
+        "comportamiento_emergente",
+        "tiempo_real"
+      ],
+      "limitaciones": [
+        "sin_representacion_explicita",
+        "comportamiento_impredecible",
+        "dificil_debugging"
+      ],
+      "nivel_madurez": "experimental",
+      "modelos": []
+    },
+    "hibrido": {
+      "id": "hibrido",
+      "nombre": "Sistemas Híbridos",
+      "descripcion": "Combinación de múltiples paradigmas. Orquestación de capacidades complementarias.",
+      "carpeta": "paradigmas/hibrido/",
+      "afinidad_banderas": {
+        "primaria": "aleph",
+        "secundarias": ["blueflag", "blackflag", "redflag", "yellowflag"]
+      },
+      "capacidades": [
+        "orquestacion",
+        "combinacion_paradigmas",
+        "flexibilidad",
+        "adaptacion"
+      ],
+      "limitaciones": [
+        "complejidad_integracion",
+        "overhead_coordinacion"
+      ],
+      "nivel_madurez": "experimental",
+      "modelos": []
+    },
+    "cientifica": {
+      "id": "cientifica",
+      "nombre": "Método Científico",
+      "descripcion": "Automatización del método científico: hipótesis, experimento, refutación.",
+      "carpeta": "paradigmas/cientifica/",
+      "afinidad_banderas": {
+        "primaria": "blueflag",
+        "secundarias": ["revisor"]
+      },
+      "capacidades": [
+        "generacion_hipotesis",
+        "diseño_experimentos",
+        "falsificacion",
+        "refinamiento_teorias"
+      ],
+      "limitaciones": [
+        "requiere_dominio_formalizado",
+        "costoso_computacionalmente"
+      ],
+      "nivel_madurez": "parcial",
+      "modelos": []
+    },
+    "gramaticas": {
+      "id": "gramaticas",
+      "nombre": "Gramáticas Formales",
+      "descripcion": "Parsers, generadores, gramáticas libres de contexto. Análisis y generación de lenguaje estructurado.",
+      "carpeta": "paradigmas/gramaticas/",
+      "afinidad_banderas": {
+        "primaria": "orangeflag",
+        "secundarias": ["blueflag"]
+      },
+      "capacidades": [
+        "parsing",
+        "generacion",
+        "validacion_sintactica",
+        "transformacion"
+      ],
+      "limitaciones": [
+        "solo_estructura",
+        "no_semantica",
+        "ambiguedad"
+      ],
+      "nivel_madurez": "estable",
+      "modelos": []
+    },
+    "sistemas": {
+      "id": "sistemas",
+      "nombre": "Teoría de Sistemas",
+      "descripcion": "Modelado de sistemas complejos, feedback loops, emergencia, autoorganización.",
+      "carpeta": "paradigmas/sistemas/",
+      "afinidad_banderas": {
+        "primaria": "redflag",
+        "secundarias": ["yellowflag"]
+      },
+      "capacidades": [
+        "modelado_dinamico",
+        "feedback_loops",
+        "emergencia",
+        "simulacion"
+      ],
+      "limitaciones": [
+        "simplificacion_necesaria",
+        "sensible_parametros",
+        "validacion_dificil"
+      ],
+      "nivel_madurez": "parcial",
+      "modelos": []
+    }
+  },
+  "metadata": {
+    "total_paradigmas": 10,
+    "paradigmas_estables": ["logica", "simbolica", "sbr", "gramaticas"],
+    "paradigmas_parciales": ["sbc", "cientifica", "sistemas"],
+    "paradigmas_experimentales": ["conexionista", "situada", "hibrido"]
+  }
+}

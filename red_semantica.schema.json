@@ -1,0 +1,79 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Red Semántica Persistida",
+  "description": "Schema para el estado persistido de una red semántica usada por un agente FIA",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "Versión del schema"
+    },
+    "agente": {
+      "type": "string",
+      "description": "ID del agente propietario de esta red"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "red": {
+      "type": "object",
+      "properties": {
+        "ENTIDADES": {
+          "type": "object",
+          "description": "Mapa de entidades (nodos) de la red",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "ESTRUCTURALES": {
+          "type": "object",
+          "properties": {
+            "SUBCLASE": {
+              "type": "object",
+              "description": "Relaciones ES-UN (herencia)"
+            },
+            "PARTE_DE": {
+              "type": "object",
+              "description": "Relaciones PARTE-DE (composición)"
+            },
+            "INSTANCIA_DE": {
+              "type": "object",
+              "description": "Relaciones INSTANCIA-DE (ejemplares)"
+            }
+          }
+        },
+        "DESCRIPTIVOS": {
+          "type": "object",
+          "description": "Propiedades y atributos de entidades",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "propiedades": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "valores": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      },
+      "required": ["ENTIDADES"]
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "total_entidades": { "type": "integer" },
+        "total_arcos": { "type": "integer" },
+        "epoch_origen": { "type": "string" }
+      }
+    }
+  },
+  "required": ["version", "agente", "red"]
+}
