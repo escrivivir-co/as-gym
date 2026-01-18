@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: https://angular.escrivivir.co/sitemap.xml

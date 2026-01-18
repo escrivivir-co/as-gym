@@ -1,0 +1,92 @@
+import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { DynamicFormComponent } from '../dynamic-form/dynamic-form.component';
+import { ChatRoomComponent } from '../chat/component';
+import { LoggerComponent } from '../logger/logger';
+import { TreeNodeComponent } from '../tree-node/tree-node';
+
+// SudokuData - tipos locales
+interface SudokuData {
+	board?: number[][];
+	solution?: number[][];
+	sol?: number[][];  // alias for solution used in template
+	difficulty?: string;
+	k?: number;
+	level?: number;
+	currentCell?: { row: number; col: number };
+	backtrackCell?: { row: number; col: number };
+	[key: string]: unknown;
+}
+const DEFAULT_SUDOKU_DATA: SudokuData = { board: [], solution: [], sol: [] };
+interface TreeNode { name: string; children?: TreeNode[]; }
+const DEFAULT_ROOT_NODE: TreeNode = { name: 'root', children: [] };
+
+@Component({
+  standalone: true,
+  selector: 'app-sudoku',
+  templateUrl: './sudoku.html',
+  styleUrls: ['./sudoku.css'],
+  imports: [CommonModule, DynamicFormComponent, ChatRoomComponent,
+	LoggerComponent,
+	TreeNodeComponent]
+})
+export class SudokuComponent {
+
+@Input()
+	set data(value: SudokuData) {
+		this._data = value;
+		const d = value;
+		if (d?.currentCell) {
+			this.updateTreeNodes(
+				d.currentCell.row, d.currentCell.col, d.k ?? 0, d.level ?? 0, this.data.backtrackCell ?? null
+			)
+		}
+	}
+	get data(): SudokuData {
+		return this._data;
+	}
+
+	_data: SudokuData = DEFAULT_SUDOKU_DATA;
+
+	rootNode: any = DEFAULT_ROOT_NODE;
+
+	currentNode: any =  this.rootNode;
+
+	isCurrentCell(row: number, col: number): boolean {
+		const isback = this.data.currentCell?.row === row && this.data.currentCell?.col === col
+		// if (isback) console.log("is current", row, col)
+		return isback;
+	}
+
+	isBacktrackCell(row: number, col: number): boolean {
+		const isback = this.data.backtrackCell?.row === row && this.data.backtrackCell?.col === col;
+		// if (isback) console.log("is back", row, col)
+		return isback
+	}
+
+	updateTreeNodes(row: number, col: number, k: number, level: number, backtrack: { row: number, col: number } | null): void {
+		const info = `Row: ${row}, Col: ${col}, K: ${k}, Level: ${level}`;
+		const newNode = { info, children: [], isCurrent: true, isBacktrack: false };
+		this.currentNode.children.push(newNode);
+		this.currentNode.isCurrent = false;
+
+		if (backtrack) {
+		  this.currentNode.isBacktrack = true;
+		  this.currentNode = this.findParentNode(this.rootNode, row, col);
+		} else {
+		  this.currentNode = newNode;
+		}
+	  }
+
+	findParentNode(node: any, row: number, col: number): any {
+	if (!node.children) return null;
+	for (const child of node.children) {
+		if (child.info.includes(`Row: ${row}, Col: ${col}`)) {
+		return node;
+		}
+		const foundNode = this.findParentNode(child, row, col);
+		if (foundNode) return foundNode;
+	}
+	return null;
+	}
+}

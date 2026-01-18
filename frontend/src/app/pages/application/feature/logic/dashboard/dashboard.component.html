@@ -1,0 +1,19 @@
+<div class="row md-12">
+	<app-chat-builder
+		[theApp]="theApp"
+		[theAppCode]="theAppCode"
+		[currentApp]="currentApp"
+		(handleSendSignal)="sendSignal($event)"></app-chat-builder>
+</div>
+
+<div class="row md-12">
+    <app-telemetry-monitor></app-telemetry-monitor>
+</div>
+<div class="row md-12">
+	<app-rule-editor 
+		(ruleSaved)="onRuleSaved($event)"
+		(appSelected)="appSelected($event)"></app-rule-editor>
+</div>
+<div class="row md-12">
+	<app-rule-list [theApp]="theApp"></app-rule-list>
+</div>
