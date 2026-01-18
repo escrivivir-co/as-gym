@@ -14,6 +14,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@alephscript/mcp-core-sdk": "file:../../MCPGallery/mcp-core-sdk",
     "@modelcontextprotocol/sdk": "^1.25.1",
     "cors": "^2.8.5",
     "express": "^5.1.0",
@@ -33,8 +34,5 @@
     "ts-jest": "^29.4.6",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5"
-  },
-  "peerDependencies": {
-    "@alephscript/mcp-core-sdk": "file:../../MCPGallery/mcp-core-sdk/alephscript-mcp-core-sdk-1.3.0.tgz"
   }
 }

@@ -2,7 +2,7 @@
  * Socket.IO Service - Real-time communication with AlephScriptClient
  * 
  * Connects to ws-server (Socket.IO) as AAIABackendBot
- * Joins AAIA_ROOM and listens for events from MCPAAIAServer
+ * Joins AAIA_ROOM and ENGINE_THREADS, becoming MASTER of ENGINE_THREADS
  * Re-broadcasts events to connected REST clients via SSE
  * 
  * AsyncAPI Events:
@@ -12,12 +12,37 @@
  * - mundo_state: World state changed
  * - session_created: New session started
  * - session_destroyed: Session terminated
+ * 
+ * ENGINE_THREADS Capabilities:
+ * - GET_LIST_OF_THREADS: List active FIA sessions
+ * - GET_THREAD_STATE: Get state of a specific thread
+ * - THREAD_STEP: Execute step on a FIA
+ * - THREAD_PERCEPTO: Send percepto to FIA
  */
 
 import { io, Socket } from 'socket.io-client';
 import { EventEmitter } from 'events';
 import { config } from '../config';
 import { logger } from '../utils/logger';
+
+// Import shared types from mcp-core-sdk (via peerDependency)
+import type { 
+  RoomProtocolEvent,
+  IMakeMasterPayload,
+  IRoomMessagePayload 
+} from '@alephscript/mcp-core-sdk';
+
+// ============================================
+// ENGINE_THREADS Master Configuration
+// ============================================
+
+const ENGINE_THREADS_ROOM = 'ENGINE_THREADS';
+const ENGINE_THREADS_FEATURES = [
+  'GET_LIST_OF_THREADS',
+  'GET_THREAD_STATE',
+  'THREAD_STEP',
+  'THREAD_PERCEPTO',
+];
 
 // ============================================
 // Event Types (aligned with AsyncAPI)
@@ -171,21 +196,168 @@ class SocketIOService extends EventEmitter {
   }
 
   /**
-   * Join AAIA_ROOM
+   * Join AAIA_ROOM and ENGINE_THREADS, register as MASTER of ENGINE_THREADS
    */
   private joinRoom(): void {
     if (!this.socket) return;
 
-    const room = config.socketio.room;
-    logger.info(`Joining room: ${room}`);
+    const aaiaRoom = config.socketio.room;
+    
+    // 1. Register client identity
+    this.socket.emit('CLIENT_REGISTER', { 
+      usuario: 'AAIABackendBot', 
+      sesion: `aaia-backend-${Date.now()}` 
+    });
+    
+    // 2. Join AAIA_ROOM (listen for MCPAAIAServer events)
+    logger.info(`Joining room: ${aaiaRoom}`);
+    this.socket.emit('CLIENT_SUSCRIBE', { room: aaiaRoom });
+    
+    // 3. Join ENGINE_THREADS and become MASTER
+    logger.info(`Joining room: ${ENGINE_THREADS_ROOM}`);
+    this.socket.emit('CLIENT_SUSCRIBE', { room: ENGINE_THREADS_ROOM });
+    
+    // 4. Declare as MASTER of ENGINE_THREADS
+    this.registerAsEngineThreadsMaster();
+  }
 
-    this.socket.emit('join_room', { room }, (ack: { success: boolean; error?: string }) => {
-      if (ack?.success) {
-        logger.info(`Joined room: ${room}`);
-      } else {
-        logger.error(`Failed to join room: ${ack?.error}`);
+  /**
+   * Register as MASTER of ENGINE_THREADS room
+   * This enables frontend to request thread operations via Socket.IO
+   */
+  private registerAsEngineThreadsMaster(): void {
+    if (!this.socket) return;
+
+    const masterPayload: IMakeMasterPayload = {
+      features: ENGINE_THREADS_FEATURES,
+      metadata: {
+        serverType: 'aaia-backend-gateway',
+        version: '1.0.0',
+        registeredAt: new Date().toISOString(),
+      }
+    };
+
+    // Emit MAKE_MASTER event
+    this.socket.emit('ROOM_MESSAGE', {
+      event: 'MAKE_MASTER',
+      room: ENGINE_THREADS_ROOM,
+      data: masterPayload,
+    } as IRoomMessagePayload<IMakeMasterPayload>);
+
+    logger.info(`Registered as MASTER of ${ENGINE_THREADS_ROOM}`, {
+      features: ENGINE_THREADS_FEATURES,
+    });
+
+    // Setup handlers for ENGINE_THREADS requests
+    this.setupEngineThreadsHandlers();
+  }
+
+  /**
+   * Setup handlers for ENGINE_THREADS capability requests
+   */
+  private setupEngineThreadsHandlers(): void {
+    if (!this.socket) return;
+
+    // Handle GET_LIST_OF_THREADS requests
+    this.socket.on('GET_LIST_OF_THREADS', async (data: { requester?: string }) => {
+      logger.info('ENGINE_THREADS: Received GET_LIST_OF_THREADS request', data);
+      
+      try {
+        // Try to get from MCP AAIA Server
+        const response = await this.fetchFromMCPServer('/aaia/sessions');
+        
+        this.socket?.emit('ROOM_MESSAGE', {
+          event: 'SET_LIST_OF_THREADS',
+          room: ENGINE_THREADS_ROOM,
+          data: { threads: response, timestamp: new Date().toISOString() },
+        });
+      } catch (error) {
+        logger.warn('ENGINE_THREADS: MCP server unavailable, using FIA catalog fallback');
+        
+        // Fallback: Return FIA catalog as menu items
+        const catalogItems = this.getFIACatalogAsMenuItems();
+        
+        this.socket?.emit('ROOM_MESSAGE', {
+          event: 'SET_LIST_OF_THREADS',
+          room: ENGINE_THREADS_ROOM,
+          data: catalogItems,
+        });
       }
     });
+
+    // Handle GET_THREAD_STATE requests  
+    this.socket.on('GET_THREAD_STATE', async (data: { sessionId: string }) => {
+      logger.info('ENGINE_THREADS: Received GET_THREAD_STATE request', data);
+      
+      try {
+        const response = await this.fetchFromMCPServer(`/aaia/sessions/${data.sessionId}`);
+        
+        this.socket?.emit('ROOM_MESSAGE', {
+          event: 'SET_THREAD_STATE',
+          room: ENGINE_THREADS_ROOM,
+          data: { state: response, sessionId: data.sessionId },
+        });
+      } catch (error) {
+        logger.error('ENGINE_THREADS: Failed to get thread state', error);
+      }
+    });
+
+    logger.info('ENGINE_THREADS handlers configured');
+  }
+
+  /**
+   * Fetch data from MCP AAIA Server
+   */
+  private async fetchFromMCPServer(path: string): Promise<unknown> {
+    const url = `${config.mcpAaia.url}${path}`;
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    });
+    
+    if (!response.ok) {
+      throw new Error(`MCP Server error: ${response.status}`);
+    }
+    
+    return response.json();
+  }
+
+  /**
+   * Get FIA catalog as menu items (fallback when MCP server unavailable)
+   * Transforms fia-catalog.json paradigmas into IMenuState format
+   */
+  private getFIACatalogAsMenuItems(): Record<string, unknown>[] {
+    // Static catalog data - in production this would be loaded from file
+    const paradigmas = [
+      { id: 'logica', nombre: 'Lógica Formal', estado: 'STOP' },
+      { id: 'conexionista', nombre: 'Redes Neuronales', estado: 'STOP' },
+      { id: 'hibrido', nombre: 'Híbrido', estado: 'STOP' },
+      { id: 'simbolico', nombre: 'Simbólico', estado: 'STOP' },
+      { id: 'situado', nombre: 'Situado', estado: 'STOP' },
+      { id: 'reactivo', nombre: 'Reactivo', estado: 'STOP' },
+      { id: 'deliberativo', nombre: 'Deliberativo', estado: 'STOP' },
+      { id: 'bdi', nombre: 'BDI (Belief-Desire-Intention)', estado: 'STOP' },
+      { id: 'subsuncion', nombre: 'Subsunción', estado: 'STOP' },
+      { id: 'multiagente', nombre: 'Multi-Agente', estado: 'STOP' },
+    ];
+
+    return paradigmas.map((p, index) => ({
+      index,
+      name: p.nombre,
+      state: p.estado,
+      mundo: {
+        nombre: `FIA ${p.id}`,
+        renderer: 'about',
+        runState: 'STOP',
+        modelo: {
+          nombre: p.id,
+          pulso: 1000,
+          dia: 0,
+          muerte: 100,
+        },
+      },
+      bots: [],
+    }));
   }
 
   /**
