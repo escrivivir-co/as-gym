@@ -16,7 +16,7 @@ export const config = {
   
   // Socket.IO (AlephScriptClient - ws-server on port 3010)
   socketio: {
-    url: process.env.SOCKETIO_URL || 'http://localhost:3010',
+    url: process.env.SOCKETIO_URL || 'http://localhost:3010/runtime',
     room: process.env.AAIA_ROOM || 'AAIA_ROOM',
   },
   
