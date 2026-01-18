@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AlephKadsComponent } from './dynamic-form/dynamic-form.component';
+import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
 import { SafePipe } from './safe.pipe';
 
-describe('ExampleServicesComponent', () => {
-  let component: AlephKadsComponent;
-  let fixture: ComponentFixture<AlephKadsComponent>;
+describe('DynamicFormComponent', () => {
+  let component: DynamicFormComponent;
+  let fixture: ComponentFixture<DynamicFormComponent>;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
       declarations: [
-        AlephKadsComponent,
+        DynamicFormComponent,
         SafePipe,
       ]
     })
@@ -18,7 +18,7 @@ describe('ExampleServicesComponent', () => {
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AlephKadsComponent);
+    fixture = TestBed.createComponent(DynamicFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,24 +1,8 @@
 /**
  * Jest setup file
+ * 
+ * @épica AAIA-BACKEND-1.0.0 (Backend as SoT - no mcp-gateway mock needed)
  */
-
-// Mock MCP Gateway for all tests
-jest.mock('../services/mcp-gateway', () => ({
-  mcpGateway: {
-    callTool: jest.fn(),
-    isConnected: jest.fn().mockReturnValue(true),
-    getStatus: jest.fn().mockReturnValue({
-      connected: true,
-      url: 'http://localhost:3007',
-      cachedSessions: 0,
-      lastHealthCheck: null,
-    }),
-    initialize: jest.fn().mockResolvedValue(undefined),
-    getSessionCached: jest.fn(),
-    invalidateSession: jest.fn(),
-    clearSessionCache: jest.fn(),
-  },
-}));
 
 // Mock Socket.IO Service
 jest.mock('../services/socketio.service', () => ({

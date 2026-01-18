@@ -1,11 +1,13 @@
 /**
  * Apps Controller Tests
+ * 
+ * Backend is Source of Truth - reads from fia-catalog.json directly
+ * @épica AAIA-BACKEND-1.0.0
  */
 
 import request from 'supertest';
 import express from 'express';
 import { apiRoutes } from '../routes';
-import { mcpGateway } from '../services/mcp-gateway';
 
 // Create test app
 const app = express();
@@ -29,8 +31,7 @@ describe('Apps Controller', () => {
   });
 
   describe('GET /api/apps/:id', () => {
-    it('should get app by ID', async () => {
-      // This test depends on fia-catalog.json having the app
+    it('should get app by ID if exists in catalog', async () => {
       const response = await request(app)
         .get('/api/apps/demo-logica');
 
@@ -54,14 +55,7 @@ describe('Apps Controller', () => {
   });
 
   describe('GET /api/paradigmas', () => {
-    it('should list available paradigms', async () => {
-      (mcpGateway.callTool as jest.Mock).mockResolvedValue({
-        paradigmas: [
-          { id: 'logica', nombre: 'Lógica' },
-          { id: 'reactiva', nombre: 'Reactiva' },
-        ],
-      });
-
+    it('should list available paradigms from catalog', async () => {
       const response = await request(app)
         .get('/api/paradigmas')
         .expect(200);

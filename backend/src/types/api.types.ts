@@ -1,13 +1,44 @@
 /**
  * API Request/Response Types
  * 
- * Types specific to the REST API layer
+ * Re-exports from @alephscript/mcp-core-sdk for REST API layer
+ * Plus backend-specific types not in core
+ * 
+ * @épica AAIA-BACKEND-1.0.0 (types unification)
+ * @fecha 2026-01-18
  */
 
-import { IPercepto, IFIAInfo, IMundoState, AAIASessionMeta, IAAIAApp } from './aaia.types';
+// ============================================
+// Re-exports from mcp-core-sdk
+// ============================================
+
+export {
+    // API Response Types (AAIA-prefixed)
+    type AAIACreateSessionResponse,
+    type AAIAListSessionsResponse,
+    type AAIAGetSessionResponse,
+    type AAIADestroySessionResponse,
+    type AAIAListFIAsResponse,
+    type AAIAStepFIAResponse,
+    type AAIAGetFIAStateResponse,
+    type AAIASendPerceptoResponse,
+    type AAIAGetMundoStateResponse,
+    type AAIAQueryMundoResponse,
+    type AAIAListAppsResponse,
+    type AAIAErrorResponse,
+} from '@alephscript/mcp-core-sdk';
+
+// Re-export core types needed by API
+export {
+    type IPercepto,
+    type IFIAInfo,
+    type IMundoState,
+    type AAIASessionMeta,
+    type IAAIAApp,
+} from './aaia.types';
 
 // ============================================
-// Session Endpoints
+// Backend-Specific Request Types
 // ============================================
 
 export interface CreateSessionRequest {
@@ -15,88 +46,17 @@ export interface CreateSessionRequest {
     config?: Record<string, unknown>;
 }
 
-export interface CreateSessionResponse {
-    success: boolean;
-    sessionId: string;
-    appId: string;
-    fiasCount: number;
-    error?: string;
-}
-
-export interface ListSessionsResponse {
-    success: boolean;
-    sessions: AAIASessionMeta[];
-    count: number;
-}
-
-export interface GetSessionResponse {
-    success: boolean;
-    session: AAIASessionMeta;
-    fias: IFIAInfo[];
-    mundo: IMundoState;
-}
-
-export interface DestroySessionResponse {
-    success: boolean;
-    sessionId: string;
-    message: string;
-}
-
-// ============================================
-// FIA Endpoints
-// ============================================
-
 export interface ListFIAsRequest {
-    sessionId: string;  // query param
-}
-
-export interface ListFIAsResponse {
-    success: boolean;
     sessionId: string;
-    fias: IFIAInfo[];
-    count: number;
 }
 
 export interface StepFIARequest {
     sessionId: string;
 }
 
-export interface StepFIAResponse {
-    success: boolean;
-    fiaId: number;
-    eferencia?: {
-        tipo: string;
-        payload: Record<string, unknown>;
-    };
-    cycles?: number;
-    executionTimeMs?: number;
-}
-
 export interface SendPerceptoRequest {
     sessionId: string;
-    percepto: IPercepto;
-}
-
-export interface SendPerceptoResponse {
-    success: boolean;
-    processedBy: number[];
-    timestamp: string;
-}
-
-export interface GetFIAStateResponse {
-    success: boolean;
-    fiaId: number;
-    state: IFIAInfo;
-}
-
-// ============================================
-// Mundo Endpoints
-// ============================================
-
-export interface GetMundoStateResponse {
-    success: boolean;
-    sessionId: string;
-    mundo: IMundoState;
+    percepto: import('./aaia.types').IPercepto;
 }
 
 export interface QueryMundoRequest {
@@ -104,47 +64,14 @@ export interface QueryMundoRequest {
     query: string;
 }
 
-export interface QueryMundoResponse {
-    success: boolean;
-    sessionId: string;
-    result: Record<string, unknown>;
-}
-
 // ============================================
-// Apps Endpoints
+// Backend-Specific Response Types (not in core)
 // ============================================
-
-export interface ListAppsResponse {
-    success: boolean;
-    apps: Array<{
-        id: string;
-        nombre: string;
-        descripcion?: string;
-        paradigmaPrincipal: string;
-        fiasCount: number;
-    }>;
-    count: number;
-}
 
 export interface GetAppResponse {
     success: boolean;
-    app: IAAIAApp;
+    app: import('./aaia.types').IAAIAApp;
 }
-
-// ============================================
-// Error Response
-// ============================================
-
-export interface ErrorResponse {
-    error: string;
-    message?: string;
-    code?: string;
-    details?: Record<string, unknown>;
-}
-
-// ============================================
-// Health Check
-// ============================================
 
 export interface HealthCheckResponse {
     status: 'healthy' | 'degraded' | 'unhealthy';
@@ -153,3 +80,21 @@ export interface HealthCheckResponse {
     socketConnected?: boolean;
     timestamp: string;
 }
+
+// ============================================
+// Type Aliases for backward compatibility
+// (map old names to new AAIA-prefixed names)
+// ============================================
+
+export type { AAIACreateSessionResponse as CreateSessionResponse } from '@alephscript/mcp-core-sdk';
+export type { AAIAListSessionsResponse as ListSessionsResponse } from '@alephscript/mcp-core-sdk';
+export type { AAIAGetSessionResponse as GetSessionResponse } from '@alephscript/mcp-core-sdk';
+export type { AAIADestroySessionResponse as DestroySessionResponse } from '@alephscript/mcp-core-sdk';
+export type { AAIAListFIAsResponse as ListFIAsResponse } from '@alephscript/mcp-core-sdk';
+export type { AAIAStepFIAResponse as StepFIAResponse } from '@alephscript/mcp-core-sdk';
+export type { AAIAGetFIAStateResponse as GetFIAStateResponse } from '@alephscript/mcp-core-sdk';
+export type { AAIASendPerceptoResponse as SendPerceptoResponse } from '@alephscript/mcp-core-sdk';
+export type { AAIAGetMundoStateResponse as GetMundoStateResponse } from '@alephscript/mcp-core-sdk';
+export type { AAIAQueryMundoResponse as QueryMundoResponse } from '@alephscript/mcp-core-sdk';
+export type { AAIAListAppsResponse as ListAppsResponse } from '@alephscript/mcp-core-sdk';
+export type { AAIAErrorResponse as ErrorResponse } from '@alephscript/mcp-core-sdk';

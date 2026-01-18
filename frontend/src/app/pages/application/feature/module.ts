@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { AlephKadsRoutingModule } from './routing.module';
+import { FeatureRoutingModule } from './routing.module';
 
 import { SafePipe } from './safe.pipe';
 
@@ -11,9 +11,9 @@ import { SafePipe } from './safe.pipe';
   ],
   imports: [
     CommonModule,
-    AlephKadsRoutingModule
+    FeatureRoutingModule
   ],
   exports: [
   ],
 })
-export class AlephKadsModule { }
+export class FeatureModule { }

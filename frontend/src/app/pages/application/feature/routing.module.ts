@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AlephKadsComponent } from './dynamic-form/dynamic-form.component';
+import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: AlephKadsComponent,
+    component: DynamicFormComponent,
   },
 ];
 
@@ -15,4 +15,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class AlephKadsRoutingModule { }
+export class FeatureRoutingModule { }

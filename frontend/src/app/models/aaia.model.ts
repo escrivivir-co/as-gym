@@ -36,6 +36,22 @@ export type {
   AAIASendPerceptoResult,
 } from '@alephscript/mcp-core-sdk/browser';
 
+// API Response Types (for HTTP client usage)
+export type {
+  AAIACreateSessionResponse,
+  AAIAListSessionsResponse,
+  AAIAGetSessionResponse,
+  AAIADestroySessionResponse,
+  AAIAListFIAsResponse,
+  AAIAStepFIAResponse,
+  AAIAGetFIAStateResponse,
+  AAIASendPerceptoResponse,
+  AAIAGetMundoStateResponse,
+  AAIAQueryMundoResponse,
+  AAIAListAppsResponse,
+  AAIAErrorResponse,
+} from '@alephscript/mcp-core-sdk/browser';
+
 // Frontend state types (for ServerService)
 export type {
   IMenuState,

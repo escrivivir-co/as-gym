@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AnSindicModelVFComponent } from './iot-logic-engine.component';
+import { IotLogicEngineComponent } from './iot-logic-engine.component';
 import { RouterTestingModule } from '@angular/router/testing';
 
-describe('AnSindicModelVFComponent', () => {
-  let component: AnSindicModelVFComponent;
-  let fixture: ComponentFixture<AnSindicModelVFComponent>;
+describe('IotLogicEngineComponent', () => {
+  let component: IotLogicEngineComponent;
+  let fixture: ComponentFixture<IotLogicEngineComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AnSindicModelVFComponent,RouterTestingModule]
+      imports: [IotLogicEngineComponent,RouterTestingModule]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(AnSindicModelVFComponent);
+    fixture = TestBed.createComponent(IotLogicEngineComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

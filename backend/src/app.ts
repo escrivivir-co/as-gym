@@ -1,9 +1,12 @@
 /**
  * AAIAGallery Backend - REST API Gateway
  * 
- * Architecture:
- *   Angular Frontend <--HTTP--> This Backend <--MCP--> MCPAAIAServer (3007)
- *                     <--SSE-->              <--WS--> AlephScriptClient (3000)
+ * Architecture (v2 - Backend as Source of Truth):
+ *   Angular Frontend <--HTTP--> This Backend (SoT) <--Socket.IO--> ws-server (3010)
+ *                     <--SSE-->                                         │
+ *   MCP AAIA Server  <--HTTP--> This Backend (SoT)                      │
+ *   (3007, thin)                                                         │
+ *                                                    👑 PersefonBot ─────┘
  * 
  * Endpoints:
  *   /api/sessions    - Session management (CRUD)
@@ -14,14 +17,15 @@
  *   /health          - Health check
  * 
  * @module @alephscript/aaia-backend
+ * @épica AAIA-BACKEND-1.0.0
  */
 
 import express, { Application, Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import { logger } from './utils/logger';
 import { apiRoutes } from './routes';
-import { mcpGateway } from './services/mcp-gateway';
 import { socketIOService } from './services/socketio.service';
+import { sessionService } from './services/session.service';
 
 const app: Application = express();
 const port = process.env.PORT || 8007;
@@ -49,12 +53,15 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 app.use('/api', apiRoutes);
 
 // Health check endpoint
-app.get('/health', (req: Request, res: Response) => {
+app.get('/health', async (req: Request, res: Response) => {
+  const sessions = await sessionService.listSessions();
   res.json({
     status: 'healthy',
-    version: '1.0.0',
-    mcp: mcpGateway.getStatus(),
+    version: '2.0.0',
+    architecture: 'Backend as Source of Truth',
+    persistence: 'FileCollection (data/aaia-backend/sessions/)',
     socketio: socketIOService.getStatus(),
+    activeSessions: sessions.count,
     timestamp: new Date().toISOString(),
   });
 });
@@ -77,22 +84,19 @@ app.use((err: Error, req: Request, res: Response, _next: NextFunction) => {
 
 async function startServer() {
   try {
-    // Initialize MCP Gateway
-    await mcpGateway.initialize();
-    logger.info('MCP Gateway initialized');
-
-    // Initialize Socket.IO connection (non-blocking)
+    // Initialize Socket.IO connection via PersefonBot (non-blocking)
     socketIOService.connect().then(() => {
-      logger.info('Socket.IO connected to AlephScriptClient');
+      logger.info('👑 PersefonBot connected to ws-server (3010)');
     }).catch((error) => {
       logger.warn('Socket.IO connection failed (will retry):', error.message);
     });
 
     // Start HTTP server
     app.listen(port, () => {
-      logger.info(`AAIA Backend running on http://localhost:${port}`);
-      logger.info(`Health check: http://localhost:${port}/health`);
-      logger.info(`SSE events: http://localhost:${port}/api/events`);
+      logger.info(`🏛️  AAIA Backend (Source of Truth) running on http://localhost:${port}`);
+      logger.info(`💾 Persistence: data/aaia-backend/sessions/`);
+      logger.info(`❤️  Health check: http://localhost:${port}/health`);
+      logger.info(`📡 SSE events: http://localhost:${port}/api/events`);
     });
   } catch (error) {
     logger.error('Failed to start server:', error);

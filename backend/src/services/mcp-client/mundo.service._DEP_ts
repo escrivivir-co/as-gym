@@ -1,0 +1,71 @@
+/**
+ * Mundo Service - Business logic for world operations
+ * 
+ * Handles world state queries and percepto delivery
+ */
+
+import { mcpGateway } from './mcp-gateway._DEP_ts';
+import { logger } from '../utils/logger';
+import {
+  IMundoState,
+  IPercepto,
+  GetMundoStateResponse,
+  QueryMundoResponse,
+  SendPerceptoResponse,
+} from '../types';
+
+export class MundoService {
+  /**
+   * Get current world state
+   */
+  async getState(sessionId: string): Promise<GetMundoStateResponse> {
+    logger.debug(`Getting mundo state for session: ${sessionId}`);
+    
+    const result = await mcpGateway.callTool('aaia_query_mundo', { sessionId });
+    
+    return {
+      success: result.success as boolean,
+      sessionId,
+      mundo: result.mundo as IMundoState,
+    };
+  }
+
+  /**
+   * Execute arbitrary query on world model
+   */
+  async query(sessionId: string, query: string): Promise<QueryMundoResponse> {
+    logger.debug(`Querying mundo in session ${sessionId}: ${query}`);
+    
+    const result = await mcpGateway.callTool('aaia_query_mundo', { 
+      sessionId,
+      query,
+    });
+    
+    return {
+      success: result.success as boolean,
+      sessionId,
+      result: (result.result || result.mundo || {}) as Record<string, unknown>,
+    };
+  }
+
+  /**
+   * Send percepto to the world (broadcast to all FIAs)
+   */
+  async sendPercepto(sessionId: string, percepto: IPercepto): Promise<SendPerceptoResponse> {
+    logger.info(`Sending percepto to session ${sessionId}:`, percepto.tipo);
+    
+    const result = await mcpGateway.callTool('aaia_send_percepto', { 
+      sessionId,
+      percepto,
+    });
+    
+    return {
+      success: result.success as boolean,
+      processedBy: (result.processedBy || []) as number[],
+      timestamp: new Date().toISOString(),
+    };
+  }
+}
+
+// Singleton
+export const mundoService = new MundoService();

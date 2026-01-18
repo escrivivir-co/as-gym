@@ -2,11 +2,9 @@
  * Apps Service - Business logic for app catalog
  * 
  * Reads from fia-catalog.json and provides app/paradigm information
- * Backend is Source of Truth - no MCP gateway needed
- * 
- * @épica AAIA-BACKEND-1.0.0 (Backend as SoT)
  */
 
+import { mcpGateway } from './mcp-gateway._DEP_ts';
 import { logger } from '../utils/logger';
 import { ListAppsResponse, GetAppResponse, IAAIAApp, FIAParadigma } from '../types';
 import * as fs from 'fs';
@@ -128,17 +126,26 @@ export class AppsService {
   }
 
   /**
-   * List paradigms (using local catalog - Backend is SoT)
+   * List paradigms (alternative via MCP)
    */
   async listParadigmas(): Promise<{ paradigmas: Array<{ id: string; nombre: string; descripcion?: string }> }> {
-    const list = await this.listApps();
-    return {
-      paradigmas: list.apps.map(a => ({
-        id: a.id,
-        nombre: a.nombre,
-        descripcion: a.descripcion,
-      })),
-    };
+    try {
+      // Try MCP first
+      const result = await mcpGateway.callTool('aaia_list_paradigmas', {});
+      return {
+        paradigmas: (result.paradigmas || []) as Array<{ id: string; nombre: string; descripcion?: string }>,
+      };
+    } catch {
+      // Fallback to local catalog
+      const list = await this.listApps();
+      return {
+        paradigmas: list.apps.map(a => ({
+          id: a.id,
+          nombre: a.nombre,
+          descripcion: a.descripcion,
+        })),
+      };
+    }
   }
 }
 

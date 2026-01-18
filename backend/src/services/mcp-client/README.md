@@ -1,0 +1,1 @@
+Para actualizar con la implementación real de ../services y sacar a un cliente de consola mcp.gateway.

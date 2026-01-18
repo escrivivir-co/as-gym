@@ -1,11 +1,17 @@
 /**
  * FIA Service - Business logic for FIA operations
  * 
- * Handles FIA lifecycle and cognitive cycles through MCP Gateway
+ * Source of Truth for FIA state.
+ * Uses sessionService for persistence.
+ * Notifies socketIOService for real-time events.
+ * 
+ * @épica AAIA-BACKEND-1.0.0
+ * @fecha 2026-01-18
  */
 
-import { mcpGateway } from './mcp-gateway';
 import { logger } from '../utils/logger';
+import { sessionService } from './session.service';
+import { socketIOService } from './socketio.service';
 import {
   IFIAInfo,
   IEferencia,
@@ -24,9 +30,7 @@ export class FIAService {
   async listFIAs(sessionId: string): Promise<ListFIAsResponse> {
     logger.debug(`Listing FIAs for session: ${sessionId}`);
     
-    const result = await mcpGateway.callTool('aaia_list_fias', { sessionId });
-    
-    const fias = (result.fias || []) as IFIAInfo[];
+    const fias = await sessionService.getFIAs(sessionId);
     
     return {
       success: true,
@@ -42,9 +46,7 @@ export class FIAService {
   async getFIA(sessionId: string, fiaIndex: number): Promise<GetFIAStateResponse> {
     logger.debug(`Getting FIA ${fiaIndex} for session: ${sessionId}`);
     
-    const result = await mcpGateway.callTool('aaia_list_fias', { sessionId });
-    const fias = (result.fias || []) as IFIAInfo[];
-    
+    const fias = await sessionService.getFIAs(sessionId);
     const fia = fias.find(f => f.index === fiaIndex);
     
     if (!fia) {
@@ -59,65 +61,128 @@ export class FIAService {
   }
 
   /**
-   * Start a FIA (set to PLAY state)
+   * Set FIA run state (PLAY, PAUSE, STOP, PLAY_STEP)
    */
-  async startFIA(sessionId: string, fiaIndex: number): Promise<{ success: boolean; previousState: RunStateEnum; newState: RunStateEnum }> {
-    logger.info(`Starting FIA ${fiaIndex} in session: ${sessionId}`);
+  async setFIAState(
+    sessionId: string,
+    fiaIndex: number,
+    newState: RunStateEnum
+  ): Promise<{ success: boolean; previousState: RunStateEnum; newState: RunStateEnum }> {
+    logger.info(`Setting FIA ${fiaIndex} state to ${newState} in session: ${sessionId}`);
     
-    const result = await mcpGateway.callTool('aaia_set_fia_state', { 
-      sessionId, 
+    const fias = await sessionService.getFIAs(sessionId);
+    const fia = fias[fiaIndex];
+    
+    if (!fia) {
+      throw new Error(`FIA ${fiaIndex} not found in session ${sessionId}`);
+    }
+    
+    const previousState = fia.runState;
+    
+    // Update via sessionService
+    await sessionService.updateFIA(sessionId, fiaIndex, { runState: newState });
+    
+    // Notify via Socket.IO
+    socketIOService.notifyFIAStep({
+      sessionId,
       fiaIndex,
-      state: RunStateEnum.PLAY,
+      runState: newState,
+      ciclo: 0, // State change doesn't increment ciclo
+      timestamp: new Date().toISOString(),
     });
     
     return {
-      success: result.success as boolean,
-      previousState: result.previousState as RunStateEnum,
-      newState: result.newState as RunStateEnum,
+      success: true,
+      previousState,
+      newState,
     };
+  }
+
+  /**
+   * Start a FIA (set to PLAY state)
+   */
+  async startFIA(sessionId: string, fiaIndex: number): Promise<{ success: boolean; previousState: RunStateEnum; newState: RunStateEnum }> {
+    return this.setFIAState(sessionId, fiaIndex, RunStateEnum.PLAY);
   }
 
   /**
    * Stop a FIA (set to STOP state)
    */
   async stopFIA(sessionId: string, fiaIndex: number): Promise<{ success: boolean; previousState: RunStateEnum; newState: RunStateEnum }> {
-    logger.info(`Stopping FIA ${fiaIndex} in session: ${sessionId}`);
-    
-    const result = await mcpGateway.callTool('aaia_set_fia_state', { 
-      sessionId, 
-      fiaIndex,
-      state: RunStateEnum.STOP,
-    });
-    
-    return {
-      success: result.success as boolean,
-      previousState: result.previousState as RunStateEnum,
-      newState: result.newState as RunStateEnum,
-    };
+    return this.setFIAState(sessionId, fiaIndex, RunStateEnum.STOP);
   }
 
   /**
    * Execute one reasoning step for a FIA
+   * This is where the actual cognitive cycle happens
    */
   async stepFIA(sessionId: string, fiaIndex: number): Promise<StepFIAResponse> {
     logger.info(`Stepping FIA ${fiaIndex} in session: ${sessionId}`);
+    const startTime = Date.now();
     
-    const result = await mcpGateway.callTool('aaia_step_fia', { 
-      sessionId, 
-      fiaIndex,
+    // Get current state
+    const fias = await sessionService.getFIAs(sessionId);
+    const fia = fias[fiaIndex];
+    
+    if (!fia) {
+      throw new Error(`FIA ${fiaIndex} not found in session ${sessionId}`);
+    }
+    
+    // Get mundo for cycle count
+    const mundo = await sessionService.getMundo(sessionId);
+    const ciclo = (mundo.modelo?.ciclo as number || 0) + 1;
+    
+    // Update FIA to PLAY_STEP
+    await sessionService.updateFIA(sessionId, fiaIndex, { runState: RunStateEnum.PLAY_STEP });
+    
+    // Simulate FIA step - in real implementation, this would call AAIAGallery runtime
+    // TODO: Connect to actual FIA engine when available
+    const eferencia: IEferencia = {
+      tipo: 'estado',
+      payload: {
+        fiaIndex,
+        nombre: fia.nombre,
+        paradigma: fia.paradigma,
+        ciclo,
+        simulated: true,
+      },
+      timestamp: new Date().toISOString(),
+    };
+    
+    // Update mundo with new cycle
+    await sessionService.updateMundo(sessionId, {
+      modelo: { ...mundo.modelo, ciclo, ultimaEferencia: eferencia },
     });
     
-    const eferencia = result.eferencia as IEferencia | undefined;
+    const executionTimeMs = Date.now() - startTime;
+    
+    // Notify via Socket.IO
+    socketIOService.notifyFIAStep({
+      sessionId,
+      fiaIndex,
+      runState: RunStateEnum.PLAY_STEP,
+      ciclo,
+      timestamp: new Date().toISOString(),
+    });
+    
+    socketIOService.notifyEferencia({
+      sessionId,
+      fiaIndex,
+      eferencia,
+      timestamp: new Date().toISOString(),
+    });
+    
+    logger.info(`FIA ${fiaIndex} stepped in ${executionTimeMs}ms, ciclo=${ciclo}`);
     
     return {
-      success: result.success as boolean,
+      success: true,
       fiaId: fiaIndex,
-      eferencia: eferencia ? {
+      eferencia: {
         tipo: eferencia.tipo,
         payload: eferencia.payload,
-      } : undefined,
-      cycles: result.cycles as number | undefined,
-      executionTimeMs: result.executionTimeMs as number | undefined,
+      },
+      cycles: ciclo,
+      executionTimeMs,
     };
   }
 
@@ -127,31 +192,54 @@ export class FIAService {
   async getEferencia(sessionId: string, fiaIndex: number): Promise<{ success: boolean; eferencia: IEferencia | null }> {
     logger.debug(`Getting eferencia for FIA ${fiaIndex} in session: ${sessionId}`);
     
-    const result = await mcpGateway.callTool('aaia_get_eferencia', { 
-      sessionId, 
-      fiaIndex,
-    });
+    const mundo = await sessionService.getMundo(sessionId);
+    const ultimaEferencia = mundo.modelo?.ultimaEferencia as IEferencia | undefined;
     
     return {
-      success: result.success as boolean,
-      eferencia: (result.eferencia as IEferencia) || null,
+      success: true,
+      eferencia: ultimaEferencia || null,
     };
   }
 
   /**
-   * Send a percepto to a FIA
+   * Send a percepto to the mundo (broadcast to all FIAs)
    */
   async sendPercepto(sessionId: string, percepto: IPercepto): Promise<SendPerceptoResponse> {
-    logger.info(`Sending percepto to session: ${sessionId}`);
+    logger.info(`Sending percepto to session: ${sessionId}, tipo=${percepto.tipo}`);
     
-    const result = await mcpGateway.callTool('aaia_send_percepto', { 
-      sessionId, 
-      percepto,
+    // Get current state
+    const fias = await sessionService.getFIAs(sessionId);
+    const mundo = await sessionService.getMundo(sessionId);
+    const ciclo = (mundo.modelo?.ciclo as number || 0) + 1;
+    
+    // Update mundo with percepto
+    await sessionService.updateMundo(sessionId, {
+      modelo: {
+        ...mundo.modelo,
+        ciclo,
+        ultimoPercepto: percepto,
+      },
     });
     
+    // All FIAs process the percepto
+    const processedBy = fias.map(fia => fia.index);
+    
+    // Notify via Socket.IO
+    socketIOService.notifyPercepto({
+      sessionId,
+      percepto: {
+        tipo: percepto.tipo,
+        fuente: percepto.fuente,
+        payload: percepto.payload,
+      },
+      timestamp: new Date().toISOString(),
+    });
+    
+    logger.info(`Percepto processed by ${processedBy.length} FIAs, ciclo=${ciclo}`);
+    
     return {
-      success: result.success as boolean,
-      processedBy: (result.processedBy || []) as number[],
+      success: true,
+      processedBy,
       timestamp: new Date().toISOString(),
     };
   }

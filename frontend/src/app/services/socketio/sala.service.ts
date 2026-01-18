@@ -1,7 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { EstadoJuego, POSICION_TABLERO, SalaBackend, Tablero } from './interfaces/sala';
 import { Jugador } from './interfaces/jugador';
-import { IServerService } from './server.service';
+import { ServerService } from './server.service';
 import { CrearSalaArgs } from './interfaces/crearSala';
 import { UnirseASalaCrearSalaArgs } from './interfaces/unirseASala';
 import { UsuarioService } from './usuario.service';
@@ -47,7 +47,7 @@ export class SalaService {
       publica: !esPrivada,
       nombreJugador: this.usuarioService.nombre()
     }
-    this.serverService.server.emitWithAck("crearSala",args).then(res => {
+    this.serverService.server.emitWithAck("crearSala",args).then((res: { sala: SalaBackend }) => {
       console.log("Crear sala", res)
       this.desestructurarSala(res.sala);
       this.numeroDeJugador.set(1)
@@ -60,7 +60,7 @@ export class SalaService {
       id,
       nombreJugador: this.usuarioService.nombre()
     }
-      this.serverService.server.emitWithAck("unirseASala",args).then(res => {
+      this.serverService.server.emitWithAck("unirseASala",args).then((res: { sala: SalaBackend }) => {
         console.log("Resultado de unión a sala", res)
         this.desestructurarSala(res.sala);
         this.numeroDeJugador.set(2)

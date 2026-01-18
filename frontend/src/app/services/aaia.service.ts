@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../environments/environment';
 import type {
   AAIASession,
   AAIASessionMeta,
@@ -14,8 +14,8 @@ import type {
   AAIAListFIAsResult,
   AAIAStepFIAResult,
   AAIASendPerceptoResult,
-} from '../../models';
-import { RunStateEnum } from '../../models';
+} from '../models';
+import { RunStateEnum } from '../models';
 
 /**
  * Response wrapper for AAIA API endpoints
