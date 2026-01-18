@@ -4,7 +4,7 @@ export class AlephScriptClient extends SocketClient {
 
 	constructor(
 		name = "ClientID",
-		url: string = "http://localhost:3000",
+		url: string = "http://localhost:3010",
 		namespace: string = "/runtime",
 		autoConnect = true
 	) {

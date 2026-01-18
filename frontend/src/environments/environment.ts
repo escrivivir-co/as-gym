@@ -1,5 +1,6 @@
 export const environment = {
 	apiUrl: 'http://localhost:8007/api',
+	socketUrl: 'http://localhost:3010',  // Socket.IO ws-server
 	application:
 	{
 		name: 'angular-starter',

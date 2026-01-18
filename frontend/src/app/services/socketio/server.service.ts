@@ -11,6 +11,7 @@ import type {
 	IRuntimeBlock, 
 	IAppState 
 } from '@alephscript/mcp-core-sdk/browser';
+import { environment } from '../../../environments/environment';
 
 // SudokuData - tipo local específico del juego
 interface SudokuData {
@@ -152,7 +153,7 @@ export class AlephScriptClient extends SocketClient {
 
 	constructor(
 		name = "ClientID",
-		url: string = "http://localhost:3000",
+		url: string = environment.socketUrl || "http://localhost:3010",
 		namespace: string = "/runtime",
 		autoConnect = true
 	) {

@@ -14,9 +14,9 @@ export const config = {
     url: process.env.MCP_AAIA_URL || 'http://localhost:3007',
   },
   
-  // Socket.IO (AlephScriptClient)
+  // Socket.IO (AlephScriptClient - ws-server on port 3010)
   socketio: {
-    url: process.env.SOCKETIO_URL || 'http://localhost:3000',
+    url: process.env.SOCKETIO_URL || 'http://localhost:3010',
     room: process.env.AAIA_ROOM || 'AAIA_ROOM',
   },
   
