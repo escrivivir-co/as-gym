@@ -52,14 +52,14 @@ export class AAIAService {
    * Get list of available AAIA apps
    */
   getApps(): Observable<AAIAApiResponse<IAAIAApp[]>> {
-    return this.http.get<AAIAApiResponse<IAAIAApp[]>>(`${this.apiUrl}/aaia/apps`);
+    return this.http.get<AAIAApiResponse<IAAIAApp[]>>(`${this.apiUrl}/apps`);
   }
 
   /**
    * Get details of a specific app
    */
   getApp(appId: string): Observable<AAIAApiResponse<IAAIAApp>> {
-    return this.http.get<AAIAApiResponse<IAAIAApp>>(`${this.apiUrl}/aaia/apps/${appId}`);
+    return this.http.get<AAIAApiResponse<IAAIAApp>>(`${this.apiUrl}/apps/${appId}`);
   }
 
   // ============================================
@@ -70,28 +70,28 @@ export class AAIAService {
    * Create a new AAIA session with a specific app
    */
   createSession(appId: string): Observable<AAIACreateSessionResult> {
-    return this.http.post<AAIACreateSessionResult>(`${this.apiUrl}/aaia/sessions`, { appId });
+    return this.http.post<AAIACreateSessionResult>(`${this.apiUrl}/sessions`, { appId });
   }
 
   /**
    * List all active sessions
    */
   listSessions(): Observable<AAIAApiResponse<AAIASessionMeta[]>> {
-    return this.http.get<AAIAApiResponse<AAIASessionMeta[]>>(`${this.apiUrl}/aaia/sessions`);
+    return this.http.get<AAIAApiResponse<AAIASessionMeta[]>>(`${this.apiUrl}/sessions`);
   }
 
   /**
    * Get session details
    */
   getSession(sessionId: string): Observable<AAIAApiResponse<AAIASession>> {
-    return this.http.get<AAIAApiResponse<AAIASession>>(`${this.apiUrl}/aaia/sessions/${sessionId}`);
+    return this.http.get<AAIAApiResponse<AAIASession>>(`${this.apiUrl}/sessions/${sessionId}`);
   }
 
   /**
    * Destroy a session
    */
   destroySession(sessionId: string): Observable<AAIAApiResponse<void>> {
-    return this.http.delete<AAIAApiResponse<void>>(`${this.apiUrl}/aaia/sessions/${sessionId}`);
+    return this.http.delete<AAIAApiResponse<void>>(`${this.apiUrl}/sessions/${sessionId}`);
   }
 
   // ============================================
@@ -103,7 +103,7 @@ export class AAIAService {
    */
   listFIAs(sessionId?: string): Observable<AAIAListFIAsResult> {
     const id = sessionId || this.currentSessionId;
-    return this.http.get<AAIAListFIAsResult>(`${this.apiUrl}/aaia/sessions/${id}/fias`);
+    return this.http.get<AAIAListFIAsResult>(`${this.apiUrl}/sessions/${id}/fias`);
   }
 
   /**
@@ -111,7 +111,7 @@ export class AAIAService {
    */
   stepFIA(fiaIndex: number, sessionId?: string): Observable<AAIAStepFIAResult> {
     const id = sessionId || this.currentSessionId;
-    return this.http.post<AAIAStepFIAResult>(`${this.apiUrl}/aaia/sessions/${id}/fias/${fiaIndex}/step`, {});
+    return this.http.post<AAIAStepFIAResult>(`${this.apiUrl}/sessions/${id}/fias/${fiaIndex}/step`, {});
   }
 
   /**
@@ -119,9 +119,11 @@ export class AAIAService {
    */
   setFIAState(fiaIndex: number, state: RunStateEnum, sessionId?: string): Observable<AAIAApiResponse<IFIAInfo>> {
     const id = sessionId || this.currentSessionId;
-    return this.http.patch<AAIAApiResponse<IFIAInfo>>(
-      `${this.apiUrl}/aaia/sessions/${id}/fias/${fiaIndex}/state`,
-      { state }
+    // Use start/stop endpoints instead of PATCH state
+    const endpoint = state === RunStateEnum.PLAY ? 'start' : 'stop';
+    return this.http.post<AAIAApiResponse<IFIAInfo>>(
+      `${this.apiUrl}/sessions/${id}/fias/${fiaIndex}/${endpoint}`,
+      {}
     );
   }
 
@@ -134,7 +136,7 @@ export class AAIAService {
    */
   queryMundo(sessionId?: string): Observable<AAIAApiResponse<IMundoState>> {
     const id = sessionId || this.currentSessionId;
-    return this.http.get<AAIAApiResponse<IMundoState>>(`${this.apiUrl}/aaia/sessions/${id}/mundo`);
+    return this.http.get<AAIAApiResponse<IMundoState>>(`${this.apiUrl}/sessions/${id}/mundo`);
   }
 
   // ============================================
@@ -147,7 +149,7 @@ export class AAIAService {
   sendPercepto(percepto: IPercepto, sessionId?: string): Observable<AAIASendPerceptoResult> {
     const id = sessionId || this.currentSessionId;
     return this.http.post<AAIASendPerceptoResult>(
-      `${this.apiUrl}/aaia/sessions/${id}/perceptos`,
+      `${this.apiUrl}/sessions/${id}/percepto`,
       percepto
     );
   }
@@ -158,7 +160,7 @@ export class AAIAService {
   getEferencia(fiaIndex: number, sessionId?: string): Observable<AAIAApiResponse<IEferencia>> {
     const id = sessionId || this.currentSessionId;
     return this.http.get<AAIAApiResponse<IEferencia>>(
-      `${this.apiUrl}/aaia/sessions/${id}/fias/${fiaIndex}/eferencia`
+      `${this.apiUrl}/sessions/${id}/fias/${fiaIndex}/eferencia`
     );
   }
 
