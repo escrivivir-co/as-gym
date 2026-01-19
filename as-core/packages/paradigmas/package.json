@@ -1,0 +1,34 @@
+{
+  "name": "@fia/paradigmas",
+  "version": "1.0.0",
+  "description": "Los 10 paradigmas de Inteligencia Artificial del framework FIA",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist",
+    "test": "jest",
+    "lint": "eslint src/**/*.ts"
+  },
+  "dependencies": {
+    "@fia/core": "^1.0.0",
+    "@fia/mundo": "^1.0.0",
+    "rxjs": "^7.8.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  },
+  "files": [
+    "dist/**/*"
+  ],
+  "keywords": [
+    "fia",
+    "paradigmas",
+    "ai",
+    "logica",
+    "conexionista",
+    "simbolica"
+  ]
+}

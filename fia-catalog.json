@@ -1,11 +1,14 @@
 {
-  "version": "1.0.0",
-  "last_updated": "2025-12-24T12:00:00Z",
-  "source": "alephscript/src/FIA/paradigmas/",
+  "version": "2.0.0",
+  "last_updated": "2026-01-19T12:00:00Z",
+  "source": "@fia/paradigmas",
+  "legacy_source": "alephscript/src/FIA/paradigmas/",
   "integration": {
     "project": "ALEPH Scriptorium",
     "plugin": "AGENT_CREATOR",
-    "purpose": "Catálogo de paradigmas FIA para selección en creación de agentes"
+    "purpose": "Catálogo de paradigmas FIA para selección en creación de agentes",
+    "runtime": "@fia/paradigmas",
+    "migration_epic": "ALEPHSCRIPT-MIGRATION-1.0.0"
   },
   "paradigmas": {
     "logica": {
@@ -13,6 +16,9 @@
       "nombre": "Lógica Formal",
       "descripcion": "Razonamiento proposicional, lógica de predicados, lógica modal. Permite deducción formal y verificación de consistencia.",
       "carpeta": "paradigmas/logica/",
+      "modulo": "@fia/paradigmas",
+      "clase": "ParadigmaLogica",
+      "estado_migracion": "completo",
       "afinidad_banderas": {
         "primaria": "blueflag",
         "secundarias": []
@@ -36,6 +42,9 @@
       "nombre": "Redes Neuronales",
       "descripcion": "Deep learning, reconocimiento de patrones, embeddings. Captura relaciones emergentes en datos.",
       "carpeta": "paradigmas/conexionista/",
+      "modulo": "@fia/paradigmas",
+      "clase": "ParadigmaConexionista",
+      "estado_migracion": "stub",
       "afinidad_banderas": {
         "primaria": "yellowflag",
         "secundarias": ["blueflag"]
@@ -65,6 +74,9 @@
       "nombre": "IA Simbólica",
       "descripcion": "Manipulación de símbolos, representación del conocimiento, sistemas expertos clásicos.",
       "carpeta": "paradigmas/simbolica/",
+      "modulo": "@fia/paradigmas",
+      "clase": "ParadigmaSimbolica",
+      "estado_migracion": "stub",
       "afinidad_banderas": {
         "primaria": "aleph",
         "secundarias": ["blueflag"]
@@ -115,6 +127,9 @@
       "nombre": "Sistemas Basados en Casos",
       "descripcion": "Razonamiento por analogía con casos precedentes. Recupera, adapta y aprende de experiencias pasadas.",
       "carpeta": "paradigmas/sbc/",
+      "modulo": "@fia/paradigmas",
+      "clase": "ParadigmaSBC",
+      "estado_migracion": "stub",
       "afinidad_banderas": {
         "primaria": "revisor",
         "secundarias": ["blueflag"]
@@ -138,6 +153,9 @@
       "nombre": "Sistemas Basados en Reglas",
       "descripcion": "Motor de inferencia con reglas IF-THEN. Encadenamiento hacia adelante y hacia atrás.",
       "carpeta": "paradigmas/sbr/",
+      "modulo": "@fia/paradigmas",
+      "clase": "ParadigmaSBR",
+      "estado_migracion": "stub",
       "afinidad_banderas": {
         "primaria": "blackflag",
         "secundarias": ["redflag"]
@@ -161,6 +179,9 @@
       "nombre": "IA Situada",
       "descripcion": "Inteligencia embodied, reactiva al entorno. Comportamiento emerge de la interacción.",
       "carpeta": "paradigmas/situada/",
+      "modulo": "@fia/paradigmas",
+      "clase": "ParadigmaSituada",
+      "estado_migracion": "stub",
       "afinidad_banderas": {
         "primaria": "redflag",
         "secundarias": ["yellowflag"]
@@ -183,6 +204,9 @@
       "id": "hibrido",
       "nombre": "Sistemas Híbridos",
       "descripcion": "Combinación de múltiples paradigmas. Orquestación de capacidades complementarias.",
+      "modulo": "@fia/paradigmas",
+      "clase": "ParadigmaHibrido",
+      "estado_migracion": "parcial",
       "carpeta": "paradigmas/hibrido/",
       "afinidad_banderas": {
         "primaria": "aleph",

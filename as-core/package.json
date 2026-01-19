@@ -3,8 +3,13 @@
   "version": "1.0.0",
   "description": "FIA AI Framework Monorepo",
   "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "build": "npm run build --workspaces",
+    "build:core": "npm run build --workspace=@fia/core",
+    "build:paradigmas": "npm run build --workspace=@fia/paradigmas",
     "test": "npm run test --workspaces",
     "dev": "npm run dev --workspaces",
     "clean": "npm run clean --workspaces",

@@ -4,14 +4,16 @@
  * Source of Truth for FIA state.
  * Uses sessionService for persistence.
  * Notifies socketIOService for real-time events.
+ * Uses runtimeService for actual FIA execution.
  * 
  * @épica AAIA-BACKEND-1.0.0
- * @fecha 2026-01-18
+ * @actualizado ALEPHSCRIPT-MIGRATION-1.0.0 (2026-01-19)
  */
 
 import { logger } from '../utils/logger';
 import { sessionService } from './session.service';
 import { socketIOService } from './socketio.service';
+import { runtimeService } from './runtime.service';
 import {
   IFIAInfo,
   IEferencia,
@@ -120,7 +122,7 @@ export class FIAService {
     logger.info(`Stepping FIA ${fiaIndex} in session: ${sessionId}`);
     const startTime = Date.now();
     
-    // Get current state
+    // Get current state from persistence
     const fias = await sessionService.getFIAs(sessionId);
     const fia = fias[fiaIndex];
     
@@ -130,24 +132,16 @@ export class FIAService {
     
     // Get mundo for cycle count
     const mundo = await sessionService.getMundo(sessionId);
-    const ciclo = (mundo.modelo?.ciclo as number || 0) + 1;
     
     // Update FIA to PLAY_STEP
     await sessionService.updateFIA(sessionId, fiaIndex, { runState: RunStateEnum.PLAY_STEP });
+    runtimeService.setRunState(sessionId, fiaIndex, RunStateEnum.PLAY_STEP);
     
-    // Simulate FIA step - in real implementation, this would call AAIAGallery runtime
-    // TODO: Connect to actual FIA engine when available
-    const eferencia: IEferencia = {
-      tipo: 'estado',
-      payload: {
-        fiaIndex,
-        nombre: fia.nombre,
-        paradigma: fia.paradigma,
-        ciclo,
-        simulated: true,
-      },
-      timestamp: new Date().toISOString(),
-    };
+    // Execute real FIA step via RuntimeService
+    const stepResult = await runtimeService.stepFIA(sessionId, fiaIndex);
+    
+    const eferencia = stepResult.eferencia;
+    const ciclo = stepResult.ciclos;
     
     // Update mundo with new cycle
     await sessionService.updateMundo(sessionId, {
@@ -175,7 +169,7 @@ export class FIAService {
     logger.info(`FIA ${fiaIndex} stepped in ${executionTimeMs}ms, ciclo=${ciclo}`);
     
     return {
-      success: true,
+      success: stepResult.exito,
       fiaId: fiaIndex,
       eferencia: {
         tipo: eferencia.tipo,

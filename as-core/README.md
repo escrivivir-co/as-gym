@@ -2,6 +2,9 @@
 
 This is a TypeScript monorepo containing multiple AI libraries and frameworks for FIA (Fundamentos de Inteligencia Artificial).
 
+> ✅ **Migración ALEPHSCRIPT-MIGRATION-1.0.0**: Los paradigmas de `alephscript/` han sido migrados aquí.  
+> Ver `packages/paradigmas/` para los 10 paradigmas de IA.
+
 ## Architecture
 
 The FIA framework implements various AI paradigms and provides a runtime environment for executing them using World objects as data domains.
@@ -9,7 +12,8 @@ The FIA framework implements various AI paradigms and provides a runtime environ
 ## Structure
 
 ### Packages
-- **@fia/core** - Core interfaces and types
+- **@fia/core** - Core interfaces and types (iFIA, IPercepto, IAccion, IMundo)
+- **@fia/paradigmas** - 10 AI paradigms (logica, simbolica, conexionista, sbc, sbr, situada, cientifica, gramaticas, sistemas, hibrido) ✅ NEW
 - **@fia/runtime** - Execution runtime and kernel
 - **@fia/mundo** - World and data domains
 - **@fia/search-algorithms** - Search algorithms (BFS, DFS, A*, etc.)

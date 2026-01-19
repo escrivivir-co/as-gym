@@ -1,5 +1,11 @@
 (**English** version projected, please request.)
 
+> ⚠️ **DEPRECATED**: Este módulo ha sido migrado a `as-core/packages/`.  
+> Los paradigmas están ahora en `@fia/paradigmas`.  
+> El runtime está integrado en `backend/src/services/runtime.service.ts`.  
+> Ver épica ALEPHSCRIPT-MIGRATION-1.0.0 para detalles.  
+> Fecha de deprecación: 2026-01-19
+
 Nota: Se ha codificado el software usando dominio **spanish**-like. Contactar para una versión anglosajona.
 
 Estado de construcción (build status): Falso.

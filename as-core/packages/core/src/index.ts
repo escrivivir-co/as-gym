@@ -1,25 +1,44 @@
 /**
+ * @fia/core - Core interfaces and types for FIA AI Framework
+ * 
+ * @épica ALEPHSCRIPT-MIGRATION-1.0.0
+ */
+
+/**
  * Base interface for all FIA components
  */
 export interface iFIA {
   nombre: string;
-  test(): void;
+  mundo: IMundo;
+  instanciar(): Promise<void>;
+  razona(percepto: IPercepto): IAccion[];
 }
 
 /**
  * Interface for perception components
  */
 export interface IPercepto {
-  percepto: any;
-  procesar(): void;
+  tipo: string;
+  fuente?: string;
+  payload: Record<string, unknown>;
 }
 
 /**
  * Interface for action components
  */
 export interface IAccion {
-  accion: any;
-  ejecutar(): void;
+  tipo: string;
+  payload: Record<string, unknown>;
+}
+
+/**
+ * Mundo - state of the environment
+ */
+export interface IMundo {
+  nombre: string;
+  entidades: unknown[];
+  relaciones: unknown[];
+  tiempo: number;
 }
 
 /**
