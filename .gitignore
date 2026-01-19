@@ -2,3 +2,7 @@
 **/.angular/**
 **/dist/**
 *.tgz
+as-core/packages/core/tsconfig.tsbuildinfo
+SDK/**
+alephscript/AlephScriptApps/**
+alephscript/build_info_pics/**
